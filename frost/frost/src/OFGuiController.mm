@@ -96,9 +96,13 @@ OFGuiController * gui = NULL;
 		[camera setEnabled:[NSNumber numberWithBool:TRUE]];
 		[viewItems addObject:camera];
 
+		ofPlugin * tracking =  [[ofPlugin alloc]init];
+		[tracking setName:@"Blob Tracking"];
+		[tracking setEnabled:[NSNumber numberWithBool:TRUE]];
+		[viewItems addObject:tracking];
 		
 		ofPlugin * dataHeader =  [[ofPlugin alloc]init];
-		[dataHeader setName:@"Cameras"];
+		[dataHeader setName:@"Data"];
 		[dataHeader setHeader:[NSNumber numberWithBool:TRUE]];
 		[viewItems addObject:dataHeader];
 
@@ -106,6 +110,9 @@ OFGuiController * gui = NULL;
 		[outputHeader setName:@"Outputs"];
 		[outputHeader setHeader:[NSNumber numberWithBool:TRUE]];
 		[viewItems addObject:outputHeader];
+		
+		[blobTrackingView retain];
+		[cameraView retain];
 		
 		
 		NSColor * color = [theColor color];
@@ -123,11 +130,34 @@ OFGuiController * gui = NULL;
 -(IBAction) setListViewRow:(id)sender {
 	ofPlugin * p = [viewItems objectAtIndex:[sender selectedRow]];
 	int row = [sender selectedRow];
-	if(![(NSString*)[p name] compare:@"Cameras"]){
-		[contentArea addSubview:cameraView];
+	NSEnumerator *enumerator = [[contentArea subviews] objectEnumerator];
+	id anObject;
+	
+	while (anObject = [enumerator nextObject]) {
+		[anObject retain];
+		[anObject removeFromSuperview];
 	}
-}
+	
+	id view;
+	if(![(NSString*)[p name] compare:@"Cameras"]){
+		view = cameraView;
+	}
+	if(![(NSString*)[p name] compare:@"Blob Tracking"]){
+		view = blobTrackingView;
+	}
+//	[view release];
+	
+	[contentArea addSubview:view];
+	NSRect currFrame = [contentArea frame];
+	CGFloat h = currFrame.size.height;
 
+	NSRect currFrame2 = [view frame];
+	CGFloat h2 = currFrame2.size.height;
+	
+	[view setFrameOrigin:NSMakePoint(0,h-h2)]; 
+	
+}
+	
 // --------------------------------------------------- set FPS
 -(void) setFPS:(float)framesPerSecond {
 	[fpsText setFloatValue:(float)framesPerSecond];
