@@ -228,8 +228,8 @@ extern ofAppCocoaWindow * ofWindowPtr;
 
 	
     [[self openGLContext] makeCurrentContext];
-	NSRect rectView = [self bounds];
-			
+	NSRect rectView = [self frame];
+	
 	ofWindowPtr->render(rectView.size.width, rectView.size.height);
 	
 	[[self openGLContext] flushBuffer];

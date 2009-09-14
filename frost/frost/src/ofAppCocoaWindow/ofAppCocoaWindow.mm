@@ -63,8 +63,8 @@ void ofAppCocoaWindow::setupOpenGL(int w, int h, int screenMode) {
 	requestedWidth	= w;
 	requestedHeight = h;
 	
-	windowW = 0;
-	windowH = 0;
+	windowW = 320;
+	windowH = 240;
 	
 }
 
@@ -107,7 +107,6 @@ void ofAppCocoaWindow::update(){
 }
 
 void ofAppCocoaWindow::render(int width, int height){
-		
 	windowW = width;
 	windowH = height;
 		

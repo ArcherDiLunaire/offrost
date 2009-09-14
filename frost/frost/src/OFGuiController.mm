@@ -2,6 +2,9 @@
 
 #import "OFGuiController.h"
 #include "testApp.h"
+#include "Plugin.h"
+#include "PluginController.h"
+#include "PluginIncludes.h"
 
 OFGuiController * gui = NULL;
 
@@ -204,6 +207,15 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 {
     return [viewItems count];
 }
+
+-(IBAction)		setMoonDustForce:(id)sender{
+	((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [sender doubleValue];
+}
+
+-(IBAction)		setMoonDustDamp:(id)sender{
+	((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [sender doubleValue];
+}
+
 @end
 
 
@@ -237,6 +249,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 {
 	[ self setNeedsDisplay: YES ] ;
 }
+
 
 
 @end

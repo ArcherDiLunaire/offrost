@@ -197,48 +197,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DDB84FE3105E6CF000D1ED92</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>testApp.cpp</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DDB84FE4105E6CF000D1ED92</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>testApp.cpp</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DDB851CA105E871A00D1ED92</string>
-						<key>history</key>
-						<array>
-							<string>DDB84FE5105E6CF000D1ED92</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {885, 718}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>15 114 885 759 0 0 1440 878 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>1440</integer>
@@ -320,15 +279,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>29</integer>
-									<integer>28</integer>
-									<integer>25</integer>
+									<integer>24</integer>
 									<integer>6</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 24}, {252, 727}}</string>
+							<string>{{0, 33}, {252, 727}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -365,7 +322,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>DD4F16BD1047336400D10100</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>MoonDust.cpp</string>
+								<string>OFGuiController.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -373,11 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>DD4F16BE1047336400D10100</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>MoonDust.cpp</string>
+										<string>OFGuiController.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DDB851C9105E871A00D1ED92</string>
+										<string>DDB852D5105E987200D1ED92</string>
 										<key>history</key>
 										<array>
 											<string>DD4F19041047423A00D10100</string>
@@ -387,27 +344,29 @@
 											<string>DDB84BE1105D0D3300D1ED92</string>
 											<string>DDB84D44105D57F000D1ED92</string>
 											<string>DDB84D82105E487800D1ED92</string>
-											<string>DDB84DCD105E4AD100D1ED92</string>
 											<string>DDB84DDB105E4B8F00D1ED92</string>
 											<string>DDB84DDC105E4B8F00D1ED92</string>
 											<string>DDB84E29105E561200D1ED92</string>
-											<string>DDB84E53105E579A00D1ED92</string>
 											<string>DDB84E77105E596100D1ED92</string>
 											<string>DDB84F7B105E669100D1ED92</string>
-											<string>DDB84F7C105E669100D1ED92</string>
 											<string>DDB84F87105E66B400D1ED92</string>
-											<string>DDB850DE105E7B4C00D1ED92</string>
 											<string>DDB8511A105E7C7800D1ED92</string>
-											<string>DDB85132105E7CD400D1ED92</string>
 											<string>DDB85145105E808E00D1ED92</string>
 											<string>DDB85170105E80CD00D1ED92</string>
-											<string>DDB85171105E80CD00D1ED92</string>
-											<string>DDB85178105E812D00D1ED92</string>
 											<string>DDB8517F105E819500D1ED92</string>
 											<string>DDB85180105E819500D1ED92</string>
-											<string>DDB85185105E81E900D1ED92</string>
-											<string>DDB851B1105E838500D1ED92</string>
-											<string>DDB851B2105E838500D1ED92</string>
+											<string>DDB851D7105E8B2B00D1ED92</string>
+											<string>DDB85202105E8D5E00D1ED92</string>
+											<string>DDB85242105E8ED800D1ED92</string>
+											<string>DDB85243105E8ED800D1ED92</string>
+											<string>DDB85244105E8ED800D1ED92</string>
+											<string>DDB85245105E8ED800D1ED92</string>
+											<string>DDB852A6105E940700D1ED92</string>
+											<string>DDB852A7105E940700D1ED92</string>
+											<string>DDB852C7105E94CD00D1ED92</string>
+											<string>DDB852CC105E950200D1ED92</string>
+											<string>DDB852CD105E950200D1ED92</string>
+											<string>DDB852CE105E950200D1ED92</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -421,18 +380,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1166, 578}}</string>
+								<string>{{0, 0}, {1166, 586}}</string>
 								<key>RubberWindowFrame</key>
 								<string>-3 92 1440 786 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>578pt</string>
+							<string>586pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>162pt</string>
+							<string>154pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -462,7 +421,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {810, 130}}</string>
+										<string>{{10, 27}, {1166, 127}}</string>
+										<key>RubberWindowFrame</key>
+										<string>-3 92 1440 786 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXProjectFindModule</string>
@@ -522,8 +483,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {1166, 135}}</string>
-										<key>RubberWindowFrame</key>
-										<string>-3 92 1440 786 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -744,10 +703,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DDB851CB105E871A00D1ED92</string>
 		<string>DDB84D93105E48DB00D1ED92</string>
 		<string>DDB84D94105E48DB00D1ED92</string>
-		<string>DDB84FE3105E6CF000D1ED92</string>
 		<string>/Users/jonas/Documents/udvilking/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/openFrameworks.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

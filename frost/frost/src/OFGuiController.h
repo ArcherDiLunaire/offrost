@@ -52,10 +52,6 @@
 	IBOutlet NSView *blobTrackingView;
 	IBOutlet NSView *moonDustView;
 	
-	
-	IBOutlet NSButton *		clearBtn;
-	IBOutlet NSSlider *		lineThicknessSlider;
-	IBOutlet NSColorWell *	theColor;
 	IBOutlet NSTextField *	fpsText;
 	
 	NSMutableArray * viewItems;
@@ -72,6 +68,9 @@
 -(IBAction)		toggleFullscreen:(id)sender;
 
 -(void)			setFPS:(float)framesPerSecond;
+
+-(IBAction)		setMoonDustForce:(id)sender;
+-(IBAction)		setMoonDustDamp:(id)sender;
 
 -(void)			awakeFromNib;
 -(id)			init;
