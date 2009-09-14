@@ -124,8 +124,8 @@
 	};
 	DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1139, 3419}}";
-			sepNavSelRange = "{5184, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 3458}}";
+			sepNavSelRange = "{5210, 0}";
 			sepNavVisRange = "{4668, 894}";
 		};
 	};
@@ -6844,6 +6844,16 @@
 		vrLen = 894;
 		vrLoc = 4668;
 	};
+	DDB852D6105E988D00D1ED92 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */;
+		name = "OFGuiController.mm: 217";
+		rLen = 0;
+		rLoc = 5210;
+		rType = 0;
+		vrLen = 894;
+		vrLoc = 4668;
+	};
 	E434918E0FF29FBB00E5A170 /* AppDelegate.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1105, 521}}";
@@ -7678,6 +7688,7 @@
 			DDB852CF105E950200D1ED92 /* PBXTextBookmark */ = DDB852CF105E950200D1ED92 /* PBXTextBookmark */;
 			DDB852D2105E95E900D1ED92 /* PBXTextBookmark */ = DDB852D2105E95E900D1ED92 /* PBXTextBookmark */;
 			DDB852D5105E987200D1ED92 /* PBXTextBookmark */ = DDB852D5105E987200D1ED92 /* PBXTextBookmark */;
+			DDB852D6105E988D00D1ED92 /* PBXTextBookmark */ = DDB852D6105E988D00D1ED92 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DD4F16CC1047336500D10100 /* Source Control */;
 		userBuildSettings = {
