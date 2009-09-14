@@ -11,7 +11,8 @@ MoonDust::MoonDust(){
 		particles.push_back(DustParticle(0,ofRandom(0, 200),0));
 	}
 	
-	particleImg.loadImage(<#string fileName#>)
+	cout<<ofToDataPath("MoonDustParticle.png",true)<<endl;
+	particleImg.loadImage("MoonDustParticle30.png");
 }
 
 
@@ -20,8 +21,8 @@ void MoonDust::update(){
 }
 
 void MoonDust::draw(){
-	ofSetColor(255, 0, 0);
-	ofRect(100, 100, 100, 100);
+	ofSetColor(255, 255, 255);
+	particleImg.draw(0, 0,30,30);
 }
 
 
