@@ -11,10 +11,10 @@
 			<string key="NS.object.0">732</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="235"/>
-			<integer value="292"/>
+			<integer value="276"/>
+			<integer value="296"/>
 			<integer value="400"/>
-			<integer value="407"/>
+			<integer value="235"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -659,11 +659,9 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="970479351">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<string key="NSFrameSize">{800, 620}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMinSize">{213, 129}</string>
@@ -734,7 +732,7 @@
 							<string key="NSToolbarItemMinSize">{0, 0}</string>
 							<string key="NSToolbarItemMaxSize">{0, 0}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">NO</bool>
 							<int key="NSToolbarItemTag">-1</int>
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
@@ -958,12 +956,12 @@
 												<object class="NSCustomView" id="869509279">
 													<reference key="NSNextResponder" ref="971147668"/>
 													<int key="NSvFlags">274</int>
-													<string key="NSFrameSize">{707, 606}</string>
+													<string key="NSFrameSize">{722, 621}</string>
 													<reference key="NSSuperview" ref="971147668"/>
 													<string key="NSClassName">contentView</string>
 												</object>
 											</array>
-											<string key="NSFrame">{{1, 1}, {692, 591}}</string>
+											<string key="NSFrame">{{1, 1}, {707, 606}}</string>
 											<reference key="NSSuperview" ref="138893572"/>
 											<reference key="NSNextKeyView" ref="869509279"/>
 											<reference key="NSDocView" ref="869509279"/>
@@ -975,31 +973,31 @@
 										</object>
 										<object class="NSScroller" id="250314947">
 											<reference key="NSNextResponder" ref="138893572"/>
-											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{693, 1}, {15, 591}}</string>
+											<int key="NSvFlags">-2147483392</int>
+											<string key="NSFrame">{{-100, -100}, {15, 606}}</string>
 											<reference key="NSSuperview" ref="138893572"/>
 											<bool key="NSEnabled">YES</bool>
 											<reference key="NSTarget" ref="138893572"/>
 											<string key="NSAction">_doScroller:</string>
 											<double key="NSCurValue">1</double>
-											<double key="NSPercent">0.97524752475247523</double>
+											<double key="NSPercent">0.97584541062801933</double>
 										</object>
 										<object class="NSScroller" id="139293576">
 											<reference key="NSNextResponder" ref="138893572"/>
-											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{1, 592}, {692, 15}}</string>
+											<int key="NSvFlags">-2147483392</int>
+											<string key="NSFrame">{{-100, -100}, {1401, 15}}</string>
 											<reference key="NSSuperview" ref="138893572"/>
 											<bool key="NSEnabled">YES</bool>
 											<int key="NSsFlags">1</int>
 											<reference key="NSTarget" ref="138893572"/>
 											<string key="NSAction">_doScroller:</string>
-											<double key="NSPercent">0.97878359264497883</double>
+											<double key="NSPercent">0.97922437673130192</double>
 										</object>
 									</array>
 									<string key="NSFrame">{{218, 0}, {709, 608}}</string>
 									<reference key="NSSuperview" ref="1047952871"/>
 									<reference key="NSNextKeyView" ref="971147668"/>
-									<int key="NSsFlags">754</int>
+									<int key="NSsFlags">706</int>
 									<reference key="NSVScroller" ref="250314947"/>
 									<reference key="NSHScroller" ref="139293576"/>
 									<reference key="NSContentView" ref="971147668"/>
@@ -1489,6 +1487,14 @@
 						<reference key="destination" ref="88660156"/>
 					</object>
 					<int key="connectionID">404</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleFullscreen:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="345422818"/>
+					</object>
+					<int key="connectionID">409</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2127,11 +2133,6 @@
 						<reference key="parent" ref="1058915918"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">319</int>
-						<reference key="object" ref="345422818"/>
-						<reference key="parent" ref="556570096"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">340</int>
 						<reference key="object" ref="205175730"/>
 						<reference key="parent" ref="0"/>
@@ -2216,6 +2217,11 @@
 						<int key="objectID">406</int>
 						<reference key="object" ref="616571288"/>
 						<reference key="parent" ref="331997406"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">319</int>
+						<reference key="object" ref="345422818"/>
+						<reference key="parent" ref="556570096"/>
 					</object>
 				</array>
 			</object>
@@ -2340,9 +2346,9 @@
 				<string key="247.IBWindowTemplateEditedContentRect">{{352, 182}, {918, 628}}</string>
 				<boolean value="YES" key="247.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="248.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="275.IBEditorWindowLastContentRect">{{313, 299}, {804, 556}}</string>
+				<string key="275.IBEditorWindowLastContentRect">{{362, 299}, {804, 556}}</string>
 				<string key="275.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="275.IBWindowTemplateEditedContentRect">{{313, 299}, {804, 556}}</string>
+				<string key="275.IBWindowTemplateEditedContentRect">{{362, 299}, {804, 556}}</string>
 				<boolean value="NO" key="275.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="276.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2421,7 +2427,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">408</int>
+			<int key="maxID">409</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2500,10 +2506,10 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">OFGuiController</string>
 					<string key="superclassName">NSObject</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="clearDrawing:">id</string>
-						<string key="setListViewRow:">id</string>
-					</dictionary>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">toggleFullscreen:</string>
+						<string key="NS.object.0">id</string>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="blobTrackingView">NSView</string>
 						<string key="camView">NSOpenGLView</string>

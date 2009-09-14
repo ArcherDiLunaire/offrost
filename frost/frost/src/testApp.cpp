@@ -8,18 +8,11 @@
 void testApp::setup(){	
 	cout<<"Testapp setup"<<endl;
 	ofBackground(255,0,255);	
-	ofSetFrameRate(60);
 	
 	vidGrabber = new ofVideoGrabber();
 	vidGrabber->initGrabber(640, 480);
 	printf("Setup!\n");
-	
-/*	if( otherWindow != NULL ){
-		otherWindow->setup((&testApp::drawCameraView));
 
-		
-	} else {
-	}*/
 }
 
 void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate )
@@ -39,18 +32,18 @@ void testApp::update()
 //--------------------------------------------------------------
 void testApp::draw(){
 	ofBackground(255,0,255);	
-	
-	vidGrabber->draw(10,0,100,100);
+	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 20);
 }
 
 void testApp::drawCameraView(){
-	cout<<"draw"<<endl;
 	vidGrabber->draw(0,0,otherWindow->getWidth(),otherWindow->getHeight());
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-	
+	if(key == 'f'){
+		ofToggleFullscreen();
+	}
 }
 
 //--------------------------------------------------------------

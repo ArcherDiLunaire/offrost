@@ -68,8 +68,8 @@
 // ------------------------------------------------
 - (id)tableView:(NSTableView *)aTableView;
 
--(IBAction)		setListViewRow:(id)sender;
--(IBAction)		clearDrawing:(id)sender;
+-(IBAction)		toggleFullscreen:(id)sender;
+
 -(void)			setFPS:(float)framesPerSecond;
 
 -(void)			awakeFromNib;

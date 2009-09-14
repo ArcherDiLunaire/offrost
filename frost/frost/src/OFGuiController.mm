@@ -13,9 +13,6 @@ OFGuiController * gui = NULL;
 	return [super init];
 }
 
-
-
-
 @end
 
 
@@ -28,7 +25,7 @@ OFGuiController * gui = NULL;
 
 - (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect{
 	ofPlugin * p = [[[self dataSource] viewItems] objectAtIndex:rowIndex];
-	if([p header]){
+	if([[p header] isEqualToNumber:[NSNumber numberWithBool:TRUE]]){
 		NSRect bounds = [self rectOfRow:rowIndex];
 				
 		NSBezierPath*    clipShape = [NSBezierPath bezierPathWithRect:bounds];
@@ -74,6 +71,14 @@ OFGuiController * gui = NULL;
 	printf("--- wake from nib ---\n");
 }
 
+- (void)addObject:(NSString*)objname isheader:(bool)header {
+	ofPlugin * obj =  [[ofPlugin alloc]init];
+	[obj setName:objname];
+	[obj setHeader:[NSNumber numberWithBool:header]];
+	[obj setEnabled:[NSNumber numberWithBool:TRUE]];
+	[viewItems addObject:obj];
+}
+
 // --------------------------------------------------- init
 - (id)init {
 	printf("--- init ---\n");	
@@ -85,31 +90,16 @@ OFGuiController * gui = NULL;
 		
 		viewItems = [[NSMutableArray alloc] init];			
 		
-		ofPlugin * inputsHeader =  [[ofPlugin alloc]init];
-		[inputsHeader setName:@"Inputs"];
-		[inputsHeader setHeader:[NSNumber numberWithBool:TRUE]];
-		[viewItems addObject:inputsHeader];
-
 		
-		ofPlugin * camera =  [[ofPlugin alloc]init];
-		[camera setName:@"Cameras"];
-		[camera setEnabled:[NSNumber numberWithBool:TRUE]];
-		[viewItems addObject:camera];
+		[self addObject:@"Inputs" isheader:TRUE];
+		[self addObject:@"Cameras" isheader:FALSE];
+		[self addObject:@"Blob Tracking" isheader:FALSE];
 
-		ofPlugin * tracking =  [[ofPlugin alloc]init];
-		[tracking setName:@"Blob Tracking"];
-		[tracking setEnabled:[NSNumber numberWithBool:TRUE]];
-		[viewItems addObject:tracking];
+		[self addObject:@"Inputs" isheader:TRUE];		
 		
-		ofPlugin * dataHeader =  [[ofPlugin alloc]init];
-		[dataHeader setName:@"Data"];
-		[dataHeader setHeader:[NSNumber numberWithBool:TRUE]];
-		[viewItems addObject:dataHeader];
+		[self addObject:@"Outputs" isheader:TRUE];		
+		[self addObject:@"Moon Dust" isheader:FALSE];
 
-		ofPlugin * outputHeader =  [[ofPlugin alloc]init];
-		[outputHeader setName:@"Outputs"];
-		[outputHeader setHeader:[NSNumber numberWithBool:TRUE]];
-		[viewItems addObject:outputHeader];
 		
 		[blobTrackingView retain];
 		[cameraView retain];
@@ -145,7 +135,7 @@ OFGuiController * gui = NULL;
 	if(![(NSString*)[p name] compare:@"Blob Tracking"]){
 		view = blobTrackingView;
 	}
-//	[view release];
+
 	
 	[contentArea addSubview:view];
 	NSRect currFrame = [contentArea frame];
@@ -163,34 +153,8 @@ OFGuiController * gui = NULL;
 	[fpsText setFloatValue:(float)framesPerSecond];
 }
 
-// --------------------------------------------------- set the worm mode
--(IBAction) setWormMode:(id)sender {
-	///	ofApp->bWorm = [sender state];
-}
-// --------------------------------------------------- clear the points
--(IBAction) clearDrawing:(id)sender {
-	//ofApp->pnts.clear();
-}
-
-// --------------------------------------------------- set the line thickness
--(IBAction) setLineThickness:(id)sender {
-	//ofApp->lineThickness = [lineThicknessSlider floatValue];	
-}
-
-// --------------------------------------------------- set the color
--(IBAction) setTheColor:(id)sender {
-	
-	NSColor * color = [sender color];
-	
-	float r = [color redComponent];
-	float g = [color greenComponent];
-	float b = [color blueComponent];
-	
-	if(ofApp) {
-		//	ofApp->color.r = r * 255.0;
-		//	ofApp->color.g = g * 255.0;
-		//	ofApp->color.b = b * 255.0;
-	}
+-(IBAction)		toggleFullscreen:(id)sender{
+	ofToggleFullscreen();
 }
 
 

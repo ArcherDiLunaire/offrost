@@ -204,16 +204,17 @@ extern ofAppCocoaWindow * ofWindowPtr;
 		
 		ofWindowPtr->bNewScreenPosition = false;
 	}
-	
+	*/
 	if( ofWindowPtr->bNewScreenMode && ofWindowPtr->windowMode == 1 ){
 		[self goFullscreen];
 		ofWindowPtr->bNewScreenMode = false;
 	}	
+	
 	else if( ofWindowPtr->bNewScreenMode && ofWindowPtr->windowMode == 0 ){
 		[self goWindow];
 		ofWindowPtr->bNewScreenMode = false;
 	}		
-	*/
+	
 	ofWindowPtr->update();
 
 
@@ -361,7 +362,7 @@ extern ofAppCocoaWindow * ofWindowPtr;
 	//[[self window] setOpaque:true];							//supposidely speeds up drawing
 
 	// start animation timer -  theo: we need to find a way to change this interval?
-	timer = [NSTimer timerWithTimeInterval:(1.0f/60.0f) target:self selector:@selector(animationTimer:) userInfo:nil repeats:YES];
+	timer = [NSTimer timerWithTimeInterval:(1.0f/ofWindowPtr->frameRateGoal) target:self selector:@selector(animationTimer:) userInfo:nil repeats:YES];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode]; // ensure timer fires during resize
 	

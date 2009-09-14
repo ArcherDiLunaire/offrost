@@ -38,6 +38,7 @@ ofAppCocoaWindow::ofAppCocoaWindow() {
 	diffMillis				= 0;
 
 	frameRate				= 60.0f;
+	frameRateGoal			= 60.0f;
 
 	nonFullScreenX = 0 ;
 	nonFullScreenY = 0;
@@ -160,7 +161,9 @@ void ofAppCocoaWindow::render(int width, int height){
     fps = 1.0 / (timeNow-timeThen);
     frameRate *= 0.9f;
        frameRate += 0.1f*fps;
+//		frameRate = fps;
     }
+
     timeThen = timeNow;
   	// --------------
 
@@ -171,8 +174,10 @@ void ofAppCocoaWindow::render(int width, int height){
 
 void ofAppCocoaWindow::keyPressed(int key){
 	if(key == OF_KEY_ESC){
-		OF_EXIT_APP(0);
+//		OF_EXIT_APP(0);
+		ofSetFullscreen(false);
 	}
+	
 	OFSAptrForCocoa->keyPressed(key);
 }
 
@@ -242,7 +247,7 @@ float ofAppCocoaWindow::getFrameRate() {
 
 /******** Other stuff ************/
 void ofAppCocoaWindow::setFrameRate(float targetRate) {
-
+	frameRateGoal = targetRate;
 }
 
 int	ofAppCocoaWindow::getFrameNum() {

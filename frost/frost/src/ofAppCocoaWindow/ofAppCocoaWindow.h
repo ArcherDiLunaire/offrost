@@ -87,7 +87,7 @@ public:
 	int 			diffMillis;
 
 	float 			frameRate;
-
+	float			frameRateGoal;
 	int 			nonFullScreenX;
 	int 			nonFullScreenY;
 	
