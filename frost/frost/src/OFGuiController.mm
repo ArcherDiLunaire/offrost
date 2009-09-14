@@ -103,14 +103,7 @@ OFGuiController * gui = NULL;
 		
 		[blobTrackingView retain];
 		[cameraView retain];
-		
-		
-		NSColor * color = [theColor color];
-		float r = [color redComponent];
-		float g = [color greenComponent];
-		float b = [color blueComponent];
-		if(ofApp) {
-		}
+		[moonDustView retain];
     }
 	
     return self;
@@ -135,6 +128,10 @@ OFGuiController * gui = NULL;
 	if(![(NSString*)[p name] compare:@"Blob Tracking"]){
 		view = blobTrackingView;
 	}
+	if(![(NSString*)[p name] compare:@"Moon Dust"]){
+		view = moonDustView;
+	}	
+	
 
 	
 	[contentArea addSubview:view];

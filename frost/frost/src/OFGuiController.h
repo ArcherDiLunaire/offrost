@@ -50,6 +50,7 @@
 	
 	IBOutlet NSView *cameraView;
 	IBOutlet NSView *blobTrackingView;
+	IBOutlet NSView *moonDustView;
 	
 	
 	IBOutlet NSButton *		clearBtn;

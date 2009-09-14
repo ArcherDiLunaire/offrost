@@ -7,19 +7,26 @@
 //--------------------------------------------------------------
 void testApp::setup(){	
 	cout<<"Testapp setup"<<endl;
-	ofBackground(255,0,255);	
+	ofBackground(0,0,0);	
 	
 	vidGrabber = new ofVideoGrabber();
 	vidGrabber->initGrabber(640, 480);
 	printf("Setup!\n");
+	
+	pluginController = new PluginController;
+	pluginController->addPlugin(new MoonDust);
+	pluginController->addPlugin(new FrostPlugin);
 
+	//pluginByType <int> obj;
+	//obj.get(pluginController);
+	getPlugin<MoonDust*> (pluginController);
+	
 }
 
 void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate )
 {
 	otherWindow = delegate;
 	otherWindow->setup((&testApp::drawCameraView));
-
 }
 
 
@@ -27,12 +34,14 @@ void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate )
 void testApp::update()
 {
 	vidGrabber->grabFrame();
+	pluginController->update();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofBackground(255,0,255);	
 	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 20);
+	
+	pluginController->draw();
 }
 
 void testApp::drawCameraView(){

@@ -3,6 +3,9 @@
 
 
 #include "ofMain.h"
+
+#include "PluginIncludes.h"
+#include "PluginController.h"
 //#include "ofxOsc.h"
 //#include "guiController.h"
 
@@ -47,6 +50,8 @@ public:
 	void setReferenceToOtherWindow( CustomGLViewDelegate* delegate );
 	
 	ofVideoGrabber * vidGrabber;
+	
+	PluginController * pluginController;
 	
 	
 };
