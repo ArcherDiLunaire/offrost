@@ -13,7 +13,8 @@ public:
 class MoonDust : public Output{
 public:
 	MoonDust();
-	
+
+	void setup();
 	void draw();
 	void update();
 	

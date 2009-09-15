@@ -5,23 +5,30 @@
 
 
 //--------------------------------------------------------------
+
+testApp::testApp(): otherWindow( NULL ), ofBaseApp() {
+	setupCalled = false;
+	pluginController = new PluginController;
+	pluginController->addPlugin(new MoonDust);
+	pluginController->addPlugin(new FrostPlugin);
+	
+	
+}
+
 void testApp::setup(){	
-	cout<<"Testapp setup"<<endl;
+	cout<<"--- Testapp setup"<<endl;
 	ofSetDataPathRoot("data/");
 	ofEnableAlphaBlending();
 	ofBackground(0,0,0);	
 	
 	vidGrabber = new ofVideoGrabber();
 	vidGrabber->initGrabber(640, 480);
-	printf("Setup!\n");
 	
-	pluginController = new PluginController;
-	pluginController->addPlugin(new MoonDust);
-	pluginController->addPlugin(new FrostPlugin);
+	pluginController->setup();
 
 	//pluginByType <int> obj;
 	//obj.get(pluginController);
-	getPlugin<MoonDust*> (pluginController);
+	setupCalled = true;
 	
 }
 

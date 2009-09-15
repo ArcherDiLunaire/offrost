@@ -14,6 +14,14 @@ void PluginController::addPlugin(FrostPlugin* plugin){
 	plugins.push_back(plugin);
 }
 
+
+void PluginController::setup(){
+	for(int i=0;i<plugins.size();i++){
+		FrostPlugin* plugin = plugins[i];
+		plugin->setup(); 
+	}
+}
+
 void PluginController::update(){
 	for(int i=0;i<plugins.size();i++){
 		FrostPlugin* plugin = plugins[i];

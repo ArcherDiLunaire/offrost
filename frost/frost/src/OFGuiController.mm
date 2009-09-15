@@ -62,6 +62,13 @@ OFGuiController * gui = NULL;
 @end
 
 
+@implementation contentView : NSView
+- (void)drawRect:(NSRect)rect{
+	[super drawRect:rect];	
+}
+@end
+
+
 
 @implementation OFGuiController
 
@@ -69,9 +76,11 @@ OFGuiController * gui = NULL;
 
 
 
+
 // --------------------------------------------------- awake from the nib file
 -(void) awakeFromNib {
 	printf("--- wake from nib ---\n");
+
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header {
@@ -80,6 +89,7 @@ OFGuiController * gui = NULL;
 	[obj setHeader:[NSNumber numberWithBool:header]];
 	[obj setEnabled:[NSNumber numberWithBool:TRUE]];
 	[viewItems addObject:obj];
+	
 }
 
 // --------------------------------------------------- init
@@ -87,8 +97,15 @@ OFGuiController * gui = NULL;
 	printf("--- init ---\n");	
 
     if(self = [super init]) {
+		userDefaults = [[NSUserDefaults standardUserDefaults] retain];
+		
+
 		
 		ofApp = (testApp*)ofGetAppPtr();
+		
+		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [userDefaults doubleForKey:@"moondust.damp"];
+		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [userDefaults doubleForKey:@"moondust.force"];
+
 		gui = self;
 		
 		viewItems = [[NSMutableArray alloc] init];			
@@ -107,6 +124,7 @@ OFGuiController * gui = NULL;
 		[blobTrackingView retain];
 		[cameraView retain];
 		[moonDustView retain];
+		
     }
 	
     return self;
@@ -148,10 +166,7 @@ OFGuiController * gui = NULL;
 	
 }
 	
-// --------------------------------------------------- set FPS
--(void) setFPS:(float)framesPerSecond {
-	[fpsText setFloatValue:(float)framesPerSecond];
-}
+
 
 -(IBAction)		toggleFullscreen:(id)sender{
 	ofToggleFullscreen();
@@ -208,12 +223,16 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     return [viewItems count];
 }
 
--(IBAction)		setMoonDustForce:(id)sender{
-	((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [sender doubleValue];
+-(IBAction)	setMoonDustForce:(id)sender{
+	if(ofApp->setupCalled){
+		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [sender doubleValue];
+	}
 }
 
--(IBAction)		setMoonDustDamp:(id)sender{
-	((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [sender doubleValue];
+-(IBAction)	setMoonDustDamp:(id)sender{
+	if(ofApp->setupCalled){
+		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [sender doubleValue];
+	}
 }
 
 @end

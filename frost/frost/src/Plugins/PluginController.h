@@ -10,6 +10,7 @@ public:
 	vector<FrostPlugin*> plugins;
 	
 	void addPlugin(FrostPlugin* plugin);
+	void setup();
 	void update();
 	void draw();
 	

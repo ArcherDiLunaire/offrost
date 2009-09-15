@@ -20,6 +20,7 @@ public:
 	
 	
 	FrostPlugin();
+		virtual void setup(){};
 	virtual void draw(){};
 	virtual void update(){};
 };

@@ -23,6 +23,8 @@ typedef struct
 }	draggableVertex;
 
 
+
+
 class testApp : public ofBaseApp
 {
 	
@@ -32,7 +34,9 @@ private:
 	
 public:
 	
-	testApp( ) : otherWindow( NULL ), ofBaseApp() {};	void setup();
+	testApp( ) ;	
+	
+	void setup();
 	
 	void update();
 	void draw();
@@ -53,6 +57,7 @@ public:
 	
 	PluginController * pluginController;
 	
+	bool setupCalled;
 	
 };
 

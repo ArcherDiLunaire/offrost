@@ -5,6 +5,7 @@
 
 class Output : public FrostPlugin {
 public:
+	void setup(){};
 	void draw(){};
 	void update(){};
 };

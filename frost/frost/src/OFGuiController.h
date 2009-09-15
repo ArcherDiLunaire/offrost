@@ -52,7 +52,10 @@
 	IBOutlet NSView *blobTrackingView;
 	IBOutlet NSView *moonDustView;
 	
-	IBOutlet NSTextField *	fpsText;
+	NSUserDefaults * userDefaults;
+	
+	IBOutlet NSSlider * MoonDustForce;
+	IBOutlet NSSlider * MoonDustDamp;
 	
 	NSMutableArray * viewItems;
 	NSMutableArray * views;
