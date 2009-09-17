@@ -36,9 +36,21 @@
 	
 	CFAbsoluteTime time;
 	
+	int window_id;
+	
 //	our custom delegate, handles events and whatnot...
 	CustomGLViewDelegate* delegate;
+	
+	bool doDraw;
+	
+
 }
+
+@property (assign, readonly) CustomGLViewDelegate* delegate;
+
+
+- (void) setWindowId: (int) i;
+- (void) setDoDraw: (bool) draw;
 
 + (NSOpenGLPixelFormat*) basicPixelFormat;
 

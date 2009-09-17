@@ -8,6 +8,8 @@
 
 OFGuiController * gui = NULL;
 
+
+
 @implementation ofPlugin
 
 @synthesize name, enabled, header;
@@ -30,14 +32,14 @@ OFGuiController * gui = NULL;
 	ofPlugin * p = [[[self dataSource] viewItems] objectAtIndex:rowIndex];
 	if([[p header] isEqualToNumber:[NSNumber numberWithBool:TRUE]]){
 		NSRect bounds = [self rectOfRow:rowIndex];
-				
+		
 		NSBezierPath*    clipShape = [NSBezierPath bezierPathWithRect:bounds];
-
+		
 		
 		
 		NSGradient* aGradient = [[[NSGradient alloc]
-//								  initWithColorsAndLocations:[NSColor colorWithCalibratedRed:89 green:153 blue:229 alpha:1.0], (CGFloat)0.0,
-								initWithColorsAndLocations:[NSColor colorWithCalibratedHue:0.59 saturation:0.61 brightness:0.90 alpha:1.0], (CGFloat)0.0,
+								  //								  initWithColorsAndLocations:[NSColor colorWithCalibratedRed:89 green:153 blue:229 alpha:1.0], (CGFloat)0.0,
+								  initWithColorsAndLocations:[NSColor colorWithCalibratedHue:0.59 saturation:0.61 brightness:0.90 alpha:1.0], (CGFloat)0.0,
 								  [NSColor colorWithCalibratedHue:0.608 saturation:0.85 brightness:0.81 alpha:1.0], (CGFloat)1.0,
 								  nil] autorelease];
 		
@@ -46,14 +48,14 @@ OFGuiController * gui = NULL;
 		
 		NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 		[paragraphStyle setAlignment:NSCenterTextAlignment];
-
+		
 		
 		NSDictionary *textAttribs;
 		textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:12],
 					   NSFontAttributeName, [NSColor whiteColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
 		
 		[[p name] drawInRect:bounds withAttributes:textAttribs];
-	
+		
 	} else {
 		[super drawRow:rowIndex clipRect:clipRect];
 	}
@@ -80,7 +82,8 @@ OFGuiController * gui = NULL;
 // --------------------------------------------------- awake from the nib file
 -(void) awakeFromNib {
 	printf("--- wake from nib ---\n");
-
+	[camView setWindowId:1];
+	[projectorView setWindowId:2];
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header {
@@ -89,23 +92,22 @@ OFGuiController * gui = NULL;
 	[obj setHeader:[NSNumber numberWithBool:header]];
 	[obj setEnabled:[NSNumber numberWithBool:TRUE]];
 	[viewItems addObject:obj];
-	
 }
 
 // --------------------------------------------------- init
 - (id)init {
 	printf("--- init ---\n");	
-
+	
     if(self = [super init]) {
 		userDefaults = [[NSUserDefaults standardUserDefaults] retain];
 		
-
+		
 		
 		ofApp = (testApp*)ofGetAppPtr();
 		
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [userDefaults doubleForKey:@"moondust.damp"];
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [userDefaults doubleForKey:@"moondust.force"];
-
+		
 		gui = self;
 		
 		viewItems = [[NSMutableArray alloc] init];			
@@ -114,15 +116,17 @@ OFGuiController * gui = NULL;
 		[self addObject:@"Inputs" isheader:TRUE];
 		[self addObject:@"Cameras" isheader:FALSE];
 		[self addObject:@"Blob Tracking" isheader:FALSE];
-
-		[self addObject:@"Inputs" isheader:TRUE];		
+		
+		[self addObject:@"Data" isheader:TRUE];		
+		[self addObject:@"Projection Surfaces" isheader:FALSE];
 		
 		[self addObject:@"Outputs" isheader:TRUE];		
 		[self addObject:@"Moon Dust" isheader:FALSE];
-
+		
 		
 		[blobTrackingView retain];
 		[cameraView retain];
+		[projectionSurfacesView retain];
 		[moonDustView retain];
 		
     }
@@ -142,30 +146,39 @@ OFGuiController * gui = NULL;
 		[anObject removeFromSuperview];
 	}
 	
+	[camView setDoDraw:false];
+	[projectorView setDoDraw:false];
+	
 	id view;
 	if(![(NSString*)[p name] compare:@"Cameras"]){
 		view = cameraView;
+		[camView setDoDraw:true];
 	}
 	if(![(NSString*)[p name] compare:@"Blob Tracking"]){
 		view = blobTrackingView;
 	}
+	if(![(NSString*)[p name] compare:@"Projection Surfaces"]){
+		view = projectionSurfacesView;
+		[projectorView setDoDraw:true];
+		
+	}	
 	if(![(NSString*)[p name] compare:@"Moon Dust"]){
 		view = moonDustView;
 	}	
 	
-
+	
 	
 	[contentArea addSubview:view];
 	NSRect currFrame = [contentArea frame];
 	CGFloat h = currFrame.size.height;
-
+	
 	NSRect currFrame2 = [view frame];
 	CGFloat h2 = currFrame2.size.height;
 	
 	[view setFrameOrigin:NSMakePoint(0,h-h2)]; 
 	
 }
-	
+
 
 
 -(IBAction)		toggleFullscreen:(id)sender{
@@ -183,7 +196,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		array = viewItems;
 		i = rowIndex;
 	}
-	   
+	
 	ofPlugin * p = [array objectAtIndex:i];
 	if(![(NSString*)[aTableColumn identifier] compare:@"name"]){
 		return [p name];		
@@ -192,7 +205,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	} else {
 		return @"hmm?";
 	}
-
+	
 }
 
 
@@ -213,7 +226,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	if(![(NSString*)[aTableColumn identifier] compare:@"name"]){
 	} else if(![(NSString*)[aTableColumn identifier] compare:@"enable"]){
 		[p setEnabled:anObject];		
-
+		
 	}  
 	return;
 }
@@ -238,38 +251,5 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 @end
 
 
-@implementation CameraGlView
-- (void) awakeFromNib {
-	ofApp = (testApp*)ofGetAppPtr();
-	
-	CGLGetPixelFormat(CGLGetCurrentContext());
-	
-	
-	
-}
 
-- (void) drawRect: (NSRect) bounds{
-	glClearColor(0, 0, 0, 0);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glLoadIdentity();
-	unsigned char * p  = ofApp->vidGrabber->getPixels();
-//	ofApp->vidGrabber->draw(0, 0);
-	glFlush();
-	
-	if ( ! animationTimer )
-		animationTimer=[ [ NSTimer scheduledTimerWithTimeInterval:0.17 target:self selector:@selector(animationTimerFired:) userInfo:nil repeats:YES ] retain ] ;
-
-}
-
-/**
- * Service the animation timer.
- */
-- (void) animationTimerFired: (NSTimer *) timer
-{
-	[ self setNeedsDisplay: YES ] ;
-}
-
-
-
-@end
 

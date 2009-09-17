@@ -1,6 +1,6 @@
 
-
-#include "MoonDust.h"
+#include "PluginController.h"
+#include "PluginIncludes.h"
 
 
 
@@ -32,6 +32,7 @@ void MoonDust::update(){
 }
 
 void MoonDust::draw(){
+	applyFloorProjection();
 	ofSetColor(255, 255, 255);
 	
     vector<DustParticle>::iterator it;
@@ -42,7 +43,7 @@ void MoonDust::draw(){
 
 		++it;
     }
-	
+	glPopMatrix();
 }
 
 

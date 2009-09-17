@@ -2,7 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 #include "testApp.h"
-
+#include "CustomGLView.h"
 
 
 
@@ -46,10 +46,12 @@
 	IBOutlet NSView * mainView;	
 	IBOutlet contentView * contentArea;
 	IBOutlet ListView * listView;
-	IBOutlet NSOpenGLView * camView;
+//	IBOutlet NSOpenGLView * camView;
 	
 	IBOutlet NSView *cameraView;
 	IBOutlet NSView *blobTrackingView;
+	IBOutlet NSView *projectionSurfacesView;
+
 	IBOutlet NSView *moonDustView;
 	
 	NSUserDefaults * userDefaults;
@@ -59,6 +61,9 @@
 	
 	NSMutableArray * viewItems;
 	NSMutableArray * views;
+	
+	IBOutlet CustomGLView * camView;
+	IBOutlet CustomGLView * projectorView;
 
 }
 @property (retain, readwrite) NSMutableArray *viewItems;
@@ -80,15 +85,6 @@
 @end
 
 
-@interface CameraGlView : NSOpenGLView
-{
-	testApp * ofApp;
-	NSTimer * animationTimer;
-}
-
-- (void) drawRect: (NSRect) bounds ;
-
-@end
 
 
 extern OFGuiController * gui;

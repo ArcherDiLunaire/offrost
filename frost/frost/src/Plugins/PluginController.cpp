@@ -1,11 +1,4 @@
-/*
- *  PluginController.cpp
- *  openFrameworks
- *
- *  Created by Jonas Jongejan on 14/09/09.
- *  Copyright 2009 HalfdanJ. All rights reserved.
- *
- */
+
 
 #include "PluginController.h"
 
@@ -38,6 +31,11 @@ void PluginController::draw(){
 			plugin->draw(); 
 		}
 	}
-	
+	for(int i=0;i<plugins.size();i++){
+		FrostPlugin* plugin = plugins[i];
+		if(plugin->type == FrostPlugin::DATA && plugin->enabled){
+			plugin->draw(); 
+		}
+	}
 }
 

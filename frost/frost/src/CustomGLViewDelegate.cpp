@@ -12,7 +12,25 @@ extern testApp * OFSAptr;
 /*
  Setup OpenGL in the same manner as openframeworks.
  */
-
+int CustomGLViewDelegate::window_id_counter = 0;
+CustomGLViewDelegate::CustomGLViewDelegate(int i){
+	m_Width = 800;	// default window params
+	m_Height =600;
+	m_PositionX	= 100 ;
+	m_PositionY	= 100 ;
+	m_FullScreen = false ;
+	m_Title =  "Second OpenGL Window" ;
+	m_NewSize =  true ;
+    m_NewPosition =  true ;
+	m_NewMode =  false ;
+	m_NewTitle	=  true ;
+	m_MouseX = 0 ;
+	m_MouseY = 0 ; 
+	setupCalled = false;	
+//	window_id = CustomGLViewDelegate::window_id_counter;
+//	CustomGLViewDelegate::window_id_counter++;
+	window_id = i;
+}
 void CustomGLViewDelegate::setupOpenGLForOF( int w, int h )
 {
 	float halfFov, theTan, screenFov, aspect;
@@ -55,12 +73,12 @@ std::string CustomGLViewDelegate::getTitle( )	{ return m_Title; }
  */
 void CustomGLViewDelegate::setSize( int w, int h )
 {
-/*if( w != m_Width || h != m_Height )
-	{
-		m_Width	 = w;
-		m_Height = h;
-		m_NewSize= true;
-	}*/
+	/*if( w != m_Width || h != m_Height )
+	 {
+	 m_Width	 = w;
+	 m_Height = h;
+	 m_NewSize= true;
+	 }*/
 }
 
 void CustomGLViewDelegate::setPosition( int x, int y )
@@ -133,7 +151,7 @@ void CustomGLViewDelegate::handleKeyUp( int key )
 void CustomGLViewDelegate::registerWithMainApplication( )
 {
 	if( OFSAptr != NULL )
-		((testApp*)OFSAptr)->setReferenceToOtherWindow( this );
+		((testApp*)OFSAptr)->setReferenceToOtherWindow( this, window_id );
 }
 
 /*
@@ -161,7 +179,7 @@ void CustomGLViewDelegate::update( )
  */
 void CustomGLViewDelegate::render( int w, int h )
 {
-	if(setupCalled){
+	if(setupCalled ){
 		glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
 		glClear		( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 		
@@ -169,7 +187,7 @@ void CustomGLViewDelegate::render( int w, int h )
 		setupOpenGLForOF( w, h );
 		
 		// do whatever you want here...
-
+		
 		(OFSAptr->*drawMethod)();
 	}
 	

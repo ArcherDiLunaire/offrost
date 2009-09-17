@@ -31,6 +31,7 @@ class testApp : public ofBaseApp
 private:
 	
 	CustomGLViewDelegate* otherWindow;
+	CustomGLViewDelegate* projectionSurfaceWindow;
 	
 public:
 	
@@ -42,6 +43,7 @@ public:
 	void draw();
 	
 	void drawCameraView();
+	void drawProjectionSurfaceView();
 	
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -50,12 +52,12 @@ public:
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
-	
-	void setReferenceToOtherWindow( CustomGLViewDelegate* delegate );
+	PluginController * pluginController;
+
+	void setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i );
 	
 	ofVideoGrabber * vidGrabber;
 	
-	PluginController * pluginController;
 	
 	bool setupCalled;
 	

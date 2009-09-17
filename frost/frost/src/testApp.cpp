@@ -6,11 +6,12 @@
 
 //--------------------------------------------------------------
 
-testApp::testApp(): otherWindow( NULL ), ofBaseApp() {
+testApp::testApp(): otherWindow(), projectionSurfaceWindow(), ofBaseApp() {
 	setupCalled = false;
 	pluginController = new PluginController;
+	pluginController->addPlugin(new ProjectionSurfaces);
 	pluginController->addPlugin(new MoonDust);
-	pluginController->addPlugin(new FrostPlugin);
+
 	
 	
 }
@@ -32,10 +33,16 @@ void testApp::setup(){
 	
 }
 
-void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate )
+void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 {
-	otherWindow = delegate;
-	otherWindow->setup((&testApp::drawCameraView));
+	if(i == 1){
+		otherWindow = delegate;
+		otherWindow->setup(&testApp::drawCameraView);
+	}
+	if(i == 2){
+		projectionSurfaceWindow = delegate;
+		projectionSurfaceWindow->setup(&testApp::drawProjectionSurfaceView);
+	}
 }
 
 
@@ -55,6 +62,11 @@ void testApp::draw(){
 
 void testApp::drawCameraView(){
 	vidGrabber->draw(0,0,otherWindow->getWidth(),otherWindow->getHeight());
+}
+
+void testApp::drawProjectionSurfaceView(){
+	ofSetColor(255,0, 0);
+	ofRect(0, 0, 10, 10);
 }
 
 //--------------------------------------------------------------

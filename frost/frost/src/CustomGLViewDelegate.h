@@ -31,6 +31,8 @@ class CustomGLViewDelegate
 
 		
 	public:
+		int window_id;
+		static int window_id_counter;
 		
 		int			m_Width;		// dimentions of window
 		int			m_Height;
@@ -42,19 +44,7 @@ class CustomGLViewDelegate
 		
 	//----------------------------------------------------
 	
-		CustomGLViewDelegate( ) : m_Width		( 800 ),	// default window params
-								  m_Height		( 600 ),
-								  m_PositionX	( 100 ),
-								  m_PositionY	( 100 ),
-								  m_FullScreen	( false ),
-								  m_Title		( "Second OpenGL Window" ),
-								  m_NewSize		( true ),
-								  m_NewPosition	( true ),
-								  m_NewMode		( false ),
-								  m_NewTitle	( true ),
-								  m_MouseX		( 0 ),
-								  m_MouseY		( 0 ), 
-									setupCalled ( false){ };
+		CustomGLViewDelegate(int i) ;
 
 		~CustomGLViewDelegate( ){};
 		
@@ -92,6 +82,9 @@ class CustomGLViewDelegate
 		void (testApp::*drawMethod)();
 
 	};
+
+
+
 
 
 #endif

@@ -23,5 +23,7 @@ public:
 		virtual void setup(){};
 	virtual void draw(){};
 	virtual void update(){};
+	
+	void applyFloorProjection();
 };
 

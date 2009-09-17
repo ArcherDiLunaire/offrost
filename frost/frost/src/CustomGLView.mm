@@ -6,6 +6,7 @@
 // ===================================
 
 @implementation CustomGLView
+@synthesize delegate;
 
 // pixel format definition - prob could be tweaked a lot
 + (NSOpenGLPixelFormat*) basicPixelFormat
@@ -140,57 +141,57 @@
 - (void)animationTimer:(NSTimer *)timer
 {
 	
-/*
-	Update window params here
-*/
+	/*
+	 Update window params here
+	 */
 	
 	NSRect currFrame = [self frame];
 	delegate->m_Width = currFrame.size.width;
 	delegate->m_Height = currFrame.size.height;	
 	//printf("asdasd %d   -    %d\n",delegate->m_Width,(int)currFrame.size.width);
 	/*if( delegate->m_NewTitle )
-	{
-		NSString *stringFromUTFString = [[NSString alloc] initWithUTF8String:delegate->getTitle().c_str() ];
-		[ [self window] setTitle: stringFromUTFString];
-		delegate->m_NewTitle = false;
-	}
-	
-	if( delegate->m_NewSize )
-	{
-		NSRect newFrame  = [[self window] frame];
-		NSRect currFrame = [self frame];
-		
-		newFrame.size = NSMakeSize(delegate->getWidth(), delegate->getHeight());
-		newFrame.origin.y += currFrame.size.height - delegate->getHeight() + 40; //the 40 takes into account the top and bottom bars
-		
-		[[self window] setFrame:newFrame display:NO];
-		delegate->m_NewSize = false;
-	}
-	
-	if( delegate->m_NewPosition )
-	{
-		NSRect screenRect = [[NSScreen mainScreen] frame];
-		
-		NSPoint point;
-		point.x = delegate->getPositionX();
-		point.y = screenRect.size.height - (delegate->getPositionX()+20); //takes into account the 20 pixels of the menubar
-		
-		[[self window] setFrameTopLeftPoint:point];
-		
-		delegate->m_NewPosition = false;
-	}
-	
-	if( delegate->m_NewMode && delegate->isFullScreen() )
-	{
-		[self goFullscreen];
-		delegate->m_NewMode = false;
-	}
-	else if( delegate->m_NewMode && !delegate->isFullScreen() )
-	{
-		[self goWindow];
-		delegate->m_NewMode = false;
-	}
-	*/
+	 {
+	 NSString *stringFromUTFString = [[NSString alloc] initWithUTF8String:delegate->getTitle().c_str() ];
+	 [ [self window] setTitle: stringFromUTFString];
+	 delegate->m_NewTitle = false;
+	 }
+	 
+	 if( delegate->m_NewSize )
+	 {
+	 NSRect newFrame  = [[self window] frame];
+	 NSRect currFrame = [self frame];
+	 
+	 newFrame.size = NSMakeSize(delegate->getWidth(), delegate->getHeight());
+	 newFrame.origin.y += currFrame.size.height - delegate->getHeight() + 40; //the 40 takes into account the top and bottom bars
+	 
+	 [[self window] setFrame:newFrame display:NO];
+	 delegate->m_NewSize = false;
+	 }
+	 
+	 if( delegate->m_NewPosition )
+	 {
+	 NSRect screenRect = [[NSScreen mainScreen] frame];
+	 
+	 NSPoint point;
+	 point.x = delegate->getPositionX();
+	 point.y = screenRect.size.height - (delegate->getPositionX()+20); //takes into account the 20 pixels of the menubar
+	 
+	 [[self window] setFrameTopLeftPoint:point];
+	 
+	 delegate->m_NewPosition = false;
+	 }
+	 
+	 if( delegate->m_NewMode && delegate->isFullScreen() )
+	 {
+	 [self goFullscreen];
+	 delegate->m_NewMode = false;
+	 }
+	 else if( delegate->m_NewMode && !delegate->isFullScreen() )
+	 {
+	 [self goWindow];
+	 delegate->m_NewMode = false;
+	 }
+	 */
 	delegate->update();
 	
 	[self drawRect:[self bounds]]; // redraw now instead dirty to enable updates during live resize
@@ -200,13 +201,23 @@
 
 - (void) drawRect:(NSRect)rect
 {		
-    [[self openGLContext] makeCurrentContext];
-	NSRect rectView = [self bounds];
-	
-	delegate->render( rectView.size.width, rectView.size.height );
-	
+	//if([self visibleRect]){
+		/*if(window_id == 1)
+			printf("render 1");
+		else if(window_id == 2){
+			printf("render 2");		
+		}*/
+	[[self openGLContext] makeCurrentContext];
+
+	if(doDraw){
+		NSRect rectView = [self bounds];
+		
+		delegate->render( rectView.size.width, rectView.size.height );
+		
+	}
 	[[self openGLContext] flushBuffer];
-	
+
+	//}
 }
 
 // ---------------------------------
@@ -284,39 +295,48 @@
 
 // ---------------------------------
 
+- (void) setWindowId: (int) i{
+	window_id = i;
+}
+
+- (void) setDoDraw: (bool) draw{
+	doDraw = draw;
+}
+
 - (void) awakeFromNib
 {
 	[super awakeFromNib];
 	
+	doDraw = false;
 	fInfo = 1;
 	fAnimate = 1;
 	time = CFAbsoluteTimeGetCurrent ();  // set animation time start time
-	fDrawHelp = 1;
-
-/*
-	Create our custom delegate
-*/
-	delegate = new CustomGLViewDelegate( );
+	fDrawHelp = 1;	
+	printf("--- Awake from nib custom opengl view ---");
+	/*
+	 Create our custom delegate
+	 */
+	delegate = new CustomGLViewDelegate(window_id);
 	
-//lets set the window size to the requested size - this is duplicated in update - so maybe making some nice functions could be a good idea
-/*	NSRect currFrame = [self frame];
-	NSRect newFrame = [[self window] frame];
-	newFrame.size = NSMakeSize( delegate->getWidth(), delegate->getHeight() );
-	newFrame.origin.y += currFrame.size.height - delegate->getHeight() + 40; //the 40 takes into account the top and bottom bars
-	[[self window] setFrame:newFrame display:NO];*/
+	//lets set the window size to the requested size - this is duplicated in update - so maybe making some nice functions could be a good idea
+	/*	NSRect currFrame = [self frame];
+	 NSRect newFrame = [[self window] frame];
+	 newFrame.size = NSMakeSize( delegate->getWidth(), delegate->getHeight() );
+	 newFrame.origin.y += currFrame.size.height - delegate->getHeight() + 40; //the 40 takes into account the top and bottom bars
+	 [[self window] setFrame:newFrame display:NO];*/
 	
 	//need this to get mouse moved events
 	[[self window] setAcceptsMouseMovedEvents:YES]; 
 	
 	/*
-		Our custom view does not have to have the same FPS as main view.
-	*/
+	 Our custom view does not have to have the same FPS as main view.
+	 */
 	timer = [NSTimer timerWithTimeInterval:(1.0f/30.0f) target:self selector:@selector(animationTimer:) userInfo:nil repeats:YES];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode]; // ensure timer fires during resize
 	
-//	delegate->setup();
-
+	//	delegate->setup();
+	
 	
 	/// register delegate with main application
 	delegate->registerWithMainApplication();
