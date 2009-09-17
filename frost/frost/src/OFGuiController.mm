@@ -98,7 +98,11 @@ OFGuiController * gui = NULL;
 - (id)init {
 	printf("--- init ---\n");	
 	
+
+	
     if(self = [super init]) {
+
+		
 		userDefaults = [[NSUserDefaults standardUserDefaults] retain];
 		
 		
@@ -107,7 +111,8 @@ OFGuiController * gui = NULL;
 		
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [userDefaults doubleForKey:@"moondust.damp"];
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [userDefaults doubleForKey:@"moondust.force"];
-		
+
+		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
 		gui = self;
 		
 		viewItems = [[NSMutableArray alloc] init];			
@@ -128,6 +133,9 @@ OFGuiController * gui = NULL;
 		[cameraView retain];
 		[projectionSurfacesView retain];
 		[moonDustView retain];
+		
+	
+
 		
     }
 	
@@ -247,6 +255,18 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [sender doubleValue];
 	}
 }
+
+-(IBAction)		setProjectorShowDebug:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = b;
+	}
+}	
+
+
 
 @end
 

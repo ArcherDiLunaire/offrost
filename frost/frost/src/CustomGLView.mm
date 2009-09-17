@@ -297,6 +297,10 @@
 
 - (void) setWindowId: (int) i{
 	window_id = i;
+	
+	delegate = new CustomGLViewDelegate(window_id);
+	delegate->registerWithMainApplication();
+	
 }
 
 - (void) setDoDraw: (bool) draw{
@@ -316,7 +320,6 @@
 	/*
 	 Create our custom delegate
 	 */
-	delegate = new CustomGLViewDelegate(window_id);
 	
 	//lets set the window size to the requested size - this is duplicated in update - so maybe making some nice functions could be a good idea
 	/*	NSRect currFrame = [self frame];
@@ -339,7 +342,6 @@
 	
 	
 	/// register delegate with main application
-	delegate->registerWithMainApplication();
 }
 
 

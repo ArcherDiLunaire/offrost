@@ -59,6 +59,8 @@
 	IBOutlet NSSlider * MoonDustForce;
 	IBOutlet NSSlider * MoonDustDamp;
 	
+	IBOutlet NSButton * ProjectorShowDebug;
+	
 	NSMutableArray * viewItems;
 	NSMutableArray * views;
 	
@@ -79,6 +81,9 @@
 
 -(IBAction)		setMoonDustForce:(id)sender;
 -(IBAction)		setMoonDustDamp:(id)sender;
+
+-(IBAction)		setProjectorShowDebug:(id)sender;
+
 
 -(void)			awakeFromNib;
 -(id)			init;
