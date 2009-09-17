@@ -25,6 +25,7 @@ void testApp::setup(){
 	vidGrabber = new ofVideoGrabber();
 	vidGrabber->initGrabber(640, 480);
 	
+	
 	pluginController->setup();
 
 	//pluginByType <int> obj;
@@ -55,6 +56,16 @@ void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 //--------------------------------------------------------------
 void testApp::update()
 {
+	float mousex = (float)mouseX/ofGetWidth();
+	if(mousex < 0.5){
+		getPlugin<MoonDust*>(pluginController)->min = mousex;
+		getPlugin<MoonDust*>(pluginController)->max = 0.5;
+	} else {
+		getPlugin<MoonDust*>(pluginController)->max = mousex;
+		getPlugin<MoonDust*>(pluginController)->min = 0.5;
+	
+	}
+	
 	vidGrabber->grabFrame();
 	pluginController->update();
 }

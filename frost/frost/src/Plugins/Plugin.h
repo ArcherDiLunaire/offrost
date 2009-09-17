@@ -16,6 +16,8 @@ public:
 	int type;
 	bool enabled;
 	
+	float dt;
+	
 	PluginController * controller;
 	
 	

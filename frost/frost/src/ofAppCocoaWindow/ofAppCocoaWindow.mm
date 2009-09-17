@@ -37,8 +37,8 @@ ofAppCocoaWindow::ofAppCocoaWindow() {
 	prevMillis				= 0;
 	diffMillis				= 0;
 
-	frameRate				= 60.0f;
-	frameRateGoal			= 60.0f;
+	frameRate				= 100.0f;
+	frameRateGoal			= 100.0f;
 
 	nonFullScreenX = 0 ;
 	nonFullScreenY = 0;

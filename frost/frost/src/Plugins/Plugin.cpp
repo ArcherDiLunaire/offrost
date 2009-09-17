@@ -4,6 +4,7 @@
 
 FrostPlugin::FrostPlugin(){
 	enabled = true;
+	dt = 0;
 }
 
 void FrostPlugin::applyFloorProjection(){

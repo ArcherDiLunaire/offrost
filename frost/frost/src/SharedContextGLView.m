@@ -26,6 +26,12 @@ NSOpenGLContext* __sharedOpenGLContext;
 	return [[[NSOpenGLPixelFormat alloc] initWithAttributes:attributes] autorelease];
 }
 
+- (void)prepareOpenGL
+{
+	GLint swapInt = 1;
+    [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
+}
+
 -(void)awakeFromNib
 {
 	printf( "SharedOpenGLContext::awakeFromNib\n" );
