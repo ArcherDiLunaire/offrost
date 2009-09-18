@@ -373,6 +373,10 @@ extern ofAppCocoaWindow * ofWindowPtr;
 	[[NSRunLoop currentRunLoop] addTimer:hudtimer forMode:NSDefaultRunLoopMode];
 	// call setup here instead
 	ofWindowPtr->setup();
+	
+	if([[NSScreen screens] count] > 1){
+		[self goFullscreen];
+	}
 }
 
 /*- (CVReturn)renderTime:(const CVTimeStamp*)outputTime
