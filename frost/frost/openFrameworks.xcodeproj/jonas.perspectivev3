@@ -274,11 +274,6 @@
 								<string>DDFEC6DF1063D35B0068D31A</string>
 								<string>DD7CC49B1063CE7200D3736A</string>
 								<string>DDB85141105E808700D1ED92</string>
-								<string>DD7CC3AF1063C47100D3736A</string>
-								<string>DD7CC3B81063C47100D3736A</string>
-								<string>DD7CC3B91063C47100D3736A</string>
-								<string>DD7CC3CB1063C47100D3736A</string>
-								<string>DD7CC3D01063C47100D3736A</string>
 								<string>E45BE0360E8CC5DE009D7055</string>
 								<string>E45BEED60E8CCB34009D7055</string>
 								<string>E45BE5980E8CC70C009D7055</string>
@@ -287,14 +282,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>43</integer>
-									<integer>41</integer>
+									<integer>36</integer>
+									<integer>31</integer>
 									<integer>6</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 237}, {228, 727}}</string>
+							<string>{{0, 769}, {228, 727}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -322,14 +317,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>DD4F16BD1047336400D10100</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Libdc1394Grabber.h</string>
+								<string>ofxVideoGrabberSettings.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -337,11 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>DD4F16BE1047336400D10100</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Libdc1394Grabber.h</string>
+										<string>ofxVideoGrabberSettings.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DDFEC7951063DC040068D31A</string>
+										<string>DDFEC89B1063FE760068D31A</string>
 										<key>history</key>
 										<array>
 											<string>DD4F19041047423A00D10100</string>
@@ -396,21 +389,26 @@
 											<string>DDFEC6E91063D3680068D31A</string>
 											<string>DDFEC6EB1063D3680068D31A</string>
 											<string>DDFEC6EC1063D3680068D31A</string>
-											<string>DDFEC6FC1063D3940068D31A</string>
-											<string>DDFEC7181063D66B0068D31A</string>
 											<string>DDFEC7191063D66B0068D31A</string>
-											<string>DDFEC71A1063D66B0068D31A</string>
 											<string>DDFEC71B1063D66B0068D31A</string>
 											<string>DDFEC71C1063D66B0068D31A</string>
 											<string>DDFEC71D1063D66B0068D31A</string>
 											<string>DDFEC74B1063D6C20068D31A</string>
-											<string>DDFEC74C1063D6C20068D31A</string>
-											<string>DDFEC7801063DBF40068D31A</string>
 											<string>DDFEC7811063DBF40068D31A</string>
 											<string>DDFEC7821063DBF40068D31A</string>
 											<string>DDFEC7831063DBF40068D31A</string>
 											<string>DDFEC7841063DBF40068D31A</string>
-											<string>DDFEC7851063DBF40068D31A</string>
+											<string>DDFEC7E31063EF360068D31A</string>
+											<string>DDFEC7E41063EF360068D31A</string>
+											<string>DDFEC7E51063EF360068D31A</string>
+											<string>DDFEC7E61063EF360068D31A</string>
+											<string>DDFEC7E71063EF360068D31A</string>
+											<string>DDFEC7E81063EF360068D31A</string>
+											<string>DDFEC7E91063EF360068D31A</string>
+											<string>DDFEC8971063FE760068D31A</string>
+											<string>DDFEC8981063FE760068D31A</string>
+											<string>DDFEC8991063FE760068D31A</string>
+											<string>DDFEC89A1063FE760068D31A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -449,7 +447,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1190, 201}}</string>
+										<string>{{10, 27}, {1190, 397}}</string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
