@@ -21,7 +21,7 @@ void ofxVideoGrabberSettings::setupVideoSettings(ofxVideoGrabberSDK* _videoGrabb
 
 }
 
-/*//--------------------------------------------------------------------
+//--------------------------------------------------------------------
 void ofxVideoGrabberSettings::setupGUIEvents()
 {
     ofAddListener(ofEvents.mousePressed, this, &ofxVideoGrabberSettings::mousePressed);
@@ -54,5 +54,5 @@ void ofxVideoGrabberSettings::mouseDragged(ofMouseEventArgs & args)
 void ofxVideoGrabberSettings::mouseReleased(ofMouseEventArgs & args)
 {
     panel.mouseReleased();
-}*/
+}
 
