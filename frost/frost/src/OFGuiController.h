@@ -3,7 +3,8 @@
 #import <Cocoa/Cocoa.h>
 #include "testApp.h"
 #include "CustomGLView.h"
-
+#include "Plugin.h"
+#include "PluginIncludes.h"
 
 
 @interface ofPlugin : NSObject 
@@ -11,12 +12,15 @@
 	NSString * name;
 	NSNumber * enabled;
 	NSNumber * header;
+	
+	FrostPlugin * plugin;
 
 }
 @property (retain, readwrite) NSString *name;
 @property (retain, readwrite) NSNumber *enabled;
 @property (retain, readwrite) NSNumber *header;
 @property (assign, readwrite) NSNumber *settingsViewNumber;
+@property (assign, readwrite)FrostPlugin * plugin;
 
 
 

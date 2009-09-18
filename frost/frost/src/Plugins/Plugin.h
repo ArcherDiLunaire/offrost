@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "CustomGLViewDelegate.h"
 
 
 class PluginController;
@@ -15,7 +16,7 @@ public:
 	
 	int type;
 	bool enabled;
-	
+	CustomGLViewDelegate * glDelegate;
 	float dt;
 	
 	PluginController * controller;

@@ -12,10 +12,18 @@ OFGuiController * gui = NULL;
 
 @implementation ofPlugin
 
-@synthesize name, enabled, header;
+@synthesize name, enabled, header, plugin;
 
 - (id)init {
 	return [super init];
+}
+
+- (void) setEnabled:(NSNumber *) n 
+{
+	enabled = n;
+	if(plugin != nil){
+	plugin->enabled = [n boolValue];
+	}
 }
 
 @end
@@ -87,10 +95,11 @@ OFGuiController * gui = NULL;
 	[blobView setWindowId:3];
 }
 
-- (void)addObject:(NSString*)objname isheader:(bool)header {
+- (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {
 	ofPlugin * obj =  [[ofPlugin alloc]init];
 	[obj setName:objname];
 	[obj setHeader:[NSNumber numberWithBool:header]];
+	[obj setPlugin:p];
 	[obj setEnabled:[NSNumber numberWithBool:TRUE]];
 	[viewItems addObject:obj];
 }
@@ -122,15 +131,15 @@ OFGuiController * gui = NULL;
 		viewItems = [[NSMutableArray alloc] init];			
 		
 		
-		[self addObject:@"Inputs" isheader:TRUE];
-		[self addObject:@"Cameras" isheader:FALSE];
-		[self addObject:@"Blob Tracking" isheader:FALSE];
+		[self addObject:@"Inputs" isheader:TRUE plugin:nil];
+		[self addObject:@"Cameras" isheader:FALSE plugin:getPlugin<Cameras*>(ofApp->pluginController)];
+		[self addObject:@"Blob Tracking" isheader:FALSE plugin:getPlugin<BlobTracking*>(ofApp->pluginController)];
 		
-		[self addObject:@"Data" isheader:TRUE];		
-		[self addObject:@"Projection Surfaces" isheader:FALSE];
+		[self addObject:@"Data" isheader:TRUE  plugin:nil];		
+		[self addObject:@"Projection Surfaces" isheader:FALSE plugin:getPlugin<ProjectionSurfaces*>(ofApp->pluginController)];
 		
-		[self addObject:@"Outputs" isheader:TRUE];		
-		[self addObject:@"Moon Dust" isheader:FALSE];
+		[self addObject:@"Outputs" isheader:TRUE  plugin:nil];		
+		[self addObject:@"Moon Dust" isheader:FALSE plugin:getPlugin<MoonDust*>(ofApp->pluginController)];
 		
 		
 		[blobTrackingView retain];
@@ -239,8 +248,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	
 	if(![(NSString*)[aTableColumn identifier] compare:@"name"]){
 	} else if(![(NSString*)[aTableColumn identifier] compare:@"enable"]){
-		[p setEnabled:anObject];		
-		
+		[p setEnabled:anObject];	
+
 	}  
 	return;
 }

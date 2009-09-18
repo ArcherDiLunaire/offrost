@@ -18,5 +18,10 @@ public:
 	
 	bool drawDebug;
 
+	int gridFloorResolution;
 	
+	void drawSettings();
+	
+	ofxVec2f lastMousePos;
+	int selectedCorner;
 };

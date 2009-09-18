@@ -21,12 +21,12 @@ public:
 	float*					MatrixCalculate();
 	void					MatrixMultiply();
 
+	ofxVec2f			corners[4];
 
 private:
 	// CORNERS
 	float					w;
 	float					h;
-	ofxVec2f			corners[4];
 
 	CvPoint2D32f			cvsrc[4];
 	CvPoint2D32f			cvdst[4];

@@ -339,7 +339,7 @@
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode]; // ensure timer fires during resize
 	
 	//	delegate->setup();
-	
+
 	
 	/// register delegate with main application
 }

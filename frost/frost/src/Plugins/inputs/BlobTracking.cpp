@@ -16,7 +16,7 @@ Tracker::Tracker(ofxVideoGrabber * _grabber){
 }
 
 void Tracker::update(){ 
-	bool bNewFrame = false;
+	/*bool bNewFrame = false;
 	bNewFrame = grabber->isFrameNew();
 	if (bNewFrame){
 		
@@ -35,7 +35,7 @@ void Tracker::update(){
 		// find contours which are between the size of 20 pixels and 1/3 the w*h pixels.
 		// also, find holes is set to true so we will get interior contours as well....
 		contourFinder.findContours(grayDiff, 20, (640*480)/3, 10, true);	// find holes
-	}
+	}*/
 }
 
 

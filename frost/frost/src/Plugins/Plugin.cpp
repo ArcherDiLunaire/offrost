@@ -5,6 +5,7 @@
 FrostPlugin::FrostPlugin(){
 	enabled = true;
 	dt = 0;
+	glDelegate = NULL;
 }
 
 void FrostPlugin::applyFloorProjection(){

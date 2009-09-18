@@ -114,13 +114,13 @@ void CustomGLViewDelegate::setTitle( std::string title )
  */
 void CustomGLViewDelegate::handleMouseMove( int x, int y )
 {
-	m_MouseX = x; m_MouseY = y;
+	m_MouseX = mouseX = x; m_MouseY = mouseY = y;
 	printf( "CustomGLViewDelegate::handleMouseMove @ %i, %i\n", x, y );
 }
 
 void CustomGLViewDelegate::handleMouseDown( int x, int y, int b )
 {
-	m_MouseX = x; m_MouseY = y;
+	m_MouseX = mouseX= x; m_MouseY = mouseY = y;
 	printf( "CustomGLViewDelegate::handleMouseDown @ %i, %i - button %i\n", x, y, b );
 }
 

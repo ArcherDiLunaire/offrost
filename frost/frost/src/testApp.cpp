@@ -38,19 +38,17 @@ void testApp::setup(){
 
 void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 {
-	cout<<endl<<"Reference called "<<i<<endl;
 	if(i == 0){
 		cout<<"---------- ERROR: Window_id is 0 ------------"<<endl;
 	}	
 	if(i == 1){
-		cout<<"--- 1 OK --"<<endl;
 		otherWindow = delegate;
 		otherWindow->setup(&testApp::drawCameraView);
 	}
 	if(i == 2){
-		cout<<"--- 2 OK --"<<endl;
 		projectionSurfaceWindow = delegate;
 		projectionSurfaceWindow->setup(&testApp::drawProjectionSurfaceView);
+		getPlugin<ProjectionSurfaces*>(pluginController)->glDelegate = delegate;
 	}
 	if(i == 3){
 		blobWindow = delegate;
@@ -89,8 +87,7 @@ void testApp::drawCameraView(){
 }
 
 void testApp::drawProjectionSurfaceView(){
-	ofSetColor(255,0, 0);
-	ofRect(0, 0, 10, 10);
+	getPlugin<ProjectionSurfaces*>(pluginController)->drawSettings();
 }
 
 void testApp::drawBlobWindow(){

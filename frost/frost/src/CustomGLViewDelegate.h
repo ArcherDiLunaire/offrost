@@ -31,6 +31,8 @@ private:
 	
 	
 public:
+	int mouseX, mouseY;
+	
 	int window_id;
 	static int window_id_counter;
 	
