@@ -60,12 +60,17 @@
 	IBOutlet NSSlider * MoonDustDamp;
 	
 	IBOutlet NSButton * ProjectorShowDebug;
+
+	IBOutlet NSSlider * BlobThreshold;
+
 	
 	NSMutableArray * viewItems;
 	NSMutableArray * views;
 	
 	IBOutlet CustomGLView * camView;
 	IBOutlet CustomGLView * projectorView;
+	IBOutlet CustomGLView * blobView;
+
 
 }
 @property (retain, readwrite) NSMutableArray *viewItems;
@@ -83,6 +88,8 @@
 -(IBAction)		setMoonDustDamp:(id)sender;
 
 -(IBAction)		setProjectorShowDebug:(id)sender;
+
+-(IBAction)		setBlobThreshold:(id)sender;
 
 
 -(void)			awakeFromNib;

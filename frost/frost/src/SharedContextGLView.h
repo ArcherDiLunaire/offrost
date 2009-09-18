@@ -8,11 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <OpenGL/OpenGL.h>
-
+#import <QTKit/QTKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface SharedContextGLView : NSOpenGLView
 {
 	NSOpenGLContext*	mySharedOpenGLContext;
+//	CVDisplayLinkRef displayLink; //display link for managing rendering thread
 }
 
 +(NSOpenGLPixelFormat*)basicPixelFormat;

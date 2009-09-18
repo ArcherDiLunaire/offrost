@@ -84,6 +84,7 @@ OFGuiController * gui = NULL;
 	printf("--- wake from nib ---\n");
 	[camView setWindowId:1];
 	[projectorView setWindowId:2];
+	[blobView setWindowId:3];
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header {
@@ -111,6 +112,9 @@ OFGuiController * gui = NULL;
 		
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [userDefaults doubleForKey:@"moondust.damp"];
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [userDefaults doubleForKey:@"moondust.force"];
+
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->threshold = [userDefaults doubleForKey:@"blob.threshold1"];
+		
 
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
 		gui = self;
@@ -156,6 +160,7 @@ OFGuiController * gui = NULL;
 	
 	[camView setDoDraw:false];
 	[projectorView setDoDraw:false];
+	[blobView setDoDraw:false];
 	
 	id view;
 	if(![(NSString*)[p name] compare:@"Cameras"]){
@@ -164,6 +169,7 @@ OFGuiController * gui = NULL;
 	}
 	if(![(NSString*)[p name] compare:@"Blob Tracking"]){
 		view = blobTrackingView;
+		[blobView setDoDraw:true];
 	}
 	if(![(NSString*)[p name] compare:@"Projection Surfaces"]){
 		view = projectionSurfacesView;
@@ -267,6 +273,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }	
 
 
+-(IBAction)	setBlobThreshold:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->threshold = [sender doubleValue];
+	}
+}
 
 @end
 

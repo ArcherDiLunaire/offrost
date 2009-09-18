@@ -173,9 +173,8 @@ extern ofAppCocoaWindow * ofWindowPtr;
 // ---------------------------------
 // THEO - this our update function!
 // per-window timer function, basic time based animation preformed here
-- (void)animationTimer:(NSTimer *)timer
+- (void)animationTimer:(NSTimer*)timer
 {
-
 	/*if( ofWindowPtr->bNewWindowString ){
 		NSString *stringFromUTFString = [[NSString alloc] initWithUTF8String:ofWindowPtr->windowString.c_str() ];
 		[ [self window] setTitle: stringFromUTFString];
@@ -205,6 +204,11 @@ extern ofAppCocoaWindow * ofWindowPtr;
 		ofWindowPtr->bNewScreenPosition = false;
 	}
 	*/
+	
+
+//	
+
+	
 	if( ofWindowPtr->bNewScreenMode && ofWindowPtr->windowMode == 1 ){
 		[self goFullscreen];
 		ofWindowPtr->bNewScreenMode = false;
@@ -229,8 +233,8 @@ extern ofAppCocoaWindow * ofWindowPtr;
 	
     [[self openGLContext] makeCurrentContext];
 	NSRect rectView = [self frame];
-	
-	ofWindowPtr->render(rectView.size.width, rectView.size.height);
+	fps = ofWindowPtr->getFrameRate();
+		ofWindowPtr->render(rectView.size.width, rectView.size.height);
 	
 	[[self openGLContext] flushBuffer];
 
@@ -289,7 +293,7 @@ extern ofAppCocoaWindow * ofWindowPtr;
 	{
 		if(![self isInFullScreenMode])
 		{
-		   [self enterFullScreenMode:[NSScreen deepestScreen]
+		   [self enterFullScreenMode:[[NSScreen screens]lastObject]
 				 withOptions:[NSDictionary dictionaryWithObject: [NSNumber numberWithBool: NO] forKey: NSFullScreenModeAllScreens] ];
 		}
 	}
@@ -324,12 +328,11 @@ extern ofAppCocoaWindow * ofWindowPtr;
 - (void) awakeFromNib
 {
 	[super awakeFromNib];
-
 	printf("awakeFromNib\n");
-	
+
 	fInfo = 1;
 	fAnimate = 1;
-	time = CFAbsoluteTimeGetCurrent ();  // set animation time start time
+	time = CFAbsoluteTimeGetCurrent();  // set animation time start time
 	fDrawHelp = 1;
 		
 	//lets set the window size to the requested size - this is duplicated in update - so maybe making some nice functions could be a good idea
@@ -365,10 +368,25 @@ extern ofAppCocoaWindow * ofWindowPtr;
 	timer = [NSTimer timerWithTimeInterval:(1.0f/ofWindowPtr->frameRateGoal) target:self selector:@selector(animationTimer:) userInfo:nil repeats:YES];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode]; // ensure timer fires during resize
-	
+
+	hudtimer = [NSTimer timerWithTimeInterval:(1.0f/10.0) target:self selector:@selector(updateHud:) userInfo:nil repeats:YES];
+	[[NSRunLoop currentRunLoop] addTimer:hudtimer forMode:NSDefaultRunLoopMode];
 	// call setup here instead
 	ofWindowPtr->setup();
 }
 
+/*- (CVReturn)renderTime:(const CVTimeStamp*)outputTime
+{
+    // Add your drawing codes here
+
+	[self animationTimer];
+    return kCVReturnSuccess;
+}*/
+
+
+- (void)updateHud:(NSTimer*)timer
+{
+	[fpsText setStringValue:[[NSNumber numberWithInt:fps]stringValue]];
+}
 
 @end

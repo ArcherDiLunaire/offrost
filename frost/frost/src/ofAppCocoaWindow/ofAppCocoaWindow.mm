@@ -37,8 +37,8 @@ ofAppCocoaWindow::ofAppCocoaWindow() {
 	prevMillis				= 0;
 	diffMillis				= 0;
 
-	frameRate				= 100.0f;
-	frameRateGoal			= 100.0f;
+	frameRate				= 60.0;
+	frameRateGoal			= 60.0;
 
 	nonFullScreenX = 0 ;
 	nonFullScreenY = 0;
@@ -75,6 +75,7 @@ void ofAppCocoaWindow::initializeWindow() {
 
 
 void  ofAppCocoaWindow::runAppViaInfiniteLoop(ofBaseApp * appPtr) {
+	
 	printf("ofAppCocoaWindow::runAppViaInfiniteLoop()\n");
 	
 	ofWindowPtr = this;

@@ -1,13 +1,13 @@
 #ifndef _TEST_APP
 #define _TEST_APP
 
-
 #include "ofMain.h"
 
 #include "PluginIncludes.h"
 #include "PluginController.h"
 //#include "ofxOsc.h"
 //#include "guiController.h"
+
 
 class CustomGLViewDelegate;
 
@@ -32,6 +32,8 @@ private:
 	
 	CustomGLViewDelegate* otherWindow;
 	CustomGLViewDelegate* projectionSurfaceWindow;
+	CustomGLViewDelegate* blobWindow;
+
 	
 public:
 	
@@ -44,7 +46,8 @@ public:
 	
 	void drawCameraView();
 	void drawProjectionSurfaceView();
-	
+	void drawBlobWindow();
+
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y );
@@ -56,10 +59,10 @@ public:
 
 	void setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i );
 	
-	ofVideoGrabber * vidGrabber;
 	
 	
 	bool setupCalled;
+	int fps;
 	
 };
 

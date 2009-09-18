@@ -13,6 +13,7 @@ public:
 	ofxVec3f pos();
 	float vEffect;
 	bool goingMax;
+	float min, max;
 };
 
 class MoonDust : public Output{
@@ -29,6 +30,6 @@ public:
 	
 	float min, max;
 	
-	ofImage particleImg;
-	ofImage particleTrack;
+	ofImage * particleImg;
+	ofImage * particleTrack;
 };

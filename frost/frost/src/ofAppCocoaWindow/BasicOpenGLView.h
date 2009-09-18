@@ -7,15 +7,19 @@
 #import <OpenGL/glu.h>
 #include <AppKit/AppKit.h>
 #include "SharedContextGLView.h"
+#import <QTKit/QTKit.h>
+#import <QuartzCore/QuartzCore.h>
+
+
 
 @interface BasicOpenGLView : SharedContextGLView
 {
 	// string attributes
 	NSMutableDictionary * stanStringAttrib;
 	CFAbsoluteTime msgTime; // message posting time for expiration
-	
 	NSTimer* timer;
- 
+ 	NSTimer* hudtimer;
+
     bool fAnimate;
 	IBOutlet NSMenuItem * animateMenuItem;
     bool fInfo;
@@ -26,6 +30,11 @@
 	NSOpenGLPixelFormat * fullScreenGLPixelFormat;
 		
 	CFAbsoluteTime time;
+	CVDisplayLinkRef displayLink; //display link for managing rendering thread
+	
+	IBOutlet NSTextField * fpsText;
+
+	int fps;
 }
 
 + (NSOpenGLPixelFormat*) basicPixelFormat;
@@ -51,7 +60,9 @@
 
 -(void)mouseMoved:(NSEvent *)theEvent;
 
-- (void)animationTimer:(NSTimer *)timer;
+- (void)animationTimer:(NSTimer*)timer;
+- (void)updateHud:(NSTimer*)timer;
+
 - (void) drawRect:(NSRect)rect;
 
 - (void) update;		// moved or resized

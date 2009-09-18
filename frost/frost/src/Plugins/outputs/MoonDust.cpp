@@ -7,7 +7,7 @@
 MoonDust::MoonDust(){
 	type = OUTPUT;
 	
-	for(int i=0;i<100;i++){
+	for(int i=0;i<300;i++){
 		particles.push_back(DustParticle(0.5+ofRandom(-0.1,0.1),ofRandom(0, 1),0));
 	}
 	
@@ -19,8 +19,10 @@ MoonDust::MoonDust(){
 }
 
 void MoonDust::setup(){
-	particleImg.loadImage("MoonDustParticle30.png");
-	particleTrack.loadImage("MoonDustTrack.png");
+	particleImg = new ofImage;
+		particleTrack = new ofImage;
+	particleImg->loadImage("MoonDustParticle30.png");
+	particleTrack->loadImage("MoonDustTrack.png");
 }
 
 void MoonDust::update(){
@@ -41,8 +43,8 @@ void MoonDust::draw(){
     vector<DustParticle>::iterator it;
     it = particles.begin();
     while( it != particles.end() ) {
-		particleTrack.draw((*it).x, (*it).y, -(*it).v.x*3000.0*size, size);
-		particleImg.draw((*it).x-size/2.0-(*it).v.x*100.0*size, (*it).y,size,size);
+		particleTrack->draw((*it).x, (*it).y, -(*it).v.x*3000.0*size, size);
+		particleImg->draw((*it).x-size/2.0-(*it).v.x*100.0*size, (*it).y,size,size);
 		float a = 100;
 		/*for(int i=(*it).history.size()-1;i>=0;i--){
 			a -= 100.0/(*it).history.size();
@@ -74,13 +76,15 @@ DustParticle::DustParticle(float _x, float _y, float _z){
 	goingMax = false;
 }
 
-void DustParticle::update(float force, float damp, float min, float max){
+void DustParticle::update(float force, float damp, float _min, float _max){
+	min = _min;
+	max = _max;
 	history.push_back(pos());
 	if(history.size() > 40){
 		history.erase(history.begin());
 	}
 
-	float a = vEffect*0.0001*100.0/ofGetFrameRate(); 
+	float a = vEffect*force*0.0001*60.0/ofGetFrameRate(); 
 	if(!goingMax){
 		a *= -1;
 	}	

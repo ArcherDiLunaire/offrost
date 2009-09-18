@@ -6,10 +6,14 @@
 
 //--------------------------------------------------------------
 
-testApp::testApp(): otherWindow(), projectionSurfaceWindow(), ofBaseApp() {
+testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), ofBaseApp() {
 	setupCalled = false;
 	pluginController = new PluginController;
+	pluginController->addPlugin(new Cameras);
+	pluginController->addPlugin(new BlobTracking);
+
 	pluginController->addPlugin(new ProjectionSurfaces);
+	
 	pluginController->addPlugin(new MoonDust);
 
 	
@@ -21,9 +25,7 @@ void testApp::setup(){
 	ofSetDataPathRoot("data/");
 	ofEnableAlphaBlending();
 	ofBackground(0,0,0);	
-	
-	vidGrabber = new ofVideoGrabber();
-	vidGrabber->initGrabber(640, 480);
+
 	
 	
 	pluginController->setup();
@@ -50,6 +52,11 @@ void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 		projectionSurfaceWindow = delegate;
 		projectionSurfaceWindow->setup(&testApp::drawProjectionSurfaceView);
 	}
+	if(i == 3){
+		blobWindow = delegate;
+		blobWindow->setup(&testApp::drawBlobWindow);
+	}
+	
 }
 
 
@@ -66,7 +73,6 @@ void testApp::update()
 	
 	}
 	
-	vidGrabber->grabFrame();
 	pluginController->update();
 }
 
@@ -75,10 +81,11 @@ void testApp::draw(){
 	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 20);
 	
 	pluginController->draw();
+	fps = ofGetFrameRate();
 }
 
 void testApp::drawCameraView(){
-	vidGrabber->draw(0,0,otherWindow->getWidth(),otherWindow->getHeight());
+	getPlugin<Cameras*>(pluginController)->vidGrabber->draw(0,0,otherWindow->getWidth(),otherWindow->getHeight());
 }
 
 void testApp::drawProjectionSurfaceView(){
@@ -86,10 +93,18 @@ void testApp::drawProjectionSurfaceView(){
 	ofRect(0, 0, 10, 10);
 }
 
+void testApp::drawBlobWindow(){
+	ofSetColor(255,255, 255);
+	getPlugin<BlobTracking*>(pluginController)->draw();
+
+}
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
 	if(key == 'f'){
 		ofToggleFullscreen();
+	}
+	if(key == 'c'){
+		getPlugin<Cameras*>(pluginController)->vidGrabber->videoSettings();
 	}
 }
 
@@ -110,28 +125,12 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	/*for (int i = 0; i < nCurveVertexes; i++){
-	 float diffx = x - curveVertices[i].x;
-	 float diffy = y - curveVertices[i].y;
-	 float dist = sqrt(diffx*diffx + diffy*diffy);
-	 if (dist < curveVertices[i].radius){
-	 curveVertices[i].bBeingDragged = true;
-	 } else {
-	 curveVertices[i].bBeingDragged = false;
-	 }	
-	 }
-	 
-	 printf("mouseX is %i mouseY is %i \n", x, y);
-	 
-	 */
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-	/*
-	 for (int i = 0; i < nCurveVertexes; i++){
-	 curveVertices[i].bBeingDragged = false;	
-	 }*/
+
 }
 
 //--------------------------------------------------------------
