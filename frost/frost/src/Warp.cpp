@@ -3,8 +3,8 @@
 Warp::Warp()
 {
 	// CORNERS
-	SetWindowSize(ofGetWidth(), ofGetHeight());
-//	SetWindowSize(1.0,1.0);
+//	SetWindowSize(1024, 768));
+	SetWindowSize(1.0,1.0);
 
 	corners[0].set(0,0);
 	corners[1].set(1,0);

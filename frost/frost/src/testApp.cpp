@@ -38,6 +38,7 @@ void testApp::setup(){
 
 void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 {
+	cout<<"Setup called: "<<setupCalled<<endl;
 	if(i == 0){
 		cout<<"---------- ERROR: Window_id is 0 ------------"<<endl;
 	}	
@@ -47,8 +48,9 @@ void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 	}
 	if(i == 2){
 		projectionSurfaceWindow = delegate;
-		projectionSurfaceWindow->setup(&testApp::drawProjectionSurfaceView);
 		getPlugin<ProjectionSurfaces*>(pluginController)->glDelegate = delegate;
+		projectionSurfaceWindow->setup(&testApp::drawProjectionSurfaceView);
+		getPlugin<ProjectionSurfaces*>(pluginController)->guiWakeup();
 	}
 	if(i == 3){
 		blobWindow = delegate;

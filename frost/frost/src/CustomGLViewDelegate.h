@@ -1,6 +1,8 @@
 #ifndef CUSTOMGLVIEWDELEGATE_H
 #define CUSTOMGLVIEWDELEGATE_H
 
+#include "ofEvents.h"
+#include "ofxVectorMath.h"
 /*
  
  You can either use this class as a bridge between the cocoa window and your
@@ -47,6 +49,13 @@ public:
 	void (testApp::*drawMethod)();
 	bool setupCalled;
 	
+	ofEvent<ofKeyEventArgs> 	keyPressed;
+	ofEvent<ofKeyEventArgs> 	keyReleased;
+	
+	ofEvent<ofMouseEventArgs> 	mouseMoved;
+	ofEvent<ofMouseEventArgs> 	mouseDragged;
+	ofEvent<ofMouseEventArgs> 	mousePressed;
+	ofEvent<ofMouseEventArgs> 	mouseReleased;	
 	
 	//----------------------------------------------------
 	

@@ -14,7 +14,7 @@ public:
 	
 	Warp * floorProjection;
 	
-	void applyFloorProjection();
+	void applyFloorProjection(float w=ofGetWidth(), float h=ofGetHeight());
 	
 	bool drawDebug;
 
@@ -24,4 +24,10 @@ public:
 	
 	ofxVec2f lastMousePos;
 	int selectedCorner;
+	
+	void mousePressed(ofMouseEventArgs & args);
+	void mouseDragged(ofMouseEventArgs & args);
+	void guiWakeup();
+	
+	int w,h, offset;
 };

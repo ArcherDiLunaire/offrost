@@ -334,7 +334,7 @@
 	/*
 	 Our custom view does not have to have the same FPS as main view.
 	 */
-	timer = [NSTimer timerWithTimeInterval:(1.0f/30.0f) target:self selector:@selector(animationTimer:) userInfo:nil repeats:YES];
+	timer = [NSTimer timerWithTimeInterval:(1.0f/100.0f) target:self selector:@selector(animationTimer:) userInfo:nil repeats:YES];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode]; // ensure timer fires during resize
 	

@@ -30,6 +30,8 @@ CustomGLViewDelegate::CustomGLViewDelegate(int i){
 //	window_id = CustomGLViewDelegate::window_id_counter;
 //	CustomGLViewDelegate::window_id_counter++;
 	window_id = i;
+	
+	
 }
 void CustomGLViewDelegate::setupOpenGLForOF( int w, int h )
 {
@@ -114,35 +116,72 @@ void CustomGLViewDelegate::setTitle( std::string title )
  */
 void CustomGLViewDelegate::handleMouseMove( int x, int y )
 {
-	m_MouseX = mouseX = x; m_MouseY = mouseY = y;
-	printf( "CustomGLViewDelegate::handleMouseMove @ %i, %i\n", x, y );
+	m_MouseX = mouseX = x; m_MouseY = mouseY = m_Height -  y;
+//	printf( "CustomGLViewDelegate::handleMouseMove @ %i, %i\n", x, y );
+	
+	static ofMouseEventArgs mouseEventArgs;
+	mouseEventArgs.x = mouseX;
+	mouseEventArgs.y = mouseY;
+	
+	ofNotifyEvent( mouseMoved, mouseEventArgs );
 }
 
 void CustomGLViewDelegate::handleMouseDown( int x, int y, int b )
-{
-	m_MouseX = mouseX= x; m_MouseY = mouseY = y;
+{	
+	m_MouseX = mouseX= x; m_MouseY = mouseY = m_Height - y;	
+
+	static ofMouseEventArgs mouseEventArgs;
+	mouseEventArgs.x = mouseX;
+	mouseEventArgs.y = mouseY;
+	mouseEventArgs.button = b;
+	
+	ofNotifyEvent( mousePressed, mouseEventArgs );
+
+	
+
+	
 	printf( "CustomGLViewDelegate::handleMouseDown @ %i, %i - button %i\n", x, y, b );
 }
 
 void CustomGLViewDelegate::handleMouseUp( int b ) 
 {
-	printf( "CustomGLViewDelegate::handleMouseUp @ %i, %i - button %i\n", m_MouseX, m_MouseY, b );
+//	printf( "CustomGLViewDelegate::handleMouseUp @ %i, %i - button %i\n", m_MouseX, m_MouseY, b );'
+	static ofMouseEventArgs mouseEventArgs;
+
+	ofNotifyEvent( mouseReleased, mouseEventArgs );
 }
 
 void CustomGLViewDelegate::handleKeyDown( int key )
 {
 	printf( "CustomGLViewDelegate::handleKeyDown: %i\n", key );
+	static ofKeyEventArgs keyEventArgs;
+	
+	keyEventArgs.key = key;
+	ofNotifyEvent( keyPressed, keyEventArgs );
+	
 }
 
 void CustomGLViewDelegate::handleMouseDragged( int x, int y, int b )
 {
-	m_MouseX = x; m_MouseY = y;
-	printf( "CustomGLViewDelegate::handleMouseDragged @ %i, %i - button %i\n", x, y, b );
+	m_MouseX = mouseX = x; m_MouseY = mouseY = m_Height -y;
+//	printf( "CustomGLViewDelegate::handleMouseDragged @ %i, %i - button %i\n", x, y, b );
+	
+	static ofMouseEventArgs mouseEventArgs;
+	mouseEventArgs.x = mouseX;
+	mouseEventArgs.y = mouseY;
+	mouseEventArgs.button = b;
+	
+	ofNotifyEvent( mouseDragged, mouseEventArgs );
+	
 }
 
 void CustomGLViewDelegate::handleKeyUp( int key )
 {
 	printf( "CustomGLViewDelegate::handleKeyUp: %i\n", key );
+	static ofKeyEventArgs keyEventArgs;
+	
+	keyEventArgs.key = key;
+	ofNotifyEvent( keyReleased, keyEventArgs );
 }
 
 /*

@@ -16,6 +16,8 @@ public:
 	
 	int type;
 	bool enabled;
+	
+	virtual void guiWakeup(){};
 	CustomGLViewDelegate * glDelegate;
 	float dt;
 	
