@@ -24,20 +24,20 @@ void ofxVideoGrabberSettings::setupVideoSettings(ofxVideoGrabberSDK* _videoGrabb
 //--------------------------------------------------------------------
 void ofxVideoGrabberSettings::setupGUIEvents()
 {
-    ofAddListener(ofEvents.mousePressed, this, &ofxVideoGrabberSettings::mousePressed);
-    ofAddListener(ofEvents.mouseDragged, this, &ofxVideoGrabberSettings::mouseDragged);
-    ofAddListener(ofEvents.mouseReleased, this, &ofxVideoGrabberSettings::mouseReleased);
+   // ofAddListener(ofEvents.mousePressed, this, &ofxVideoGrabberSettings::mousePressed);
+   // ofAddListener(ofEvents.mouseDragged, this, &ofxVideoGrabberSettings::mouseDragged);
+ //   ofAddListener(ofEvents.mouseReleased, this, &ofxVideoGrabberSettings::mouseReleased);
 }
 
 //--------------------------------------------------------------------
 void ofxVideoGrabberSettings::toggleSettingsGUI()
 {
-    if(panel.hidden)
-        panel.show();
-    else
-        panel.hide();
+   // if(panel.hidden)
+  //      panel.show();
+  //  else
+  //      panel.hide();
 }
-
+/*
 //--------------------------------------------------------------------
 void ofxVideoGrabberSettings::mousePressed(ofMouseEventArgs & args)
 {
@@ -55,4 +55,4 @@ void ofxVideoGrabberSettings::mouseReleased(ofMouseEventArgs & args)
 {
     panel.mouseReleased();
 }
-
+*/
