@@ -11,6 +11,7 @@
 		279AE7D310650B3500FBEE17 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AE7C810650B3500FBEE17 /* tinyxmlerror.cpp */; };
 		279AE7D410650B3500FBEE17 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AE7C910650B3500FBEE17 /* tinyxmlparser.cpp */; };
 		279AE7D510650B3500FBEE17 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AE7CB10650B3500FBEE17 /* ofxXmlSettings.cpp */; };
+		279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AEC3A10668C0100FBEE17 /* coordWarp.cpp */; };
 		3F1E59AB100B75550091B692 /* SharedContextGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59AA100B75550091B692 /* SharedContextGLView.m */; };
 		3F1E59B1100B77800091B692 /* CustomGLViewDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59B0100B77800091B692 /* CustomGLViewDelegate.cpp */; };
 		DD6EA0CF1062C832001EC207 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6EA0CE1062C832001EC207 /* QTKit.framework */; };
@@ -106,6 +107,8 @@
 		279AE7C910650B3500FBEE17 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlparser.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		279AE7CB10650B3500FBEE17 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxXmlSettings.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		279AE7CC10650B3500FBEE17 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxXmlSettings.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		279AEC3A10668C0100FBEE17 /* coordWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coordWarp.cpp; path = src/coordWarp.cpp; sourceTree = SOURCE_ROOT; };
+		279AEC3B10668C0100FBEE17 /* coordWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = coordWarp.h; path = src/coordWarp.h; sourceTree = SOURCE_ROOT; };
 		3F1E59A9100B75550091B692 /* SharedContextGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedContextGLView.h; path = ../SharedContextGLView.h; sourceTree = "<group>"; };
 		3F1E59AA100B75550091B692 /* SharedContextGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedContextGLView.m; path = ../SharedContextGLView.m; sourceTree = "<group>"; };
 		3F1E59AF100B77800091B692 /* CustomGLViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomGLViewDelegate.h; path = ../CustomGLViewDelegate.h; sourceTree = "<group>"; };
@@ -1197,6 +1200,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				279AEC3A10668C0100FBEE17 /* coordWarp.cpp */,
+				279AEC3B10668C0100FBEE17 /* coordWarp.h */,
 				E434918D0FF29FBB00E5A170 /* ofAppCocoaWindow */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
@@ -1355,6 +1360,7 @@
 				279AE7D310650B3500FBEE17 /* tinyxmlerror.cpp in Sources */,
 				279AE7D410650B3500FBEE17 /* tinyxmlparser.cpp in Sources */,
 				279AE7D510650B3500FBEE17 /* ofxXmlSettings.cpp in Sources */,
+				279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

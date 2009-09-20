@@ -4,6 +4,7 @@
 #include "ofxVectorMath.h"
 #include "Warp.h"
 #include "ofxXmlSettings.h"
+#include "coordWarp.h"
 
 class ProjectionSurfacesObject {
 public:
@@ -25,12 +26,15 @@ public:
 	
 	Warp * floorProjection;
 	float floorAspect;
+	coordWarping * floorCoordWarp;
 
 	Warp * columnProjection[3];
 	float columnAspect[3];
+	coordWarping * columnCoordWarp[3];
 
 	Warp * curtainProjection[6];
 	float curtainAspect[6];
+	coordWarping * curtainCoordWarp[6];
 	
 	vector<ProjectionSurfacesObject *> objects;
 	

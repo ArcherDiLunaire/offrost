@@ -4,13 +4,17 @@
 ProjectionSurfaces::ProjectionSurfaces(){
 	type = DATA;
 	floorProjection = new Warp();
+	floorCoordWarp = new coordWarping;
+	
 	for(int i=0;i<3;i++){
 		columnProjection[i] = new Warp();
 		columnAspect[i] = 1.0;
+		columnCoordWarp[i] = new coordWarping;
 	}
 	for(int i=0;i<6;i++){
 		curtainProjection[i] = new Warp();
 		curtainAspect[i] = 1.0;
+		curtainCoordWarp[i] = new coordWarping;
 	}
 	
 	for(int i=0;i<10;i++){
@@ -190,8 +194,7 @@ void ProjectionSurfaces::drawSettings(){
 		float a = 0.3;
 		if(selectedKeystoner == i){
 			a = 1.0;
-		}
-		
+		}		
 		applyProjection(objects[i], w, h);	
 		
 		if(i>0&&i<4){
