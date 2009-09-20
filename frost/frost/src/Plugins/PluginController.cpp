@@ -24,18 +24,28 @@ void PluginController::update(){
 	}
 }
 void PluginController::draw(){
+
 	
 	for(int i=0;i<plugins.size();i++){
 		FrostPlugin* plugin = plugins[i];
-		if(plugin->type == FrostPlugin::OUTPUT && plugin->enabled){
+		//		if(plugin->type == FrostPlugin::OUTPUT && plugin->enabled){
+		if(plugin->enabled){
 			plugin->draw(); 
 		}
 	}
+}
+
+void PluginController::drawFloor(){
+	FrostPlugin* plugin = plugins[0];
+	plugin->applyFloorProjection();
+	
 	for(int i=0;i<plugins.size();i++){
 		FrostPlugin* plugin = plugins[i];
-		if(plugin->type == FrostPlugin::DATA && plugin->enabled){
-			plugin->draw(); 
+//		if(plugin->type == FrostPlugin::OUTPUT && plugin->enabled){
+		if(plugin->enabled){
+			plugin->drawOnFloor(); 
 		}
 	}
+	
 }
 

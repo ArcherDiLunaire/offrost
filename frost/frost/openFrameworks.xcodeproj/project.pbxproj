@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		279AE7D210650B3500FBEE17 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AE7C610650B3500FBEE17 /* tinyxml.cpp */; };
+		279AE7D310650B3500FBEE17 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AE7C810650B3500FBEE17 /* tinyxmlerror.cpp */; };
+		279AE7D410650B3500FBEE17 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AE7C910650B3500FBEE17 /* tinyxmlparser.cpp */; };
+		279AE7D510650B3500FBEE17 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AE7CB10650B3500FBEE17 /* ofxXmlSettings.cpp */; };
 		3F1E59AB100B75550091B692 /* SharedContextGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59AA100B75550091B692 /* SharedContextGLView.m */; };
 		3F1E59B1100B77800091B692 /* CustomGLViewDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59B0100B77800091B692 /* CustomGLViewDelegate.cpp */; };
 		DD6EA0CF1062C832001EC207 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6EA0CE1062C832001EC207 /* QTKit.framework */; };
@@ -96,6 +100,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		279AE7C610650B3500FBEE17 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		279AE7C710650B3500FBEE17 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/libs/tinyxml.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		279AE7C810650B3500FBEE17 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlerror.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		279AE7C910650B3500FBEE17 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlparser.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		279AE7CB10650B3500FBEE17 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxXmlSettings.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		279AE7CC10650B3500FBEE17 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxXmlSettings.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		3F1E59A9100B75550091B692 /* SharedContextGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedContextGLView.h; path = ../SharedContextGLView.h; sourceTree = "<group>"; };
 		3F1E59AA100B75550091B692 /* SharedContextGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedContextGLView.m; path = ../SharedContextGLView.m; sourceTree = "<group>"; };
 		3F1E59AF100B77800091B692 /* CustomGLViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomGLViewDelegate.h; path = ../CustomGLViewDelegate.h; sourceTree = "<group>"; };
@@ -412,6 +422,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		279AE7BB10650B3500FBEE17 /* ofxXmlSettings */ = {
+			isa = PBXGroup;
+			children = (
+				279AE7C510650B3500FBEE17 /* libs */,
+				279AE7CA10650B3500FBEE17 /* src */,
+			);
+			name = ofxXmlSettings;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		279AE7C510650B3500FBEE17 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				279AE7C610650B3500FBEE17 /* tinyxml.cpp */,
+				279AE7C710650B3500FBEE17 /* tinyxml.h */,
+				279AE7C810650B3500FBEE17 /* tinyxmlerror.cpp */,
+				279AE7C910650B3500FBEE17 /* tinyxmlparser.cpp */,
+			);
+			name = libs;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/libs;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		279AE7CA10650B3500FBEE17 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				279AE7CB10650B3500FBEE17 /* ofxXmlSettings.cpp */,
+				279AE7CC10650B3500FBEE17 /* ofxXmlSettings.h */,
+			);
+			name = src;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/ofxXmlSettings/src;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
 		DD7CC3AF1063C47100D3736A /* ofxOpenCv */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +628,7 @@
 		DDB85141105E808700D1ED92 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				279AE7BB10650B3500FBEE17 /* ofxXmlSettings */,
 				DD7CC3AF1063C47100D3736A /* ofxOpenCv */,
 				DDB85149105E809300D1ED92 /* ofxVectorMath */,
 				DD7CC4AD1063CE9100D3736A /* ofxThread */,
@@ -1308,6 +1351,10 @@
 				DDFEC6CF1063D2DA0068D31A /* ofxVideoGrabberFeature.cpp in Sources */,
 				DDFEC6D01063D2DA0068D31A /* ofxVideoGrabberSettings.cpp in Sources */,
 				DDFEC7091063D58C0068D31A /* ofxNOSettings.cpp in Sources */,
+				279AE7D210650B3500FBEE17 /* tinyxml.cpp in Sources */,
+				279AE7D310650B3500FBEE17 /* tinyxmlerror.cpp in Sources */,
+				279AE7D410650B3500FBEE17 /* tinyxmlparser.cpp in Sources */,
+				279AE7D510650B3500FBEE17 /* ofxXmlSettings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

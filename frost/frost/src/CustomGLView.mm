@@ -14,6 +14,10 @@
 	return [super basicPixelFormat];
 }
 
+-(void) init {
+	printf("INIT");
+
+}
 
 
 #pragma mark ---- IB Actions ----
@@ -208,8 +212,8 @@
 			printf("render 2");		
 		}*/
 	[[self openGLContext] makeCurrentContext];
-
 	if(doDraw){
+
 		NSRect rectView = [self bounds];
 		
 		delegate->render( rectView.size.width, rectView.size.height );
@@ -233,7 +237,8 @@
 	//creation of the GL  context
 	NSOpenGLPixelFormat * pf = [CustomGLView basicPixelFormat];
 	self = [super initWithFrame: frameRect pixelFormat: pf];
-	
+	doDraw = false;
+
     return self;
 }
 
@@ -311,7 +316,6 @@
 {
 	[super awakeFromNib];
 	
-	doDraw = false;
 	fInfo = 1;
 	fAnimate = 1;
 	time = CFAbsoluteTimeGetCurrent ();  // set animation time start time

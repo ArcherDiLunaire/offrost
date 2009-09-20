@@ -6,7 +6,7 @@
 
 //--------------------------------------------------------------
 
-testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), ofBaseApp() {
+testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floorPreview(), ofBaseApp() {
 	setupCalled = false;
 	pluginController = new PluginController;
 	pluginController->addPlugin(new Cameras);
@@ -34,11 +34,14 @@ void testApp::setup(){
 	//obj.get(pluginController);
 	setupCalled = true;
 	
+	glEnable (GL_MULTISAMPLE_ARB);
+    glHint (GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST);
+	
 }
 
 void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 {
-	cout<<"Setup called: "<<setupCalled<<endl;
+	cout<<"Setup called: "<<setupCalled<< "   "<<i<<endl;
 	if(i == 0){
 		cout<<"---------- ERROR: Window_id is 0 ------------"<<endl;
 	}	
@@ -55,6 +58,12 @@ void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 	if(i == 3){
 		blobWindow = delegate;
 		blobWindow->setup(&testApp::drawBlobWindow);
+	}
+	
+	if(i == 4){
+		cout<<"Set up preview"<<endl;
+		floorPreview = delegate;
+		floorPreview->setup(&testApp::drawFloorPreview);
 	}
 	
 }
@@ -81,6 +90,7 @@ void testApp::draw(){
 	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 20);
 	
 	pluginController->draw();
+		pluginController->drawFloor();
 	fps = ofGetFrameRate();
 }
 
@@ -97,6 +107,17 @@ void testApp::drawBlobWindow(){
 	getPlugin<BlobTracking*>(pluginController)->draw();
 
 }
+
+void testApp::drawFloorPreview(){
+	glScaled(floorPreview->m_Width, floorPreview->m_Height, 1.0);
+	for(int i=0;i<pluginController->plugins.size();i++){
+		FrostPlugin* plugin = pluginController->plugins[i];
+		if(plugin->enabled){
+			plugin->drawOnFloor(); 
+		}
+	}
+}
+
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
 	if(key == 'f'){

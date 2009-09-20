@@ -23,7 +23,8 @@ public:
 	void setup();
 	void draw();
 	void update();
-	
+	void drawOnFloor();
+
 	float force;
 	float damp;
 	vector<DustParticle> particles;

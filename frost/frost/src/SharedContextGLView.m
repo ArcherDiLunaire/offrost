@@ -37,13 +37,19 @@ NSOpenGLContext* __sharedOpenGLContext;
 
 +(NSOpenGLPixelFormat*)basicPixelFormat
 {
-	NSOpenGLPixelFormatAttribute attributes [] = {
-		NSOpenGLPFAWindow,
-		NSOpenGLPFADoubleBuffer,	// double buffered
-		NSOpenGLPFADepthSize, (NSOpenGLPixelFormatAttribute)16, // 16 bit depth buffer
-		(NSOpenGLPixelFormatAttribute)nil
-	};
-	return [[[NSOpenGLPixelFormat alloc] initWithAttributes:attributes] autorelease];
+	
+	
+	NSOpenGLPixelFormatAttribute attrs[] =
+    {
+        NSOpenGLPFAPixelBuffer,
+        NSOpenGLPFADoubleBuffer,
+        NSOpenGLPFAAccelerated,
+        NSOpenGLPFAMultisample,
+        NSOpenGLPFASampleBuffers, (NSOpenGLPixelFormatAttribute)1,
+        NSOpenGLPFASamples, (NSOpenGLPixelFormatAttribute)4,
+        (NSOpenGLPixelFormatAttribute)nil
+    };
+	return [[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs] autorelease];
 }
 
 

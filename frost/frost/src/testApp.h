@@ -34,6 +34,8 @@ private:
 	CustomGLViewDelegate* projectionSurfaceWindow;
 	CustomGLViewDelegate* blobWindow;
 
+	CustomGLViewDelegate* floorPreview;
+
 	
 public:
 	
@@ -47,6 +49,7 @@ public:
 	void drawCameraView();
 	void drawProjectionSurfaceView();
 	void drawBlobWindow();
+	void drawFloorPreview();
 
 	void keyPressed(int key);
 	void keyReleased(int key);

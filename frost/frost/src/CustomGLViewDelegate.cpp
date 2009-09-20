@@ -136,11 +136,6 @@ void CustomGLViewDelegate::handleMouseDown( int x, int y, int b )
 	mouseEventArgs.button = b;
 	
 	ofNotifyEvent( mousePressed, mouseEventArgs );
-
-	
-
-	
-	printf( "CustomGLViewDelegate::handleMouseDown @ %i, %i - button %i\n", x, y, b );
 }
 
 void CustomGLViewDelegate::handleMouseUp( int b ) 
@@ -226,7 +221,7 @@ void CustomGLViewDelegate::render( int w, int h )
 		setupOpenGLForOF( w, h );
 		
 		// do whatever you want here...
-		
+
 		(OFSAptr->*drawMethod)();
 	}
 	

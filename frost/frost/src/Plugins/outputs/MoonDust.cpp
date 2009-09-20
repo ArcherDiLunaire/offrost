@@ -32,12 +32,14 @@ void MoonDust::update(){
 		particles[i].update(force, damp, min, max);
 	}
 }
-
 void MoonDust::draw(){
+}
+
+void MoonDust::drawOnFloor(){
 	float size = 0.01;
 	ofSetColor(255, 255, 255);
 
-	applyFloorProjection();
+	//applyFloorProjection();
 	
 	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
     vector<DustParticle>::iterator it;

@@ -52,11 +52,11 @@ void BlobTracking::update(){
 	}	
 }
 void BlobTracking::draw(){
-	for(int i=0;i<trackers.size();i++){
+	/*for(int i=0;i<trackers.size();i++){
 		trackers[i]->grabber->draw(0,0,100,100);
 		trackers[i]->grayBg.draw(100,0,100,100);
 		trackers[i]->grayDiff.draw(200,0,100,100);
 		
-	}	
+	}	*/
 }
 

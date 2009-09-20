@@ -64,8 +64,13 @@
 	IBOutlet NSSlider * MoonDustDamp;
 	
 	IBOutlet NSButton * ProjectorShowDebug;
+	IBOutlet NSMatrix * ProjectorMatrix;
+	IBOutlet NSSlider * ProjectorFloorAspect;
+	IBOutlet NSTextField * ProjectorFloorAspectText;
 
 	IBOutlet NSSlider * BlobThreshold;
+
+
 
 	
 	NSMutableArray * viewItems;
@@ -75,6 +80,8 @@
 	IBOutlet CustomGLView * projectorView;
 	IBOutlet CustomGLView * blobView;
 
+	IBOutlet CustomGLView * floorPreview;
+	
 
 }
 @property (retain, readwrite) NSMutableArray *viewItems;
@@ -92,6 +99,8 @@
 -(IBAction)		setMoonDustDamp:(id)sender;
 
 -(IBAction)		setProjectorShowDebug:(id)sender;
+-(IBAction)		setProjectorMatrix:(id)sender;
+-(IBAction)		setProjectorFloorAspect:(id)sender;
 
 -(IBAction)		setBlobThreshold:(id)sender;
 

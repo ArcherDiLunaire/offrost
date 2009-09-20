@@ -93,6 +93,12 @@ OFGuiController * gui = NULL;
 	[camView setWindowId:1];
 	[projectorView setWindowId:2];
 	[blobView setWindowId:3];
+	
+	[floorPreview setWindowId:4];
+	[floorPreview setDoDraw:TRUE];
+	
+	[ProjectorFloorAspectText setStringValue:[[NSNumber numberWithFloat:((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->floorAspect] stringValue]];
+
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {
@@ -126,6 +132,10 @@ OFGuiController * gui = NULL;
 		
 
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
+		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->floorAspect = [userDefaults doubleForKey:@"projectionsurfaces.flooraspect"];	
+
+		printf("Aspect: %f",[userDefaults doubleForKey:@"projectionsurfaces.flooraspect"]);
+		
 		gui = self;
 		
 		viewItems = [[NSMutableArray alloc] init];			
@@ -147,6 +157,7 @@ OFGuiController * gui = NULL;
 		[projectionSurfacesView retain];
 		[moonDustView retain];
 		
+
 	
 
 		
@@ -280,6 +291,27 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = b;
 	}
 }	
+
+-(IBAction)		setProjectorMatrix:(id)sender {
+	if(ofApp->setupCalled){
+		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->selectedKeystoner = [sender selectedRow];
+		if([sender selectedRow] == 0){
+			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->w = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/3.0;
+			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->h = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/3.0;
+		} else {
+			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->w = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.50;
+			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->h = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.5;
+		}
+	}
+}
+
+
+-(IBAction)		setProjectorFloorAspect:(id)sender{
+	if(ofApp->setupCalled){
+		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->floorAspect = [sender doubleValue];
+		[ProjectorFloorAspectText setStringValue:[sender stringValue]];
+	}
+}
 
 
 -(IBAction)	setBlobThreshold:(id)sender{
