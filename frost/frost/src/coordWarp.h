@@ -5,8 +5,8 @@
 #define OF_ADDON_USING_OFXVECTORMATH
 
 #include "ofMain.h"
-#include "ofAddons.h"
-
+#include "ofxOpenCv.h"
+#include "ofxVectorMath.h"
 //we use openCV to calculate our transform matrix
 #include "ofxCvConstants.h"
 #include "ofxCvContourFinder.h"
