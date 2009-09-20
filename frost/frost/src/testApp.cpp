@@ -27,6 +27,8 @@ void testApp::setup(){
 	ofBackground(0,0,0);	
 
 	
+	ofSetLogLevel(OF_LOG_VERBOSE);
+	
 	
 	pluginController->setup();
 
