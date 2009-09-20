@@ -40,9 +40,13 @@ Libdc1394Grabber::Libdc1394Grabber()
 	
     if( list->num == 0 ) {
 		ofLog(OF_LOG_ERROR, "No cameras found");
-    }
-	
-	
+    } else {
+		//RESET BUS, NAUGHTY AND WICKED
+		//dc1394camera_t *cam = dc1394_camera_new (d, list->ids[0].guid);
+		dc1394_cleanup_iso_channels_and_bandwidth();
+		//dc1394_camera_free(cam);
+		
+	}
 }
 
 Libdc1394Grabber::~Libdc1394Grabber()
@@ -121,6 +125,20 @@ bool Libdc1394Grabber::init( int _width, int _height, int _format, int _targetFo
 bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t _frameRate )
 {
 
+	/***  
+	
+	 TODO Select camera in a hierachy of GUID, then unit - cus UNIT != INDEX
+	
+	 see below
+	 
+	 /**
+	 * Create a new camera based on a GUID and a unit number (for multi-unit cameras)
+	 
+	 dc1394camera_t * dc1394_camera_new_unit(dc1394_t *dc1394, uint64_t guid, int unit);
+	
+	
+	 ****/
+	
 	dc1394camera_t **cameras = NULL;
 	uint32_t numCameras, i;
 	
@@ -190,8 +208,8 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 
 	ofLog(OF_LOG_NOTICE, "Using Camera with GUID %llx",camera->guid);
 
-	dc1394_video_set_iso_speed(camera, ISO_SPEED);
 	dc1394_video_set_operation_mode(camera, OPERATION_MODE);
+	dc1394_video_set_iso_speed(camera, ISO_SPEED);
 	
 	/* Get video modes */
 	if (dc1394_video_get_supported_modes(camera,&video_modes) != DC1394_SUCCESS)
