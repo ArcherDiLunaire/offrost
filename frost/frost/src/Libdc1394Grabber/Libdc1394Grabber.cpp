@@ -42,9 +42,12 @@ Libdc1394Grabber::Libdc1394Grabber()
 		ofLog(OF_LOG_ERROR, "No cameras found");
     } else {
 		//RESET BUS, NAUGHTY AND WICKED
-		//dc1394camera_t *cam = dc1394_camera_new (d, list->ids[0].guid);
-		dc1394_cleanup_iso_channels_and_bandwidth();
-		//dc1394_camera_free(cam);
+		dc1394camera_t *cam = dc1394_camera_new (d, list->ids[0].guid);
+		//dc1394_cleanup_iso_channels_and_bandwidth(cam);
+		dc1394_capture_stop(cam);
+		dc1394_video_set_transmission(cam, DC1394_OFF);
+		dc1394_iso_release_all(cam);
+		dc1394_camera_free(cam);
 		
 	}
 }
