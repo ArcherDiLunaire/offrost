@@ -27,10 +27,10 @@ public:
 	float floorAspect;
 
 	Warp * columnProjection[3];
-	float columnAspect;
+	float columnAspect[3];
 
 	Warp * curtainProjection[6];
-	float curtainAspect[2];
+	float curtainAspect[6];
 	
 	vector<ProjectionSurfacesObject *> objects;
 	
@@ -61,7 +61,7 @@ public:
 
 	void guiWakeup();
 	
-	void drawGrid(string text, float aspect, int resolution);
+	void drawGrid(string text, float aspect, int resolution,  bool drawBorder, float alpha=1.0, float fontSize=1.0);
 	
 	int w,h, offset;
 	

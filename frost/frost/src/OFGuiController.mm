@@ -132,9 +132,7 @@ OFGuiController * gui = NULL;
 		
 
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
-		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->floorAspect = [userDefaults doubleForKey:@"projectionsurfaces.flooraspect"];	
 
-		printf("Aspect: %f",[userDefaults doubleForKey:@"projectionsurfaces.flooraspect"]);
 		
 		gui = self;
 		
@@ -302,14 +300,20 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->w = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.50;
 			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->h = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.5;
 		}
+//		[ProjectorFloorAspect setFloatValue:((*getPlugin<ProjectionSurfaces*>(ofApp->pluginController)->objects[[sender selectedRow]]->aspect))];
+		[ProjectorFloorAspect setMinValue:0.5];
+		[ProjectorFloorAspectText setDoubleValue:[ProjectorFloorAspect doubleValue]];
+
 	}
 }
 
 
 -(IBAction)		setProjectorFloorAspect:(id)sender{
 	if(ofApp->setupCalled){
-		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->floorAspect = [sender doubleValue];
+		(*((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->selectedKeystoner]->aspect) = [sender doubleValue];
 		[ProjectorFloorAspectText setStringValue:[sender stringValue]];
+		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->saveXml();
+
 	}
 }
 
