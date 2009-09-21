@@ -27,11 +27,6 @@ public:
 	
 	vector<CameraCalibrationObject *> objects;
 	
-	void applyFloorProjection(float w=ofGetWidth(), float h=ofGetHeight());
-	void applyColumnProjection(int column, float w=ofGetWidth(), float h=ofGetHeight());
-	void applyCurtainProjection(int column, int row, float w=ofGetWidth(), float h=ofGetHeight());
-	void applyProjection(CameraCalibrationObject * obj, float w=ofGetWidth(), float h=ofGetHeight());
-	
 	CameraCalibrationObject * getFloor();
 	CameraCalibrationObject * getColumn(int n);
 	CameraCalibrationObject * getCurtain(int n);

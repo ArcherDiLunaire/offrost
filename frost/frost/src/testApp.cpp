@@ -6,7 +6,7 @@
 
 //--------------------------------------------------------------
 
-testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floorPreview(), ofBaseApp() {
+testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floorPreview(), cameraCalibrationWindow(), ofBaseApp() {
 	setupCalled = false;
 	pluginController = new PluginController;
 	pluginController->addPlugin(new Cameras);
@@ -64,9 +64,15 @@ void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 	}
 	
 	if(i == 4){
-		cout<<"Set up preview"<<endl;
 		floorPreview = delegate;
 		floorPreview->setup(&testApp::drawFloorPreview);
+	}
+	
+	if(i == 5){
+		cameraCalibrationWindow = delegate;
+		getPlugin<CameraCalibration*>(pluginController)->glDelegate = delegate;
+		cameraCalibrationWindow->setup(&testApp::drawCameraCalibrationView);
+		getPlugin<CameraCalibration*>(pluginController)->guiWakeup();
 	}
 	
 }
@@ -107,6 +113,10 @@ void testApp::drawCameraView(){
 
 void testApp::drawProjectionSurfaceView(){
 	getPlugin<ProjectionSurfaces*>(pluginController)->drawSettings();
+}
+
+void testApp::drawCameraCalibrationView(){
+	getPlugin<CameraCalibration*>(pluginController)->drawSettings();	
 }
 
 void testApp::drawBlobWindow(){

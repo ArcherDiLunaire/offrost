@@ -32,6 +32,8 @@ private:
 	
 	CustomGLViewDelegate* otherWindow;
 	CustomGLViewDelegate* projectionSurfaceWindow;
+	CustomGLViewDelegate* cameraCalibrationWindow;
+
 	CustomGLViewDelegate* blobWindow;
 
 	CustomGLViewDelegate* floorPreview;
@@ -48,6 +50,7 @@ public:
 	
 	void drawCameraView();
 	void drawProjectionSurfaceView();
+	void drawCameraCalibrationView();
 	void drawBlobWindow();
 	void drawFloorPreview();
 

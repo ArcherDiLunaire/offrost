@@ -144,7 +144,7 @@ void CameraCalibration::draw(){
 }
 
 void CameraCalibration::drawSettings(){
-	glPushMatrix();
+/*	glPushMatrix();
 	glTranslated(offset, offset, 0);
 	glPushMatrix();
 	ofEnableAlphaBlending();
@@ -183,7 +183,7 @@ void CameraCalibration::drawSettings(){
 	}
 	
 	
-	glPopMatrix();
+	glPopMatrix();*/
 	
 }
 
