@@ -8,8 +8,9 @@
 
 class ProjectionSurfacesObject {
 public:
-	float * aspect;
+	float aspect;
 	Warp * warp;
+	coordWarping * coordWarp;
 	string name;
 };
 
@@ -24,35 +25,25 @@ public:
 	void setup();
 	void update();
 	
-	Warp * floorProjection;
-	float floorAspect;
-	coordWarping * floorCoordWarp;
-
-	Warp * columnProjection[3];
-	float columnAspect[3];
-	coordWarping * columnCoordWarp[3];
-
-	Warp * curtainProjection[6];
-	float curtainAspect[6];
-	coordWarping * curtainCoordWarp[6];
-	
 	vector<ProjectionSurfacesObject *> objects;
 	
 	void applyFloorProjection(float w=ofGetWidth(), float h=ofGetHeight());
 	void applyColumnProjection(int column, float w=ofGetWidth(), float h=ofGetHeight());
 	void applyCurtainProjection(int column, int row, float w=ofGetWidth(), float h=ofGetHeight());
 	void applyProjection(ProjectionSurfacesObject * obj, float w=ofGetWidth(), float h=ofGetHeight());
-
+	
+	ProjectionSurfacesObject * getFloor();
+	ProjectionSurfacesObject * getColumn(int n);
+	ProjectionSurfacesObject * getCurtain(int n);
+	
+	ofxPoint2f getColumnCoordinate(int column);
+	
 	bool drawDebug;
-	
 	ofTrueTypeFont	verdana;
-	
-	int gridFloorResolution;
 	
 	void drawSettings();
 	void drawDebugGrids(int _w=ofGetWidth(), int _h= ofGetHeight());
 	
-	Warp * getWarp(int i);
 	
 	ofxVec2f lastMousePos;
 	int selectedCorner;

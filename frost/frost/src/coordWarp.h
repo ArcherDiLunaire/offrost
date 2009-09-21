@@ -23,9 +23,10 @@ public:
 	void calculateMatrix(ofxPoint2f src[4], ofxPoint2f dst[4]);
 	
 	ofxPoint2f transform(float xIn, float yIn);
+	ofxPoint2f inversetransform(float xIn, float yIn);
 	
 	CvMat *translate;
-
+	CvMat *itranslate;
 protected:
 	
 	CvPoint2D32f cvsrc[4];

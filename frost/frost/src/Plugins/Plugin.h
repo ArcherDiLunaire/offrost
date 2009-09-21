@@ -5,6 +5,7 @@
 
 
 class PluginController;
+class ProjectionSurfaces;
 
 class FrostPlugin {
 public:
@@ -32,5 +33,8 @@ public:
 	virtual void drawOnFloor(){};
 	
 	void applyFloorProjection();
+	ProjectionSurfaces* projection();
+
+	float mouseX, mouseY;
 };
 

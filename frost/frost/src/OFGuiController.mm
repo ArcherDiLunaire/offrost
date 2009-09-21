@@ -97,7 +97,7 @@ OFGuiController * gui = NULL;
 	[floorPreview setWindowId:4];
 	[floorPreview setDoDraw:TRUE];
 	
-	[ProjectorFloorAspectText setStringValue:[[NSNumber numberWithFloat:((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->floorAspect] stringValue]];
+	[ProjectorFloorAspectText setStringValue:[[NSNumber numberWithFloat:((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[0]->aspect] stringValue]];
 
 }
 
@@ -310,7 +310,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 -(IBAction)		setProjectorFloorAspect:(id)sender{
 	if(ofApp->setupCalled){
-		(*((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->selectedKeystoner]->aspect) = [sender doubleValue];
+		(((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->selectedKeystoner]->aspect) = [sender doubleValue];
 		[ProjectorFloorAspectText setStringValue:[sender stringValue]];
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->saveXml();
 

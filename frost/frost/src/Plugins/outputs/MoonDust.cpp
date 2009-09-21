@@ -36,7 +36,7 @@ void MoonDust::draw(){
 }
 
 void MoonDust::drawOnFloor(){
-	float size = 0.01;
+	/*float size = 0.01;
 	ofSetColor(255, 255, 255);
 
 	//applyFloorProjection();
@@ -48,22 +48,19 @@ void MoonDust::drawOnFloor(){
 		particleTrack->draw((*it).x, (*it).y, -(*it).v.x*3000.0*size, size);
 		particleImg->draw((*it).x-size/2.0-(*it).v.x*100.0*size, (*it).y,size,size);
 		float a = 100;
-		/*for(int i=(*it).history.size()-1;i>=0;i--){
-			a -= 100.0/(*it).history.size();
-			ofSetColor(255, 255, 255,a);
-//			particleImg.draw((*it).history[i].x*ofGetWidth(), (*it).history[i].y*ofGetHeight(),size,size);			
-			ofEllipse((*it).history[i].x*ofGetWidth(), (*it).history[i].y*ofGetHeight(), size, size);
-
-		}*/
-
+		
 		++it;
     }
 	float middleX = (max - min)/2.0+min;
 	ofSetColor(255, 255, 255);
 	ofLine(min, 0, min, 1);
 	ofLine(max, 0, max, 1);
-//	ofLine(middleX*ofGetWidth(), 0, middleX*ofGetWidth(), ofGetHeight());
-	glPopMatrix();
+	
+	ofSetColor(255, 0, 0);
+	ofxPoint2f p = projection()->getColumnCoordinate(0);
+
+	ofEllipse(p.x, p.y, 0.1, 0.1);
+	 */
 }
 
 

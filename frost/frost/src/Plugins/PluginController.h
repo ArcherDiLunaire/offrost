@@ -14,7 +14,7 @@ public:
 	
 	void addPlugin(FrostPlugin* plugin);
 	void setup();
-	void update();
+	void update(float mx, float my);
 	void draw();
 	void drawFloor();
 };

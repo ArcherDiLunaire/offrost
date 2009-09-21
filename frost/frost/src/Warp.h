@@ -21,7 +21,7 @@ public:
 	float*					MatrixCalculate();
 	void					MatrixMultiply();
 
-	ofxVec2f			corners[4];
+	ofxPoint2f			corners[4];
 
 private:
 	// CORNERS

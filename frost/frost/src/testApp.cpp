@@ -75,6 +75,8 @@ void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 void testApp::update()
 {
 	float mousex = (float)mouseX/ofGetWidth();
+	float mousey = (float)mouseY/ofGetHeight();
+
 	if(mousex < 0.5){
 		getPlugin<MoonDust*>(pluginController)->min = mousex;
 		getPlugin<MoonDust*>(pluginController)->max = 0.5;
@@ -84,15 +86,17 @@ void testApp::update()
 	
 	}
 	
-	pluginController->update();
+	
+	
+	pluginController->update(mousex, mousey);
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 20);
+//	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 20);
 	
 	pluginController->draw();
-		pluginController->drawFloor();
+	pluginController->drawFloor();
 	fps = ofGetFrameRate();
 }
 

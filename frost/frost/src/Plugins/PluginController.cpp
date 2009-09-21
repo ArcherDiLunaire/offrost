@@ -15,11 +15,14 @@ void PluginController::setup(){
 	}
 }
 
-void PluginController::update(){
+void PluginController::update(float mx, float my){
 	for(int i=0;i<plugins.size();i++){
 		FrostPlugin* plugin = plugins[i];
 		if(plugin->enabled){
+			plugin->mouseX = mx;
+			plugin->mouseY = my;
 			plugin->update(); 
+			
 		}
 	}
 }
@@ -46,6 +49,8 @@ void PluginController::drawFloor(){
 			plugin->drawOnFloor(); 
 		}
 	}
+	
+	glPopMatrix();
 	
 }
 

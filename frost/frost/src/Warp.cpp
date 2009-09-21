@@ -47,11 +47,11 @@ Warp::GetClosestCorner(float x, float y)
 	float fDistMin = 1000;
 	float fDist;
 	int iCorner = 0;
-	ofxVec2f vPos(x, y);
+	ofxPoint2f vPos(x, y);
 
 	for (int i = 0; i < 4; ++i)
 	{
-		fDist = (vPos - corners[i]).length();
+		fDist = (vPos.distance(corners[i]));
 		if (fDist < fDistMin)
 		{
 			fDistMin = fDist;
