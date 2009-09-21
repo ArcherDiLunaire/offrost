@@ -92,6 +92,7 @@ OFGuiController * gui = NULL;
 	printf("--- wake from nib ---\n");
 	[camView setWindowId:1];
 	[projectorView setWindowId:2];
+	[cameraKeystoneOpenGlView setWindowId:2];
 	[blobView setWindowId:3];
 	
 	[floorPreview setWindowId:4];
@@ -145,7 +146,8 @@ OFGuiController * gui = NULL;
 		
 		[self addObject:@"Data" isheader:TRUE  plugin:nil];		
 		[self addObject:@"Projection Surfaces" isheader:FALSE plugin:getPlugin<ProjectionSurfaces*>(ofApp->pluginController)];
-		
+		[self addObject:@"Camera Calibration" isheader:FALSE plugin:getPlugin<CameraCalibration*>(ofApp->pluginController)];
+
 		[self addObject:@"Outputs" isheader:TRUE  plugin:nil];		
 		[self addObject:@"Moon Dust" isheader:FALSE plugin:getPlugin<MoonDust*>(ofApp->pluginController)];
 		
@@ -153,6 +155,7 @@ OFGuiController * gui = NULL;
 		[blobTrackingView retain];
 		[cameraView retain];
 		[projectionSurfacesView retain];
+		[cameraKeystoneView retain];
 		[moonDustView retain];
 		
 
@@ -178,6 +181,9 @@ OFGuiController * gui = NULL;
 	
 	[camView setDoDraw:false];
 	[projectorView setDoDraw:false];
+	[cameraKeystoneOpenGlView setDoDraw:false];
+	[cameraKeystoneOpenGlView setDoDraw:false];
+
 	[blobView setDoDraw:false];
 	
 	id view;
@@ -194,6 +200,12 @@ OFGuiController * gui = NULL;
 		[projectorView setDoDraw:true];
 		
 	}	
+	if(![(NSString*)[p name] compare:@"Camera Calibration"]){
+		view =cameraKeystoneView;
+		[cameraKeystoneOpenGlView setDoDraw:true];
+		
+	}	
+	
 	if(![(NSString*)[p name] compare:@"Moon Dust"]){
 		view = moonDustView;
 	}	
@@ -316,6 +328,22 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 	}
 }
+
+-(IBAction)		setCameraKeystoneShowDebug:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		((CameraCalibration*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = b;
+	}
+}
+-(IBAction)		setCameraKeystoneMatrix:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<CameraCalibration*>(ofApp->pluginController))->selectedKeystoner = [sender selectedRow];
+	}
+}
+
 
 
 -(IBAction)	setBlobThreshold:(id)sender{

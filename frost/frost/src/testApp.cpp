@@ -13,6 +13,7 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new BlobTracking);
 
 	pluginController->addPlugin(new ProjectionSurfaces);
+	pluginController->addPlugin(new CameraCalibration);
 	
 	pluginController->addPlugin(new MoonDust);
 

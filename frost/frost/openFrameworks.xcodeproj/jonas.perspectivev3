@@ -287,9 +287,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>22</integer>
-									<integer>21</integer>
-									<integer>15</integer>
+									<integer>13</integer>
 									<integer>6</integer>
 									<integer>0</integer>
 								</array>
@@ -312,7 +310,7 @@
 							<real>228</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>0 92 1440 786 0 0 1440 878 </string>
+						<string>0 92 1439 786 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -330,7 +328,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>DD4F16BD1047336400D10100</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>MoonDust.cpp</string>
+								<string>OFGuiController.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -338,11 +336,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>DD4F16BE1047336400D10100</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>MoonDust.cpp</string>
+										<string>OFGuiController.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DDF383961067B3C800E8A20A</string>
+										<string>DDF383CD1067BC0F00E8A20A</string>
 										<key>history</key>
 										<array>
 											<string>DD4F19041047423A00D10100</string>
@@ -379,8 +377,6 @@
 											<string>DD7CC2AE106398EA00D3736A</string>
 											<string>DD7CC2D21063A62F00D3736A</string>
 											<string>DD7CC2D61063AA3B00D3736A</string>
-											<string>DD7CC4351063C85D00D3736A</string>
-											<string>DDFEC6E51063D3680068D31A</string>
 											<string>DDFEC6EB1063D3680068D31A</string>
 											<string>DDFEC71C1063D66B0068D31A</string>
 											<string>DDFEC71D1063D66B0068D31A</string>
@@ -408,13 +404,10 @@
 											<string>DD0C01E810668FA200BB3F9F</string>
 											<string>DD0C01EA10668FA200BB3F9F</string>
 											<string>DDF38236106781BD00E8A20A</string>
-											<string>DDF38237106781BD00E8A20A</string>
 											<string>DDF38239106781BD00E8A20A</string>
 											<string>DDF3823A106781BD00E8A20A</string>
-											<string>DDF3823B106781BD00E8A20A</string>
 											<string>DDF382621067825900E8A20A</string>
 											<string>DDF382971067988C00E8A20A</string>
-											<string>DDF382981067988C00E8A20A</string>
 											<string>DDF382B61067A2B400E8A20A</string>
 											<string>DDF382B91067A2B400E8A20A</string>
 											<string>DDF382BA1067A2B400E8A20A</string>
@@ -423,8 +416,15 @@
 											<string>DDF383301067A9C500E8A20A</string>
 											<string>DDF383311067A9C500E8A20A</string>
 											<string>DDF383741067ABB000E8A20A</string>
-											<string>DDF3838C1067B0EA00E8A20A</string>
-											<string>DDF383921067B11700E8A20A</string>
+											<string>DDF383A91067B9A600E8A20A</string>
+											<string>DDF383AA1067B9A600E8A20A</string>
+											<string>DDF383BC1067BA4900E8A20A</string>
+											<string>DDF383BD1067BA4900E8A20A</string>
+											<string>DDF383BE1067BA4900E8A20A</string>
+											<string>DDF383C51067BB7000E8A20A</string>
+											<string>DDF383C61067BB7000E8A20A</string>
+											<string>DDF383CC1067BC0F00E8A20A</string>
+											<string>DDF383C71067BB7000E8A20A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -438,9 +438,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1190, 553}}</string>
+								<string>{{0, 0}, {1189, 553}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 92 1440 786 0 0 1440 878 </string>
+								<string>0 92 1439 786 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -538,9 +538,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1190, 160}}</string>
+										<string>{{10, 27}, {1189, 160}}</string>
 										<key>RubberWindowFrame</key>
-										<string>0 92 1440 786 0 0 1440 878 </string>
+										<string>0 92 1439 786 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -549,7 +549,7 @@
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>1190pt</string>
+					<string>1189pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -766,7 +766,7 @@
 		<string>/Users/jonas/Documents/udvilking/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/openFrameworks.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>0 92 1440 786 0 0 1440 878 </string>
+	<string>0 92 1439 786 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

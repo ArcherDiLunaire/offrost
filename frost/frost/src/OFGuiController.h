@@ -55,6 +55,7 @@
 	IBOutlet NSView *cameraView;
 	IBOutlet NSView *blobTrackingView;
 	IBOutlet NSView *projectionSurfacesView;
+	IBOutlet NSView *cameraKeystoneView;
 
 	IBOutlet NSView *moonDustView;
 	
@@ -78,6 +79,7 @@
 	
 	IBOutlet CustomGLView * camView;
 	IBOutlet CustomGLView * projectorView;
+	IBOutlet CustomGLView * cameraKeystoneOpenGlView;
 	IBOutlet CustomGLView * blobView;
 
 	IBOutlet CustomGLView * floorPreview;
@@ -98,9 +100,13 @@
 -(IBAction)		setMoonDustForce:(id)sender;
 -(IBAction)		setMoonDustDamp:(id)sender;
 
+
 -(IBAction)		setProjectorShowDebug:(id)sender;
 -(IBAction)		setProjectorMatrix:(id)sender;
 -(IBAction)		setProjectorFloorAspect:(id)sender;
+
+-(IBAction)		setCameraKeystoneShowDebug:(id)sender;
+-(IBAction)		setCameraKeystoneMatrix:(id)sender;
 
 -(IBAction)		setBlobThreshold:(id)sender;
 
