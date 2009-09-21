@@ -92,7 +92,7 @@ OFGuiController * gui = NULL;
 	printf("--- wake from nib ---\n");
 	[camView setWindowId:1];
 	[projectorView setWindowId:2];
-	[cameraKeystoneOpenGlView setWindowId:2];
+	[cameraKeystoneOpenGlView setWindowId:5];
 	[blobView setWindowId:3];
 	
 	[floorPreview setWindowId:4];
