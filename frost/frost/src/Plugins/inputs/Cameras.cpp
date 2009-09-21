@@ -9,7 +9,7 @@ void Cameras::setup(){
 	vidGrabber = new ofxVideoGrabber;
 
 	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber; libdc1394Grabber->listDevices();
-	//libdc1394Grabber->setDeviceGUID(0xb09d01008c1393LL);
+	libdc1394Grabber->setDeviceGUID(0xb09d01008c1393LL);
 
 	int camWidth 		= 1024;	// try to grab at this size.
 	int camHeight 		= 768;

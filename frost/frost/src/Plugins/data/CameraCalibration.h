@@ -8,9 +8,9 @@
 
 class CameraCalibrationObject {
 public:
-	float aspect;
 	Warp * warp;
 	coordWarping * coordWarp;
+	Warp * floorWarp;
 	string name;
 };
 
@@ -25,23 +25,16 @@ public:
 	void setup();
 	void update();
 	
-	vector<CameraCalibrationObject *> objects;
-	
-	CameraCalibrationObject * getFloor();
-	CameraCalibrationObject * getColumn(int n);
-	CameraCalibrationObject * getCurtain(int n);
-	
-	ofxPoint2f getColumnCoordinate(int column);
+	vector<CameraCalibrationObject *> cameras;
 	
 	bool drawDebug;
 	ofTrueTypeFont	verdana;
 	
 	void drawSettings();
-	void drawDebugGrids(int _w=ofGetWidth(), int _h= ofGetHeight());
-	
 	
 	ofxVec2f lastMousePos;
 	int selectedCorner;
+	int selectedKeystoner;
 	
 	void mousePressed(ofMouseEventArgs & args);
 	void mouseDragged(ofMouseEventArgs & args);
@@ -51,11 +44,11 @@ public:
 
 	void guiWakeup();
 	
-	void drawGrid(string text, float aspect, int resolution,  bool drawBorder, float alpha=1.0, float fontSize=1.0);
-	
 	int w,h, offset;
 	
 	ofxXmlSettings * keystoneXml;
 	
-	int selectedKeystoner;
+	void applyWarp(int cam, float _w=ofGetWidth(), float _h=ofGetHeight());
+	
+
 };

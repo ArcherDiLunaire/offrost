@@ -1,32 +1,25 @@
 
 #include "CameraCalibration.h"
+#include "ProjectionSurfaces.h"
+#include "Cameras.h"
+#include "PluginController.h"
+
 
 CameraCalibration::CameraCalibration(){
 	type = DATA;
 
-	for(int i=0;i<10;i++){
-		objects.push_back(new CameraCalibrationObject);
-		objects[i]->warp = new Warp();
-		objects[i]->coordWarp = new coordWarping;
-		objects[i]->aspect = 1.0;
+	for(int i=0;i<3;i++){
+		cameras.push_back(new CameraCalibrationObject);
+		cameras[i]->warp = new Warp();
+		cameras[i]->floorWarp = new Warp();
+		cameras[i]->coordWarp = new coordWarping;
+		cameras[i]->name = "CAMERA "+ofToString(i, 0);
 	}
 		
-	
-	objects[0]->name = "FLOOR";
-	objects[1]->name = "COLUMN 0";
-	objects[2]->name = "COLUMN 1";
-	objects[3]->name = "COLUMN 2";
-	objects[4]->name = "CURTAIN 0";
-	objects[5]->name = "CURTAIN 1";
-	objects[6]->name = "CURTAIN 2";
-	objects[7]->name = "CURTAIN 3";
-	objects[8]->name = "CURTAIN 4";
-	objects[9]->name = "CURTAIN 5";
-	
-	
 	drawDebug = false;
 	selectedCorner = 0;
 	selectedKeystoner = 0;
+	offset = 0;
 	
 }
 
@@ -35,9 +28,8 @@ void CameraCalibration::guiWakeup(){
 	ofAddListener(glDelegate->mouseDragged,this, &CameraCalibration::mouseDragged);
 	ofAddListener(glDelegate->keyPressed,this, &CameraCalibration::keyPressed);
 	
-	w = glDelegate->m_Width/3.0;
-	h = glDelegate->m_Width/3.0;
-	offset = 50;
+	w = glDelegate->m_Width;
+	h = glDelegate->m_Width;
 }
 
 
@@ -46,81 +38,56 @@ void CameraCalibration::setup(){
 	
 	keystoneXml = new ofxXmlSettings;
 	keystoneXml->loadFile("keystoneSettings.xml");
-	int numFloor = keystoneXml->getNumTags("floor");
+	int numFloor = keystoneXml->getNumTags("cameras");
 	if(numFloor != 1){
-		cout<<"====== ERROR: No floor in keystone xml ======"<<endl;
+		cout<<"====== ERROR: No cameras in keystone xml ======"<<endl;
 	} else {
-		keystoneXml->pushTag("floor", 0);
-		int numCorners = keystoneXml->getNumTags("corner");
-		if(numCorners != 4){
-			cout<<"====== ERROR: Wrong number of corners i floor ======"<<endl;
-		} else {
-			for(int i=0;i<4;i++){
-				getFloor()->warp->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
-			}
-			getFloor()->aspect = keystoneXml->getAttribute("aspect", "value", 1.0, 0);
-		}
-		//floorAspect = keystoneXml->getAttribute("aspect", "val", 1.0, 0);
-		
-		keystoneXml->popTag();
-		
-		keystoneXml->pushTag("columns", 0);
+
+		keystoneXml->pushTag("cameras", 0);
 		for(int u=0;u<3;u++){
-			keystoneXml->pushTag("column", u);
+			keystoneXml->pushTag("camera", u);
 			int numCorners = keystoneXml->getNumTags("corner");
 			if(numCorners != 4){
-				cout<<"====== ERROR: Wrong number of corners i floor ======"<<endl;
 			} else {
 				for(int i=0;i<4;i++){
-					getColumn(u)->warp->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
+					cameras[u]->warp->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
 				}
 			}
-			getColumn(u)->aspect = keystoneXml->getAttribute("aspect", "value", 1.0, 0);
-			
-			keystoneXml->popTag();
-			
+			keystoneXml->popTag();			
 		}
 		keystoneXml->popTag();
-		
-		keystoneXml->pushTag("curtains", 0);
-		for(int u=0;u<6;u++){
-			keystoneXml->pushTag("curtain", u);
-			int numCorners = keystoneXml->getNumTags("corner");
-			if(numCorners != 4){
-				cout<<"====== ERROR: Wrong number of corners i floor ======"<<endl;
-			} else {
-				for(int i=0;i<4;i++){
-					getCurtain(u)->warp->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
-				}
-			}
-			getCurtain(u)->aspect = keystoneXml->getAttribute("aspect", "value", 1.0, 0);			
-			keystoneXml->popTag();
-			
-		}
-		keystoneXml->popTag();
-		
-		
+				
 	}
 	
-	for(int i=0;i<10;i++){
-		objects[i]->warp->MatrixCalculate();
+	for(int i=0;i<3;i++){
+		cameras[i]->warp->MatrixCalculate();
 		ofxPoint2f a[4];
 		a[0] = ofxPoint2f(0,0);
 		a[1] = ofxPoint2f(1,0);
 		a[2] = ofxPoint2f(1,1);
 		a[3] = ofxPoint2f(0,1);
-		objects[i]->coordWarp->calculateMatrix(a, objects[i]->warp->corners);
+		cameras[i]->coordWarp->calculateMatrix(a, cameras[i]->warp->corners);
+		
+		for(int u=0;u<4;u++){
+//			cameras[i]->warp->SetCorner();	
+		}
+		
 	}
 	
 	
 }
 void CameraCalibration::update(){
+	if(selectedKeystoner == 0){
+		offset = 50;
+		w = glDelegate->m_Width-100;
+		h = glDelegate->m_Width*0.75-100;
+	}
 }
 
 void CameraCalibration::drawOnFloor(){
 }
 void CameraCalibration::draw(){
-	if(drawDebug){
+/*	if(drawDebug){
 		for(int i=0;i<10;i++){
 			float a = 0.3;
 			
@@ -140,10 +107,60 @@ void CameraCalibration::draw(){
 		}
 	}
 	ofSetColor(255, 255, 0);
-
+*/
 }
 
 void CameraCalibration::drawSettings(){
+	glPushMatrix();
+	glTranslated(offset, offset, 0);
+	glPushMatrix();
+
+	ofSetColor(255, 255, 255, 255);
+	glPushMatrix();
+	applyWarp(0,w,h);
+	getPlugin<Cameras*>(controller)->vidGrabber->draw(0,0,1,1);
+	glPopMatrix();
+	
+	for(int i=0;i<4;i++){
+		ofSetColor(255,0, 0,255);
+		if(selectedCorner == i){
+			ofSetColor(255,255, 0,255);
+		}
+		ofxVec2f v = cameras[selectedKeystoner]->warp->corners[i];
+
+		ofEllipse(v.x*w, v.y*h, 10, 10);
+	}		
+	
+	
+	ofEnableAlphaBlending();
+	ofSetColor(255, 255, 255,40);
+	ofRect(0, 0, w, h);
+		
+	ofSetColor(255, 255, 255, 255);
+	
+	
+	if(selectedKeystoner == 0){
+		//Cam 0
+		glPushMatrix();
+		glScaled(0.3, 0.3, 1.0);
+		verdana.drawString("PROJECTION", 0, 40);
+		glPopMatrix();
+		
+		projection()->applyFloorProjection(w, h);
+		ofSetColor(255, 255, 255, 40);
+		ofRect(0, 0, 1*projection()->getFloor()->aspect, 1);
+		glPopMatrix();
+
+		
+		
+		
+
+		
+	}
+		
+	glPopMatrix();
+	glPopMatrix();
+	
 /*	glPushMatrix();
 	glTranslated(offset, offset, 0);
 	glPushMatrix();
@@ -187,63 +204,23 @@ void CameraCalibration::drawSettings(){
 	
 }
 
-void CameraCalibration::drawGrid(string text, float aspect, int resolution, bool drawBorder, float alpha, float fontSize){
-	ofEnableAlphaBlending();
-	ofSetColor(255, 255, 255, 255*alpha);
-	int xNumber = resolution+floor((aspect-1)*resolution);
-	int yNumber = resolution;
-	
-	for(int i=0;i<=yNumber;i++){
-		ofLine(0, i*1.0/resolution, aspect, i*1.0/resolution);
-	}
-	for(int i=0;i<=xNumber;i++){
-		ofLine(i*1.0/resolution, 0, i*1.0/resolution, 1.0);
-	}
-	if(drawBorder){
-		ofNoFill();
-		ofSetLineWidth(5);
-		
-		ofSetColor(255, 0, 255255*alpha);
-		ofRect(0, 0, 1*aspect, 1);
-		
-		ofFill();
-		ofSetColor(255, 255, 255,255*alpha);
-		ofSetLineWidth(1);
-	} else {
-		ofLine(aspect, 0, aspect, 1);
-	}
-	fontSize *= 0.003;
-	glScaled(fontSize, fontSize, 1.0);
-	//	glTranslated( aspect*0.5*1/0.003-verdana.stringWidth(text)/2.0,  0.5*1/0.003+verdana.stringHeight(text)/2.0, 0);
-	
-	if(aspect < 1.0){
-		glTranslated( aspect*0.5*1.0/fontSize-verdana.stringHeight(text)/2.0,  10, 0);	
-		
-		glRotated(90, 0, 0, 1.0);
-	} else {
-		glTranslated( aspect*0.5*1.0/fontSize-verdana.stringWidth(text)/2.0,  0.5*1.0/fontSize+verdana.stringHeight(text)/2.0, 0);	
-	}
-	
-	verdana.drawString(text,0,0);
-}
-
 void CameraCalibration::mousePressed(ofMouseEventArgs & args){
 	ofxVec2f curMouse = ofxVec2f((float)(glDelegate->mouseX-offset)/w, (float)(glDelegate->mouseY-offset)/w);
-	selectedCorner = objects[selectedKeystoner]->warp->GetClosestCorner(curMouse.x, curMouse.y);
+	selectedCorner = cameras[selectedKeystoner]->warp->GetClosestCorner(curMouse.x, curMouse.y);
 	lastMousePos = curMouse;
 }
 
 void CameraCalibration::mouseDragged(ofMouseEventArgs & args){
 	ofxVec2f curMouse = ofxVec2f((float)(glDelegate->mouseX-offset)/w, (float)(glDelegate->mouseY-offset)/w);
-	ofxVec2f newPos =  objects[selectedKeystoner]->warp->corners[selectedCorner] + (curMouse-lastMousePos);
-	objects[selectedKeystoner]->warp->SetCorner(selectedCorner, newPos.x, newPos.y);
+	ofxVec2f newPos =  cameras[selectedKeystoner]->warp->corners[selectedCorner] + (curMouse-lastMousePos);
+	cameras[selectedKeystoner]->warp->SetCorner(selectedCorner, newPos.x, newPos.y);
 	lastMousePos = curMouse;
-	objects[selectedKeystoner]->warp->MatrixCalculate();
+	cameras[selectedKeystoner]->warp->MatrixCalculate();
 	saveXml();
 }
 
 void CameraCalibration::keyPressed(ofKeyEventArgs & args){
-	ofxVec2f newPos =  objects[selectedKeystoner]->warp->corners[selectedCorner] ;
+	ofxVec2f newPos =  cameras[selectedKeystoner]->warp->corners[selectedCorner] ;
 	
 	if(args.key == 63233){
 		newPos -= ofxVec2f(0,-0.001);
@@ -257,31 +234,17 @@ void CameraCalibration::keyPressed(ofKeyEventArgs & args){
 	if(args.key == 63235){
 		newPos -= ofxVec2f(-0.001,0);
 	}
-	objects[selectedKeystoner]->warp->SetCorner(selectedCorner, newPos.x, newPos.y);
-	objects[selectedKeystoner]->warp->MatrixCalculate();
+	cameras[selectedKeystoner]->warp->SetCorner(selectedCorner, newPos.x, newPos.y);
+	cameras[selectedKeystoner]->warp->MatrixCalculate();
 	
 	saveXml();
 }
 
 void CameraCalibration::saveXml(){
 	
-	keystoneXml->pushTag("floor", 0);
-	int numCorners = keystoneXml->getNumTags("corner");
-	if(numCorners != 4){
-		cout<<"====== ERROR: Wrong number of corners i floor ======"<<endl;
-	} else {
-		for(int i=0;i<4;i++){
-			keystoneXml->setAttribute("corner", "number", i, i);
-			keystoneXml->setAttribute("corner", "x", getFloor()->warp->corners[i].x, i);
-			keystoneXml->setAttribute("corner", "y", getFloor()->warp->corners[i].y, i);
-		}
-		keystoneXml->setAttribute("aspect", "value", getFloor()->aspect, 0);
-	}
-	keystoneXml->popTag();
-	
-	keystoneXml->pushTag("columns", 0);
+	keystoneXml->pushTag("cameras", 0);
 	for(int u=0;u<3;u++){
-		keystoneXml->pushTag("column", u);
+		keystoneXml->pushTag("camera", u);
 		
 		int numCorners = keystoneXml->getNumTags("corner");
 		if(numCorners != 4){
@@ -289,103 +252,27 @@ void CameraCalibration::saveXml(){
 		} else {
 			for(int i=0;i<4;i++){
 				keystoneXml->setAttribute("corner", "number", i, i);
-				keystoneXml->setAttribute("corner", "x", getColumn(u)->warp->corners[i].x, i);
-				keystoneXml->setAttribute("corner", "y", getColumn(u)->warp->corners[i].y, i);
+				keystoneXml->setAttribute("corner", "x", cameras[u]->warp->corners[i].x, i);
+				keystoneXml->setAttribute("corner", "y", cameras[u]->warp->corners[i].y, i);
 			}
 		}
-		keystoneXml->setAttribute("aspect", "value", getColumn(u)->aspect, 0);
-		
 		keystoneXml->popTag();
 		
 	}
 	keystoneXml->popTag();
-	
-	keystoneXml->pushTag("curtains", 0);
-	for(int u=0;u<6;u++){
-		keystoneXml->pushTag("curtain", u);
-		
-		int numCorners = keystoneXml->getNumTags("corner");
-		if(numCorners != 4){
-			cout<<"====== ERROR: Wrong number of corners ======"<<endl;
-		} else {
-			for(int i=0;i<4;i++){
-				keystoneXml->setAttribute("corner", "number", i, i);
-				keystoneXml->setAttribute("corner", "x", getCurtain(u)->warp->corners[i].x, i);
-				keystoneXml->setAttribute("corner", "y", getCurtain(u)->warp->corners[i].y, i);
-			}
-		}
-		keystoneXml->setAttribute("aspect", "value", getCurtain(u)->aspect, 0);
-		
-		keystoneXml->popTag();
-		
-	}
-	keystoneXml->popTag();
-	
 	
 	keystoneXml->saveFile("keystoneSettings.xml");
 	
 	
 }
 
-CameraCalibrationObject * CameraCalibration::getFloor(){
-	return objects[0];
-}
-CameraCalibrationObject * CameraCalibration::getColumn(int n){
-	return objects[1+n];	
-}
-CameraCalibrationObject * CameraCalibration::getCurtain(int n){
-	return objects[4+n];
-}
-
-ofxPoint2f CameraCalibration::getColumnCoordinate(int column){
-	ofxVec2f p1 = getColumn(column)->warp->corners[3]; 
-	ofxVec2f p2 = getColumn(column)->warp->corners[2];
-
-	ofxVec2f p = (p1-p2)/2.0+p2;
-	ofxPoint2f r = getFloor()->coordWarp->inversetransform(p.x, p.y);
-	r.x *= getFloor()->aspect;
-	return r;
-}
-
-
-
-void CameraCalibration::applyFloorProjection(float _w, float _h){
+void CameraCalibration::applyWarp(int cam, float _w, float _h){
 	glPushMatrix();
-	float setW = 1.0/getFloor()->aspect;
-	float setH = 1.0;
-
-	glScaled(_w, _h, 1.0);
-	getFloor()->warp->MatrixMultiply();
-	glScaled(setW, setH, 1.0);
-}
-
-void CameraCalibration::applyColumnProjection(int column, float _w, float _h){
-	glPushMatrix();
-	float setW = 1.0/getColumn(column)->aspect;;
+	float setW = 1.0;
 	float setH = 1.0;
 	
 	glScaled(_w, _h, 1.0);
-	getColumn(column)->warp->MatrixMultiply();
+	cameras[cam]->warp->MatrixMultiply();
 	glScaled(setW, setH, 1.0);
 }
 
-void CameraCalibration::applyCurtainProjection(int column, int row, float _w, float _h){
-	int n = row + column*3;
-	glPushMatrix();
-	float setW = 1.0/getCurtain(n)->aspect;
-	float setH = 1.0;
-
-	glScaled(_w, _h, 1.0);
-	getCurtain(n)->warp->MatrixMultiply();
-	glScaled(setW, setH, 1.0);
-}
-
-void CameraCalibration::applyProjection(CameraCalibrationObject * obj,float _w, float _h){
-	glPushMatrix();
-	float setW = 1.0/ (obj->aspect);
-	float setH = 1.0;
-	
-	glScaled(_w, _h, 1.0);
-	obj->warp->MatrixMultiply();
-	glScaled(setW, setH, 1.0);
-}
