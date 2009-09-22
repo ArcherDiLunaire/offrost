@@ -118,7 +118,7 @@ void CameraCalibration::drawSettings(){
 	ofSetColor(255, 255, 255, 255);
 	glPushMatrix();
 	applyWarp(0,w,h);
-	getPlugin<Cameras*>(controller)->vidGrabber->draw(0,0,1,1);
+	getPlugin<Cameras*>(controller)->vidGrabber[0]->draw(0,0,1,1);
 	glPopMatrix();
 	
 	for(int i=0;i<4;i++){

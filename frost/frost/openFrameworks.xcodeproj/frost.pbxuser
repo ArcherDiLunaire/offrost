@@ -11,6 +11,35 @@
 		rLen = 0;
 		rLoc = 9223372036854775808;
 	};
+	2719A5AD1068828700FD83F4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */;
+		name = "OFGuiController.mm: 212";
+		rLen = 0;
+		rLoc = 6192;
+		rType = 0;
+		vrLen = 1075;
+		vrLoc = 5534;
+	};
+	2719A5AE1068828700FD83F4 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Request for member 'draw' in '*(ofxVideoGrabber**)(& getPlugin [with T = Cameras*](((CameraCalibration*)this)->CameraCalibration::<anonymous>.Data::<anonymous>.FrostPlugin::controller)->Cameras::vidGrabber)', which is of non-class type 'ofxVideoGrabber*'";
+		fRef = DDF383971067B3E800E8A20A /* CameraCalibration.cpp */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 120;
+		rType = 1;
+	};
+	2719A5AF1068828700FD83F4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DDF383971067B3E800E8A20A /* CameraCalibration.cpp */;
+		name = "CameraCalibration.cpp: 121";
+		rLen = 64;
+		rLoc = 2802;
+		rType = 0;
+		vrLen = 896;
+		vrLoc = 2621;
+	};
 	274E310610679491008615C4 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = E446642E0F5B1CFD005D0BF0 /* ofImage.cpp */;
@@ -391,6 +420,7 @@
 	};
 	274E38E710687A1C008615C4 /* NSGeometry.h */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
 		name = NSGeometry.h;
 		path = /Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSGeometry.h;
 		sourceTree = "<absolute>";
@@ -404,26 +434,6 @@
 		rType = 0;
 		vrLen = 810;
 		vrLoc = 1315;
-	};
-	274E394410687EC6008615C4 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */;
-		name = "OFGuiController.mm: 212";
-		rLen = 0;
-		rLoc = 6187;
-		rType = 0;
-		vrLen = 1022;
-		vrLoc = 5236;
-	};
-	274E396710688043008615C4 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */;
-		name = "OFGuiController.mm: 212";
-		rLen = 0;
-		rLoc = 6192;
-		rType = 0;
-		vrLen = 1230;
-		vrLoc = 5490;
 	};
 	27820DA3105E4FB50061DDE7 /* openFrameworks */ = {
 		isa = PBXExecutable;
@@ -847,11 +857,6 @@
 		name = ctype.h;
 		path = /Developer/SDKs/MacOSX10.4u.sdk/usr/include/ctype.h;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1618, 3835}}";
-			sepNavSelRange = "{8160, 0}";
-			sepNavVisRange = "{7698, 599}";
-		};
 	};
 	279AECD81066995500FBEE17 /* camera.h */ = {
 		isa = PBXFileReference;
@@ -975,9 +980,9 @@
 	};
 	DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1618, 5473}}";
-			sepNavSelRange = "{6187, 0}";
-			sepNavVisRange = "{5760, 634}";
+			sepNavIntBoundsRect = "{{0, 0}, {1618, 5538}}";
+			sepNavSelRange = "{6192, 0}";
+			sepNavVisRange = "{5760, 667}";
 		};
 	};
 	DDB85124105E7CC800D1ED92 /* Output.h */ = {
@@ -1063,6 +1068,21 @@
 			sepNavIntBoundsRect = "{{0, 0}, {1267, 533}}";
 			sepNavSelRange = "{115, 12}";
 			sepNavVisRange = "{0, 734}";
+		};
+	};
+	DDF383971067B3E800E8A20A /* CameraCalibration.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1447, 3627}}";
+			sepNavSelRange = "{2802, 64}";
+			sepNavVisRange = "{2621, 896}";
+		};
+	};
+	DDF383981067B3E800E8A20A /* CameraCalibration.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {691, 715}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 521}";
+			sepNavWindowFrame = "{{238, 286}, {750, 558}}";
 		};
 	};
 	DDFEC6C51063D2C50068D31A /* ofxVideoGrabber.cpp */ = {
@@ -1306,11 +1326,14 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 275233925;
-			PBXWorkspaceStateSaveDate = 275233925;
+			PBXPerProjectTemplateStateSaveDate = 275284166;
+			PBXWorkspaceStateSaveDate = 275284166;
 		};
 		perUserProjectItems = {
 			270D5F461063F0B5003347FA /* PlistBookmark */ = 270D5F461063F0B5003347FA /* PlistBookmark */;
+			2719A5AD1068828700FD83F4 /* PBXTextBookmark */ = 2719A5AD1068828700FD83F4 /* PBXTextBookmark */;
+			2719A5AE1068828700FD83F4 /* XCBuildMessageTextBookmark */ = 2719A5AE1068828700FD83F4 /* XCBuildMessageTextBookmark */;
+			2719A5AF1068828700FD83F4 /* PBXTextBookmark */ = 2719A5AF1068828700FD83F4 /* PBXTextBookmark */;
 			274E310610679491008615C4 /* PBXTextBookmark */ = 274E310610679491008615C4 /* PBXTextBookmark */;
 			274E31721067B3C3008615C4 /* PBXTextBookmark */ = 274E31721067B3C3008615C4 /* PBXTextBookmark */;
 			274E31941067B569008615C4 /* PBXTextBookmark */ = 274E31941067B569008615C4 /* PBXTextBookmark */;
@@ -1348,8 +1371,6 @@
 			274E38AC106874F1008615C4 /* PBXTextBookmark */ = 274E38AC106874F1008615C4 /* PBXTextBookmark */;
 			274E38E610687A1C008615C4 /* PBXTextBookmark */ = 274E38E610687A1C008615C4 /* PBXTextBookmark */;
 			274E394310687EC6008615C4 /* PBXTextBookmark */ = 274E394310687EC6008615C4 /* PBXTextBookmark */;
-			274E394410687EC6008615C4 /* PBXTextBookmark */ = 274E394410687EC6008615C4 /* PBXTextBookmark */;
-			274E396710688043008615C4 /* PBXTextBookmark */ = 274E396710688043008615C4 /* PBXTextBookmark */;
 			27822F561064F1D300B546F1 /* PBXTextBookmark */ = 27822F561064F1D300B546F1 /* PBXTextBookmark */;
 			27822F571064F1D300B546F1 /* PBXTextBookmark */ = 27822F571064F1D300B546F1 /* PBXTextBookmark */;
 			279AE6511064F93A00FBEE17 /* PBXTextBookmark */ = 279AE6511064F93A00FBEE17 /* PBXTextBookmark */;
