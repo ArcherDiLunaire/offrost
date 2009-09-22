@@ -65,7 +65,7 @@ public:
 
 	void setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i );
 	
-	
+	ofTrueTypeFont	lucidaGrande;
 	
 	bool setupCalled;
 	int fps;

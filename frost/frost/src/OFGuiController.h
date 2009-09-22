@@ -45,43 +45,72 @@
 
 
 @interface OFGuiController : NSObject {
+	
 	testApp * ofApp;
 	
 	IBOutlet NSView * mainView;	
 	IBOutlet contentView * contentArea;
 	IBOutlet ListView * listView;
-//	IBOutlet NSOpenGLView * camView;
-	
+
+	NSMutableArray * viewItems;
+	NSMutableArray * views;
+
+	NSUserDefaults * userDefaults;
+
+	/**
+	 * Plugin View Outlets
+	 **/
+		
 	IBOutlet NSView *cameraView;
 	IBOutlet NSView *blobTrackingView;
 	IBOutlet NSView *projectionSurfacesView;
 	IBOutlet NSView *cameraKeystoneView;
-
 	IBOutlet NSView *moonDustView;
 	
-	NSUserDefaults * userDefaults;
-	
+	/**
+	 * Moon Dust Outlets
+	 **/
+		
 	IBOutlet NSSlider * MoonDustForce;
 	IBOutlet NSSlider * MoonDustDamp;
+	
+	/**
+	 * Camera Outlets
+	 **/
+	
+	IBOutlet NSView * cameraSetting;
+	
+	IBOutlet NSView * cameraSettings1;
+	IBOutlet NSView * cameraSettings2;
+	IBOutlet NSView * cameraSettings3;
+	
+	IBOutlet NSTextField * CameraGUID1;
+	IBOutlet NSTextField * CameraGUID2;
+	IBOutlet NSTextField * CameraGUID3;
+	
+	/**
+	 * Projector Outlets
+	 **/
 	
 	IBOutlet NSButton * ProjectorShowDebug;
 	IBOutlet NSMatrix * ProjectorMatrix;
 	IBOutlet NSSlider * ProjectorFloorAspect;
 	IBOutlet NSTextField * ProjectorFloorAspectText;
 
+	/**
+	 * Blob Detection Outlets
+	 **/
+	
 	IBOutlet NSSlider * BlobThreshold;
 
-
-
-	
-	NSMutableArray * viewItems;
-	NSMutableArray * views;
+	/**
+	 * OpenGL Views
+	 **/
 	
 	IBOutlet CustomGLView * camView;
 	IBOutlet CustomGLView * projectorView;
 	IBOutlet CustomGLView * cameraKeystoneOpenGlView;
 	IBOutlet CustomGLView * blobView;
-
 	IBOutlet CustomGLView * floorPreview;
 	
 
@@ -97,9 +126,12 @@
 
 -(void)			setFPS:(float)framesPerSecond;
 
+-(IBAction)		cameraBindGuid1:(id)sender;
+-(IBAction)		cameraBindGuid2:(id)sender;
+-(IBAction)		cameraBindGuid3:(id)sender;
+
 -(IBAction)		setMoonDustForce:(id)sender;
 -(IBAction)		setMoonDustDamp:(id)sender;
-
 
 -(IBAction)		setProjectorShowDebug:(id)sender;
 -(IBAction)		setProjectorMatrix:(id)sender;
@@ -112,9 +144,11 @@
 
 
 -(void)			awakeFromNib;
--(id)			init;
-@end
+-(void)			cameraUpdateGUIDs;
 
+-(id)			init;
+
+@end
 
 
 

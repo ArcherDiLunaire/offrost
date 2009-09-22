@@ -23,6 +23,7 @@ class Libdc1394Grabber : public ofxVideoGrabberSDK, public ofxThread
 
 		void setDeviceID(int _deviceID);
 		void setDeviceGUID(uint64_t _deviceGUID);
+		uint64_t getDeviceGUID();
 		void listDevices();
 		bool init( int _width = 320, int _height = 240, int _format = VID_FORMAT_GREYSCALE, int _targetFormat = VID_FORMAT_BGR , int _frameRate = 30);
 		bool initCam( dc1394video_mode_t _videoMode, dc1394framerate_t _frameRateMode);
@@ -67,6 +68,7 @@ class Libdc1394Grabber : public ofxVideoGrabberSDK, public ofxThread
 		dc1394color_filter_t bayerPattern;
 		dc1394bayer_method_t bayerMethod;
 
+		dc1394camera_list_t*  list;
 
 	private:
 
@@ -75,7 +77,7 @@ class Libdc1394Grabber : public ofxVideoGrabberSDK, public ofxThread
 		int cameraIndex;
 		uint64_t cameraGUID;
         static dc1394_t* d;
-		dc1394camera_list_t*  list;
+		static int useCount; 
 		dc1394error_t err;
 
 		dc1394camera_t* camera;

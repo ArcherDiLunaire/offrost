@@ -5,9 +5,13 @@
 
 
 dc1394_t* Libdc1394Grabber::d = NULL;
+int Libdc1394Grabber::useCount = 0;
 
 Libdc1394Grabber::Libdc1394Grabber()
 {
+
+	useCount++;
+	
 	bChooseDevice = false;
 	cameraIndex = -1;
 	cameraGUID = -1;
@@ -40,20 +44,31 @@ Libdc1394Grabber::Libdc1394Grabber()
 	
     if( list->num == 0 ) {
 		ofLog(OF_LOG_ERROR, "No cameras found");
-    } else {
+    } /** else {
 		//RESET BUS, NAUGHTY AND WICKED
-		dc1394camera_t *cam = dc1394_camera_new (d, list->ids[0].guid);
-		//dc1394_cleanup_iso_channels_and_bandwidth(cam);
-		dc1394_capture_stop(cam);
-		dc1394_video_set_transmission(cam, DC1394_OFF);
-		dc1394_iso_release_all(cam);
-		dc1394_camera_free(cam);
+		camera = dc1394_camera_new (d, list->ids[0].guid);
+		//dc1394_cleanup_iso_channels_and_bandwidth(camera);
+		dc1394_camera_free_list (list);
+		dc1394_video_set_transmission(camera, DC1394_OFF);
+		dc1394_iso_release_all(camera);
+		cleanupCamera();
 		
-	}
+		if(!d) {
+			d = dc1394_new ();
+		}
+		if (!d) {
+			ofLog(OF_LOG_FATAL_ERROR,"Failed to initialise libdc1394.");
+			return;
+		}
+		err = dc1394_camera_enumerate(d, &list);
+		if(err){ ofLog(OF_LOG_ERROR, "Failed to enumerate cameras"); }
+	} **/
 }
 
 Libdc1394Grabber::~Libdc1394Grabber()
 {
+
+	useCount--;
 
 	dc1394_camera_free_list (list);
 
@@ -92,6 +107,12 @@ void Libdc1394Grabber::setDeviceGUID(uint64_t _deviceGUID){
 	cameraGUID = _deviceGUID;
 	ofLog(OF_LOG_NOTICE, "Trying to use Camera with GUID %llx",cameraGUID);
 	bChooseDevice = true;
+}
+
+uint64_t Libdc1394Grabber::getDeviceGUID(){
+	if (camera != NULL) {
+		return camera->guid;
+	}
 }
 
 void Libdc1394Grabber::listDevices(){
@@ -581,9 +602,9 @@ void Libdc1394Grabber::setBayerPatternIfNeeded()
 void Libdc1394Grabber::cleanupCamera()
 {
 	stopThread();
-	//while(isThreadRunning()) 1;
+	while(isThreadRunning()) 1;
 	//this sleep seems necessary, at least on OSX, to avoid an occasional hang on exit
-	ofSleepMillis(20);
+	ofSleepMillis(200);
 
 	dc1394switch_t is_iso_on = DC1394_OFF;
 	if (dc1394_video_get_transmission(camera, &is_iso_on)!=DC1394_SUCCESS) {
@@ -600,7 +621,7 @@ void Libdc1394Grabber::cleanupCamera()
 	dc1394_camera_free (camera);
 	camera = NULL;
 
-	if(d) {
+	if(d && useCount < 1) {
 		dc1394_free (d);
 		d = NULL;
 	}

@@ -29,6 +29,7 @@ bool ofxVideoGrabber::initGrabber( int _width, int _height, int _format, int _ta
     bpp = videoGrabber->bpp;
     bUseTexture = _useTexture;
 
+	if(initResult){
     if (bUseTexture){
         targetFormat = _targetFormat;
 
@@ -70,6 +71,7 @@ bool ofxVideoGrabber::initGrabber( int _width, int _height, int _format, int _ta
     settings->setupVideoSettings(videoGrabber);
 
     bGrabberInited = true;
+	}
     return initResult;
 }
 

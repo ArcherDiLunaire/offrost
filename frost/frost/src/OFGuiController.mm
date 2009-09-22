@@ -122,8 +122,6 @@ OFGuiController * gui = NULL;
 		
 		userDefaults = [[NSUserDefaults standardUserDefaults] retain];
 		
-		
-		
 		ofApp = (testApp*)ofGetAppPtr();
 		
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [userDefaults doubleForKey:@"moondust.damp"];
@@ -131,10 +129,8 @@ OFGuiController * gui = NULL;
 
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->threshold = [userDefaults doubleForKey:@"blob.threshold1"];
 		
-
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
 
-		
 		gui = self;
 		
 		viewItems = [[NSMutableArray alloc] init];			
@@ -159,8 +155,27 @@ OFGuiController * gui = NULL;
 		[moonDustView retain];
 		
 
-	
-
+		uint64_t guidVal[3];
+		
+		for (int i=0; i<3; i++) {
+			guidVal[i] = 0x0ll;
+		}
+		
+		if ([userDefaults stringForKey:@"camera.1.guid"] != nil) {
+			sscanf([[userDefaults stringForKey:@"camera.1.guid"] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal[0]);
+		}
+		
+		if ([userDefaults stringForKey:@"camera.2.guid"] != nil) {
+			sscanf([[userDefaults stringForKey:@"camera.2.guid"] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal[1]);
+		}
+		
+		if ([userDefaults stringForKey:@"camera.3.guid"] != nil) {
+			sscanf([[userDefaults stringForKey:@"camera.3.guid"] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal[2]);
+		}
+		
+		(getPlugin<Cameras*>(ofApp->pluginController))->setGUIDs((uint64_t)guidVal[0],(uint64_t)guidVal[1],(uint64_t)guidVal[2]);
+		
+		[self cameraUpdateGUIDs];
 		
     }
 	
@@ -189,6 +204,11 @@ OFGuiController * gui = NULL;
 	id view;
 	if(![(NSString*)[p name] compare:@"Cameras"]){
 		view = cameraView;
+
+		NSView * cameraSettingEx1 = cameraSetting;
+		[cameraSettingEx1 setFrameOrigin: NSPointFromString(@"{10, 50}")];
+		[cameraSettings1 addSubview:cameraSettingEx1];
+		
 		[camView setDoDraw:true];
 	}
 	if(![(NSString*)[p name] compare:@"Blob Tracking"]){
@@ -280,6 +300,35 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     return [viewItems count];
 }
 
+-(IBAction)		cameraBindGuid1:(id)sender{
+	if(ofApp->setupCalled){
+		uint64_t guidVal;
+		sscanf([[CameraGUID1 stringValue] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal);
+		(getPlugin<Cameras*>(ofApp->pluginController))->setGUID(0, (uint64_t)guidVal);
+		[self cameraUpdateGUIDs];
+	}
+}
+
+-(IBAction)		cameraBindGuid2:(id)sender{
+	if(ofApp->setupCalled){
+		uint64_t guidVal;
+		sscanf([[CameraGUID2 stringValue] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal);
+		(getPlugin<Cameras*>(ofApp->pluginController))->setGUID(1, (uint64_t)guidVal);
+		[self cameraUpdateGUIDs];
+	}
+}
+
+-(IBAction)		cameraBindGuid3:(id)sender{
+	if(ofApp->setupCalled){
+		uint64_t guidVal;
+		sscanf([[CameraGUID3 stringValue] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal);
+		(getPlugin<Cameras*>(ofApp->pluginController))->setGUID(2, (uint64_t)guidVal);
+		[self cameraUpdateGUIDs];
+	}
+}
+
+
+
 -(IBAction)	setMoonDustForce:(id)sender{
 	if(ofApp->setupCalled){
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [sender doubleValue];
@@ -350,8 +399,19 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	if(ofApp->setupCalled){
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->threshold = [sender doubleValue];
 	}
-}
+}			
 
+-(void) cameraUpdateGUIDs{
+	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(0) != 0x0ll){
+		[CameraGUID1 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(0)]];
+	}
+	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(1) != 0x0ll){
+		[CameraGUID2 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(1)]];
+	}
+	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(2) != 0x0ll){
+		[CameraGUID3 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(2)]];
+	}
+}
 @end
 
 

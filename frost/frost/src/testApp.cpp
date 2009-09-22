@@ -16,8 +16,6 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new CameraCalibration);
 	
 	pluginController->addPlugin(new MoonDust);
-
-	
 	
 }
 
@@ -27,10 +25,10 @@ void testApp::setup(){
 	ofEnableAlphaBlending();
 	ofBackground(0,0,0);	
 
-	
 	ofSetLogLevel(OF_LOG_VERBOSE);
 	
-	
+	lucidaGrande.loadFont("LucidaGrande.ttc",22, false, true);
+			
 	pluginController->setup();
 
 	//pluginByType <int> obj;
@@ -108,7 +106,29 @@ void testApp::draw(){
 }
 
 void testApp::drawCameraView(){
-	getPlugin<Cameras*>(pluginController)->vidGrabber->draw(0,0,otherWindow->getWidth(),otherWindow->getHeight());
+	ofFill();
+	ofSetColor(164,164, 164);
+	ofRect(0, 0, otherWindow->getWidth(), otherWindow->getHeight());
+	ofSetColor(196, 196, 100);
+	for (float i = 0.0; i < otherWindow->getWidth()+otherWindow->getHeight(); i+=20.0) {
+		ofBeginShape();
+		ofVertex(i,0);
+		ofVertex(i+10, 0);
+		ofVertex((i-otherWindow->getHeight())+11.0, otherWindow->getHeight());
+		ofVertex(i-otherWindow->getHeight()+1, otherWindow->getHeight());
+		ofEndShape(true);
+	}
+	
+	for (int i=0; i<3; i++) {
+		if(getPlugin<Cameras*>(pluginController)->cameraInited[i]){
+			ofSetColor(255,255, 255);
+			getPlugin<Cameras*>(pluginController)->vidGrabber[i]->draw((otherWindow->getWidth()/3.0)*i,0,otherWindow->getWidth()/3.0,otherWindow->getHeight());
+		} else {
+			ofEnableAlphaBlending();
+			ofSetColor(255,255,255,(((sinf(ofGetElapsedTimef()*5.0)/2.0)+0.5)*255));
+			lucidaGrande.drawString("camera offline",(45+((otherWindow->getWidth()/3.0)*i)),(otherWindow->getHeight()/2)+10);
+		}
+	}
 }
 
 void testApp::drawProjectionSurfaceView(){
@@ -141,7 +161,7 @@ void testApp::keyPressed(int key){
 		ofToggleFullscreen();
 	}
 	if(key == 'c'){
-		getPlugin<Cameras*>(pluginController)->vidGrabber->videoSettings();
+		//getPlugin<Cameras*>(pluginController)->vidGrabber->videoSettings();
 	}
 }
 

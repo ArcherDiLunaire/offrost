@@ -43,7 +43,7 @@ BlobTracking::BlobTracking(){
 	type = INPUT;
 }
 void BlobTracking::setup(){
-	trackers.push_back(new Tracker(getPlugin<Cameras*>(controller)->vidGrabber));
+	trackers.push_back(new Tracker(getPlugin<Cameras*>(controller)->vidGrabber[0]));
 }
 void BlobTracking::update(){
 	for(int i=0;i<trackers.size();i++){

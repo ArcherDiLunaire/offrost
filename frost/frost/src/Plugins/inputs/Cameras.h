@@ -21,8 +21,20 @@ public:
 	void setup();
 	void update();
 	
-	ofxVideoGrabber * vidGrabber;
+	void initGrabber(int _grabber, uint64_t _cameraGUID = 0x0ll);
+	void setGUIDs(uint64_t _cameraGUID1, uint64_t _cameraGUID2, uint64_t _cameraGUID3);
+	bool cameraGUIDexists(uint64_t _cameraGUID);
+
+	bool setGUID(int _grabber, uint64_t _cameraGUID);
+
+	uint64_t getGUID(int _grabber);
+		
+	ofxVideoGrabber * vidGrabber[3];
 	
+	u_int64_t cameraGUIDs[3];
 	
+	int camWidth;
+	int camHeight;
 	
+	bool cameraInited[3];
 };
