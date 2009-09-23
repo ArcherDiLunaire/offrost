@@ -40,6 +40,7 @@ Libdc1394Grabber::Libdc1394Grabber()
     }
 	
 	err = dc1394_camera_enumerate(d, &list);
+	
 	if(err){ ofLog(OF_LOG_ERROR, "Failed to enumerate cameras"); }
 	
     if( list->num == 0 ) {
