@@ -6,6 +6,7 @@
 
 class PluginController;
 class ProjectionSurfaces;
+class Tracker;
 
 class FrostPlugin {
 public:
@@ -34,6 +35,7 @@ public:
 	
 	void applyFloorProjection();
 	ProjectionSurfaces* projection();
+	Tracker* blob(int n);
 
 	float mouseX, mouseY;
 };

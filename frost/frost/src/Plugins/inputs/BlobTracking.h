@@ -19,13 +19,25 @@ public:
 	ofxCvGrayscaleImage 	grayDiff;
 	
 	ofxCvContourFinder 	contourFinder;
-		PluginController * controller;
+	PluginController * controller;
 	
 	float 				threshold;
 	float				blur;
 	bool active;
 	
 	bool				bLearnBakground;
+	
+	//Getters
+	int numBlobs();
+	ofxCvBlob * getBlob(int n);
+	ofxCvBlob * getLargestBlob();
+	int getWidth();
+	int getHeight();
+	
+private:
+	int cw, ch;
+	
+	
 };
 
 class BlobTracking : public Input{
@@ -52,6 +64,10 @@ public:
 	bool initActive[3];
 	
 	bool drawDebug;
+	
+	//Getters
+	//Tracker* tracker(int n);
+	
 
 
 };

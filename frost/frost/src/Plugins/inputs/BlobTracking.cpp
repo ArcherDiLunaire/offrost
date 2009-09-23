@@ -6,7 +6,8 @@
 
 
 Tracker::Tracker(){
-	int cw = 1024; int ch=768;
+	cw = 1024; 
+	ch=768;
 	//	int w = grabber->getWidth();//grabber->width; 
 	//	int h = grabber->getHeight();//grabber->height;
 	grayImageBlured.allocate(cw,ch);
@@ -45,6 +46,31 @@ void Tracker::findContours(){
 }
 
 
+int Tracker::numBlobs(){
+	return contourFinder.blobs.size();
+}
+ofxCvBlob * Tracker::getBlob(int n){
+	return &contourFinder.blobs[n];
+}
+ofxCvBlob * Tracker::getLargestBlob(){
+	float largets = 0;
+	ofxCvBlob * b = NULL;
+	for(int i=0;i<numBlobs();i++){
+		if(getBlob(i)->area > largets){
+			largets = getBlob(i)->area;
+			b = getBlob(i);
+		}
+	}
+	return b;
+}
+
+int Tracker::getWidth(){
+	return cw;
+}
+int Tracker::getHeight(){
+	return ch;
+}
+
 
 BlobTracking::BlobTracking(){
 	type = INPUT;
@@ -79,8 +105,9 @@ void BlobTracking::drawSettings(){
 		int w = 250;
 		float a = 480.0/640.0;
 		ofxVideoGrabber * grabber = getPlugin<Cameras*>(controller)->getVidGrabber(trackers[i]->cameraId);
-
+		if(grabber != NULL){
 		grabber->draw(0,w*a*i,w,w*a);
+		}
 		trackers[i]->grayImageBlured.draw(w,w*a*i,w,w*a);
 		trackers[i]->grayBg.draw(w*2,w*a*i, w,w*a);
 		trackers[i]->grayDiff.draw(w*3,w*a*i,w,w*a);

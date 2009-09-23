@@ -83,11 +83,11 @@ void testApp::update()
 	float mousey = (float)mouseY/ofGetHeight();
 
 	if(mousex < 0.5){
-		getPlugin<MoonDust*>(pluginController)->min = mousex;
-		getPlugin<MoonDust*>(pluginController)->max = 0.5;
+		getPlugin<MoonDust*>(pluginController)->min = mousex-0.5;
+		getPlugin<MoonDust*>(pluginController)->max = 0;
 	} else {
-		getPlugin<MoonDust*>(pluginController)->max = mousex;
-		getPlugin<MoonDust*>(pluginController)->min = 0.5;
+		getPlugin<MoonDust*>(pluginController)->max = mousex-0.5;
+		getPlugin<MoonDust*>(pluginController)->min = 0;
 	
 	}
 	

@@ -20,7 +20,7 @@ MoonDust::MoonDust(){
 
 void MoonDust::setup(){
 	particleImg = new ofImage;
-		particleTrack = new ofImage;
+	particleTrack = new ofImage;
 	particleImg->loadImage("MoonDustParticle30.png");
 	particleTrack->loadImage("MoonDustTrack.png");
 }
@@ -36,10 +36,16 @@ void MoonDust::draw(){
 }
 
 void MoonDust::drawOnFloor(){
-	/**/float size = 0.01;
+	ofxPoint2f p = projection()->getColumnCoordinate(1);
+	float size = 0.01;
+	
 	ofSetColor(255, 255, 255);
-
+	
 	//applyFloorProjection();
+	glPushMatrix();
+	glTranslated(p.x, p.y, 0);
+	glRotated(45, 0, 0, 1.0);
+	
 	
 	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
     vector<DustParticle>::iterator it;
@@ -51,16 +57,24 @@ void MoonDust::drawOnFloor(){
 		
 		++it;
     }
-	float middleX = (max - min)/2.0+min;
+	
+	//float middleX = (max - min)/2.0+min;
 	ofSetColor(255, 255, 255);
-	ofLine(min, 0, min, 1);
-	ofLine(max, 0, max, 1);
+	//ofLine(min, 0, min, 1);
+	//ofLine(max, 0, max, 1);
+	glPopMatrix();
 	
 	ofSetColor(255, 0, 0);
-	ofxPoint2f p = projection()->getColumnCoordinate(1);
-
+	
+	
+	ofNoFill();
 	ofEllipse(p.x, p.y, 0.1, 0.1);
-	 
+	ofFill();
+	
+	ofxCvBlob * b = blob(1)->getLargestBlob();
+	if(b != NULL){
+		ofEllipse(b->centroid.x/blob(1)->getWidth(), b->centroid.y/blob(1)->getHeight(), 0.1, 0.1);
+	}
 }
 
 
@@ -69,9 +83,7 @@ DustParticle::DustParticle(float _x, float _y, float _z){
 	y = _y;
 	z = _z;
 	v.x = ofRandom(-0.01, 0.01);
-//	v.y = ofRandom(-0.4, 0.4);
 	vEffect = ofRandom(0.8, 1.2);
-//	vEffect = 1.0;
 	goingMax = false;
 }
 
@@ -82,12 +94,12 @@ void DustParticle::update(float force, float damp, float _min, float _max){
 	if(history.size() > 40){
 		history.erase(history.begin());
 	}
-
+	
 	float a = vEffect*force*0.0001*60.0/ofGetFrameRate(); 
 	if(!goingMax){
 		a *= -1;
 	}	
-
+	
 	float timeToStop = fabs(v.x)/fabs(a);
 	float p = 0.5*-a*timeToStop*timeToStop+v.x*timeToStop+x;
 	
