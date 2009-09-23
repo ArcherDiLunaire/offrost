@@ -103,6 +103,16 @@ void ofxVideoGrabber::update()
 	}
 }
 
+bool ofxVideoGrabber::grabberInited()
+{
+	return bGrabberInited;
+}	
+
+bool ofxVideoGrabber::isReady()
+{
+	return grabberInited();
+}	
+
 //--------------------------------------------------------------------
 void ofxVideoGrabber::grabFrame()
 {

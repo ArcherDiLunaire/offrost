@@ -31,6 +31,8 @@ class ofxVideoGrabber: public ofBaseVideo
 		void 			listDevices(); 
 		bool            isFrameNew();
 		void            grabFrame();
+		bool			grabberInited();
+		bool			isReady();
         void            close();
 		void			videoSettings() {settings->toggleSettingsGUI();};
 		unsigned char*  getPixels();
