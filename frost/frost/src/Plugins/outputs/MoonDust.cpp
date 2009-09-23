@@ -36,7 +36,7 @@ void MoonDust::draw(){
 }
 
 void MoonDust::drawOnFloor(){
-	/*float size = 0.01;
+	float size = 0.01;
 	ofSetColor(255, 255, 255);
 
 	//applyFloorProjection();
@@ -60,7 +60,7 @@ void MoonDust::drawOnFloor(){
 	ofxPoint2f p = projection()->getColumnCoordinate(0);
 
 	ofEllipse(p.x, p.y, 0.1, 0.1);
-	 */
+	 
 }
 
 

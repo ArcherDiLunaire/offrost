@@ -142,7 +142,9 @@ OFGuiController * gui = NULL;
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(2,[userDefaults boolForKey:@"blob.active3"]);
 		
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
-
+		
+		
+		
 		gui = self;
 		
 		viewItems = [[NSMutableArray alloc] init];			
@@ -158,6 +160,13 @@ OFGuiController * gui = NULL;
 
 		[self addObject:@"Outputs" isheader:TRUE  plugin:nil];		
 		[self addObject:@"Moon Dust" isheader:FALSE plugin:getPlugin<MoonDust*>(ofApp->pluginController)];
+		
+		NSMutableArray * array;
+		array = viewItems;
+		for(int i=0;i<[viewItems count];i++){
+			ofPlugin * p = [array objectAtIndex:i];
+			[p setEnabled:[NSNumber numberWithBool:[userDefaults boolForKey:[NSString stringWithFormat:@"plugins.enable%d",i]]]];
+		}
 		
 		
 		[blobTrackingView retain];
@@ -302,6 +311,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	if(![(NSString*)[aTableColumn identifier] compare:@"name"]){
 	} else if(![(NSString*)[aTableColumn identifier] compare:@"enable"]){
 		[p setEnabled:anObject];	
+		[userDefaults setValue:[p enabled] forKey:[NSString stringWithFormat:@"plugins.enable%d",i]];
+
 
 	}  
 	return;

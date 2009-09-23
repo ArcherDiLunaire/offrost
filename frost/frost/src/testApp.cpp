@@ -102,6 +102,7 @@ void testApp::draw(){
 	
 	pluginController->draw();
 	pluginController->drawFloor();
+
 	fps = ofGetFrameRate();
 }
 

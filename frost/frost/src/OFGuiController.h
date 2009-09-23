@@ -57,6 +57,7 @@
 	
 	NSUserDefaults * userDefaults;
 	
+	
 	/**
 	 * Plugin View Outlets
 	 **/
