@@ -76,18 +76,18 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 }
 
 ofxVideoGrabber * Cameras::getVidGrabber(int _cameraIndex){
-	if (cameraInited[i] && vidGrabber[_cameraIndex] != NULL){
+	if (cameraInited[_cameraIndex] && vidGrabber[_cameraIndex] != NULL){
 		return vidGrabber[_cameraIndex];
 	} else {
 		return NULL;
 	}
 }
 
-bool isReady(int _cameraIndex){
-	if (cameraInited && vidGrabber != NULL) {
+bool Cameras::isReady(int _cameraIndex){
+	if (cameraInited[_cameraIndex] && vidGrabber[_cameraIndex] != NULL) {
 		return vidGrabber[_cameraIndex]->isReady();
 	}
-	return cameraInited;
+	return cameraInited[_cameraIndex];
 }
 
 bool Cameras::cameraGUIDexists(uint64_t _cameraGUID){

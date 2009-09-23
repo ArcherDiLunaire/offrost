@@ -123,7 +123,7 @@ void testApp::drawCameraView(){
 	for (int i=0; i<3; i++) {
 		if(getPlugin<Cameras*>(pluginController)->cameraInited[i]){
 			ofSetColor(255,255, 255);
-			getPlugin<Cameras*>(pluginController)->vidGrabber[i]->draw((otherWindow->getWidth()/3.0)*i,0,otherWindow->getWidth()/3.0,otherWindow->getHeight());
+			getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->draw((otherWindow->getWidth()/3.0)*i,0,otherWindow->getWidth()/3.0,otherWindow->getHeight());
 		} else {
 			ofEnableAlphaBlending();
 			ofSetColor(255,255,255,(((sinf(ofGetElapsedTimef()*5.0)/2.0)+0.5)*255));
@@ -147,7 +147,7 @@ void testApp::drawBlobWindow(){
 }
 
 void testApp::drawFloorPreview(){
-	glScaled(floorPreview->m_Width, floorPreview->m_Height, 1.0);
+	glScaled(floorPreview->m_Width/getPlugin<ProjectionSurfaces*>(pluginController)->getFloor()->aspect, floorPreview->m_Height, 1.0);
 	for(int i=0;i<pluginController->plugins.size();i++){
 		FrostPlugin* plugin = pluginController->plugins[i];
 		if(plugin->enabled){

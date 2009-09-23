@@ -7,10 +7,10 @@
 
 class Tracker {
 public:
-	Tracker(ofxVideoGrabber * grabber);
+	Tracker();
 	void update();
 	void findContours();
-	ofxVideoGrabber * grabber;
+	int cameraId;
 	
 	ofxCvGrayscaleImage 	grayImage;
 	ofxCvGrayscaleImage 	grayImageBlured;
@@ -19,6 +19,7 @@ public:
 	ofxCvGrayscaleImage 	grayDiff;
 	
 	ofxCvContourFinder 	contourFinder;
+		PluginController * controller;
 	
 	float 				threshold;
 	float				blur;

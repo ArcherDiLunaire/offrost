@@ -5,9 +5,8 @@
 #include "CameraCalibration.h"
 
 
-Tracker::Tracker(ofxVideoGrabber * _grabber){
+Tracker::Tracker(){
 	int cw = 1024; int ch=768;
-	grabber = _grabber;		
 	//	int w = grabber->getWidth();//grabber->width; 
 	//	int h = grabber->getHeight();//grabber->height;
 	grayImageBlured.allocate(cw,ch);
@@ -19,23 +18,26 @@ Tracker::Tracker(ofxVideoGrabber * _grabber){
 
 void Tracker::update(){ 
 	bool bNewFrame = false;
-	bNewFrame = grabber->isFrameNew();
-	if (bNewFrame && active){
-		
-		grayImage.setFromPixels(grabber->getPixels(), grabber->getWidth(),grabber->getHeight());
-		grayImageBlured = grayImage;
-		grayImageBlured.blur(blur);
-		
-		if (bLearnBakground == true){
-			grayBg = grayImageBlured;		
-			bLearnBakground = false;
+	if(getPlugin<Cameras*>(controller)->isReady(cameraId)){
+		ofxVideoGrabber * grabber = getPlugin<Cameras*>(controller)->getVidGrabber(cameraId);
+		bNewFrame = grabber->isFrameNew();
+		if (bNewFrame && active){
+			
+			grayImage.setFromPixels(grabber->getPixels(), grabber->getWidth(),grabber->getHeight());
+			grayImageBlured = grayImage;
+			//	grayImageBlured.blur(blur);
+			
+			if (bLearnBakground == true){
+				grayBg = grayImageBlured;		
+				bLearnBakground = false;
+			}
+			
+			grayDiff.absDiff(grayBg, grayImageBlured);
+			grayDiff.threshold(threshold);
+			
+			contourFinder.findContours(grayDiff, 20, (grabber->getWidth()*grabber->getHeight())/3, 10, false, true);	
+			
 		}
-		
-		grayDiff.absDiff(grayBg, grayImageBlured);
-		grayDiff.threshold(threshold);
-		
-		contourFinder.findContours(grayDiff, 20, (grabber->getWidth()*grabber->getHeight())/3, 10, false, true);	
-		
 	}
 }
 
@@ -50,10 +52,12 @@ BlobTracking::BlobTracking(){
 }
 void BlobTracking::setup(){
 	for(int i=0;i<3;i++){
-		trackers.push_back(new Tracker(getPlugin<Cameras*>(controller)->vidGrabber[i]));
+		trackers.push_back(new Tracker());
+		trackers[i]->cameraId = i;
 		trackers[i]->threshold = initThreshold[i];
 		trackers[i]->blur = initBlur[i];
 		trackers[i]->active = initActive[i];
+		trackers[i]->controller = controller;
 	}
 }
 void BlobTracking::update(){
@@ -74,7 +78,9 @@ void BlobTracking::drawSettings(){
 		
 		int w = 250;
 		float a = 480.0/640.0;
-		trackers[i]->grabber->draw(0,w*a*i,w,w*a);
+		ofxVideoGrabber * grabber = getPlugin<Cameras*>(controller)->getVidGrabber(trackers[i]->cameraId);
+
+		grabber->draw(0,w*a*i,w,w*a);
 		trackers[i]->grayImageBlured.draw(w,w*a*i,w,w*a);
 		trackers[i]->grayBg.draw(w*2,w*a*i, w,w*a);
 		trackers[i]->grayDiff.draw(w*3,w*a*i,w,w*a);
