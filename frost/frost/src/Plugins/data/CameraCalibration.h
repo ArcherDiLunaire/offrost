@@ -48,6 +48,6 @@ public:
 	ofxXmlSettings * keystoneXml;
 	
 	void applyWarp(int cam, float _w=ofGetWidth(), float _h=ofGetHeight());
-	
+	ofxVec2f convertCoordinate(int cam, float x, float y);
 
 };

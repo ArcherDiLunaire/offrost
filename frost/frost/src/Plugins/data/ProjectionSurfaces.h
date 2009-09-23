@@ -38,6 +38,9 @@ public:
 	
 	ofxPoint2f getColumnCoordinate(int column);
 	
+	ofxVec2f  convertToFloorCoordinate(ofxVec2f v);
+
+	
 	bool drawDebug;
 	ofTrueTypeFont	verdana;
 	

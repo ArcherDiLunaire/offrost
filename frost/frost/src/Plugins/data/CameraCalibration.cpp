@@ -89,7 +89,15 @@ void CameraCalibration::draw(){
 		applyWarp(selectedKeystoner);
 		getPlugin<Cameras*>(controller)->getVidGrabber(selectedKeystoner)->draw(0,0,1,1);
 		glPopMatrix();
+		
+		ofSetColor(255, 255, 255);
+		ofEllipse(ofGetWidth()*0.5, ofGetHeight()*0.4, 10, 10);
+		ofEllipse(ofGetWidth()*0.9, ofGetHeight()*0.4, 10, 10);
+		ofEllipse(ofGetWidth()*0.8, ofGetHeight()*0.6, 10, 10);
+		ofEllipse(ofGetWidth()*0.5, ofGetHeight()*0.7, 10, 10);
 	}
+	
+	
 	
 }
 
@@ -120,6 +128,11 @@ void CameraCalibration::drawSettings(){
 	ofRect(0, 0, w, h);
 	
 	ofSetColor(255, 255, 255, 255);
+
+	ofEllipse(w*0.5, h*0.4, 10, 10);
+	ofEllipse(w*0.9, h*0.4, 10, 10);
+	ofEllipse(w*0.8, h*0.6, 10, 10);
+	ofEllipse(w*0.5, h*0.7, 10, 10);
 	
 	
 	if(selectedKeystoner == 0){
@@ -128,6 +141,7 @@ void CameraCalibration::drawSettings(){
 		glScaled(0.3, 0.3, 1.0);
 		verdana.drawString("PROJECTION", 0, 40);
 		glPopMatrix();
+		
 		
 		projection()->applyFloorProjection(w, h);
 		ofSetColor(255, 255, 255, 40);
@@ -199,6 +213,13 @@ void CameraCalibration::mouseDragged(ofMouseEventArgs & args){
 	cameras[selectedKeystoner]->warp->SetCorner(selectedCorner, newPos.x, newPos.y);
 	lastMousePos = curMouse;
 	cameras[selectedKeystoner]->warp->MatrixCalculate();
+	ofxPoint2f a[4];
+	a[0] = ofxPoint2f(0,0);
+	a[1] = ofxPoint2f(1,0);
+	a[2] = ofxPoint2f(1,1);
+	a[3] = ofxPoint2f(0,1);
+	
+	cameras[selectedKeystoner]->coordWarp->calculateMatrix(a, cameras[selectedKeystoner]->warp->corners);
 	saveXml();
 }
 
@@ -219,7 +240,13 @@ void CameraCalibration::keyPressed(ofKeyEventArgs & args){
 	}
 	cameras[selectedKeystoner]->warp->SetCorner(selectedCorner, newPos.x, newPos.y);
 	cameras[selectedKeystoner]->warp->MatrixCalculate();
+	ofxPoint2f a[4];
+	a[0] = ofxPoint2f(0,0);
+	a[1] = ofxPoint2f(1,0);
+	a[2] = ofxPoint2f(1,1);
+	a[3] = ofxPoint2f(0,1);
 	
+	cameras[selectedKeystoner]->coordWarp->calculateMatrix(a, cameras[selectedKeystoner]->warp->corners);
 	saveXml();
 }
 
@@ -259,3 +286,10 @@ void CameraCalibration::applyWarp(int cam, float _w, float _h){
 	glScaled(setW, setH, 1.0);
 }
 
+ofxVec2f CameraCalibration::convertCoordinate(int cam, float x, float y){
+	ofxVec2f v;
+	ofxPoint2f p = cameras[cam]->coordWarp->transform(x,y);
+	v.x = p.x;
+	v.y = p.y;
+	return v;
+}

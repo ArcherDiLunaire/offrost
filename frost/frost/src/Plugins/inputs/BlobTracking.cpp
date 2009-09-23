@@ -26,7 +26,7 @@ void Tracker::update(){
 			
 			grayImage.setFromPixels(grabber->getPixels(), grabber->getWidth(),grabber->getHeight());
 			grayImageBlured = grayImage;
-			//	grayImageBlured.blur(blur);
+			grayImageBlured.blur(blur);
 			
 			if (bLearnBakground == true){
 				grayBg = grayImageBlured;		
@@ -49,15 +49,35 @@ void Tracker::findContours(){
 int Tracker::numBlobs(){
 	return contourFinder.blobs.size();
 }
-ofxCvBlob * Tracker::getBlob(int n){
-	return &contourFinder.blobs[n];
+
+ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibrator){
+	ofxCvBlob b;
+	float m = cw*ch;
+	b.area = blob->area/m;
+	b.length = blob->length/m;
+	//bounding rect not defined
+	
+	ofxVec2f v = calibrator->convertCoordinate(cameraId, blob->centroid.x/getWidth(), blob->centroid.y/getHeight());
+	
+	b.centroid = ofPoint(v.x, v.y);
+	b.hole = blob->hole;
+	for(int i=0;i<blob->nPts;i++){
+		ofxVec2f v = calibrator->convertCoordinate(cameraId, blob->pts[i].x/getWidth(), blob->pts[i].y/getHeight());
+		b.pts.push_back(ofPoint(v.x, v.y));
+	}
+	b.nPts = blob->nPts;
+	return b;
 }
-ofxCvBlob * Tracker::getLargestBlob(){
+
+ofxCvBlob Tracker::getBlob(int n){
+	return getConvertedBlob(&contourFinder.blobs[n], getPlugin<CameraCalibration*>(controller));
+}
+ofxCvBlob Tracker::getLargestBlob(){
 	float largets = 0;
-	ofxCvBlob * b = NULL;
+	ofxCvBlob b;
 	for(int i=0;i<numBlobs();i++){
-		if(getBlob(i)->area > largets){
-			largets = getBlob(i)->area;
+		if(getBlob(i).area > largets){
+			largets = getBlob(i).area;
 			b = getBlob(i);
 		}
 	}
@@ -127,7 +147,18 @@ void BlobTracking::draw(){
 			trackers[i]->grayDiff.draw(0,0,1,1);
 			
 			glPopMatrix();
+			
+			for(int u =0;u<trackers[i]->numBlobs();u++){
+				ofxCvBlob b = trackers[i]->getBlob(u);
+				ofSetColor(255, 0, 255);
+
+				for(int x=0;x<b.nPts;x++){
+					ofEllipse(b.pts[x].x*ofGetWidth(), b.pts[x].y*ofGetHeight(), 5, 5);
+				}
+			}
 		}
+		glPopMatrix();
+
 	}
 }
 

@@ -3,6 +3,8 @@
 #include "Output.h"
 #include "ofxVectorMath.h"
 
+#define cam 0
+
 class DustParticle : public ofxVec3f {
 public:
 	DustParticle(float x, float y, float z);
@@ -14,6 +16,8 @@ public:
 	float vEffect;
 	bool goingMax;
 	float min, max;
+	bool visible;
+	float alpha;
 };
 
 class MoonDust : public Output{
@@ -33,4 +37,6 @@ public:
 	
 	ofImage * particleImg;
 	ofImage * particleTrack;
+	
+	float rotation;
 };

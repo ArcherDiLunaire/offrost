@@ -5,6 +5,8 @@
 #include "ofxOpenCv.h"
 #include "ofxVideoGrabber.h"
 
+class CameraCalibration;
+
 class Tracker {
 public:
 	Tracker();
@@ -29,8 +31,9 @@ public:
 	
 	//Getters
 	int numBlobs();
-	ofxCvBlob * getBlob(int n);
-	ofxCvBlob * getLargestBlob();
+	ofxCvBlob getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibrator);
+	ofxCvBlob getBlob(int n);
+	ofxCvBlob getLargestBlob();
 	int getWidth();
 	int getHeight();
 	

@@ -337,6 +337,15 @@ ProjectionSurfacesObject * ProjectionSurfaces::getCurtain(int n){
 	return objects[4+n];
 }
 
+ofxVec2f  ProjectionSurfaces::convertToFloorCoordinate(ofxVec2f v){
+	ofxVec2f r;
+	ofxPoint2f p = getFloor()->coordWarp->inversetransform(v.x, v.y);
+	r.x = p.x*getFloor()->aspect;
+	r.y = p.y;
+	return r;
+
+}
+
 ofxPoint2f ProjectionSurfaces::getColumnCoordinate(int column){
 	ofxVec2f p1 = getColumn(column)->warp->corners[3]; 
 	ofxVec2f p2 = getColumn(column)->warp->corners[2];
