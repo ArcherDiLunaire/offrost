@@ -10,7 +10,6 @@ class CameraCalibrationObject {
 public:
 	Warp * warp;
 	coordWarping * coordWarp;
-	Warp * floorWarp;
 	string name;
 };
 

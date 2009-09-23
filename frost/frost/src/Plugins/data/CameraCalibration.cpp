@@ -7,15 +7,14 @@
 
 CameraCalibration::CameraCalibration(){
 	type = DATA;
-
+	
 	for(int i=0;i<3;i++){
 		cameras.push_back(new CameraCalibrationObject);
 		cameras[i]->warp = new Warp();
-		cameras[i]->floorWarp = new Warp();
 		cameras[i]->coordWarp = new coordWarping;
 		cameras[i]->name = "CAMERA "+ofToString(i, 0);
 	}
-		
+	
 	drawDebug = false;
 	selectedCorner = 0;
 	selectedKeystoner = 0;
@@ -42,7 +41,7 @@ void CameraCalibration::setup(){
 	if(numFloor != 1){
 		cout<<"====== ERROR: No cameras in keystone xml ======"<<endl;
 	} else {
-
+		
 		keystoneXml->pushTag("cameras", 0);
 		for(int u=0;u<3;u++){
 			keystoneXml->pushTag("camera", u);
@@ -56,7 +55,7 @@ void CameraCalibration::setup(){
 			keystoneXml->popTag();			
 		}
 		keystoneXml->popTag();
-				
+		
 	}
 	
 	for(int i=0;i<3;i++){
@@ -68,9 +67,6 @@ void CameraCalibration::setup(){
 		a[3] = ofxPoint2f(0,1);
 		cameras[i]->coordWarp->calculateMatrix(a, cameras[i]->warp->corners);
 		
-		for(int u=0;u<4;u++){
-//			cameras[i]->warp->SetCorner();	
-		}
 		
 	}
 	
@@ -87,38 +83,25 @@ void CameraCalibration::update(){
 void CameraCalibration::drawOnFloor(){
 }
 void CameraCalibration::draw(){
-/*	if(drawDebug){
-		for(int i=0;i<10;i++){
-			float a = 0.3;
-			
-			if(selectedKeystoner == i){
-				a = 1.0;
-			}
-			applyProjection(objects[i]);					
-			if(i>0&&i<4){
-				drawGrid(objects[i]->name, (objects[i]->aspect), 1.0/ (objects[i]->aspect), false, a, 0.02);	
-				
-			} else {
-				drawGrid(objects[i]->name, (objects[i]->aspect), 10, (i==0)?true : false, a, 1.0);	
-			}
-			
-			glPopMatrix();
-			
-		}
+	if(drawDebug){
+		ofSetColor(255, 255, 255, 255);
+		glPushMatrix();
+		applyWarp(selectedKeystoner);
+		getPlugin<Cameras*>(controller)->vidGrabber[selectedKeystoner]->draw(0,0,1,1);
+		glPopMatrix();
 	}
-	ofSetColor(255, 255, 0);
-*/
+	
 }
 
 void CameraCalibration::drawSettings(){
 	glPushMatrix();
 	glTranslated(offset, offset, 0);
 	glPushMatrix();
-
+	
 	ofSetColor(255, 255, 255, 255);
 	glPushMatrix();
-	applyWarp(0,w,h);
-	getPlugin<Cameras*>(controller)->vidGrabber[0]->draw(0,0,1,1);
+	applyWarp(selectedKeystoner,w,h);
+	getPlugin<Cameras*>(controller)->vidGrabber[selectedKeystoner]->draw(0,0,1,1);
 	glPopMatrix();
 	
 	for(int i=0;i<4;i++){
@@ -127,7 +110,7 @@ void CameraCalibration::drawSettings(){
 			ofSetColor(255,255, 0,255);
 		}
 		ofxVec2f v = cameras[selectedKeystoner]->warp->corners[i];
-
+		
 		ofEllipse(v.x*w, v.y*h, 10, 10);
 	}		
 	
@@ -135,7 +118,7 @@ void CameraCalibration::drawSettings(){
 	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255,40);
 	ofRect(0, 0, w, h);
-		
+	
 	ofSetColor(255, 255, 255, 255);
 	
 	
@@ -150,57 +133,57 @@ void CameraCalibration::drawSettings(){
 		ofSetColor(255, 255, 255, 40);
 		ofRect(0, 0, 1*projection()->getFloor()->aspect, 1);
 		glPopMatrix();
-
 		
 		
 		
-
 		
-	}
 		
-	glPopMatrix();
-	glPopMatrix();
-	
-/*	glPushMatrix();
-	glTranslated(offset, offset, 0);
-	glPushMatrix();
-	ofEnableAlphaBlending();
-	ofSetColor(255, 255, 255,70);
-	ofRect(0, 0, w, h);
-	
-	glScaled(w, h, 1.0);
-	for(int i=0;i<4;i++){
-		ofSetColor(255,0, 0);
-		if(selectedCorner == i){
-			ofSetColor(255,255, 0);
-		}
-		ofxVec2f v = objects[selectedKeystoner]->warp->corners[i];
-		ofEllipse(v.x, v.y, 0.05, 0.05);
-	}	
-	glPopMatrix();
-	
-	//	drawDebugGrids(w,h);
-	
-	for(int i=0;i<10;i++){
-		float a = 0.3;
-		if(selectedKeystoner == i){
-			a = 1.0;
-		}		
-		applyProjection(objects[i], w, h);	
-		
-		if(i>0&&i<4){
-			drawGrid(objects[i]->name, (objects[i]->aspect), 1.0/ (objects[i]->aspect), false, a, 0.02);	
-			
-		} else {
-			drawGrid(objects[i]->name, (objects[i]->aspect), 10, (i==0)?true : false, a, 1.0);	
-		}
-		
-		glPopMatrix();
 		
 	}
 	
+	glPopMatrix();
+	glPopMatrix();
 	
-	glPopMatrix();*/
+	/*	glPushMatrix();
+	 glTranslated(offset, offset, 0);
+	 glPushMatrix();
+	 ofEnableAlphaBlending();
+	 ofSetColor(255, 255, 255,70);
+	 ofRect(0, 0, w, h);
+	 
+	 glScaled(w, h, 1.0);
+	 for(int i=0;i<4;i++){
+	 ofSetColor(255,0, 0);
+	 if(selectedCorner == i){
+	 ofSetColor(255,255, 0);
+	 }
+	 ofxVec2f v = objects[selectedKeystoner]->warp->corners[i];
+	 ofEllipse(v.x, v.y, 0.05, 0.05);
+	 }	
+	 glPopMatrix();
+	 
+	 //	drawDebugGrids(w,h);
+	 
+	 for(int i=0;i<10;i++){
+	 float a = 0.3;
+	 if(selectedKeystoner == i){
+	 a = 1.0;
+	 }		
+	 applyProjection(objects[i], w, h);	
+	 
+	 if(i>0&&i<4){
+	 drawGrid(objects[i]->name, (objects[i]->aspect), 1.0/ (objects[i]->aspect), false, a, 0.02);	
+	 
+	 } else {
+	 drawGrid(objects[i]->name, (objects[i]->aspect), 10, (i==0)?true : false, a, 1.0);	
+	 }
+	 
+	 glPopMatrix();
+	 
+	 }
+	 
+	 
+	 glPopMatrix();*/
 	
 }
 

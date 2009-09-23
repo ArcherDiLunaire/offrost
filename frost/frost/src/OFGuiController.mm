@@ -127,7 +127,19 @@ OFGuiController * gui = NULL;
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [userDefaults doubleForKey:@"moondust.damp"];
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [userDefaults doubleForKey:@"moondust.force"];
 
-		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->threshold = [userDefaults doubleForKey:@"blob.threshold1"];
+		
+		(getPlugin<BlobTracking*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"blob.drawdebug"];	
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(0,[userDefaults doubleForKey:@"blob.threshold1"]);
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(0,[userDefaults doubleForKey:@"blob.blur1"]);
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(0,[userDefaults boolForKey:@"blob.active1"]);
+
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(1,[userDefaults doubleForKey:@"blob.threshold2"]);
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(1,[userDefaults doubleForKey:@"blob.blur2"]);
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(1,[userDefaults boolForKey:@"blob.active2"]);
+
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(2,[userDefaults doubleForKey:@"blob.threshold3"]);
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(2,[userDefaults doubleForKey:@"blob.blur3"]);
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(2,[userDefaults boolForKey:@"blob.active3"]);
 		
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
 
@@ -384,7 +396,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		if([sender state] ==  NSOnState ){
 			b = true;	
 		}
-		((CameraCalibration*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = b;
+		(getPlugin<CameraCalibration*>(ofApp->pluginController))->drawDebug = b;
 	}
 }
 -(IBAction)		setCameraKeystoneMatrix:(id)sender{
@@ -394,12 +406,102 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 
-
--(IBAction)	setBlobThreshold:(id)sender{
+-(IBAction)		drawBlobDebug:(id)sender{
 	if(ofApp->setupCalled){
-		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->threshold = [sender doubleValue];
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		(getPlugin<BlobTracking*>(ofApp->pluginController))->drawDebug = b;
 	}
-}			
+}
+
+-(IBAction)	setBlobThreshold1:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(0,[sender doubleValue]);
+	}
+}	
+
+-(IBAction)	setBlobBlur1:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(0,[sender doubleValue]);
+	}
+}	
+
+-(IBAction)		blobGrab1:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(0);
+	}
+}
+-(IBAction)		setBlobActive1:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(0,b);
+	}
+	
+}
+
+-(IBAction)	setBlobThreshold2:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(1,[sender doubleValue]);
+	}
+}	
+
+-(IBAction)	setBlobBlur2:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(1,[sender doubleValue]);
+	}
+}	
+
+-(IBAction)		blobGrab2:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(1);
+	}
+}
+-(IBAction)		setBlobActive2:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(1,b);
+	}
+	
+}
+
+-(IBAction)	setBlobThreshold3:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(2,[sender doubleValue]);
+	}
+}	
+
+-(IBAction)	setBlobBlur3:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(2,[sender doubleValue]);
+	}
+}	
+
+-(IBAction)		blobGrab3:(id)sender{
+	if(ofApp->setupCalled){
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(2);
+	}
+}
+-(IBAction)		setBlobActive3:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		
+		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(2,b);
+	}
+	
+}
 
 -(void) cameraUpdateGUIDs{
 	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(0) != 0x0ll){

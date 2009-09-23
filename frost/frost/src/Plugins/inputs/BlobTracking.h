@@ -9,18 +9,21 @@ class Tracker {
 public:
 	Tracker(ofxVideoGrabber * grabber);
 	void update();
-	
+	void findContours();
 	ofxVideoGrabber * grabber;
 	
-	ofxCvColorImage		colorImg;
-	
 	ofxCvGrayscaleImage 	grayImage;
+	ofxCvGrayscaleImage 	grayImageBlured;
+
 	ofxCvGrayscaleImage 	grayBg;
 	ofxCvGrayscaleImage 	grayDiff;
 	
 	ofxCvContourFinder 	contourFinder;
 	
-	int 				threshold;
+	float 				threshold;
+	float				blur;
+	bool active;
+	
 	bool				bLearnBakground;
 };
 
@@ -36,4 +39,18 @@ public:
 	
 	float threshold;
 	
+	void drawSettings();
+	
+	void setThreshold(int n, float v);
+	void setBlur(int n, int v);
+	void grab(int n);
+	void setActive(int n, bool b);
+	
+	float initThreshold[3];
+	float initBlur[3];
+	bool initActive[3];
+	
+	bool drawDebug;
+
+
 };

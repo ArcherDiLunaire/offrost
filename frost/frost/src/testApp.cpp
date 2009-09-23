@@ -141,7 +141,7 @@ void testApp::drawCameraCalibrationView(){
 
 void testApp::drawBlobWindow(){
 	ofSetColor(255,255, 255);
-	getPlugin<BlobTracking*>(pluginController)->draw();
+	getPlugin<BlobTracking*>(pluginController)->drawSettings();
 
 }
 

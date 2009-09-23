@@ -14,7 +14,7 @@
 	NSNumber * header;
 	
 	FrostPlugin * plugin;
-
+	
 }
 @property (retain, readwrite) NSString *name;
 @property (retain, readwrite) NSNumber *enabled;
@@ -51,16 +51,16 @@
 	IBOutlet NSView * mainView;	
 	IBOutlet contentView * contentArea;
 	IBOutlet ListView * listView;
-
+	
 	NSMutableArray * viewItems;
 	NSMutableArray * views;
-
+	
 	NSUserDefaults * userDefaults;
-
+	
 	/**
 	 * Plugin View Outlets
 	 **/
-		
+	
 	IBOutlet NSView *cameraView;
 	IBOutlet NSView *blobTrackingView;
 	IBOutlet NSView *projectionSurfacesView;
@@ -70,7 +70,7 @@
 	/**
 	 * Moon Dust Outlets
 	 **/
-		
+	
 	IBOutlet NSSlider * MoonDustForce;
 	IBOutlet NSSlider * MoonDustDamp;
 	
@@ -96,13 +96,21 @@
 	IBOutlet NSMatrix * ProjectorMatrix;
 	IBOutlet NSSlider * ProjectorFloorAspect;
 	IBOutlet NSTextField * ProjectorFloorAspectText;
-
+	
 	/**
 	 * Blob Detection Outlets
 	 **/
 	
-	IBOutlet NSSlider * BlobThreshold;
-
+	IBOutlet NSSlider * BlobThreshold1;
+	IBOutlet NSSlider * BlobBlur1;
+	IBOutlet NSButton * BlobActive1;
+	IBOutlet NSSlider * BlobThreshold2;
+	IBOutlet NSSlider * BlobBlur2;
+	IBOutlet NSButton * BlobActive2;
+	IBOutlet NSSlider * BlobThreshold3;
+	IBOutlet NSSlider * BlobBlur3;
+	IBOutlet NSButton * BlobActive3;
+	
 	/**
 	 * OpenGL Views
 	 **/
@@ -113,7 +121,7 @@
 	IBOutlet CustomGLView * blobView;
 	IBOutlet CustomGLView * floorPreview;
 	
-
+	
 }
 @property (retain, readwrite) NSMutableArray *viewItems;
 @property (retain, readwrite) NSMutableArray *views;
@@ -140,7 +148,19 @@
 -(IBAction)		setCameraKeystoneShowDebug:(id)sender;
 -(IBAction)		setCameraKeystoneMatrix:(id)sender;
 
--(IBAction)		setBlobThreshold:(id)sender;
+-(IBAction)		setBlobThreshold1:(id)sender;
+-(IBAction)		setBlobBlur1:(id)sender;
+-(IBAction)		blobGrab1:(id)sender;
+-(IBAction)		setBlobActive1:(id)sender;
+-(IBAction)		setBlobThreshold2:(id)sender;
+-(IBAction)		setBlobBlur2:(id)sender;
+-(IBAction)		blobGrab2:(id)sender;
+-(IBAction)		setBlobActive2:(id)sender;
+-(IBAction)		setBlobThreshold3:(id)sender;
+-(IBAction)		setBlobBlur3:(id)sender;
+-(IBAction)		blobGrab3:(id)sender;
+-(IBAction)		setBlobActive3:(id)sender;
+-(IBAction)		drawBlobDebug:(id)sender;
 
 
 -(void)			awakeFromNib;
