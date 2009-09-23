@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AEC3A10668C0100FBEE17 /* coordWarp.cpp */; };
-		27B7F350106A2D4300E1E74B /* MoonDust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B7F34F106A2D4300E1E74B /* MoonDust.cpp */; };
+		27B7F437106A4A7C00E1E74B /* MoonDust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B7F436106A4A7C00E1E74B /* MoonDust.cpp */; };
 		3F1E59AB100B75550091B692 /* SharedContextGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59AA100B75550091B692 /* SharedContextGLView.m */; };
 		3F1E59B1100B77800091B692 /* CustomGLViewDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59B0100B77800091B692 /* CustomGLViewDelegate.cpp */; };
 		DD0C01661066874900BB3F9F /* install.xml in Resources */ = {isa = PBXBuildFile; fileRef = DD0C01591066874900BB3F9F /* install.xml */; };
@@ -105,7 +105,7 @@
 /* Begin PBXFileReference section */
 		279AEC3A10668C0100FBEE17 /* coordWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coordWarp.cpp; path = src/coordWarp.cpp; sourceTree = SOURCE_ROOT; };
 		279AEC3B10668C0100FBEE17 /* coordWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = coordWarp.h; path = src/coordWarp.h; sourceTree = SOURCE_ROOT; };
-		27B7F34F106A2D4300E1E74B /* MoonDust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoonDust.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/MoonDust.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27B7F436106A4A7C00E1E74B /* MoonDust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoonDust.cpp; path = src/Plugins/outputs/MoonDust.cpp; sourceTree = SOURCE_ROOT; };
 		3F1E59A9100B75550091B692 /* SharedContextGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedContextGLView.h; path = ../SharedContextGLView.h; sourceTree = "<group>"; };
 		3F1E59AA100B75550091B692 /* SharedContextGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedContextGLView.m; path = ../SharedContextGLView.m; sourceTree = "<group>"; };
 		3F1E59AF100B77800091B692 /* CustomGLViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomGLViewDelegate.h; path = ../CustomGLViewDelegate.h; sourceTree = "<group>"; };
@@ -628,7 +628,7 @@
 			isa = PBXGroup;
 			children = (
 				DDB85127105E7CC800D1ED92 /* MoonDust.h */,
-				27B7F34F106A2D4300E1E74B /* MoonDust.cpp */,
+				27B7F436106A4A7C00E1E74B /* MoonDust.cpp */,
 			);
 			path = outputs;
 			sourceTree = "<group>";
@@ -1367,7 +1367,7 @@
 				DD0C016A1066874900BB3F9F /* ofxXmlSettings.cpp in Sources */,
 				279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */,
 				DDF383991067B3E800E8A20A /* CameraCalibration.cpp in Sources */,
-				27B7F350106A2D4300E1E74B /* MoonDust.cpp in Sources */,
+				27B7F437106A4A7C00E1E74B /* MoonDust.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

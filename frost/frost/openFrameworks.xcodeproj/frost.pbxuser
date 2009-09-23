@@ -1136,9 +1136,15 @@
 		vrLoc = 874;
 	};
 	27B7F34F106A2D4300E1E74B /* MoonDust.cpp */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = MoonDust.cpp;
+		path = /Developer/Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/MoonDust.cpp;
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1267, 1586}}";
-			sepNavSelRange = "{1208, 0}";
+			sepNavSelRange = "{1058, 0}";
 			sepNavVisRange = "{632, 774}";
 		};
 	};
@@ -2053,6 +2059,53 @@
 		vrLen = 861;
 		vrLoc = 298;
 	};
+	27B7F436106A4A7C00E1E74B /* MoonDust.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1267, 1586}}";
+			sepNavSelRange = "{146, 0}";
+			sepNavVisRange = "{0, 655}";
+		};
+	};
+	27B7F438106A4A8300E1E74B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DD7CC2721063979800D3736A /* BlobTracking.cpp */;
+		name = "BlobTracking.cpp: 55";
+		rLen = 4;
+		rLoc = 1355;
+		rType = 0;
+		vrLen = 520;
+		vrLoc = 1159;
+	};
+	27B7F439106A4A8300E1E74B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 27B7F436106A4A7C00E1E74B /* MoonDust.cpp */;
+		name = "MoonDust.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 655;
+		vrLoc = 0;
+	};
+	27B7F43A106A4A8300E1E74B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 27B7F436106A4A7C00E1E74B /* MoonDust.cpp */;
+		name = "MoonDust.cpp: 11";
+		rLen = 0;
+		rLoc = 146;
+		rType = 0;
+		vrLen = 655;
+		vrLoc = 0;
+	};
+	27B7F43B106A4A8300E1E74B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DD7CC3E01063C47100D3736A /* ofxCvBlob.h */;
+		name = "ofxCvBlob.h: 27";
+		rLen = 8;
+		rLoc = 502;
+		rType = 0;
+		vrLen = 861;
+		vrLoc = 298;
+	};
 	27BFB450106A2A2800B7CB3F /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DD7CC2721063979800D3736A /* BlobTracking.cpp */;
@@ -2122,8 +2175,8 @@
 	};
 	DD7CC2721063979800D3736A /* BlobTracking.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1267, 2210}}";
-			sepNavSelRange = "{1359, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1267, 2197}}";
+			sepNavSelRange = "{1355, 4}";
 			sepNavVisRange = "{1159, 520}";
 			sepNavWindowFrame = "{{15, 465}, {750, 558}}";
 		};
@@ -2813,6 +2866,10 @@
 			27B7F432106A48DF00E1E74B /* PBXTextBookmark */ = 27B7F432106A48DF00E1E74B /* PBXTextBookmark */;
 			27B7F434106A4A4600E1E74B /* PBXTextBookmark */ = 27B7F434106A4A4600E1E74B /* PBXTextBookmark */;
 			27B7F435106A4A4600E1E74B /* PBXTextBookmark */ = 27B7F435106A4A4600E1E74B /* PBXTextBookmark */;
+			27B7F438106A4A8300E1E74B /* PBXTextBookmark */ = 27B7F438106A4A8300E1E74B /* PBXTextBookmark */;
+			27B7F439106A4A8300E1E74B /* PBXTextBookmark */ = 27B7F439106A4A8300E1E74B /* PBXTextBookmark */;
+			27B7F43A106A4A8300E1E74B /* PBXTextBookmark */ = 27B7F43A106A4A8300E1E74B /* PBXTextBookmark */;
+			27B7F43B106A4A8300E1E74B /* PBXTextBookmark */ = 27B7F43B106A4A8300E1E74B /* PBXTextBookmark */;
 			27BFB450106A2A2800B7CB3F = 27BFB450106A2A2800B7CB3F /* PBXTextBookmark */;
 			27BFB451106A2A2800B7CB3F = 27BFB451106A2A2800B7CB3F /* PBXTextBookmark */;
 			27BFB452106A2A2800B7CB3F = 27BFB452106A2A2800B7CB3F /* PBXTextBookmark */;
