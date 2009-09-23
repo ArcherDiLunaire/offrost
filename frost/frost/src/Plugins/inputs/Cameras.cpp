@@ -50,6 +50,8 @@ void Cameras::update(){
 	}	
 }
 
+
+
 void Cameras::draw(){
 
 }
@@ -71,6 +73,21 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		ofLog(OF_LOG_FATAL_ERROR,"Camera failed to initialize.");
 		cameraInited[_grabber] = false;
 	}	
+}
+
+ofxVideoGrabber * Cameras::getVidGrabber(int _cameraIndex){
+	if (cameraInited[i] && vidGrabber[_cameraIndex] != NULL){
+		return vidGrabber[_cameraIndex];
+	} else {
+		return NULL;
+	}
+}
+
+bool isReady(int _cameraIndex){
+	if (cameraInited && vidGrabber != NULL) {
+		return vidGrabber[_cameraIndex]->isReady();
+	}
+	return cameraInited;
 }
 
 bool Cameras::cameraGUIDexists(uint64_t _cameraGUID){
@@ -100,6 +117,7 @@ bool Cameras::setGUID(int _grabber, uint64_t _cameraGUID){
 
 			for (int i=0; i<3; i++) {
 				delete vidGrabber[i];
+				cameraInited[i] = false;
 				vidGrabber[i] = NULL;
 			}
 			

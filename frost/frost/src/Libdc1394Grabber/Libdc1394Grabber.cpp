@@ -44,7 +44,7 @@ Libdc1394Grabber::Libdc1394Grabber()
 	
     if( list->num == 0 ) {
 		ofLog(OF_LOG_ERROR, "No cameras found");
-    } /** else {
+    } else {
 		//RESET BUS, NAUGHTY AND WICKED
 		camera = dc1394_camera_new (d, list->ids[0].guid);
 		//dc1394_cleanup_iso_channels_and_bandwidth(camera);
@@ -62,7 +62,7 @@ Libdc1394Grabber::Libdc1394Grabber()
 		}
 		err = dc1394_camera_enumerate(d, &list);
 		if(err){ ofLog(OF_LOG_ERROR, "Failed to enumerate cameras"); }
-	} **/
+	} 
 }
 
 Libdc1394Grabber::~Libdc1394Grabber()
