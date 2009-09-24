@@ -7,7 +7,7 @@
 MoonDust::MoonDust(){
 	type = OUTPUT;
 	
-	for(int i=0;i<500;i++){
+	for(int i=0;i<4000;i++){
 		particles.push_back(DustParticle(0,ofRandom(-0.9, 1),0));
 	}
 	
