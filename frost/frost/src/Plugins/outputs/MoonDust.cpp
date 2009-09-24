@@ -12,12 +12,15 @@ MoonDust::MoonDust(){
 	}
 	
 	force = 1;
-	damp = 0.999;
 	
 	min = 0.2;
 	max = 0.5;
 	
 	rotation = 45;
+	size = 0.007;
+	length=3000.0;
+	density = 1.0;
+	debug = false;
 }
 
 void MoonDust::setup(){
@@ -64,7 +67,6 @@ void MoonDust::update(){
 					break;
 				}	
 			}	
-			
 		}
 		
 		
@@ -85,14 +87,14 @@ void MoonDust::update(){
 		}	
 		
 		
-		particles[i].update(force, damp, bMin, bMax);
+		particles[i].update(force, 1, bMin, bMax);
 	}
 	
 }
 void MoonDust::draw(){
 	ofSetColor(255, 0, 0, 255);
 	ofxCvBlob b = blob(cam)->getLargestBlob();
-	if(blob(cam)->numBlobs() > 0){
+	if(blob(cam)->numBlobs() > 0 && debug){
 		//		ofxVec2f center = projection()->convertToFloorCoordinate(b.centroid);
 		ofEllipse(b.centroid.x*ofGetWidth(), b.centroid.y*ofGetHeight(), 10, 10);
 	}
@@ -100,7 +102,7 @@ void MoonDust::draw(){
 
 void MoonDust::drawOnFloor(){
 	ofxPoint2f p = projection()->getColumnCoordinate(1);
-	float size = 0.007;
+	//float size = 0.007;
 	
 	
 	//applyFloorProjection();
@@ -112,61 +114,64 @@ void MoonDust::drawOnFloor(){
 	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
     vector<DustParticle>::iterator it;
     it = particles.begin();
-    while( it != particles.end() ) {
-//		if((*it).visible){
+	int n = 0;
+    while( it != particles.end() && n < density) {
+		if((*it).alpha > 0){
 			ofSetColor(255*it->alpha, 255*it->alpha, 255*it->alpha);
-
-			particleTrack->draw((*it).x, (*it).y, -(*it).v.x*3000.0*size, size);
+			
+			particleTrack->draw((*it).x, (*it).y, -(*it).v.x*length*size, size);
 			//particleImg->draw((*it).x-size/2.0-(*it).v.x*100.0*size, (*it).y,size,size);
 			float a = 100;
-	//	}
+		}
 		++it;
+		n++;
     }
 	
-	//float middleX = (max - min)/2.0+min;
 	ofSetColor(255, 255, 255);
-	//ofLine(min, 0, min, 1);
-	//ofLine(max, 0, max, 1);
+	
 	glPopMatrix();
 	
-	ofSetColor(255, 0, 0);
 	
-	
-	ofNoFill();
-	ofEllipse(p.x, p.y, 0.1, 0.1);
-	ofFill();
 	//Debug stuff: 
-	/*ofxCvBlob b = blob(cam)->getLargestBlob();
-	 if(blob(cam)->numBlobs() > 0){
-	 ofxVec2f dir = ofxVec2f(-1,0).rotated(-rotation);
-	 
-	 glColor4f(255, 255, 255,255);
-	 
-	 glBegin(GL_LINE_STRIP);
-	 
-	 for(int i=0;i<b.nPts;i++){
-	 ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
-	 glVertex3d(r.x*projection()->getFloor()->aspect, r.y,0);
-	 }
-	 glEnd();	
-	 glColor4f(255, 0, 255,255);
-	 
-	 for(int i=0;i<b.nPts-10;i+=10){
-	 cout<<i<<endl;
-	 ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
-	 
-	 ofxVec2f a = ofxVec2f(r.x-p.x, r.y-p.y);
-	 ofxVec2f ab = ((a.dot(dir)) * dir);
-	 ofLine(r.x, r.y, (p.x+ab.x), p.y+ab.y);
-	 }
-	 glColor4f(0, 255, 255,255);		
-	 ofLine(p.x, p.y, p.x+dir.x,p.y+dir.y);
-	 
-	 ofxVec2f center = projection()->convertToFloorCoordinate(b.centroid);
-	 
-	 //ofEllipse(center.x, center.y, 0.05, 0.05);
-	 
-	 }*/
+	if(debug){
+		ofSetColor(255, 0, 0);
+		ofNoFill();
+		ofEllipse(p.x, p.y, 0.1, 0.1);
+		ofFill();
+		
+		
+		
+		ofxCvBlob b = blob(cam)->getLargestBlob();
+		if(blob(cam)->numBlobs() > 0){
+			ofxVec2f dir = ofxVec2f(-1,0).rotated(-rotation);
+			
+			glColor4f(255, 255, 255,255);
+			
+			glBegin(GL_LINE_STRIP);
+			
+			for(int i=0;i<b.nPts;i++){
+				ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
+				glVertex3d(r.x, r.y,0);
+			}
+			glEnd();	
+			glColor4f(255, 0, 255,255);
+			
+			for(int i=0;i<b.nPts-10;i+=10){
+				ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
+				
+				ofxVec2f a = ofxVec2f(r.x-p.x, r.y-p.y);
+				ofxVec2f ab = ((a.dot(dir)) * dir);
+				ofLine(r.x, r.y, (p.x+ab.x), p.y+ab.y);
+			}
+			glColor4f(0, 255, 255,255);		
+			ofLine(p.x, p.y, p.x+dir.x,p.y+dir.y);
+			
+			ofxVec2f center = projection()->convertToFloorCoordinate(b.centroid);
+			
+			//ofEllipse(center.x, center.y, 0.05, 0.05);
+			
+		}
+	}
 }
 
 

@@ -178,7 +178,10 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-	
+	BlobTracking * t = getPlugin<BlobTracking*>(pluginController);
+	for(int i=0;i<t->trackers.size();i++){
+		t->trackers[i]->updateMouseBlob((float)x/ofGetWidth(), (float)y/ofGetHeight(), button);
+	}
 }
 
 //--------------------------------------------------------------
@@ -188,7 +191,11 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-
+	BlobTracking * t = getPlugin<BlobTracking*>(pluginController);
+	for(int i=0;i<t->trackers.size();i++){
+		t->trackers[i]->updateMouseBlob((float)x/ofGetWidth(), (float)y/ofGetHeight(), -1);
+	}
+	
 }
 
 //--------------------------------------------------------------

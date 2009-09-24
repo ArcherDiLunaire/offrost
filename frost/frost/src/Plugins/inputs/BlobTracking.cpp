@@ -47,6 +47,9 @@ void Tracker::findContours(){
 
 
 int Tracker::numBlobs(){
+	if(mouseBlob){
+		return 1;
+	}
 	return contourFinder.blobs.size();
 }
 
@@ -70,6 +73,9 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 }
 
 ofxCvBlob Tracker::getBlob(int n){
+	if(mouseBlob){
+		return mouseGeneratedBlob;
+	}
 	return getConvertedBlob(&contourFinder.blobs[n], getPlugin<CameraCalibration*>(controller));
 }
 ofxCvBlob Tracker::getLargestBlob(){
@@ -83,6 +89,25 @@ ofxCvBlob Tracker::getLargestBlob(){
 	}
 	return b;
 }
+
+void Tracker::updateMouseBlob(float x, float y, int button){
+	if(button != -1){
+		mouseBlob = true;
+		mouseGeneratedBlob = ofxCvBlob();
+		mouseGeneratedBlob.area = 1;
+		mouseGeneratedBlob.length = 1;
+		mouseGeneratedBlob.centroid = ofPoint(x,y);
+		int n= 300;
+		for(int i=0;i<n;i++){
+			float p = TWO_PI*i/(float)n;
+			mouseGeneratedBlob.pts.push_back(ofPoint(x+cos(p)*0.06, y+sin(p)*0.06));
+		}
+		mouseGeneratedBlob.nPts = n;
+	} else {
+		mouseBlob = false;
+	}
+}
+
 
 int Tracker::getWidth(){
 	return cw;
@@ -126,7 +151,7 @@ void BlobTracking::drawSettings(){
 		float a = 480.0/640.0;
 		ofxVideoGrabber * grabber = getPlugin<Cameras*>(controller)->getVidGrabber(trackers[i]->cameraId);
 		if(grabber != NULL){
-		grabber->draw(0,w*a*i,w,w*a);
+			grabber->draw(0,w*a*i,w,w*a);
 		}
 		trackers[i]->grayImageBlured.draw(w,w*a*i,w,w*a);
 		trackers[i]->grayBg.draw(w*2,w*a*i, w,w*a);
@@ -151,14 +176,14 @@ void BlobTracking::draw(){
 			for(int u =0;u<trackers[i]->numBlobs();u++){
 				ofxCvBlob b = trackers[i]->getBlob(u);
 				ofSetColor(255, 0, 255);
-
+				
 				for(int x=0;x<b.nPts;x++){
 					ofEllipse(b.pts[x].x*ofGetWidth(), b.pts[x].y*ofGetHeight(), 5, 5);
 				}
 			}
 		}
 		glPopMatrix();
-
+		
 	}
 }
 

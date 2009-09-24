@@ -124,8 +124,12 @@ OFGuiController * gui = NULL;
 		
 		ofApp = (testApp*)ofGetAppPtr();
 		
-		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [userDefaults doubleForKey:@"moondust.damp"];
-		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [userDefaults doubleForKey:@"moondust.force"];
+		(getPlugin<MoonDust*>(ofApp->pluginController))->density = [userDefaults doubleForKey:@"moondust.density"];
+		(getPlugin<MoonDust*>(ofApp->pluginController))->force = [userDefaults doubleForKey:@"moondust.force"];
+		(getPlugin<MoonDust*>(ofApp->pluginController))->size = [userDefaults doubleForKey:@"moondust.size"];
+		(getPlugin<MoonDust*>(ofApp->pluginController))->length = [userDefaults doubleForKey:@"moondust.length"];
+		(getPlugin<MoonDust*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"moondust.density"];
+
 
 		
 		(getPlugin<BlobTracking*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"blob.drawdebug"];	
@@ -358,11 +362,31 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
--(IBAction)	setMoonDustDamp:(id)sender{
+-(IBAction)		setMoonDustLength:(id)sender {
 	if(ofApp->setupCalled){
-		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->damp = [sender doubleValue];
+		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->length = [sender doubleValue];
 	}
 }
+-(IBAction)		setMoonDustSize:(id)sender {
+	if(ofApp->setupCalled){
+		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->size = [sender doubleValue];
+	}
+}
+-(IBAction)		setMoonDustDensity:(id)sender {
+	if(ofApp->setupCalled){
+		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->density = [sender doubleValue];
+	}
+}
+-(IBAction)		setMoonDustDebug:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		(getPlugin<MoonDust*>(ofApp->pluginController))->debug = b;
+	}
+}	
+
 
 -(IBAction)		setProjectorShowDebug:(id)sender{
 	if(ofApp->setupCalled){

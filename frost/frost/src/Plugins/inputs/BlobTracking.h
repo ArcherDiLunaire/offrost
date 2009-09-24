@@ -37,6 +37,10 @@ public:
 	int getWidth();
 	int getHeight();
 	
+	bool mouseBlob;
+	ofxCvBlob mouseGeneratedBlob;
+	void updateMouseBlob(float x, float y, int button);
+	
 private:
 	int cw, ch;
 	

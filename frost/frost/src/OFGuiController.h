@@ -73,7 +73,10 @@
 	 **/
 	
 	IBOutlet NSSlider * MoonDustForce;
-	IBOutlet NSSlider * MoonDustDamp;
+	IBOutlet NSSlider * MoonDustLength;
+	IBOutlet NSSlider * MoonDustDensity;	
+	IBOutlet NSSlider * MoonDustSize;
+	IBOutlet NSButton * MoonDustDebug;
 	
 	/**
 	 * Camera Outlets
@@ -140,7 +143,10 @@
 -(IBAction)		cameraBindGuid3:(id)sender;
 
 -(IBAction)		setMoonDustForce:(id)sender;
--(IBAction)		setMoonDustDamp:(id)sender;
+-(IBAction)		setMoonDustLength:(id)sender;
+-(IBAction)		setMoonDustSize:(id)sender;
+-(IBAction)		setMoonDustDensity:(id)sender;
+-(IBAction)		setMoonDustDebug:(id)sender;
 
 -(IBAction)		setProjectorShowDebug:(id)sender;
 -(IBAction)		setProjectorMatrix:(id)sender;

@@ -30,7 +30,8 @@ public:
 	void drawOnFloor();
 
 	float force;
-	float damp;
+	float size, length, density;
+	bool debug;
 	vector<DustParticle> particles;
 	
 	float min, max;
