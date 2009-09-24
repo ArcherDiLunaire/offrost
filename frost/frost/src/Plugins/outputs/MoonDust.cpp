@@ -59,7 +59,7 @@ void MoonDust::update(){
 			ofxVec2f a = ofxVec2f(r.x-p.x, r.y-p.y);
 			ofxVec2f ab = ((a.dot(dir)) * dir);
 			for(int u=0;u<sections;u++){
-				if(ab.length() < (u+1)*1.0/sections){
+				if(ab.length() < (u+1)*1.0/sections && (ab+p).y > p.y){
 					if(fabs((p+ab).distance(r)) > section[u]){
 						section[u] = fabs((p+ab).distance(r));
 					}
