@@ -3,7 +3,6 @@
 #include "Output.h"
 #include "ofxVectorMath.h"
 
-#define cam 0
 
 class DustParticle : public ofxVec3f {
 public:
@@ -22,6 +21,8 @@ public:
 
 class MoonDust : public Output{
 public:
+	
+	int cam;
 	MoonDust();
 
 	void setup();

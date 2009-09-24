@@ -66,17 +66,33 @@
 	IBOutlet NSView *blobTrackingView;
 	IBOutlet NSView *projectionSurfacesView;
 	IBOutlet NSView *cameraKeystoneView;
-	IBOutlet NSView *moonDustView;
 	
 	/**
 	 * Moon Dust Outlets
 	 **/
+	IBOutlet NSView *moonDustView;
 	
 	IBOutlet NSSlider * MoonDustForce;
 	IBOutlet NSSlider * MoonDustLength;
 	IBOutlet NSSlider * MoonDustDensity;	
 	IBOutlet NSSlider * MoonDustSize;
 	IBOutlet NSButton * MoonDustDebug;
+	
+	/**
+	 * La Linea Outlets
+	 **/
+	IBOutlet NSView *laLineaView;
+	IBOutlet NSButton * LaLineaDebug;
+
+	
+	
+	/**
+	 * Blob Light Outlets
+	 **/
+	IBOutlet NSView *blobLightView;
+	IBOutlet NSButton * BlobLightDebug;
+	IBOutlet NSSlider * BlobLightBlur;
+	IBOutlet NSColorWell * BlobLightColor;
 	
 	/**
 	 * Camera Outlets
@@ -147,6 +163,14 @@
 -(IBAction)		setMoonDustSize:(id)sender;
 -(IBAction)		setMoonDustDensity:(id)sender;
 -(IBAction)		setMoonDustDebug:(id)sender;
+
+-(IBAction)		setLaLineaDebug:(id)sender;
+
+
+-(IBAction)		setBlobLightDebug:(id)sender;
+-(IBAction)		setBlobLightColor:(id)sender;
+-(IBAction)		setBlobLightBlur:(id)sender;
+
 
 -(IBAction)		setProjectorShowDebug:(id)sender;
 -(IBAction)		setProjectorMatrix:(id)sender;

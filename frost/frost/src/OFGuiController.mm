@@ -22,7 +22,7 @@ OFGuiController * gui = NULL;
 {
 	enabled = n;
 	if(plugin != nil){
-	plugin->enabled = [n boolValue];
+		plugin->enabled = [n boolValue];
 	}
 }
 
@@ -99,7 +99,7 @@ OFGuiController * gui = NULL;
 	[floorPreview setDoDraw:TRUE];
 	
 	[ProjectorFloorAspectText setStringValue:[[NSNumber numberWithFloat:((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[0]->aspect] stringValue]];
-
+	
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {
@@ -115,10 +115,10 @@ OFGuiController * gui = NULL;
 - (id)init {
 	printf("--- init ---\n");	
 	
-
+	
 	
     if(self = [super init]) {
-
+		
 		
 		userDefaults = [[NSUserDefaults standardUserDefaults] retain];
 		
@@ -129,18 +129,25 @@ OFGuiController * gui = NULL;
 		(getPlugin<MoonDust*>(ofApp->pluginController))->size = [userDefaults doubleForKey:@"moondust.size"];
 		(getPlugin<MoonDust*>(ofApp->pluginController))->length = [userDefaults doubleForKey:@"moondust.length"];
 		(getPlugin<MoonDust*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"moondust.density"];
-
-
+		
+		(getPlugin<LaLinea*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"lalinea.density"];
+		
+		
+		(getPlugin<BlobLight*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"bloblight.density"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [userDefaults boolForKey:@"bloblight.blur"];
+		
+		
+		
 		
 		(getPlugin<BlobTracking*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"blob.drawdebug"];	
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(0,[userDefaults doubleForKey:@"blob.threshold1"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(0,[userDefaults doubleForKey:@"blob.blur1"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(0,[userDefaults boolForKey:@"blob.active1"]);
-
+		
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(1,[userDefaults doubleForKey:@"blob.threshold2"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(1,[userDefaults doubleForKey:@"blob.blur2"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(1,[userDefaults boolForKey:@"blob.active2"]);
-
+		
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(2,[userDefaults doubleForKey:@"blob.threshold3"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(2,[userDefaults doubleForKey:@"blob.blur3"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(2,[userDefaults boolForKey:@"blob.active3"]);
@@ -161,9 +168,11 @@ OFGuiController * gui = NULL;
 		[self addObject:@"Data" isheader:TRUE  plugin:nil];		
 		[self addObject:@"Projection Surfaces" isheader:FALSE plugin:getPlugin<ProjectionSurfaces*>(ofApp->pluginController)];
 		[self addObject:@"Camera Calibration" isheader:FALSE plugin:getPlugin<CameraCalibration*>(ofApp->pluginController)];
-
+		
 		[self addObject:@"Outputs" isheader:TRUE  plugin:nil];		
 		[self addObject:@"Moon Dust" isheader:FALSE plugin:getPlugin<MoonDust*>(ofApp->pluginController)];
+		[self addObject:@"La Linea" isheader:FALSE plugin:getPlugin<LaLinea*>(ofApp->pluginController)];
+		[self addObject:@"Blob light" isheader:FALSE plugin:getPlugin<BlobLight*>(ofApp->pluginController)];
 		
 		NSMutableArray * array;
 		array = viewItems;
@@ -178,8 +187,10 @@ OFGuiController * gui = NULL;
 		[projectionSurfacesView retain];
 		[cameraKeystoneView retain];
 		[moonDustView retain];
+		[laLineaView retain];
+		[blobLightView retain];
 		
-
+		
 		uint64_t guidVal[3];
 		
 		for (int i=0; i<3; i++) {
@@ -223,13 +234,13 @@ OFGuiController * gui = NULL;
 	[projectorView setDoDraw:false];
 	[cameraKeystoneOpenGlView setDoDraw:false];
 	[cameraKeystoneOpenGlView setDoDraw:false];
-
+	
 	[blobView setDoDraw:false];
 	
 	id view;
 	if(![(NSString*)[p name] compare:@"Cameras"]){
 		view = cameraView;
-
+		
 		NSView * cameraSettingEx1 = cameraSetting;
 		[cameraSettingEx1 setFrameOrigin: NSPointFromString(@"{10, 50}")];
 		[cameraSettings1 addSubview:cameraSettingEx1];
@@ -253,6 +264,12 @@ OFGuiController * gui = NULL;
 	
 	if(![(NSString*)[p name] compare:@"Moon Dust"]){
 		view = moonDustView;
+	}	
+	if(![(NSString*)[p name] compare:@"La Linea"]){
+		view = laLineaView;
+	}	
+	if(![(NSString*)[p name] compare:@"Blob light"]){
+		view = blobLightView;
 	}	
 	
 	
@@ -316,8 +333,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	} else if(![(NSString*)[aTableColumn identifier] compare:@"enable"]){
 		[p setEnabled:anObject];	
 		[userDefaults setValue:[p enabled] forKey:[NSString stringWithFormat:@"plugins.enable%d",i]];
-
-
+		
+		
 	}  
 	return;
 }
@@ -387,6 +404,38 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }	
 
+-(IBAction)		setLaLineaDebug:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		(getPlugin<LaLinea*>(ofApp->pluginController))->debug = b;
+	}
+}
+
+
+-(IBAction)		setBlobLightDebug:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		(getPlugin<BlobLight*>(ofApp->pluginController))->debug = b;
+	}
+}
+
+-(IBAction)		setBlobLightColor:(id)sender{
+	(getPlugin<BlobLight*>(ofApp->pluginController))->r  = [[sender color] redComponent]*255;
+	(getPlugin<BlobLight*>(ofApp->pluginController))->g  = [[sender color] greenComponent]*255;
+	(getPlugin<BlobLight*>(ofApp->pluginController))->b  = [[sender color] blueComponent]*255;
+}
+-(IBAction)		setBlobLightBlur:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [sender doubleValue];
+	}
+}
+
 
 -(IBAction)		setProjectorShowDebug:(id)sender{
 	if(ofApp->setupCalled){
@@ -408,10 +457,10 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->w = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.50;
 			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->h = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.5;
 		}
-//		[ProjectorFloorAspect setFloatValue:((*getPlugin<ProjectionSurfaces*>(ofApp->pluginController)->objects[[sender selectedRow]]->aspect))];
+		//		[ProjectorFloorAspect setFloatValue:((*getPlugin<ProjectionSurfaces*>(ofApp->pluginController)->objects[[sender selectedRow]]->aspect))];
 		[ProjectorFloorAspect setMinValue:0.5];
 		[ProjectorFloorAspectText setDoubleValue:[ProjectorFloorAspect doubleValue]];
-
+		
 	}
 }
 
@@ -421,7 +470,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		(((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->selectedKeystoner]->aspect) = [sender doubleValue];
 		[ProjectorFloorAspectText setStringValue:[sender stringValue]];
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->saveXml();
-
+		
 	}
 }
 

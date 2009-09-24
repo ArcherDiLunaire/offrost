@@ -10,6 +10,7 @@ ProjectionSurfaces::ProjectionSurfaces(){
 		objects[i]->coordWarp = new coordWarping;
 		objects[i]->aspect = 1.0;
 	}
+	
 		
 	
 	objects[0]->name = "FLOOR";

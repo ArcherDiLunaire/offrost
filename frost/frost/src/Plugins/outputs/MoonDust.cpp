@@ -21,6 +21,8 @@ MoonDust::MoonDust(){
 	length=3000.0;
 	density = 1.0;
 	debug = false;
+	
+	cam = 0;
 }
 
 void MoonDust::setup(){

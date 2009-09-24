@@ -26,6 +26,7 @@ public:
 	void update();
 	
 	vector<ProjectionSurfacesObject *> objects;
+	ProjectionSurfacesObject*  wall;
 	
 	void applyFloorProjection(float w=ofGetWidth(), float h=ofGetHeight());
 	void applyColumnProjection(int column, float w=ofGetWidth(), float h=ofGetHeight());

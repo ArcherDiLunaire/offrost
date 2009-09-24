@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AEC3A10668C0100FBEE17 /* coordWarp.cpp */; };
 		27B7F437106A4A7C00E1E74B /* MoonDust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B7F436106A4A7C00E1E74B /* MoonDust.cpp */; };
-		27EF5FB2106B96DF00F2E9C3 /* ofCvCameraCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27EF5FB0106B96DF00F2E9C3 /* ofCvCameraCalibration.cpp */; };
 		3F1E59AB100B75550091B692 /* SharedContextGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59AA100B75550091B692 /* SharedContextGLView.m */; };
 		3F1E59B1100B77800091B692 /* CustomGLViewDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59B0100B77800091B692 /* CustomGLViewDelegate.cpp */; };
 		DD0C01661066874900BB3F9F /* install.xml in Resources */ = {isa = PBXBuildFile; fileRef = DD0C01591066874900BB3F9F /* install.xml */; };
@@ -17,6 +16,9 @@
 		DD0C01681066874900BB3F9F /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD0C015D1066874900BB3F9F /* tinyxmlerror.cpp */; };
 		DD0C01691066874900BB3F9F /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD0C015E1066874900BB3F9F /* tinyxmlparser.cpp */; };
 		DD0C016A1066874900BB3F9F /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD0C01601066874900BB3F9F /* ofxXmlSettings.cpp */; };
+		DD45B631106BA2F600B4B19C /* BlobLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD45B62D106BA2F600B4B19C /* BlobLight.cpp */; };
+		DD45B632106BA2F600B4B19C /* LaLinea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD45B62F106BA2F600B4B19C /* LaLinea.cpp */; };
+		DD45B6DA106BB31C00B4B19C /* ofCvCameraCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD45B6D8106BB31C00B4B19C /* ofCvCameraCalibration.cpp */; };
 		DD6EA0CF1062C832001EC207 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6EA0CE1062C832001EC207 /* QTKit.framework */; };
 		DD6EA12A1062C880001EC207 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD6EA1291062C880001EC207 /* QuartzCore.framework */; };
 		DD7CC2761063979800D3736A /* BlobTracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7CC2721063979800D3736A /* BlobTracking.cpp */; };
@@ -107,8 +109,6 @@
 		279AEC3A10668C0100FBEE17 /* coordWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coordWarp.cpp; path = src/coordWarp.cpp; sourceTree = SOURCE_ROOT; };
 		279AEC3B10668C0100FBEE17 /* coordWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = coordWarp.h; path = src/coordWarp.h; sourceTree = SOURCE_ROOT; };
 		27B7F436106A4A7C00E1E74B /* MoonDust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoonDust.cpp; path = src/Plugins/outputs/MoonDust.cpp; sourceTree = SOURCE_ROOT; };
-		27EF5FB0106B96DF00F2E9C3 /* ofCvCameraCalibration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofCvCameraCalibration.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/ofCvCameraCalibration.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
-		27EF5FB1106B96DF00F2E9C3 /* ofCvCameraCalibration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofCvCameraCalibration.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/ofCvCameraCalibration.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		3F1E59A9100B75550091B692 /* SharedContextGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedContextGLView.h; path = ../SharedContextGLView.h; sourceTree = "<group>"; };
 		3F1E59AA100B75550091B692 /* SharedContextGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedContextGLView.m; path = ../SharedContextGLView.m; sourceTree = "<group>"; };
 		3F1E59AF100B77800091B692 /* CustomGLViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomGLViewDelegate.h; path = ../CustomGLViewDelegate.h; sourceTree = "<group>"; };
@@ -120,6 +120,12 @@
 		DD0C015E1066874900BB3F9F /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		DD0C01601066874900BB3F9F /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		DD0C01611066874900BB3F9F /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
+		DD45B62D106BA2F600B4B19C /* BlobLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlobLight.cpp; sourceTree = "<group>"; };
+		DD45B62E106BA2F600B4B19C /* BlobLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlobLight.h; sourceTree = "<group>"; };
+		DD45B62F106BA2F600B4B19C /* LaLinea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LaLinea.cpp; sourceTree = "<group>"; };
+		DD45B630106BA2F600B4B19C /* LaLinea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaLinea.h; sourceTree = "<group>"; };
+		DD45B6D8106BB31C00B4B19C /* ofCvCameraCalibration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofCvCameraCalibration.cpp; sourceTree = "<group>"; };
+		DD45B6D9106BB31C00B4B19C /* ofCvCameraCalibration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofCvCameraCalibration.h; sourceTree = "<group>"; };
 		DD6EA0CE1062C832001EC207 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		DD6EA1291062C880001EC207 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		DD7CC2721063979800D3736A /* BlobTracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlobTracking.cpp; sourceTree = "<group>"; };
@@ -619,8 +625,8 @@
 		DDB85123105E7CC800D1ED92 /* inputs */ = {
 			isa = PBXGroup;
 			children = (
-				27EF5FB0106B96DF00F2E9C3 /* ofCvCameraCalibration.cpp */,
-				27EF5FB1106B96DF00F2E9C3 /* ofCvCameraCalibration.h */,
+				DD45B6D8106BB31C00B4B19C /* ofCvCameraCalibration.cpp */,
+				DD45B6D9106BB31C00B4B19C /* ofCvCameraCalibration.h */,
 				DD7CC2741063979800D3736A /* Cameras.cpp */,
 				DD7CC2751063979800D3736A /* Cameras.h */,
 				DD7CC2721063979800D3736A /* BlobTracking.cpp */,
@@ -634,6 +640,10 @@
 			children = (
 				DDB85127105E7CC800D1ED92 /* MoonDust.h */,
 				27B7F436106A4A7C00E1E74B /* MoonDust.cpp */,
+				DD45B62D106BA2F600B4B19C /* BlobLight.cpp */,
+				DD45B62E106BA2F600B4B19C /* BlobLight.h */,
+				DD45B62F106BA2F600B4B19C /* LaLinea.cpp */,
+				DD45B630106BA2F600B4B19C /* LaLinea.h */,
 			);
 			path = outputs;
 			sourceTree = "<group>";
@@ -1373,7 +1383,9 @@
 				279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */,
 				DDF383991067B3E800E8A20A /* CameraCalibration.cpp in Sources */,
 				27B7F437106A4A7C00E1E74B /* MoonDust.cpp in Sources */,
-				27EF5FB2106B96DF00F2E9C3 /* ofCvCameraCalibration.cpp in Sources */,
+				DD45B631106BA2F600B4B19C /* BlobLight.cpp in Sources */,
+				DD45B632106BA2F600B4B19C /* LaLinea.cpp in Sources */,
+				DD45B6DA106BB31C00B4B19C /* ofCvCameraCalibration.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,3 +5,5 @@
 #include "CameraCalibration.h"
 
 #include "MoonDust.h"
+#include "LaLinea.h"
+#include "BlobLight.h"

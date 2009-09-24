@@ -16,7 +16,8 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new CameraCalibration);
 	
 	pluginController->addPlugin(new MoonDust);
-	
+	pluginController->addPlugin(new LaLinea);
+	pluginController->addPlugin(new BlobLight);
 }
 
 void testApp::setup(){	
