@@ -164,6 +164,19 @@ void testApp::keyPressed(int key){
 	if(key == 'c'){
 		//getPlugin<Cameras*>(pluginController)->vidGrabber->videoSettings();
 	}
+	/*
+	 if( key == ' ' ) {
+		if(getPlugin<Cameras*>(pluginController)->calibAddSnapshot(getPlugin<Cameras*>(pluginController)->getGUID(1))){
+			cout << "CALIB: Added snapshot image..." << endl;
+		} else {
+			cout << "CALIB: **** ERROR *** Could not add snapshot image..." << endl;
+		}
+	}
+	if( key == '.' ) {
+		cout << "Calibrating..." << endl;
+		getPlugin<Cameras*>(pluginController)->calibrate(getPlugin<Cameras*>(pluginController)->getGUID(1));
+	}
+	 */
 }
 
 //--------------------------------------------------------------

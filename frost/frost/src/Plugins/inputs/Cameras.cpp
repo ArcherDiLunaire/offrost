@@ -6,9 +6,14 @@ Cameras::Cameras(){
 	camWidth = 1024;	// try to grab at this size.
 	camHeight = 768;
 	
+	csize = cvSize( camWidth, camHeight );
+	
 	for (int i=0; i<3; i++) {
 		cameraInited[i] = false;
 		cameraGUIDs[i] = 0x0ll;
+		calibImage[i].setUseTexture(false);
+		calibImage[i].allocate( camWidth, camHeight );
+		calib[i].allocate( csize, 7, 7 );
 	}
 }
 
@@ -46,13 +51,34 @@ void Cameras::setup(){
 
 void Cameras::update(){
 	for (int i=0; i<3; i++) {
-		if(cameraInited[i]){
+		if(isReady(i)){
 			vidGrabber[i]->update();
+			if(vidGrabber[i]->isFrameNew()){
+			//	calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
+			}
 		}
 	}	
 }
 
+bool Cameras::calibAddSnapshot(uint64_t _cameraGUID){
+	if( calib[getGrabberIndexFromGUID(_cameraGUID)].addImage( calibImage[getGrabberIndexFromGUID(_cameraGUID)].getCvImage() ) ) {
+		return true;
+	}
+	return false;
+}
 
+bool Cameras::calibrate(uint64_t _cameraGUID){
+	calib[getGrabberIndexFromGUID(_cameraGUID)].calibrate();
+	calib[getGrabberIndexFromGUID(_cameraGUID)].undistort();
+}
+
+ofPoint Cameras::undistortPoint(float _PixelX, float _PixelY){
+	return undistortPoint(_PixelX, _PixelY);
+}
+
+ofPoint Cameras::distortPoint(float _PixelX, float _PixelY){
+	return distortPoint(_PixelX, _PixelY);
+}
 
 void Cameras::draw(){
 
@@ -93,8 +119,6 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		 FEATURE_OPTICAL_FILTER		= 19,
 		 FEATURE_CAPTURE_SIZE		= 20,
 		 FEATURE_CAPTURE_QUALITY	= 21,
-**/		 
-		
 		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_SHUTTER);
 		//((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(0.08, FEATURE_SHUTTER);
 		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_BRIGHTNESS);
@@ -105,6 +129,7 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		//((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(250, FEATURE_GAIN);
 		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_IRIS);
 		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_EXPOSURE);
+		 **/		 
 		
 		ofLog(OF_LOG_NOTICE,"Camera succesfully initialized.");
 		cameraInited[_grabber] = true;
@@ -221,5 +246,13 @@ uint64_t Cameras::getGUID(int _grabber){
 	if(_grabber < 3 && _grabber >= 0){
 		return cameraGUIDs[_grabber];
 	}
-	
+}
+
+int Cameras::getGrabberIndexFromGUID(uint64_t _cameraGUID){
+	for (int i=0; i<3; i++) {
+		if(_cameraGUID == getGUID(i)){
+			return i;
+		}
+	}
+	return -1;
 }
