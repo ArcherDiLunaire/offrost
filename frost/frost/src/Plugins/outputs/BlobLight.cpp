@@ -28,8 +28,8 @@ void BlobLight::draw(){
 		img.blur(blur);
 	img.draw(0,0,1,1);
 	glPopMatrix();
-	cout<<r<<"  "<<g<<"  "<<b<<endl;
 
+	
 }
 
 void BlobLight::drawOnFloor(){

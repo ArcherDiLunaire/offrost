@@ -54,3 +54,17 @@ void PluginController::drawFloor(){
 	
 }
 
+void PluginController::drawWall(){
+	FrostPlugin* plugin = plugins[0];
+	plugin->applyWallProjection();
+	
+	for(int i=0;i<plugins.size();i++){
+		FrostPlugin* plugin = plugins[i];
+		if(plugin->enabled){
+			plugin->drawOnWall(); 
+		}
+	}
+	
+	glPopMatrix();
+}
+

@@ -1,17 +1,44 @@
 
 #include "ProjectionSurfaces.h"
 
+ProjectionSurfacesObject::ProjectionSurfacesObject(){
+	for(int i=0;i<4;i++){
+		corners[i] = new ofxPoint2f;
+	}
+}
+
+void ProjectionSurfacesObject::recalculate(){
+	for(int i=0;i<4;i++){
+		warp->SetCorner(i, (*corners[i]).x, (*corners[i]).y);
+	}
+	
+	warp->MatrixCalculate();
+	ofxPoint2f a[4];
+	a[0] = ofxPoint2f(0,0);
+	a[1] = ofxPoint2f(1,0);
+	a[2] = ofxPoint2f(1,1);
+	a[3] = ofxPoint2f(0,1);
+	coordWarp->calculateMatrix(a, warp->corners);
+}
+
+void ProjectionSurfacesObject::SetCorner(int n, float x, float y){
+	corners[n]->set(x,y);
+}
+
 ProjectionSurfaces::ProjectionSurfaces(){
 	type = DATA;
 
-	for(int i=0;i<10;i++){
+	for(int i=0;i<11;i++){
 		objects.push_back(new ProjectionSurfacesObject);
 		objects[i]->warp = new Warp();
 		objects[i]->coordWarp = new coordWarping;
 		objects[i]->aspect = 1.0;
 	}
 	
-		
+	objects[10]->corners[0] = getCurtain(0)->corners[1];
+	objects[10]->corners[1] = getCurtain(3)->corners[1];	
+	objects[10]->corners[2] = getCurtain(5)->corners[2];		
+	objects[10]->corners[3] = getCurtain(2)->corners[3];				
 	
 	objects[0]->name = "FLOOR";
 	objects[1]->name = "COLUMN 0";
@@ -23,7 +50,8 @@ ProjectionSurfaces::ProjectionSurfaces(){
 	objects[7]->name = "CURTAIN 3";
 	objects[8]->name = "CURTAIN 4";
 	objects[9]->name = "CURTAIN 5";
-	
+	objects[10]->name = "WALL";
+
 	
 	drawDebug = false;
 	selectedCorner = 0;
@@ -57,7 +85,7 @@ void ProjectionSurfaces::setup(){
 			cout<<"====== ERROR: Wrong number of corners i floor ======"<<endl;
 		} else {
 			for(int i=0;i<4;i++){
-				getFloor()->warp->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
+				getFloor()->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
 			}
 			getFloor()->aspect = keystoneXml->getAttribute("aspect", "value", 1.0, 0);
 		}
@@ -73,7 +101,7 @@ void ProjectionSurfaces::setup(){
 				cout<<"====== ERROR: Wrong number of corners i floor ======"<<endl;
 			} else {
 				for(int i=0;i<4;i++){
-					getColumn(u)->warp->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
+					getColumn(u)->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
 				}
 			}
 			getColumn(u)->aspect = keystoneXml->getAttribute("aspect", "value", 1.0, 0);
@@ -91,7 +119,7 @@ void ProjectionSurfaces::setup(){
 				cout<<"====== ERROR: Wrong number of corners i floor ======"<<endl;
 			} else {
 				for(int i=0;i<4;i++){
-					getCurtain(u)->warp->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
+					getCurtain(u)->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
 				}
 			}
 			getCurtain(u)->aspect = keystoneXml->getAttribute("aspect", "value", 1.0, 0);			
@@ -103,14 +131,8 @@ void ProjectionSurfaces::setup(){
 		
 	}
 	
-	for(int i=0;i<10;i++){
-		objects[i]->warp->MatrixCalculate();
-		ofxPoint2f a[4];
-		a[0] = ofxPoint2f(0,0);
-		a[1] = ofxPoint2f(1,0);
-		a[2] = ofxPoint2f(1,1);
-		a[3] = ofxPoint2f(0,1);
-		objects[i]->coordWarp->calculateMatrix(a, objects[i]->warp->corners);
+	for(int i=0;i<objects.size();i++){
+		objects[i]->recalculate();
 	}
 	
 	
@@ -122,7 +144,7 @@ void ProjectionSurfaces::drawOnFloor(){
 }
 void ProjectionSurfaces::draw(){
 	if(drawDebug){
-		for(int i=0;i<10;i++){
+		for(int i=0;i<objects.size();i++){
 			float a = 0.3;
 			
 			if(selectedKeystoner == i){
@@ -165,7 +187,7 @@ void ProjectionSurfaces::drawSettings(){
 	
 	//	drawDebugGrids(w,h);
 	
-	for(int i=0;i<10;i++){
+	for(int i=0;i<objects.size();i++){
 		float a = 0.3;
 		if(selectedKeystoner == i){
 			a = 1.0;
@@ -237,9 +259,11 @@ void ProjectionSurfaces::mousePressed(ofMouseEventArgs & args){
 void ProjectionSurfaces::mouseDragged(ofMouseEventArgs & args){
 	ofxVec2f curMouse = ofxVec2f((float)(glDelegate->mouseX-offset)/w, (float)(glDelegate->mouseY-offset)/w);
 	ofxVec2f newPos =  objects[selectedKeystoner]->warp->corners[selectedCorner] + (curMouse-lastMousePos);
-	objects[selectedKeystoner]->warp->SetCorner(selectedCorner, newPos.x, newPos.y);
+	objects[selectedKeystoner]->SetCorner(selectedCorner, newPos.x, newPos.y);
 	lastMousePos = curMouse;
-	objects[selectedKeystoner]->warp->MatrixCalculate();
+	for(int i=0;i<objects.size();i++){
+		objects[i]->recalculate();
+	}	
 	saveXml();
 }
 
@@ -258,9 +282,10 @@ void ProjectionSurfaces::keyPressed(ofKeyEventArgs & args){
 	if(args.key == 63235){
 		newPos -= ofxVec2f(-0.001,0);
 	}
-	objects[selectedKeystoner]->warp->SetCorner(selectedCorner, newPos.x, newPos.y);
-	objects[selectedKeystoner]->warp->MatrixCalculate();
-	
+	objects[selectedKeystoner]->SetCorner(selectedCorner, newPos.x, newPos.y);
+	for(int i=0;i<objects.size();i++){
+		objects[i]->recalculate();
+	}	
 	saveXml();
 }
 
@@ -337,6 +362,10 @@ ProjectionSurfacesObject * ProjectionSurfaces::getColumn(int n){
 ProjectionSurfacesObject * ProjectionSurfaces::getCurtain(int n){
 	return objects[4+n];
 }
+ProjectionSurfacesObject * ProjectionSurfaces::getWall(){
+	return objects[10];
+}
+
 
 ofxVec2f  ProjectionSurfaces::convertToFloorCoordinate(ofxVec2f v){
 	ofxVec2f r;
@@ -344,7 +373,15 @@ ofxVec2f  ProjectionSurfaces::convertToFloorCoordinate(ofxVec2f v){
 	r.x = p.x*getFloor()->aspect;
 	r.y = p.y;
 	return r;
+}
 
+
+ofxVec2f  ProjectionSurfaces::convertToCoordinate(ProjectionSurfacesObject * obj,  ofxVec2f v){
+	ofxVec2f r;
+	ofxPoint2f p = obj->coordWarp->inversetransform(v.x, v.y);
+	r.x = p.x*obj->aspect;
+	r.y = p.y;
+	return r;
 }
 
 ofxPoint2f ProjectionSurfaces::getColumnCoordinate(int column){
@@ -387,6 +424,15 @@ void ProjectionSurfaces::applyCurtainProjection(int column, int row, float _w, f
 
 	glScaled(_w, _h, 1.0);
 	getCurtain(n)->warp->MatrixMultiply();
+	glScaled(setW, setH, 1.0);
+}
+void ProjectionSurfaces::applyWallProjection(float _w, float _h){
+	glPushMatrix();
+	float setW = 1.0/getWall()->aspect;
+	float setH = 1.0;
+	
+	glScaled(_w, _h, 1.0);
+	getWall()->warp->MatrixMultiply();
 	glScaled(setW, setH, 1.0);
 }
 

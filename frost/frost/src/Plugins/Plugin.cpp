@@ -14,6 +14,11 @@ void FrostPlugin::applyFloorProjection(){
 	(getPlugin<ProjectionSurfaces*>(controller))->applyFloorProjection();
 }
 
+void FrostPlugin::applyWallProjection(){
+	(getPlugin<ProjectionSurfaces*>(controller))->applyWallProjection();
+
+}
+
 ProjectionSurfaces* FrostPlugin::projection(){	
 	return 	(getPlugin<ProjectionSurfaces*>(controller));
 }Tracker* FrostPlugin::blob(int n){	

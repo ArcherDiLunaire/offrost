@@ -178,7 +178,9 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 
 			if (!bFound) {
 				ofLog(OF_LOG_NOTICE,"initCam warning: Device Index for unit %llx not found, using first device\n", cameraGUID);
-				cameraGUID = list->ids[0].guid;
+				if(list->num > 0){
+					cameraGUID = list->ids[0].guid;
+				}
 			}
 			
 		

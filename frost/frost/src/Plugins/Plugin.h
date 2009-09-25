@@ -32,8 +32,11 @@ public:
 	virtual void update(){};
 	
 	virtual void drawOnFloor(){};
+	virtual void drawOnWall(){};
 	
 	void applyFloorProjection();
+	void applyWallProjection();
+
 	ProjectionSurfaces* projection();
 	Tracker* blob(int n);
 

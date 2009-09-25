@@ -15,6 +15,7 @@ Tracker::Tracker(){
 	grayBg.allocate(cw,ch);
 	grayDiff.allocate(cw,ch);
 	bLearnBakground = true;
+	mouseBlob = false;
 }
 
 void Tracker::update(){ 
@@ -50,7 +51,7 @@ int Tracker::numBlobs(){
 	if(mouseBlob){
 		return 1;
 	}
-	return contourFinder.blobs.size();
+	return contourFinder.nBlobs;
 }
 
 ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibrator){

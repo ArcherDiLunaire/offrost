@@ -103,6 +103,7 @@ void testApp::draw(){
 	
 	pluginController->draw();
 	pluginController->drawFloor();
+	pluginController->drawWall();
 
 	fps = ofGetFrameRate();
 }
@@ -148,6 +149,8 @@ void testApp::drawBlobWindow(){
 }
 
 void testApp::drawFloorPreview(){
+	glPushMatrix();
+	glScaled(0.5, 1.0, 1.0);
 	glScaled(floorPreview->m_Width/getPlugin<ProjectionSurfaces*>(pluginController)->getFloor()->aspect, floorPreview->m_Height, 1.0);
 	for(int i=0;i<pluginController->plugins.size();i++){
 		FrostPlugin* plugin = pluginController->plugins[i];
@@ -155,6 +158,24 @@ void testApp::drawFloorPreview(){
 			plugin->drawOnFloor(); 
 		}
 	}
+	
+	glPopMatrix();
+
+	ofSetColor(255, 255, 255);
+	ofLine(floorPreview->m_Width/2.0, 0, floorPreview->m_Width/2.0, floorPreview->m_Height);
+
+	glPushMatrix();
+	
+	glTranslated(floorPreview->m_Width/2.0, 0, 0);
+	glScaled(0.5, 1.0, 1.0);
+	glScaled(floorPreview->m_Width/getPlugin<ProjectionSurfaces*>(pluginController)->getWall()->aspect, floorPreview->m_Height, 1.0);
+	for(int i=0;i<pluginController->plugins.size();i++){
+		FrostPlugin* plugin = pluginController->plugins[i];
+		if(plugin->enabled){
+			plugin->drawOnWall(); 
+		}
+	}
+	glPopMatrix();
 }
 
 //--------------------------------------------------------------

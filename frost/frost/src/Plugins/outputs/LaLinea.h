@@ -11,7 +11,7 @@ public:
 	void setup();
 	void draw();
 	void update();
-	void drawOnFloor();
+	void drawOnWall();
 	
 	bool debug;
 	int cam;

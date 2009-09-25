@@ -12,6 +12,13 @@ public:
 	Warp * warp;
 	coordWarping * coordWarp;
 	string name;
+	
+	ofxPoint2f * corners[4];
+	
+	ProjectionSurfacesObject();
+	
+	void recalculate();
+	void SetCorner(int n, float x, float y);
 };
 
 
@@ -26,20 +33,24 @@ public:
 	void update();
 	
 	vector<ProjectionSurfacesObject *> objects;
-	ProjectionSurfacesObject*  wall;
+
 	
 	void applyFloorProjection(float w=ofGetWidth(), float h=ofGetHeight());
 	void applyColumnProjection(int column, float w=ofGetWidth(), float h=ofGetHeight());
 	void applyCurtainProjection(int column, int row, float w=ofGetWidth(), float h=ofGetHeight());
+	void applyWallProjection(float w=ofGetWidth(), float h=ofGetHeight());
 	void applyProjection(ProjectionSurfacesObject * obj, float w=ofGetWidth(), float h=ofGetHeight());
 	
 	ProjectionSurfacesObject * getFloor();
 	ProjectionSurfacesObject * getColumn(int n);
 	ProjectionSurfacesObject * getCurtain(int n);
-	
+	ProjectionSurfacesObject * getWall();
+
 	ofxPoint2f getColumnCoordinate(int column);
 	
 	ofxVec2f  convertToFloorCoordinate(ofxVec2f v);
+		ofxVec2f  convertToWallCoordinate(ofxVec2f v);
+	ofxVec2f  convertToCoordinate(ProjectionSurfacesObject * obj,  ofxVec2f v);
 
 	
 	bool drawDebug;

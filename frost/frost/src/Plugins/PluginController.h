@@ -17,6 +17,7 @@ public:
 	void update(float mx, float my);
 	void draw();
 	void drawFloor();
+	void drawWall();
 };
 
 
