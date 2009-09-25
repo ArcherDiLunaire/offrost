@@ -135,7 +135,11 @@ OFGuiController * gui = NULL;
 		
 		(getPlugin<BlobLight*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"bloblight.density"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [userDefaults boolForKey:@"bloblight.blur"];
-		
+		(getPlugin<BlobLight*>(ofApp->pluginController))->threshold = [userDefaults boolForKey:@"bloblight.threshold"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->blur2 = [userDefaults boolForKey:@"bloblight.blur2"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->alpha = [userDefaults boolForKey:@"bloblight.alpha"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->beta = [userDefaults boolForKey:@"bloblight.beta"];
+
 		
 		
 		
@@ -425,16 +429,42 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
--(IBAction)		setBlobLightColor:(id)sender{
-	(getPlugin<BlobLight*>(ofApp->pluginController))->r  = [[sender color] redComponent]*255;
-	(getPlugin<BlobLight*>(ofApp->pluginController))->g  = [[sender color] greenComponent]*255;
-	(getPlugin<BlobLight*>(ofApp->pluginController))->b  = [[sender color] blueComponent]*255;
+-(IBAction)		setBlobLightColor:(id)sender{	
+	if(ofApp->setupCalled){
+		
+		(getPlugin<BlobLight*>(ofApp->pluginController))->r  = [[sender color] redComponent]*255;
+		(getPlugin<BlobLight*>(ofApp->pluginController))->g  = [[sender color] greenComponent]*255;
+		(getPlugin<BlobLight*>(ofApp->pluginController))->b  = [[sender color] blueComponent]*255;
+	}
 }
 -(IBAction)		setBlobLightBlur:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [sender doubleValue];
 	}
 }
+
+-(IBAction)		setBlobLightThreshold:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<BlobLight*>(ofApp->pluginController))->threshold = [sender doubleValue];
+	}
+}
+
+-(IBAction)		setBlobLightBlur2:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<BlobLight*>(ofApp->pluginController))->blur2 = [sender doubleValue];
+	}
+}
+-(IBAction)		setBlobLightAlpha:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<BlobLight*>(ofApp->pluginController))->alpha = [sender doubleValue];
+	}
+}
+-(IBAction)		setBlobLightBeta:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<BlobLight*>(ofApp->pluginController))->beta = [sender doubleValue];
+	}
+}
+
 
 
 -(IBAction)		setProjectorShowDebug:(id)sender{

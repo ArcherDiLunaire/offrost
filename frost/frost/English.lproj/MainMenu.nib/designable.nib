@@ -11,7 +11,8 @@
 			<string key="NS.object.0">732</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="541"/>
+			<integer value="544"/>
+			<integer value="1523"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1515,6 +1516,10 @@
 					<string>bloblight.debug</string>
 					<string>bloblight.blur</string>
 					<string>bloblight.color</string>
+					<string>bloblight.threshold</string>
+					<string>bloblight.blur2</string>
+					<string>bloblight.alpha</string>
+					<string>bloblight.beta</string>
 				</array>
 				<bool key="NSAppliesImmediately">YES</bool>
 			</object>
@@ -3424,7 +3429,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="235032631">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">268</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="194022406">
@@ -3459,10 +3464,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference key="NSSuperview" ref="235032631"/>
 							<bool key="NSEnabled">YES</bool>
 							<bool key="NSIsBordered">YES</bool>
-							<object class="NSColor" key="NSColor">
-								<int key="NSColorSpace">1</int>
-								<bytes key="NSRGB">MC4wNTgxMzA0OTg5OCAwLjA1NTU0MTg5OTA2IDEAA</bytes>
-							</object>
+							<reference key="NSColor" ref="97043955"/>
 						</object>
 						<object class="NSSlider" id="634895030">
 							<reference key="NSNextResponder" ref="235032631"/>
@@ -3475,7 +3477,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<int key="NSCellFlags2">0</int>
 								<string key="NSContents"/>
 								<reference key="NSControlView" ref="634895030"/>
-								<double key="NSMaxValue">100</double>
+								<double key="NSMaxValue">300</double>
 								<double key="NSMinValue">0.0</double>
 								<double key="NSValue">50</double>
 								<double key="NSAltIncValue">0.0</double>
@@ -3485,8 +3487,93 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<bool key="NSVertical">NO</bool>
 							</object>
 						</object>
+						<object class="NSSlider" id="94861865">
+							<reference key="NSNextResponder" ref="235032631"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{18, 369}, {227, 21}}</string>
+							<reference key="NSSuperview" ref="235032631"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSSliderCell" key="NSCell" id="521723316">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">0</int>
+								<string key="NSContents"/>
+								<reference key="NSControlView" ref="94861865"/>
+								<double key="NSMaxValue">20</double>
+								<double key="NSMinValue">0.0</double>
+								<double key="NSValue">20</double>
+								<double key="NSAltIncValue">0.0</double>
+								<int key="NSNumberOfTickMarks">0</int>
+								<int key="NSTickMarkPosition">1</int>
+								<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
+								<bool key="NSVertical">NO</bool>
+							</object>
+						</object>
+						<object class="NSSlider" id="661350776">
+							<reference key="NSNextResponder" ref="235032631"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{18, 328}, {227, 21}}</string>
+							<reference key="NSSuperview" ref="235032631"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSSliderCell" key="NSCell" id="866862817">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">0</int>
+								<string key="NSContents"/>
+								<reference key="NSControlView" ref="661350776"/>
+								<double key="NSMaxValue">300</double>
+								<double key="NSMinValue">0.0</double>
+								<double key="NSValue">50</double>
+								<double key="NSAltIncValue">0.0</double>
+								<int key="NSNumberOfTickMarks">0</int>
+								<int key="NSTickMarkPosition">1</int>
+								<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
+								<bool key="NSVertical">NO</bool>
+							</object>
+						</object>
+						<object class="NSSlider" id="706480496">
+							<reference key="NSNextResponder" ref="235032631"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{18, 230}, {227, 21}}</string>
+							<reference key="NSSuperview" ref="235032631"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSSliderCell" key="NSCell" id="416001323">
+								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags2">0</int>
+								<string key="NSContents"/>
+								<reference key="NSControlView" ref="706480496"/>
+								<double key="NSMaxValue">1</double>
+								<double key="NSMinValue">0.0</double>
+								<double key="NSValue">1</double>
+								<double key="NSAltIncValue">0.0</double>
+								<int key="NSNumberOfTickMarks">0</int>
+								<int key="NSTickMarkPosition">1</int>
+								<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
+								<bool key="NSVertical">NO</bool>
+							</object>
+						</object>
+						<object class="NSSlider" id="360527872">
+							<reference key="NSNextResponder" ref="235032631"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{18, 191}, {227, 21}}</string>
+							<reference key="NSSuperview" ref="235032631"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSSliderCell" key="NSCell" id="645900998">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">0</int>
+								<string key="NSContents"/>
+								<reference key="NSControlView" ref="360527872"/>
+								<double key="NSMaxValue">1</double>
+								<double key="NSMinValue">0.0</double>
+								<double key="NSValue">1</double>
+								<double key="NSAltIncValue">0.0</double>
+								<int key="NSNumberOfTickMarks">0</int>
+								<int key="NSTickMarkPosition">1</int>
+								<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
+								<bool key="NSVertical">NO</bool>
+							</object>
+						</object>
 					</array>
 					<string key="NSFrameSize">{678, 500}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -4765,6 +4852,134 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</object>
 					<int key="connectionID">1569</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.bloblight.threshold</string>
+						<reference key="source" ref="521723316"/>
+						<reference key="destination" ref="69454326"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="521723316"/>
+							<reference key="NSDestination" ref="69454326"/>
+							<string key="NSLabel">value: values.bloblight.threshold</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.bloblight.threshold</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1588</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.bloblight.blur2</string>
+						<reference key="source" ref="866862817"/>
+						<reference key="destination" ref="69454326"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="866862817"/>
+							<reference key="NSDestination" ref="69454326"/>
+							<string key="NSLabel">value: values.bloblight.blur2</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.bloblight.blur2</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1589</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">BlobLightThreshold</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="94861865"/>
+					</object>
+					<int key="connectionID">1590</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">BlobLightBlur2</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="661350776"/>
+					</object>
+					<int key="connectionID">1591</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setBlobLightThreshold:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="94861865"/>
+					</object>
+					<int key="connectionID">1592</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setBlobLightBlur2:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="661350776"/>
+					</object>
+					<int key="connectionID">1593</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.bloblight.alpha</string>
+						<reference key="source" ref="416001323"/>
+						<reference key="destination" ref="69454326"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="416001323"/>
+							<reference key="NSDestination" ref="69454326"/>
+							<string key="NSLabel">value: values.bloblight.alpha</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.bloblight.alpha</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1602</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.bloblight.beta</string>
+						<reference key="source" ref="645900998"/>
+						<reference key="destination" ref="69454326"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="645900998"/>
+							<reference key="NSDestination" ref="69454326"/>
+							<string key="NSLabel">value: values.bloblight.beta</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.bloblight.beta</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1603</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">BlobLightAlpha</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="706480496"/>
+					</object>
+					<int key="connectionID">1604</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">BlobLightBeta</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="360527872"/>
+					</object>
+					<int key="connectionID">1605</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setBlobLightAlpha:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="706480496"/>
+					</object>
+					<int key="connectionID">1606</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setBlobLightBeta:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="360527872"/>
+					</object>
+					<int key="connectionID">1607</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6629,8 +6844,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="235032631"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="194022406"/>
-							<reference ref="634895030"/>
 							<reference ref="736734622"/>
+							<reference ref="634895030"/>
+							<reference ref="94861865"/>
+							<reference ref="661350776"/>
+							<reference ref="706480496"/>
+							<reference ref="360527872"/>
 						</array>
 						<reference key="parent" ref="275561529"/>
 					</object>
@@ -6664,6 +6883,58 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<int key="objectID">1562</int>
 						<reference key="object" ref="782485900"/>
 						<reference key="parent" ref="634895030"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1575</int>
+						<reference key="object" ref="94861865"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="521723316"/>
+						</array>
+						<reference key="parent" ref="235032631"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1576</int>
+						<reference key="object" ref="521723316"/>
+						<reference key="parent" ref="94861865"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1579</int>
+						<reference key="object" ref="661350776"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="866862817"/>
+						</array>
+						<reference key="parent" ref="235032631"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1580</int>
+						<reference key="object" ref="866862817"/>
+						<reference key="parent" ref="661350776"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1594</int>
+						<reference key="object" ref="706480496"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="416001323"/>
+						</array>
+						<reference key="parent" ref="235032631"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1595</int>
+						<reference key="object" ref="416001323"/>
+						<reference key="parent" ref="706480496"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1598</int>
+						<reference key="object" ref="360527872"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="645900998"/>
+						</array>
+						<reference key="parent" ref="235032631"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1599</int>
+						<reference key="object" ref="645900998"/>
+						<reference key="parent" ref="360527872"/>
 					</object>
 				</array>
 			</object>
@@ -6773,9 +7044,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="150.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="150.ImportedFromIB2"/>
 				<string key="1511.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1522.IBEditorWindowLastContentRect">{{461, 139}, {678, 500}}</string>
+				<string key="1522.IBEditorWindowLastContentRect">{{786, 173}, {678, 500}}</string>
 				<string key="1522.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1522.IBWindowTemplateEditedContentRect">{{461, 139}, {678, 500}}</string>
+				<string key="1522.IBWindowTemplateEditedContentRect">{{786, 173}, {678, 500}}</string>
 				<boolean value="NO" key="1522.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="1523.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1524.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6791,10 +7062,18 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="1562.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="157.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="157.ImportedFromIB2"/>
+				<string key="1575.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1576.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1579.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="158.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="158.ImportedFromIB2"/>
+				<string key="1580.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="159.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="159.ImportedFromIB2"/>
+				<string key="1594.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1595.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1598.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1599.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="160.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="160.ImportedFromIB2"/>
 				<string key="161.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7072,7 +7351,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1574</int>
+			<int key="maxID">1607</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7166,9 +7445,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="setBlobBlur1:">id</string>
 						<string key="setBlobBlur2:">id</string>
 						<string key="setBlobBlur3:">id</string>
+						<string key="setBlobLightAlpha:">id</string>
+						<string key="setBlobLightBeta:">id</string>
+						<string key="setBlobLightBlur2:">id</string>
 						<string key="setBlobLightBlur:">id</string>
 						<string key="setBlobLightColor:">id</string>
 						<string key="setBlobLightDebug:">id</string>
+						<string key="setBlobLightThreshold:">id</string>
 						<string key="setBlobThreshold1:">id</string>
 						<string key="setBlobThreshold2:">id</string>
 						<string key="setBlobThreshold3:">id</string>
@@ -7192,9 +7475,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="BlobBlur1">NSSlider</string>
 						<string key="BlobBlur2">NSSlider</string>
 						<string key="BlobBlur3">NSSlider</string>
+						<string key="BlobLightAlpha">NSSlider</string>
+						<string key="BlobLightBeta">NSSlider</string>
 						<string key="BlobLightBlur">NSSlider</string>
+						<string key="BlobLightBlur2">NSSlider</string>
 						<string key="BlobLightColor">NSColorWell</string>
 						<string key="BlobLightDebug">NSButton</string>
+						<string key="BlobLightThreshold">NSSlider</string>
 						<string key="BlobThreshold1">NSSlider</string>
 						<string key="BlobThreshold2">NSSlider</string>
 						<string key="BlobThreshold3">NSSlider</string>

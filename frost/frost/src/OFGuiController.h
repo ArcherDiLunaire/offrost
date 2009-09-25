@@ -92,6 +92,11 @@
 	IBOutlet NSView *blobLightView;
 	IBOutlet NSButton * BlobLightDebug;
 	IBOutlet NSSlider * BlobLightBlur;
+	IBOutlet NSSlider * BlobLightThreshold;
+	IBOutlet NSSlider * BlobLightBlur2;
+	IBOutlet NSSlider * BlobLightAlpha;
+	IBOutlet NSSlider * BlobLightBeta;
+
 	IBOutlet NSColorWell * BlobLightColor;
 	
 	/**
@@ -170,6 +175,10 @@
 -(IBAction)		setBlobLightDebug:(id)sender;
 -(IBAction)		setBlobLightColor:(id)sender;
 -(IBAction)		setBlobLightBlur:(id)sender;
+-(IBAction)		setBlobLightThreshold:(id)sender;
+-(IBAction)		setBlobLightBlur2:(id)sender;
+-(IBAction)		setBlobLightAlpha:(id)sender;
+-(IBAction)		setBlobLightBeta:(id)sender;
 
 
 -(IBAction)		setProjectorShowDebug:(id)sender;

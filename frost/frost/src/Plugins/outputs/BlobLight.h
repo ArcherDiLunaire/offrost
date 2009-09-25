@@ -16,6 +16,12 @@ public:
 	bool debug;
 	
 	float r, g, b;
-	float blur;
+	float blur, threshold, blur2;
+	float alpha, beta;
+	int w,h;
+	ofxCvGrayscaleImage history;
+	ofxCvGrayscaleImage historyTmp;
+
+	ofxCvGrayscaleImage img;
 
 };

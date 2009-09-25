@@ -19,7 +19,7 @@ void LaLinea::draw(){
 }
 
 void LaLinea::drawOnWall(){
-	int sections = 300;
+	int sections = 100;
 	float s[sections];
 	for(int i=0;i<sections;i++){
 		s[i] = 0.9;
@@ -32,7 +32,7 @@ void LaLinea::drawOnWall(){
 		
 		glBegin(GL_LINE_STRIP);
 		
-		for(int i=0;i<b.nPts-3;i+=3){
+		for(int i=0;i<b.nPts;i++){
 			int section = 0;
 			ofxVec2f r = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[i].x, b.pts[i].y));			
 			for(int u=0;u<sections;u++){
