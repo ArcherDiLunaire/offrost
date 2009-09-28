@@ -35,7 +35,7 @@ ProjectionSurfaces::ProjectionSurfaces(){
 		objects[i]->aspect = 1.0;
 	}
 	
-	objects[10]->corners[0] = getCurtain(0)->corners[1];
+	objects[10]->corners[0] = getCurtain(0)->corners[0];
 	objects[10]->corners[1] = getCurtain(3)->corners[1];	
 	objects[10]->corners[2] = getCurtain(5)->corners[2];		
 	objects[10]->corners[3] = getCurtain(2)->corners[3];				

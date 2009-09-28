@@ -18,7 +18,10 @@ class Cameras : public Input{
 public:
 	Cameras();
 	
+	void draw(int _grabberIndex, float _x, float _y, float _w, float _h);
+	void draw(int _grabberIndex, float _x, float _y);
 	void draw();
+
 	void setup();
 	void update();
 	

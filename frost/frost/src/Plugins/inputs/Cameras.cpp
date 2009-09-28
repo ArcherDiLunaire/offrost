@@ -54,11 +54,9 @@ void Cameras::update(){
 	for (int i=0; i<3; i++) {
 		if(isReady(i)){
 			vidGrabber[i]->update();
-/*
 			if(vidGrabber[i]->isFrameNew()){
 				calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
 			}
-*/
 		}
 	}	
 }
@@ -83,8 +81,26 @@ ofPoint Cameras::distortPoint(int _grabberIndex, float _PixelX, float _PixelY){
 	return calib[_grabberIndex].distortPoint(_PixelX, _PixelY);
 }
 
-void Cameras::draw(){
 
+void Cameras::draw(int _grabberIndex, float _x, float _y, float _w, float _h)
+{
+	/**
+	if (bUseTexture){
+		tex.draw(_x, _y, _w, _h);
+	}
+	if(bGrabberInited){
+		settings->draw();
+	}
+	 **/
+}
+
+void Cameras::draw(int _grabberIndex, float _x, float _y)
+{
+	draw(_grabberIndex, _x, _y, (float)camWidth, (float)camHeight);
+}
+
+void Cameras::draw(){
+	draw(0, 0, 0);
 }
 
 void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
@@ -154,7 +170,20 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 			//setCameraCalibration(_cameraGUID, );
 			break;
 		case 0xb09d01008c1394ll:
-			//setCameraCalibration(_cameraGUID, );
+			/**
+			 *
+			 * 3.5mm 1/2"
+			 *
+			 * Distortion Coefficients:
+			 * -0.3796366751 0.1794384271 0.0015031601 0.0049067354 
+			 * Camera Matrix:
+			 * 1054.0688476562 0.0000000000 513.7350463867 
+			 * 0.0000000000 1051.2467041016 308.5940551758 
+			 * 0.0000000000 0.0000000000 1.0000000000 
+			 **/
+			setCameraCalibration(_cameraGUID, 
+								 -0.3796366751, 0.1794384271, 0.0015031601, 0.0049067354,
+								 1054.0688476562, 513.7350463867, 1051.2467041016, 308.5940551758);
 			break;
 		case 0xb09d01008c139cll:
 			/**
@@ -168,9 +197,9 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 			 * 0.0000000000 2991.7260742188 378.9212646484 
 			 * 0.0000000000 0.0000000000 1.0000000000 
 			 **/
-			setCameraCalibration(_cameraGUID, 
+	/*		setCameraCalibration(_cameraGUID, 
 								 -0.5213706493, -7.2184705734, 0.0017122072, 0.0209310278,
-								 2983.3862304688, 360.2234497070, 2991.7260742188, 378.9212646484);
+								 2983.3862304688, 360.2234497070, 2991.7260742188, 378.9212646484);*/
 			break;
 		default:
 			break;

@@ -17,6 +17,7 @@ public:
 	void update();
 	void drawOnWall();
 	
+	void drawContour(vector<ofxVec2f> * points, float _lineWidth, float _extrusion);
 	
 	bool debug;
 	int cam;

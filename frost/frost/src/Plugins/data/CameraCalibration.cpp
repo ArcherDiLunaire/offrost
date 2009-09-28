@@ -102,6 +102,10 @@ void CameraCalibration::draw(){
 }
 
 void CameraCalibration::drawSettings(){
+	ofPushStyle();
+	
+	ofFill();
+	
 	glPushMatrix();
 	glTranslated(offset, offset, 0);
 	glPushMatrix();
@@ -198,6 +202,8 @@ void CameraCalibration::drawSettings(){
 	 
 	 
 	 glPopMatrix();*/
+	
+	ofPopStyle();
 	
 }
 

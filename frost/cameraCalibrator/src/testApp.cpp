@@ -10,8 +10,8 @@
 void testApp::setup() {
     ofSetVerticalSync( true );
     ofSetWindowPosition( 0,0 );
-    cwidth = 1280;
-    cheight = 960;
+    cwidth = 1024;
+    cheight = 768;
     csize = cvSize( cwidth,cheight );
 	//vidGrabber.listDevices();
 	vidGrabber.setDeviceID(5);

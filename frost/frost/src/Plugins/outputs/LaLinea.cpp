@@ -56,7 +56,7 @@ bool lineIntersection(
 LaLinea::LaLinea(){
 	type = OUTPUT;
 	cam = 2;
-	extrude = 90.0;
+	extrude = 400.0;
 }
 
 void LaLinea::setup(){
@@ -69,10 +69,11 @@ void LaLinea::draw(){
 }
 
 void LaLinea::drawOnWall(){
+	ofPushStyle();
 	/*int sections = 100;
 	 float s[sections];
 	 for(int i=0;i<sections;i++){
-	 s[i] = 0.9;
+	 s[i] = 0.95;
 	 }
 	 
 	 for(int i=0;i<blob(cam)->numBlobs();i++){
@@ -111,8 +112,9 @@ void LaLinea::drawOnWall(){
 	 */
 	
 	vector<ofxVec2f> points;
+	
+	points.push_back(ofxVec2f(0,0.95));
 
-	points.push_back(ofxVec2f(0,0.9));
 	for(int i=0;i<blob(cam)->numBlobs();i++){
 		ofxCvBlob b = blob(cam)->getBlob(i);
 		
@@ -121,6 +123,7 @@ void LaLinea::drawOnWall(){
 		vector<int> intersectionsId;
 		
 		for(int u=0;u<b.nPts-1;u++){
+						
 			ofxVec2f r = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[u].x, b.pts[u].y));			
 			ofxVec2f r2 = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[u+1].x, b.pts[u+1].y));			
 			double x, y;
@@ -128,7 +131,7 @@ void LaLinea::drawOnWall(){
 								points[points.size()-1].x,
 								points[points.size()-1].y, 
 								1.0,
-								0.9,
+								0.95,
 								r.x, r.y, 
 								r2.x, r2.y,
 								&x, &y)){
@@ -139,6 +142,7 @@ void LaLinea::drawOnWall(){
 		}
 		
 		if(intersections.size() > 0){
+			
 			//Find most left and right interserction
 			int left = -1;
 			float leftX = 1;
@@ -160,7 +164,7 @@ void LaLinea::drawOnWall(){
 			
 			
 			//add points between left and right
-			if(true){
+			if(false){
 				points.push_back(intersections[left]);
 				for(int u=intersectionsId[left]+1;u>=0;u--){
 					ofxVec2f r = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[u].x, b.pts[u].y));			
@@ -185,39 +189,75 @@ void LaLinea::drawOnWall(){
 				points.push_back(intersections[right]);
 			}
 			
+		} else {
+			
+			/**
+			 * TODO: Paint other blob contours to make sure we have the head and upper part of the body, even if blobs are cut by screen gaps.
+			 * see notes in drawContour
+			 **/
+			
+			/** enable code below when drawContour handles both polygon winidng directions and special cases for la ligna
+			 
+			vector<ofxVec2f> pointsOutsideLine;
+						
+			for(int u=0;u<b.nPts-1;u++){
+				pointsOutsideLine.push_back(projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[u].x, b.pts[u].y)));
+			}
+			
+			drawContour(&pointsOutsideLine, 6.0, extrude);
+			//**/
 		}
-		
-	}
-	points.push_back(ofxVec2f(1,0.9));
 
-	spline.clear();
-	for(int i=0;i<points.size();i++){
-		//	spline.push_back(points[i]);
-		
 		
 	}
+	
+	points.push_back(ofxVec2f(1,0.95));
+		
+	drawContour(&points, 6.0, extrude);
+
+}
+
+void LaLinea::drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _extrusion){
+	
+	/**
+	 spline.clear();
+	 for(int i=0;i<points.size();i++){
+		spline.push_back(points[i]);
+	 }
+	 **/
 	
 	vector<ofxVec2f> p2;
-	p2.assign(points.size(), ofxVec2f());
+	p2.assign(_points->size(), ofxVec2f());
 	
 	vector<ofxVec2f> normals;
-	//normals.assign(points.size(), ofxVec2f());
+	//normals.assign(points->size(), ofxVec2f());
 	
-	contourSimp.smooth(points, p2, 0.6);
-	p2[p2.size()-1].x = 1;
+	contourSimp.smooth(*_points, p2, 0.6);
+	if(_points->at(_points->size()-1).x == 1.0){
+		p2[p2.size()-1].x = 1;
+	}
+	
+	// TODO: find direction (cw or ccw) and make normals in appropriate sequence
 	
 	contourNorm.makeNormals(p2, normals);
-	normals[0].y = -1.0;
+
+//	// TODO: why is the statement below always false?
+//	
+//	if (_points->at(0).x == 0.0 && _points->at(0).y == 0.95 ){
+		normals[0].y = -1.0;
+//	} else {
+//		cout << _points->at(0).x << "   " << _points->at(0).y << endl;
+//	}
+
+	
 	for(int i=0;i<p2.size();i++){
-		p2[i] += normals[i]/extrude;
-		if(p2[i].y > 0.9-1.0/extrude){
-			p2[i].y = 0.9-1.0/extrude;
+		p2[i] += normals[i]/_extrusion;
+		if(p2[i].y > 0.95-1.0/_extrusion){
+			p2[i].y = 0.95-1.0/_extrusion;
 		}
 	}
 	
 	glColor4f(255, 255, 255,255);
-	
-	
 	
 	/*glBegin(GL_LINE_STRIP);
 	 float spacing = 0.01;
@@ -228,41 +268,53 @@ void LaLinea::drawOnWall(){
 	 glEnd();*/
 	
 	//spline.drawSmooth(100, 1, 1);
-	glLineWidth(6);
+	
+	glLineWidth(_lineWidth);
 	glColor4f(255, 255, 255,255);
 	
 	//glLineWidth(4);
 	
 	glBegin(GL_QUAD_STRIP);
 	for(int i =0;i<p2.size();i++){
-	//	if(i!=0){
-			glVertex3d(p2[i].x+normals[i].x/100.0, p2[i].y+normals[i].y/100.0,0);
-	//	} else {
+		//	if(i!=0){
+		glVertex3d(p2[i].x+normals[i].x/(250.0/_lineWidth), p2[i].y+normals[i].y/(250.0/_lineWidth),0);
+		//	} else {
 		//	glVertex3d(p2[i].x, p2[i].y-1.0/100.0,0);
-	//	}
+		//	}
 		glVertex3d(p2[i].x, p2[i].y,0);		
 		
 	}
 	glEnd();	
 	
 	glColor4f(0, 0, 0,255);
-
-	ofDisableAlphaBlending();
-	ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+	ofFill();
 	
-	ofBeginShape();
-	for(int i =0;i<p2.size();i++){
+	/*ofDisableAlphaBlending();
+	 ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+	 
+	 if(p2.size() > 0){
+	 ofBeginShape();
+	 for(int i =0;i<p2.size();i++){
+	 
+	 ofVertex(p2[i].x, p2[i].y);
+	 
+	 }
+	 ofEndShape();
+	 }*/
+	ofEnableAlphaBlending();
+	glColor4f(0, 255, 0,50);
+	/*	glBegin(GL_POLYGON);	
+	 if(p2.size() > 0){
+	 for(int i =0;i<p2.size();i++){
+	 
+	 glVertex3f(p2[i].x, p2[i].y,0);
+	 
+	 }
+	 
+	 }*/
+	glEnd();
+	//ofRect(0, 0.95-1.0/extrude, 1, 1);
 		
-		ofVertex(p2[i].x, p2[i].y);
-		
-	}
-	ofEndShape();
-	
-	ofRect(0, 0.9-1.0/extrude, 1, 1);
-	
-	
-	
-	
 	/*
 	 glBegin(GL_LINE_STRIP);
 	 for(int i =0;i<points.size();i++){
@@ -272,9 +324,6 @@ void LaLinea::drawOnWall(){
 	 glEnd();	
 	 */
 	
+	ofPopStyle();
 	
-	
-	
-	
-}
-
+} 
