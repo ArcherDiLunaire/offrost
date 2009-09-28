@@ -2,11 +2,13 @@
 #include "ofMain.h"
 #include "Output.h"
 #include "ofxVectorMath.h"
-
+#include "ofxMSASpline.h"
 
 class LaLinea : public Output{
 public:
 	LaLinea();
+	
+	ofxMSASpline2D  spline;
 
 	void setup();
 	void draw();

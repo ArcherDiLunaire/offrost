@@ -4,8 +4,17 @@
 
 #include "ofxOpenCv.h"
 #include "ofxVideoGrabber.h"
+#include "contourSimplify.h"
+
+
+
 
 class CameraCalibration;
+
+class ofxExtendedBlobTracking : public ofxCvContourFinder{
+public:
+	int findSimplifiedContours( ofxCvGrayscaleImage&  input, int minArea, int maxArea, int nConsidered, bool bFindHoles, bool bUseApproximation) ;
+};
 
 class Tracker {
 public:
@@ -20,7 +29,8 @@ public:
 	ofxCvGrayscaleImage 	grayBg;
 	ofxCvGrayscaleImage 	grayDiff;
 	
-	ofxCvContourFinder 	contourFinder;
+	ofxExtendedBlobTracking 	contourFinder;
+//	ofxExtendedBlobTracking 	simplifiedContourFinder;
 	PluginController * controller;
 	
 	float 				threshold;
@@ -28,6 +38,11 @@ public:
 	bool active;
 	
 	bool				bLearnBakground;
+	
+	bool mouseBlob;
+	ofxCvBlob mouseGeneratedBlob;
+	void updateMouseBlob(float x, float y, int button);
+	
 	
 	//Getters
 	int numBlobs();
@@ -37,10 +52,11 @@ public:
 	int getWidth();
 	int getHeight();
 	
-	bool mouseBlob;
-	ofxCvBlob mouseGeneratedBlob;
-	void updateMouseBlob(float x, float y, int button);
+	void smoothBlob(ofxCvBlob * blob, float smooth);
+	void extrudeBlob(ofxCvBlob * blob, float value);	
 	
+	contourSimplify contourSimp;
+
 private:
 	int cw, ch;
 	

@@ -41,6 +41,7 @@ NSOpenGLContext* __sharedOpenGLContext;
 	
 	NSOpenGLPixelFormatAttribute attrs[] =
     {
+		NSOpenGLPFAWindow, //Added
         NSOpenGLPFAPixelBuffer,
         NSOpenGLPFADoubleBuffer,
         NSOpenGLPFAAccelerated,
@@ -49,6 +50,16 @@ NSOpenGLContext* __sharedOpenGLContext;
         NSOpenGLPFASamples, (NSOpenGLPixelFormatAttribute)4,
         (NSOpenGLPixelFormatAttribute)nil
     };
+/*	
+	NSOpenGLPixelFormatAttribute attributes [] = {
+        NSOpenGLPFAWindow,
+        NSOpenGLPFADoubleBuffer,
+        NSOpenGLPFASampleBuffers, 1, 
+        NSOpenGLPFASamples, 2,
+        NSOpenGLPFANoRecovery,
+        (NSOpenGLPixelFormatAttribute)nil
+    };
+	*/
 	return [[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs] autorelease];
 }
 

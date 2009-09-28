@@ -175,7 +175,7 @@ void LaLinea::drawOnWall(){
 				points.push_back(intersections[right]);
 			} else {
 				points.push_back(intersections[left]);
-				for(int u=intersectionsId[left]+1;u>intersectionsId[right]-1;u--){
+				for(int u=intersectionsId[left]+1;u>intersectionsId[right]-1;u-=5){
 					ofxVec2f r = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[u].x, b.pts[u].y));			
 					points.push_back(r);
 				}
@@ -189,8 +189,26 @@ void LaLinea::drawOnWall(){
 	}
 	points.push_back(ofxVec2f(1,0.9));
 	
+	spline.clear();
+	for(int i=0;i<points.size();i++){
+		spline.push_back(points[i]);
+	}
+	
 	glColor4f(255, 255, 255,255);
-	glLineWidth(4);
+	
+	/*glBegin(GL_LINE_STRIP);
+	float spacing = 0.01;
+	for(float f=0; f<1; f+= spacing) {
+		ofxVec2f v = spline.sampleAt(f);
+		glVertex3fv((const float*)&v);
+	}
+	glEnd();*/
+	
+	spline.drawSmooth(100, 1, 1);
+	
+	glColor4f(255, 0, 0,255);
+
+	//glLineWidth(4);
 	glBegin(GL_LINE_STRIP);
 	for(int i =0;i<points.size();i++){
 		glVertex3d(points[i].x, points[i].y,0);
