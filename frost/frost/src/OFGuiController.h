@@ -100,6 +100,13 @@
 	IBOutlet NSColorWell * BlobLightColor;
 	
 	/**
+	 * Folding outlets
+	 **/
+	
+	IBOutlet NSView *foldingView;
+
+	
+	/**
 	 * Camera Outlets
 	 **/
 	

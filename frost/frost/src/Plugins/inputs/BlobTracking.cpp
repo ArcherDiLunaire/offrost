@@ -4,116 +4,6 @@
 #include "Cameras.h"
 #include "CameraCalibration.h"
 
-//--------------------------------------------------------------------------------
-bool sort_carea_compare2( const CvSeq* a, const CvSeq* b) {
-	// use opencv to calc size, then sort based on size
-	float areaa = fabs(cvContourArea(a, CV_WHOLE_SEQ));
-	float areab = fabs(cvContourArea(b, CV_WHOLE_SEQ));
-	
-    //return 0;
-	return (areaa > areab);
-}
-
-int ofxExtendedBlobTracking::findSimplifiedContours( ofxCvGrayscaleImage&  input,
-						   int minArea,
-						   int maxArea,
-						   int nConsidered,
-						   bool bFindHoles,
-						   bool bUseApproximation) {
-	
-	// get width/height disregarding ROI
-	IplImage* ipltemp = input.getCvImage();
-	_width = ipltemp->width;
-	_height = ipltemp->height;
-	
-	reset();
-	
-	
-	if( inputCopy.width == 0 ) {
-		inputCopy.allocate( _width, _height );
-	} else if( inputCopy.width != _width || inputCopy.height != _height ) {
-		// reallocate to new size
-		inputCopy.clear();
-		inputCopy.allocate( _width, _height );
-	}
-	
-	inputCopy = input;
-	inputCopy.setROI( input.getROI() );
-	
-	CvSeq* contour_list = NULL;
-	contour_storage = cvCreateMemStorage( 1000 );
-	storage	= cvCreateMemStorage( 1000 );
-	
-	CvContourRetrievalMode  retrieve_mode
-	= (bFindHoles) ? CV_RETR_LIST : CV_RETR_EXTERNAL;
-	cvFindContours( inputCopy.getCvImage(), contour_storage, &contour_list,
-				   sizeof(CvContour), retrieve_mode, bUseApproximation ? CV_CHAIN_APPROX_SIMPLE : CV_CHAIN_APPROX_NONE );
-	CvSeq* contour_ptr = contour_list;
-	
-	CvSeq* c_new;
-//	contour_storage = cvCreateMemStorage( 1000 );
-
-	//c_new = cvApproxPoly(contour_ptr, sizeof(CvContour), contour_storage, CV_POLY_APPROX_DP, 2);
-	// put the contours from the linked list, into an array for sorting
-	while( (contour_ptr != NULL) ) {
-		float area = fabs( cvContourArea(contour_ptr, CV_WHOLE_SEQ) );
-		if( (area > minArea) && (area < maxArea) ) {
-			cvSeqBlobs.push_back(contour_ptr);
-		}
-		contour_ptr = contour_ptr->h_next;
-	}
-	
-	
-	// sort the pointers based on size
-	if( cvSeqBlobs.size() > 1 ) {
-		sort( cvSeqBlobs.begin(), cvSeqBlobs.end(), sort_carea_compare2 );
-	}
-	
-	
-	// now, we have cvSeqBlobs.size() contours, sorted by size in the array
-	// cvSeqBlobs let's get the data out and into our structures that we like
-	for( int i = 0; i < MIN(nConsidered, (int)cvSeqBlobs.size()); i++ ) {
-		blobs.push_back( ofxCvBlob() );
-		float area = cvContourArea( cvSeqBlobs[i], CV_WHOLE_SEQ );
-		CvRect rect	= cvBoundingRect( cvSeqBlobs[i], 0 );
-		cvMoments( cvSeqBlobs[i], myMoments );
-		
-		blobs[i].area                     = fabs(area);
-		blobs[i].hole                     = area < 0 ? true : false;
-		blobs[i].length 			      = cvArcLength(cvSeqBlobs[i]);
-		blobs[i].boundingRect.x           = rect.x;
-		blobs[i].boundingRect.y           = rect.y;
-		blobs[i].boundingRect.width       = rect.width;
-		blobs[i].boundingRect.height      = rect.height;
-		blobs[i].centroid.x 			  = (int) (myMoments->m10 / myMoments->m00);
-		blobs[i].centroid.y 			  = (int) (myMoments->m01 / myMoments->m00);
-		
-		// get the points for the blob:
-		CvPoint           pt;
-		CvSeqReader       reader;
-		cvStartReadSeq( cvSeqBlobs[i], &reader, 0 );
-		
-		for( int j=0; j < cvSeqBlobs[i]->total; j++ ) {
-			CV_READ_SEQ_ELEM( pt, reader );
-			blobs[i].pts.push_back( ofPoint((float)pt.x, (float)pt.y) );
-		}
-		blobs[i].nPts = blobs[i].pts.size();
-		
-	}
-	
-	nBlobs = blobs.size();
-	
-	// Free the storage memory.
-	// Warning: do this inside this function otherwise a strange memory leak
-	if( contour_storage != NULL ) { cvReleaseMemStorage(&contour_storage); }
-	if( storage != NULL ) { cvReleaseMemStorage(&storage); }
-	
-	return nBlobs;
-	
-}
-
-
-
 Tracker::Tracker(){
 	cw = 1024; 
 	ch=768;
@@ -218,8 +108,15 @@ void Tracker::updateMouseBlob(float x, float y, int button){
 	}
 }
 
-void Tracker::smoothBlob(ofxCvBlob * blob, float smooth){
-	contourSimp.smooth(blob->pts, blob->pts, smooth);
+
+ofxCvBlob Tracker::smoothBlob(ofxCvBlob blob, float smooth){
+	ofxCvBlob n = blob;
+	vector<ofxVec2f> p;
+//	contourSimp.smooth(blob.pts, p, smooth);
+	for(int i=0;i<p.size();i++){
+		n.pts[i] = p[i];
+	}
+	return n;
 
 }
 void Tracker::extrudeBlob(ofxCvBlob * blob, float value){
@@ -256,7 +153,7 @@ void BlobTracking::update(){
 		trackers[i]->update();		
 	}	
 	for(int i=0;i<trackers.size();i++){
-		trackers[i]->findContours();		
+		trackers[i]->findContours();	
 	}	
 	
 }

@@ -178,7 +178,7 @@ bool Cameras::isReady(int _cameraIndex){
 		return vidGrabber[_cameraIndex]->isReady();
 	}
 	return cameraInited[_cameraIndex];
-}
+} 
 
 bool Cameras::cameraGUIDexists(uint64_t _cameraGUID){
 

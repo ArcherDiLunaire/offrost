@@ -6,23 +6,16 @@
 #include "contourSimplify.h"
 #include "contourNormals.h"
 
-class LaLinea : public Output{
+class Folding : public Output{
 public:
-	LaLinea();
+	Folding();
 	
-	ofxMSASpline2D  spline;
-
 	void setup();
 	void draw();
 	void update();
-	void drawOnWall();
 	
 	
 	bool debug;
 	int cam;
 	
-	contourSimplify contourSimp;
-	contourNormals contourNorm;
-
-	float extrude;
 };

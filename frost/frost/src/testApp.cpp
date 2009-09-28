@@ -18,6 +18,8 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new MoonDust);
 	pluginController->addPlugin(new LaLinea);
 	pluginController->addPlugin(new BlobLight);
+	pluginController->addPlugin(new Folding);
+
 }
 
 void testApp::setup(){	

@@ -25,7 +25,7 @@ class contourSimplify{
 		}
 		
 		//------------------------------
-		void smooth(vector <ofPoint> &contourIn, vector <ofPoint> &contourOut, float smoothPct){
+		void smooth(vector <ofxVec2f> &contourIn, vector <ofxVec2f> &contourOut, float smoothPct){
 			int length = MIN(contourIn.size(), contourOut.size());
 			
 			float invPct = 1.0 - smoothPct;

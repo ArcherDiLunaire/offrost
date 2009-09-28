@@ -55,7 +55,8 @@ bool lineIntersection(
 
 LaLinea::LaLinea(){
 	type = OUTPUT;
-	cam = 0;
+	cam = 2;
+	extrude = 90.0;
 }
 
 void LaLinea::setup(){
@@ -110,10 +111,10 @@ void LaLinea::drawOnWall(){
 	 */
 	
 	vector<ofxVec2f> points;
+
 	points.push_back(ofxVec2f(0,0.9));
 	for(int i=0;i<blob(cam)->numBlobs();i++){
 		ofxCvBlob b = blob(cam)->getBlob(i);
-		
 		
 		//Find all intersections
 		vector<ofxVec2f> intersections;
@@ -138,7 +139,6 @@ void LaLinea::drawOnWall(){
 		}
 		
 		if(intersections.size() > 0){
-			
 			//Find most left and right interserction
 			int left = -1;
 			float leftX = 1;
@@ -156,11 +156,11 @@ void LaLinea::drawOnWall(){
 					right = u;
 				}
 			}
-//			cout<<intersections.size()<<"   "<<intersectionsId[left]<<"   "<<intersectionsId[right]<<endl;
+			//	cout<<intersections.size()<<"   "<<intersectionsId[left]<<"   "<<intersectionsId[right]<<endl;
 			
 			
 			//add points between left and right
-			if(false){
+			if(true){
 				points.push_back(intersections[left]);
 				for(int u=intersectionsId[left]+1;u>=0;u--){
 					ofxVec2f r = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[u].x, b.pts[u].y));			
@@ -178,6 +178,7 @@ void LaLinea::drawOnWall(){
 				for(int u=intersectionsId[left]+1;u>intersectionsId[right]-1;u-=5){
 					ofxVec2f r = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[u].x, b.pts[u].y));			
 					points.push_back(r);
+					
 				}
 				
 				
@@ -188,33 +189,88 @@ void LaLinea::drawOnWall(){
 		
 	}
 	points.push_back(ofxVec2f(1,0.9));
-	
+
 	spline.clear();
 	for(int i=0;i<points.size();i++){
-		spline.push_back(points[i]);
+		//	spline.push_back(points[i]);
+		
+		
+	}
+	
+	vector<ofxVec2f> p2;
+	p2.assign(points.size(), ofxVec2f());
+	
+	vector<ofxVec2f> normals;
+	//normals.assign(points.size(), ofxVec2f());
+	
+	contourSimp.smooth(points, p2, 0.6);
+	p2[p2.size()-1].x = 1;
+	
+	contourNorm.makeNormals(p2, normals);
+	normals[0].y = -1.0;
+	for(int i=0;i<p2.size();i++){
+		p2[i] += normals[i]/extrude;
+		if(p2[i].y > 0.9-1.0/extrude){
+			p2[i].y = 0.9-1.0/extrude;
+		}
 	}
 	
 	glColor4f(255, 255, 255,255);
 	
+	
+	
 	/*glBegin(GL_LINE_STRIP);
-	float spacing = 0.01;
-	for(float f=0; f<1; f+= spacing) {
-		ofxVec2f v = spline.sampleAt(f);
-		glVertex3fv((const float*)&v);
-	}
-	glEnd();*/
+	 float spacing = 0.01;
+	 for(float f=0; f<1; f+= spacing) {
+	 ofxVec2f v = spline.sampleAt(f);
+	 glVertex3fv((const float*)&v);
+	 }
+	 glEnd();*/
 	
-	spline.drawSmooth(100, 1, 1);
+	//spline.drawSmooth(100, 1, 1);
+	glLineWidth(6);
+	glColor4f(255, 255, 255,255);
 	
-	glColor4f(255, 0, 0,255);
-
 	//glLineWidth(4);
-	glBegin(GL_LINE_STRIP);
-	for(int i =0;i<points.size();i++){
-		glVertex3d(points[i].x, points[i].y,0);
+	
+	glBegin(GL_QUAD_STRIP);
+	for(int i =0;i<p2.size();i++){
+	//	if(i!=0){
+			glVertex3d(p2[i].x+normals[i].x/100.0, p2[i].y+normals[i].y/100.0,0);
+	//	} else {
+		//	glVertex3d(p2[i].x, p2[i].y-1.0/100.0,0);
+	//	}
+		glVertex3d(p2[i].x, p2[i].y,0);		
 		
 	}
 	glEnd();	
+	
+	glColor4f(0, 0, 0,255);
+
+	ofDisableAlphaBlending();
+	ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+	
+	ofBeginShape();
+	for(int i =0;i<p2.size();i++){
+		
+		ofVertex(p2[i].x, p2[i].y);
+		
+	}
+	ofEndShape();
+	
+	ofRect(0, 0.9-1.0/extrude, 1, 1);
+	
+	
+	
+	
+	/*
+	 glBegin(GL_LINE_STRIP);
+	 for(int i =0;i<points.size();i++){
+	 glVertex3d(points[i].x, points[i].y,0);
+	 
+	 }
+	 glEnd();	
+	 */
 	
 	
 	

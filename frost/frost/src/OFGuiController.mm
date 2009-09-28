@@ -177,7 +177,8 @@ OFGuiController * gui = NULL;
 		[self addObject:@"Moon Dust" isheader:FALSE plugin:getPlugin<MoonDust*>(ofApp->pluginController)];
 		[self addObject:@"La Linea" isheader:FALSE plugin:getPlugin<LaLinea*>(ofApp->pluginController)];
 		[self addObject:@"Blob light" isheader:FALSE plugin:getPlugin<BlobLight*>(ofApp->pluginController)];
-		
+		[self addObject:@"Folding" isheader:FALSE plugin:getPlugin<Folding*>(ofApp->pluginController)];
+
 		NSMutableArray * array;
 		array = viewItems;
 		for(int i=0;i<[viewItems count];i++){
@@ -274,6 +275,10 @@ OFGuiController * gui = NULL;
 	}	
 	if(![(NSString*)[p name] compare:@"Blob light"]){
 		view = blobLightView;
+	}	
+	
+	if(![(NSString*)[p name] compare:@"Folding"]){
+		view = foldingView;
 	}	
 	
 	

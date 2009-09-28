@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2739E54F1070BEBE0078206D /* contourNormals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2739E54D1070BEBE0078206D /* contourNormals.cpp */; };
+		2797C7D91070DCDF00555A42 /* Folding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2797C7D71070DCDF00555A42 /* Folding.cpp */; };
 		279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AEC3A10668C0100FBEE17 /* coordWarp.cpp */; };
 		27B7F437106A4A7C00E1E74B /* MoonDust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B7F436106A4A7C00E1E74B /* MoonDust.cpp */; };
 		3F1E59AB100B75550091B692 /* SharedContextGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59AA100B75550091B692 /* SharedContextGLView.m */; };
@@ -110,6 +112,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2739E54D1070BEBE0078206D /* contourNormals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contourNormals.cpp; sourceTree = "<group>"; };
+		2739E54E1070BEBE0078206D /* contourNormals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contourNormals.h; sourceTree = "<group>"; };
+		2797C7D71070DCDF00555A42 /* Folding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Folding.cpp; sourceTree = "<group>"; };
+		2797C7D81070DCDF00555A42 /* Folding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Folding.h; sourceTree = "<group>"; };
 		279AEC3A10668C0100FBEE17 /* coordWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coordWarp.cpp; path = src/coordWarp.cpp; sourceTree = SOURCE_ROOT; };
 		279AEC3B10668C0100FBEE17 /* coordWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = coordWarp.h; path = src/coordWarp.h; sourceTree = SOURCE_ROOT; };
 		27B7F436106A4A7C00E1E74B /* MoonDust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoonDust.cpp; path = src/Plugins/outputs/MoonDust.cpp; sourceTree = SOURCE_ROOT; };
@@ -516,6 +522,8 @@
 		DD45B9B6106FE04500B4B19C /* computerVisionUtils */ = {
 			isa = PBXGroup;
 			children = (
+				2739E54D1070BEBE0078206D /* contourNormals.cpp */,
+				2739E54E1070BEBE0078206D /* contourNormals.h */,
 				DD45B9B7106FE04500B4B19C /* polylineSimplify.h */,
 				DD45B9B8106FE04500B4B19C /* contourSimplify.cpp */,
 				DD45B9B9106FE04500B4B19C /* contourSimplify.h */,
@@ -700,6 +708,8 @@
 				DD45B62E106BA2F600B4B19C /* BlobLight.h */,
 				DD45B62F106BA2F600B4B19C /* LaLinea.cpp */,
 				DD45B630106BA2F600B4B19C /* LaLinea.h */,
+				2797C7D71070DCDF00555A42 /* Folding.cpp */,
+				2797C7D81070DCDF00555A42 /* Folding.h */,
 			);
 			path = outputs;
 			sourceTree = "<group>";
@@ -1447,6 +1457,8 @@
 				DD45B91C106FDC4F00B4B19C /* ofxMSASpline3D.cpp in Sources */,
 				DD45B91D106FDC4F00B4B19C /* ofxMSASurface3D.cpp in Sources */,
 				DD45B9BB106FE04500B4B19C /* contourSimplify.cpp in Sources */,
+				2739E54F1070BEBE0078206D /* contourNormals.cpp in Sources */,
+				2797C7D91070DCDF00555A42 /* Folding.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

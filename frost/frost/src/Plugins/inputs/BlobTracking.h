@@ -51,8 +51,11 @@ public:
 	ofxCvBlob getLargestBlob();
 	int getWidth();
 	int getHeight();
-	
-	void smoothBlob(ofxCvBlob * blob, float smooth);
+/*
+	void smoothBlobs(float smooth);
+	void extrudeBlobs(float value);	
+*/
+	ofxCvBlob smoothBlob(ofxCvBlob blob, float smooth);
 	void extrudeBlob(ofxCvBlob * blob, float value);	
 	
 	contourSimplify contourSimp;
