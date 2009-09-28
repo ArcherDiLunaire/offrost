@@ -29,6 +29,8 @@ public:
 	ofPoint distortPoint(float _PixelX, float _PixelY);
 	
 	void initGrabber(int _grabber, uint64_t _cameraGUID = 0x0ll);
+	void initCameraCalibration(uint64_t _cameraGUID);
+
 	void setGUIDs(uint64_t _cameraGUID1, uint64_t _cameraGUID2, uint64_t _cameraGUID3);
 	bool cameraGUIDexists(uint64_t _cameraGUID);
 
@@ -38,6 +40,8 @@ public:
 	ofxCvGrayscaleImage calibImage[3];
 	CvSize csize;
 	
+	void setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, float _c1, float _c2, double fx, double cx, double fy, double cy);
+
 	bool isReady(int _cameraIndex);
 	
 	bool setGUID(int _grabber, uint64_t _cameraGUID);

@@ -15,6 +15,7 @@ Cameras::Cameras(){
 		calibImage[i].allocate( camWidth, camHeight );
 		calib[i].allocate( csize, 7, 7 );
 	}
+
 }
 
 void Cameras::setup(){
@@ -53,9 +54,11 @@ void Cameras::update(){
 	for (int i=0; i<3; i++) {
 		if(isReady(i)){
 			vidGrabber[i]->update();
+/*
 			if(vidGrabber[i]->isFrameNew()){
-			//	calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
+				calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
 			}
+*/
 		}
 	}	
 }
@@ -94,7 +97,7 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 	
 	if(vidGrabber[_grabber]->initGrabber( camWidth, camHeight, VID_FORMAT_GREYSCALE, VID_FORMAT_GREYSCALE, 30, true, libdc1394Grabber )) {
 		cameraGUIDs[_grabber] = ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->getDeviceGUID();
-		
+		initCameraCalibration(getGUID(_grabber));
 		/**
 		 
 		 FEATURE_BRIGHTNESS			= 0,
@@ -138,6 +141,28 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		ofLog(OF_LOG_FATAL_ERROR,"Camera failed to initialize.");
 		cameraInited[_grabber] = false;
 	}	
+}
+
+void Cameras::initCameraCalibration(uint64_t _cameraGUID){
+	
+	/**
+	 * setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, float _c1, float _c2, double fx, double cx, double fy, double cy)
+	 **/
+	
+	switch (_cameraGUID) {
+		case 0xb09d01008c1393ll:
+			//setCameraCalibration(_cameraGUID, );
+			break;
+		case 0xb09d01008c1394ll:
+			//setCameraCalibration(_cameraGUID, );
+			break;
+		case 0xb09d01008c139cll:
+			//setCameraCalibration(_cameraGUID, );
+			break;
+		default:
+			break;
+	}
+	
 }
 
 ofxVideoGrabber * Cameras::getVidGrabber(int _cameraIndex){
@@ -255,4 +280,26 @@ int Cameras::getGrabberIndexFromGUID(uint64_t _cameraGUID){
 		}
 	}
 	return -1;
+}
+
+void Cameras::setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, float _c1, float _c2, double fx, double cx, double fy, double cy){
+	int grabberIndex = getGrabberIndexFromGUID(_cameraGUID);
+/* Commented by jonas
+	calib.[grabberIndex].distortionCoeffs[0] = ;//k1
+	calib.[grabberIndex].distortionCoeffs[1] = ;//k2
+	calib.[grabberIndex].distortionCoeffs[2] = ;//c1
+	calib.[grabberIndex].distortionCoeffs[3] = ;//c2
+	
+	calib.[grabberIndex].camIntrinsics[0] = ; // fx
+	calib.[grabberIndex].camIntrinsics[1] = ; // 0
+	calib.[grabberIndex].camIntrinsics[2] = ; // cx
+	
+	calib.[grabberIndex].camIntrinsics[3] = ; // 0
+	calib.[grabberIndex].camIntrinsics[4] = ; // fy
+	calib.[grabberIndex].camIntrinsics[5] = ; // cy
+	
+	calib.[grabberIndex].camIntrinsics[6] = ; // 0
+	calib.[grabberIndex].camIntrinsics[7] = ; // 0
+	calib.[grabberIndex].camIntrinsics[8] = ; // 1
+*/
 }
