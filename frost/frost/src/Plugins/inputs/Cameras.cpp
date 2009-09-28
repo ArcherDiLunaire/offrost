@@ -284,22 +284,22 @@ int Cameras::getGrabberIndexFromGUID(uint64_t _cameraGUID){
 
 void Cameras::setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, float _c1, float _c2, double fx, double cx, double fy, double cy){
 	int grabberIndex = getGrabberIndexFromGUID(_cameraGUID);
-/* Commented by jonas
-	calib.[grabberIndex].distortionCoeffs[0] = ;//k1
-	calib.[grabberIndex].distortionCoeffs[1] = ;//k2
-	calib.[grabberIndex].distortionCoeffs[2] = ;//c1
-	calib.[grabberIndex].distortionCoeffs[3] = ;//c2
+
+	calib.[grabberIndex].distortionCoeffs[0] = _k1;
+	calib.[grabberIndex].distortionCoeffs[1] = _k2;
+	calib.[grabberIndex].distortionCoeffs[2] = _c1;
+	calib.[grabberIndex].distortionCoeffs[3] = _c2;
 	
-	calib.[grabberIndex].camIntrinsics[0] = ; // fx
-	calib.[grabberIndex].camIntrinsics[1] = ; // 0
-	calib.[grabberIndex].camIntrinsics[2] = ; // cx
+	calib.[grabberIndex].camIntrinsics[0] = _fx;
+	calib.[grabberIndex].camIntrinsics[1] = 0;
+	calib.[grabberIndex].camIntrinsics[2] = _cx;
 	
-	calib.[grabberIndex].camIntrinsics[3] = ; // 0
-	calib.[grabberIndex].camIntrinsics[4] = ; // fy
-	calib.[grabberIndex].camIntrinsics[5] = ; // cy
+	calib.[grabberIndex].camIntrinsics[3] = 0;
+	calib.[grabberIndex].camIntrinsics[4] = _fy;
+	calib.[grabberIndex].camIntrinsics[5] = _cy;
 	
-	calib.[grabberIndex].camIntrinsics[6] = ; // 0
-	calib.[grabberIndex].camIntrinsics[7] = ; // 0
-	calib.[grabberIndex].camIntrinsics[8] = ; // 1
-*/
+	calib.[grabberIndex].camIntrinsics[6] = 0;
+	calib.[grabberIndex].camIntrinsics[7] = 0;
+	calib.[grabberIndex].camIntrinsics[8] = 1;
+
 }
