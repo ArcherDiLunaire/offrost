@@ -25,8 +25,8 @@ public:
 	bool calibAddSnapshot(uint64_t _cameraGUID);
 	bool calibrate(uint64_t _cameraGUID);
 
-	ofPoint undistortPoint(float _PixelX, float _PixelY);
-	ofPoint distortPoint(float _PixelX, float _PixelY);
+	ofPoint undistortPoint(int _grabberIndex, float _PixelX, float _PixelY);
+	ofPoint distortPoint(int _grabberIndex, float _PixelX, float _PixelY);
 	
 	void initGrabber(int _grabber, uint64_t _cameraGUID = 0x0ll);
 	void initCameraCalibration(uint64_t _cameraGUID);

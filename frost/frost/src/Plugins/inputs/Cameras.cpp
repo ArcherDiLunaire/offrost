@@ -75,12 +75,12 @@ bool Cameras::calibrate(uint64_t _cameraGUID){
 	calib[getGrabberIndexFromGUID(_cameraGUID)].undistort();
 }
 
-ofPoint Cameras::undistortPoint(float _PixelX, float _PixelY){
-	return undistortPoint(_PixelX, _PixelY);
+ofPoint Cameras::undistortPoint(int _grabberIndex, float _PixelX, float _PixelY){
+	return calib[_grabberIndex].undistortPoint(_PixelX, _PixelY);
 }
 
-ofPoint Cameras::distortPoint(float _PixelX, float _PixelY){
-	return distortPoint(_PixelX, _PixelY);
+ofPoint Cameras::distortPoint(int _grabberIndex, float _PixelX, float _PixelY){
+	return calib[_grabberIndex].distortPoint(_PixelX, _PixelY);
 }
 
 void Cameras::draw(){
@@ -157,7 +157,20 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 			//setCameraCalibration(_cameraGUID, );
 			break;
 		case 0xb09d01008c139cll:
-			//setCameraCalibration(_cameraGUID, );
+			/**
+			 *
+			 * 10mm 1/2"  1:1.4
+			 * 
+			 * Distortion Coefficients:
+			 * -0.5213706493 -7.2184705734 0.0017122072 0.0209310278 
+			 * Camera Matrix:
+			 * 2983.3862304688 0.0000000000 360.2234497070 
+			 * 0.0000000000 2991.7260742188 378.9212646484 
+			 * 0.0000000000 0.0000000000 1.0000000000 
+			 **/
+			setCameraCalibration(_cameraGUID, 
+								 -0.5213706493, -7.2184705734, 0.0017122072, 0.0209310278,
+								 2983.3862304688, 360.2234497070, 2991.7260742188, 378.9212646484);
 			break;
 		default:
 			break;
@@ -282,24 +295,24 @@ int Cameras::getGrabberIndexFromGUID(uint64_t _cameraGUID){
 	return -1;
 }
 
-void Cameras::setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, float _c1, float _c2, double fx, double cx, double fy, double cy){
+void Cameras::setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, float _c1, float _c2, double _fx, double _cx, double _fy, double _cy){
 	int grabberIndex = getGrabberIndexFromGUID(_cameraGUID);
 
-	calib.[grabberIndex].distortionCoeffs[0] = _k1;
-	calib.[grabberIndex].distortionCoeffs[1] = _k2;
-	calib.[grabberIndex].distortionCoeffs[2] = _c1;
-	calib.[grabberIndex].distortionCoeffs[3] = _c2;
+	calib[grabberIndex].distortionCoeffs[0] = _k1;
+	calib[grabberIndex].distortionCoeffs[1] = _k2;
+	calib[grabberIndex].distortionCoeffs[2] = _c1;
+	calib[grabberIndex].distortionCoeffs[3] = _c2;
 	
-	calib.[grabberIndex].camIntrinsics[0] = _fx;
-	calib.[grabberIndex].camIntrinsics[1] = 0;
-	calib.[grabberIndex].camIntrinsics[2] = _cx;
+	calib[grabberIndex].camIntrinsics[0] = _fx;
+	calib[grabberIndex].camIntrinsics[1] = 0;
+	calib[grabberIndex].camIntrinsics[2] = _cx;
 	
-	calib.[grabberIndex].camIntrinsics[3] = 0;
-	calib.[grabberIndex].camIntrinsics[4] = _fy;
-	calib.[grabberIndex].camIntrinsics[5] = _cy;
+	calib[grabberIndex].camIntrinsics[3] = 0;
+	calib[grabberIndex].camIntrinsics[4] = _fy;
+	calib[grabberIndex].camIntrinsics[5] = _cy;
 	
-	calib.[grabberIndex].camIntrinsics[6] = 0;
-	calib.[grabberIndex].camIntrinsics[7] = 0;
-	calib.[grabberIndex].camIntrinsics[8] = 1;
+	calib[grabberIndex].camIntrinsics[6] = 0;
+	calib[grabberIndex].camIntrinsics[7] = 0;
+	calib[grabberIndex].camIntrinsics[8] = 1;
 
 }
