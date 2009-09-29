@@ -9,6 +9,12 @@ ofxVideoGrabber::ofxVideoGrabber()
 	bUseTexture	= true;
 	bIsFrameNew = false;
 	pixels = NULL;
+	
+	
+	float timeNow = 0;
+	float timeThen = 0;
+	float frameRate = 0;
+	float fps = 0;
 }
 
 //--------------------------------------------------------------------
@@ -24,7 +30,9 @@ bool ofxVideoGrabber::initGrabber( int _width, int _height, int _format, int _ta
 	settings = _settings;
     bool initResult = videoGrabber->init( _width, _height, _format, _targetFormat, _frameRate);
 
-    width = videoGrabber->width;
+	frameRate = _frameRate;
+	
+	width = videoGrabber->width;
     height = videoGrabber->height;
     bpp = videoGrabber->bpp;
     bUseTexture = _useTexture;
@@ -120,6 +128,13 @@ void ofxVideoGrabber::grabFrame()
     if (bGrabberInited){
         bIsFrameNew = videoGrabber->grabFrame(&pixels);
         if(bIsFrameNew) {
+			timeNow = ofGetElapsedTimef();
+			if( ( timeNow - timeThen ) > 0 ) {
+				fps = 1.0 / (timeNow-timeThen);
+				frameRate *= 0.9f;
+				frameRate += 0.1f*fps;
+			}
+			timeThen = timeNow;
             if (bUseTexture){
                 if(targetFormat == VID_FORMAT_GREYSCALE)
                 {

@@ -3,8 +3,8 @@
 Cameras::Cameras(){
 	type = INPUT;
 	
-	camWidth = 1024;	// try to grab at this size.
-	camHeight = 768;
+	camWidth = 1280/2;	// try to grab at this size.
+	camHeight = 960/2;
 	
 	csize = cvSize( camWidth, camHeight );
 	
@@ -51,12 +51,14 @@ void Cameras::setup(){
 		}
 	}
 
+	/**
 	// test videoPlayer
 	for (int i=0; i<3; i++) {
 		videoPlayerLoadUrl(i, "fingers.mov");
 		videoPlayerPlay(i);
 		videoPlayerActivate(i);
 	}
+	//**/
 	
 }
 
@@ -65,23 +67,23 @@ bool Cameras::isFrameNew(int _grabberIndex){
 }
 
 void Cameras::update(){
+	cout << "FRAMERATES: ";
 	for (int i=0; i<3; i++) {
 		if (videoPlayerActivated[i]) {
 			videoPlayer[i].update();
 			frameNew[i] = videoPlayer[i].isFrameNew();
 			if(frameNew[i]){
-				
 				ofImage img;
-				
-				img.allocate(videoPlayer[i].getWidth(),videoPlayer[i].getHeight(), videoPlayer[i].)
-				
-				calibImage[i].resize(videoPlayer[i].getWidth(),videoPlayer[i].getHeight());
-				calibImage[i].setFromPixels(videoPlayer[i].getPixels(), videoPlayer[i].getWidth(),videoPlayer[i].getHeight());
-				calibImage[i].resize(camWidth,camHeight);
+				img.setUseTexture(false);
+				img.setFromPixels(videoPlayer[i].getPixels(), videoPlayer[i].getWidth(),videoPlayer[i].getHeight(), OF_IMAGE_COLOR);
+				img.setImageType(OF_IMAGE_GRAYSCALE);
+				calibImage[i].setFromPixels(img.getPixels(),videoPlayer[i].getWidth(),videoPlayer[i].getHeight());
+				img.clear();
 			}
 		} else {
 			if(isReady(i)){
 				vidGrabber[i]->update();
+				cout << vidGrabber[i]->frameRate<<", ";
 				frameNew[i] = vidGrabber[i]->isFrameNew();
 				if(frameNew[i]){
 					calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
@@ -89,7 +91,8 @@ void Cameras::update(){
 				}
 			}
 		}
-	}	
+	}
+	cout << endl;
 }
 
 unsigned char* Cameras::getPixels(int _grabberIndex){
@@ -191,7 +194,7 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 	
 	vidGrabber[_grabber] = new ofxVideoGrabber;
 	
-	if(vidGrabber[_grabber]->initGrabber( camWidth, camHeight, VID_FORMAT_GREYSCALE, VID_FORMAT_GREYSCALE, 30, true, libdc1394Grabber )) {
+	if(vidGrabber[_grabber]->initGrabber( camWidth, camHeight, VID_FORMAT_GREYSCALE, VID_FORMAT_GREYSCALE, 25, true, libdc1394Grabber )) {
 		cameraGUIDs[_grabber] = ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->getDeviceGUID();
 		initCameraCalibration(getGUID(_grabber));
 		/**
@@ -280,6 +283,7 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 	/*		setCameraCalibration(_cameraGUID, 
 								 -0.5213706493, -7.2184705734, 0.0017122072, 0.0209310278,
 								 2983.3862304688, 360.2234497070, 2991.7260742188, 378.9212646484);*/
+			
 			break;
 		default:
 			break;

@@ -101,7 +101,7 @@ dc1394video_mode_t  Libdc1394GrabberVideoFormatHelper::videoFormatFromParams1280
 	else if( _vidFormat == VID_FORMAT_GREYSCALE )	{ return DC1394_VIDEO_MODE_1280x960_MONO8;}
 	else if( _vidFormat == VID_FORMAT_Y8 )			{ return DC1394_VIDEO_MODE_1280x960_MONO8;}
 	else if( _vidFormat == VID_FORMAT_Y16 )			{ return DC1394_VIDEO_MODE_1280x960_MONO16; }
-
+	
 	return DC1394_VIDEO_MODE_1280x960_YUV422;
 }
 

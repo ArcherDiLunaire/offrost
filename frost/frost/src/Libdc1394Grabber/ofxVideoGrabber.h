@@ -50,6 +50,8 @@ class ofxVideoGrabber: public ofBaseVideo
         ofxVideoGrabberSDK *        videoGrabber;
         ofxVideoGrabberSettings *   settings;
 
+	float frameRate;
+	float fps;
 
 	protected:
 
@@ -62,6 +64,9 @@ class ofxVideoGrabber: public ofBaseVideo
         unsigned int bpp;
         unsigned char* pixels;
         int targetFormat;
+	
+	float timeNow;
+	float timeThen;
 
 };
 

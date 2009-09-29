@@ -17,7 +17,7 @@ Libdc1394Grabber::Libdc1394Grabber()
 	cameraGUID = -1;
 	conversionNeeded = false;
 	grabbedFirstImage = false;
-
+	
 	YUV_BYTE_ORDER = DC1394_BYTE_ORDER_UYVY; //DC1394_BYTE_ORDER_UYVY, DC1394_BYTE_ORDER_YUYV
 	ISO_SPEED = DC1394_ISO_SPEED_800; //DC1394_ISO_SPEED_400
 	OPERATION_MODE = DC1394_OPERATION_MODE_1394B; // DC1394_OPERATION_MODE_LEGACY
@@ -123,8 +123,12 @@ bool Libdc1394Grabber::init( int _width, int _height, int _format, int _targetFo
 
 	dc1394framerate_t  desiredFrameRate = Libdc1394GrabberFramerateHelper::numToDcLibFramerate( _frameRate );
 	dc1394video_mode_t desiredVideoMode	= Libdc1394GrabberVideoFormatHelper::videoFormatFromParams( _width, _height, _format );
+	desiredVideoMode = DC1394_VIDEO_MODE_FORMAT7_1;
+	
+	width = _width;
+	height = _height;
 
-	bool result = initCam( desiredVideoMode, desiredFrameRate );
+	bool result = initCam( desiredVideoMode, desiredFrameRate, _width, _height );
 	if(!result) return false;
 
     initInternalBuffers();
@@ -133,7 +137,7 @@ bool Libdc1394Grabber::init( int _width, int _height, int _format, int _targetFo
 	return true;
 }
 
-bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t _frameRate )
+bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t _frameRate, int _width, int _height )
 {
 
 	/***  
@@ -211,6 +215,7 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	
 	/* Initialise camera */
 	camera = dc1394_camera_new (d, cameraGUID);
+	
     if (!camera) {
         dc1394_log_error("Failed to initialize camera with guid %llx", cameraGUID);
         return false;
@@ -223,7 +228,9 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	dc1394_video_set_operation_mode(camera, OPERATION_MODE);
 	dc1394_video_set_iso_speed(camera, ISO_SPEED);
 	
-	/* Get video modes */
+	/**
+	
+	// Get video modes
 	if (dc1394_video_get_supported_modes(camera,&video_modes) != DC1394_SUCCESS)
 	{
 	    ofLog(OF_LOG_FATAL_ERROR, "Can't get video modes");
@@ -238,7 +245,7 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	  //  Libdc1394GrabberUtils::print_mode_info( camera , mode );
     }
 
-	/* Search the list for our preferred video mode */
+	// Search the list for our preferred video mode
 	bool foundVideoMode = false;
   	for (i=video_modes.num-1;i>=0;i--)
 	{
@@ -253,6 +260,13 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	cout << "Video Mode = " << video_mode << endl;
 
 	dc1394_get_color_coding_from_video_mode(camera, video_mode, &coding);
+	
+	 **/
+	video_mode = _videoMode;
+	cout << "Video Mode = " << video_mode << endl;
+
+	coding = DC1394_COLOR_CODING_MONO8;
+
 	unsigned int source_bpp;
 	dc1394_get_color_coding_bit_size(coding,&source_bpp);
 	cout << "Source bpp = " << source_bpp  << endl;
@@ -260,14 +274,14 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	//if ((dc1394_is_video_mode_scalable(video_modes.modes[i]))|| (coding!=DC1394_COLOR_CODING_MONO8))
 	//{ fprintf(stderr,"Could not get a valid MONO8 mode\n"); cleanupCamera(); }
 
-	cout << endl << "**** Chosen Color coding ****" << endl;
+	 
+	 cout << endl << "**** Chosen Color coding ****" << endl;
 	Libdc1394GrabberUtils::print_color_coding( coding );
 	cout << endl << "*****************************" << endl << endl;
 
 	sourceFormatLibDC = coding;
 	sourceFormat = Libdc1394GrabberVideoFormatHelper::libcd1394ColorFormatToVidFormat(  coding );
-
-
+	/**
     cout << endl << "**** get color codings:" << endl;
     dc1394color_codings_t color_modes;
     err = dc1394_format7_get_color_codings(camera, video_mode, &color_modes);
@@ -305,15 +319,43 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 
 	// if we didn't find it, select the highest one.
 	if( !foundFramerate ) framerate=framerates.framerates[framerates.num-1];
+	 **/
+	
+	float bus_period = 0.0000625*3;  // for firewire 800
+	int frame_rate = 25;
+	int depth = 8;
+	int num_packets = (int)(1.0/(bus_period*frame_rate) + 0.5);
+	packet_size =  (_width*_height*depth + (num_packets*8) - 1)/(num_packets*8);
+	//packet_size = DC1394_USE_MAX_AVAIL;
+
+	//dc1394_format7_get_total_bytes(camera, video_mode, &packet_size);
 
 	/*-----------------------------------------------------------------------
 	*  setup capture
 	*-----------------------------------------------------------------------*/
 	fprintf(stderr,"Setting capture\n");
 	
-	dc1394_video_set_mode(camera, video_mode);
-	dc1394_video_set_framerate(camera, framerate);
+	
+	if (dc1394_video_set_mode( camera, video_mode )!=DC1394_SUCCESS){
+		ofLog(OF_LOG_ERROR, "failed to set format 7 video mode");
+	}
+	
+	Libdc1394GrabberUtils::print_color_coding( coding );
+	
+	if (dc1394_format7_set_color_coding(camera, video_mode, coding)!=DC1394_SUCCESS){
+		ofLog(OF_LOG_ERROR, "failed to set format 7 color coding");
+	}
+	
+	if (dc1394_format7_set_packet_size(camera, video_mode, packet_size)!=DC1394_SUCCESS){
+		ofLog(OF_LOG_ERROR, "failed to set format 7 packet_size");
+	}
+	
+	if (dc1394_format7_set_roi(camera, video_mode, coding, packet_size, 0,0, _width, _height)!=DC1394_SUCCESS){
+		ofLog(OF_LOG_ERROR, "failed to set format 7 roi");
+	}
 
+	//dc1394_video_set_framerate(camera, framerate);
+		
 	if (dc1394_capture_setup(camera,4,DC1394_CAPTURE_FLAGS_DEFAULT)!=DC1394_SUCCESS)
 	{
 		fprintf( stderr,"Unable to setup camera!\n - check that the video mode and framerate are supported by your camera\n");
@@ -321,9 +363,9 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 		return false;
 	}
 
-	cout << "chosen video format: "; Libdc1394GrabberUtils::print_format( video_mode ); cout << endl;
+/*	cout << "chosen video format: "; Libdc1394GrabberUtils::print_format( video_mode ); cout << endl;
 	cout << "chosen frame rate: " << Libdc1394GrabberFramerateHelper::DcLibFramerateToString( framerate ) << endl;
-
+*/
 /*
 	// report camera's features ----------------------------------
 	if (dc1394_get_camera_feature_set(camera,&features) !=DC1394_SUCCESS)  { fprintf( stderr, "unable to get feature set\n"); }
@@ -479,6 +521,7 @@ void Libdc1394Grabber::processCameraImageData( unsigned char* _cameraImageData )
 		if( targetFormat == VID_FORMAT_GREYSCALE || targetFormat == VID_FORMAT_Y8 )
 		{
 			pixels = _cameraImageData;
+			
 //			if(writeonce) {
 //			    writeonce = false;
 //                cout << "processCameraImageData() targetFormat  = VID_FORMAT_GREYSCALE || targetFormat == VID_FORMAT_Y8" << endl;

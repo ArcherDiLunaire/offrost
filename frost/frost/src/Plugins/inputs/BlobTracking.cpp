@@ -5,8 +5,8 @@
 #include "CameraCalibration.h"
 
 Tracker::Tracker(){
-	cw = 1024; 
-	ch=768;
+	cw = 1280/2; 
+	ch=960/2;
 	//	int w = grabber->getWidth();//grabber->width; 
 	//	int h = grabber->getHeight();//grabber->height;
 	grayImageBlured.allocate(cw,ch);

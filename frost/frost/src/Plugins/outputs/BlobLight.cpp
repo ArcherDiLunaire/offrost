@@ -17,8 +17,8 @@ BlobLight::BlobLight(){
 }
 
 void BlobLight::setup(){
-	w = 1024/4;
-	h = 768/4;
+	w = (1280/2)/4;
+	h = (960/2)/4;
 	history.allocate(w,h);
 	historyTmp.allocate(w,h);
 

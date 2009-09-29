@@ -95,8 +95,6 @@ void testApp::update()
 	
 	}
 	
-	
-	
 	pluginController->update(mousex, mousey);
 }
 
