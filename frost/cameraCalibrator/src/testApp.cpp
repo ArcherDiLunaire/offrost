@@ -13,7 +13,7 @@ void testApp::setup() {
     cwidth = 1024;
     cheight = 768;
     csize = cvSize( cwidth,cheight );
-	//vidGrabber.listDevices();
+	vidGrabber.listDevices();
 	vidGrabber.setDeviceID(5);
 	vidGrabber.initGrabber( cwidth,cheight );
     colorImg.allocate( cwidth,cheight );

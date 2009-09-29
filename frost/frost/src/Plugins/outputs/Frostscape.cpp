@@ -20,18 +20,17 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 	
 	contourSimp.simplify(tmpPoints, tmpPoints2, 0.001);
 	/*while (points.size() > 100) {
-		contourSimp.simplify(tmpPoints, points, 0.001);
-	}*/
+	 contourSimp.simplify(tmpPoints, points, 0.001);
+	 }*/
 	if(points.size()<tmpPoints2.size()){
 		for(int i=0;i<tmpPoints2.size()-points.size();i++){
 			points.push_back(ofxVec2f());
 			pointsV.push_back(ofxVec2f());
-
 		}
 		
 	}
-//	cout<<points.size()<<"   "<<tmpPoints2.size()<<endl;
-
+	//	cout<<points.size()<<"   "<<tmpPoints2.size()<<endl;
+	
 	float tmpId = 0;
 	float a = (float)tmpPoints2.size()/points.size();
 	for(int i=0;i<points.size();i++){
@@ -41,22 +40,27 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 		tmpId += a;
 	}
 	
-		
+	
 }
 
 void BlackSpotObject::draw(){
 	/*for(int i=0;i<10;i++){
-		glBegin(GL_POLYGON);
-		for(int p=0;p<points.size();p++){
-			glVertex2f(points[p].x+ofRandom(-0.01, 0.01)*Frostscape::randomFactor,points[p].y+ofRandom(-0.01, 0.01)*Frostscape::randomFactor);
-		}
-		glEnd();
-	}*/
-	glBegin(GL_POLYGON);
+	 glBegin(GL_POLYGON);
+	 for(int p=0;p<points.size();p++){
+	 glVertex2f(points[p].x+ofRandom(-0.01, 0.01)*Frostscape::randomFactor,points[p].y+ofRandom(-0.01, 0.01)*Frostscape::randomFactor);
+	 }
+	 glEnd();
+	 }*/
+	/*	glBegin(GL_POLYGON);
+	 for(int p=0;p<points.size();p++){
+	 glVertex2f(points[p].x,points[p].y);
+	 }
+	 glEnd();*/
+	ofBeginShape();
 	for(int p=0;p<points.size();p++){
-		glVertex2f(points[p].x,points[p].y);
+		ofVertex(points[p].x,points[p].y);
 	}
-	glEnd();
+	ofEndShape(true);
 }
 
 

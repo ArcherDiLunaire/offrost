@@ -100,7 +100,7 @@ void Tracker::updateMouseBlob(float x, float y, int button){
 		int n= 300;
 		for(int i=n;i>=0;i--){
 			float p = TWO_PI*i/(float)n;
-			mouseGeneratedBlob.pts.push_back(ofPoint(x+cos(p)*0.06, y+sin(p)*0.06));
+			mouseGeneratedBlob.pts.push_back(ofPoint(x+cos(p)*0.12*(sin(p*5)+1.5)/3.0, y+sin(p)*0.12*(sin(p*5)+1.5)/3.0));
 		}
 		mouseGeneratedBlob.nPts = n;
 	} else {

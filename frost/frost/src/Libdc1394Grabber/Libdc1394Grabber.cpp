@@ -182,7 +182,6 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 					cameraGUID = list->ids[0].guid;
 				}
 			}
-			
 		
 		} else if(cameraIndex != -1){
 		
