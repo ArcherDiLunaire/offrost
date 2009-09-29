@@ -140,7 +140,7 @@ static int poly_simplify( float tol, ofxPoint3f* V, int n, ofxPoint3f* sV ){
         if (mk[i])
             sV[m++] = vt[i];
     }
-    delete vt;
+   // delete vt;
     delete mk;
     return m;         // m vertices in simplified polyline
 }

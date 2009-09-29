@@ -44,7 +44,7 @@ class contourSimplify{
 		}
 		
 		//------------------------------
-		void simplify(vector <ofxPoint2f> &contourIn, vector <ofxPoint2f> &contourOut, float tolerance){
+		void simplify(vector <ofxVec2f> &contourIn, vector <ofxVec2f> &contourOut, float tolerance){
 			int length = contourIn.size();
 		
 			//the polyLine simplify class needs data as a vector of ofxPoint3fs 
@@ -56,11 +56,11 @@ class contourSimplify{
 				polyLineIn[i].x = contourIn[i].x;
 				polyLineIn[i].y = contourIn[i].y;
 			}
-			
+				
 			int numPoints = poly_simplify(tolerance, polyLineIn, length, polyLineOut);
 			contourOut.clear();
-			contourOut.assign(numPoints, ofxPoint2f());
-			
+			contourOut.assign(numPoints, ofxVec2f());
+		
 			//copy the data to our contourOut vector
 			for(int i = 0; i < numPoints; i++){
 				contourOut[i].x = polyLineOut[i].x;
@@ -70,7 +70,7 @@ class contourSimplify{
 		}
 		
 		//------------------------------
-		void convexHull(vector <ofxPoint2f> &contourIn, vector <ofxPoint2f> &contourOut){
+		void convexHull(vector <ofxVec2f> &contourIn, vector <ofxVec2f> &contourOut){
 			
 			int numPtsIn = contourIn.size();
 						
@@ -87,7 +87,7 @@ class contourSimplify{
 			int numOut = hullPointsOut.size();
 			
 			contourOut.clear();
-			contourOut.assign(numOut, ofxPoint2f() );
+			contourOut.assign(numOut, ofxVec2f() );
 			
 			for(int i = 0; i < numOut; i++){
 				contourOut[i].x = hullPointsOut[i].x;

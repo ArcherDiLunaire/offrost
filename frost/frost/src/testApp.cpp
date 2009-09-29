@@ -19,6 +19,7 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new LaLinea);
 	pluginController->addPlugin(new BlobLight);
 	pluginController->addPlugin(new Folding);
+	pluginController->addPlugin(new Frostscape);
 
 }
 

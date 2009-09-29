@@ -178,6 +178,7 @@ OFGuiController * gui = NULL;
 		[self addObject:@"La Linea" isheader:FALSE plugin:getPlugin<LaLinea*>(ofApp->pluginController)];
 		[self addObject:@"Blob light" isheader:FALSE plugin:getPlugin<BlobLight*>(ofApp->pluginController)];
 		[self addObject:@"Folding" isheader:FALSE plugin:getPlugin<Folding*>(ofApp->pluginController)];
+		[self addObject:@"Frostscape" isheader:FALSE plugin:getPlugin<Frostscape*>(ofApp->pluginController)];
 
 		NSMutableArray * array;
 		array = viewItems;
@@ -279,6 +280,10 @@ OFGuiController * gui = NULL;
 	
 	if(![(NSString*)[p name] compare:@"Folding"]){
 		view = foldingView;
+	}	
+	
+	if(![(NSString*)[p name] compare:@"Frostscape"]){
+		view = frostscapeView;
 	}	
 	
 	

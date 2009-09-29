@@ -104,7 +104,13 @@
 	 **/
 	
 	IBOutlet NSView *foldingView;
-
+	
+	/**
+	 * Frostscape outlets
+	 **/
+	
+	IBOutlet NSView *frostscapeView;
+	
 	
 	/**
 	 * Camera Outlets

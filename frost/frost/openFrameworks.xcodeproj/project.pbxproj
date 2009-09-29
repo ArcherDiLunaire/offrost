@@ -10,6 +10,10 @@
 		2739E54F1070BEBE0078206D /* contourNormals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2739E54D1070BEBE0078206D /* contourNormals.cpp */; };
 		2797C7D91070DCDF00555A42 /* Folding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2797C7D71070DCDF00555A42 /* Folding.cpp */; };
 		279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AEC3A10668C0100FBEE17 /* coordWarp.cpp */; };
+		27B64B4B1072019D002E95C4 /* Frostscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64B491072019D002E95C4 /* Frostscape.cpp */; };
+		27B64BF9107211CD002E95C4 /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BEE107211CD002E95C4 /* RtMidi.cpp */; };
+		27B64BFA107211CD002E95C4 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BF4107211CD002E95C4 /* ofxMidiIn.cpp */; };
+		27B64BFB107211CD002E95C4 /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BF6107211CD002E95C4 /* ofxMidiOut.cpp */; };
 		27B7F437106A4A7C00E1E74B /* MoonDust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B7F436106A4A7C00E1E74B /* MoonDust.cpp */; };
 		3F1E59AB100B75550091B692 /* SharedContextGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59AA100B75550091B692 /* SharedContextGLView.m */; };
 		3F1E59B1100B77800091B692 /* CustomGLViewDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59B0100B77800091B692 /* CustomGLViewDelegate.cpp */; };
@@ -118,6 +122,18 @@
 		2797C7D81070DCDF00555A42 /* Folding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Folding.h; sourceTree = "<group>"; };
 		279AEC3A10668C0100FBEE17 /* coordWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coordWarp.cpp; path = src/coordWarp.cpp; sourceTree = SOURCE_ROOT; };
 		279AEC3B10668C0100FBEE17 /* coordWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = coordWarp.h; path = src/coordWarp.h; sourceTree = SOURCE_ROOT; };
+		27B64B491072019D002E95C4 /* Frostscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Frostscape.cpp; sourceTree = "<group>"; };
+		27B64B4A1072019D002E95C4 /* Frostscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Frostscape.h; sourceTree = "<group>"; };
+		27B64BED107211CD002E95C4 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
+		27B64BEE107211CD002E95C4 /* RtMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RtMidi.cpp; sourceTree = "<group>"; };
+		27B64BEF107211CD002E95C4 /* RtMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtMidi.h; sourceTree = "<group>"; };
+		27B64BF1107211CD002E95C4 /* ofxMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMidi.h; sourceTree = "<group>"; };
+		27B64BF2107211CD002E95C4 /* ofxMidiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMidiConstants.h; sourceTree = "<group>"; };
+		27B64BF3107211CD002E95C4 /* ofxMidiEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMidiEvents.h; sourceTree = "<group>"; };
+		27B64BF4107211CD002E95C4 /* ofxMidiIn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidiIn.cpp; sourceTree = "<group>"; };
+		27B64BF5107211CD002E95C4 /* ofxMidiIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMidiIn.h; sourceTree = "<group>"; };
+		27B64BF6107211CD002E95C4 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidiOut.cpp; sourceTree = "<group>"; };
+		27B64BF7107211CD002E95C4 /* ofxMidiOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMidiOut.h; sourceTree = "<group>"; };
 		27B7F436106A4A7C00E1E74B /* MoonDust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoonDust.cpp; path = src/Plugins/outputs/MoonDust.cpp; sourceTree = SOURCE_ROOT; };
 		3F1E59A9100B75550091B692 /* SharedContextGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedContextGLView.h; path = ../SharedContextGLView.h; sourceTree = "<group>"; };
 		3F1E59AA100B75550091B692 /* SharedContextGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedContextGLView.m; path = ../SharedContextGLView.m; sourceTree = "<group>"; };
@@ -463,6 +479,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27B64BEA107211CD002E95C4 /* ofxMidi_002 */ = {
+			isa = PBXGroup;
+			children = (
+				27B64BEC107211CD002E95C4 /* libs */,
+				27B64BF0107211CD002E95C4 /* src */,
+			);
+			path = ofxMidi_002;
+			sourceTree = "<group>";
+		};
+		27B64BEC107211CD002E95C4 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				27B64BED107211CD002E95C4 /* RtError.h */,
+				27B64BEE107211CD002E95C4 /* RtMidi.cpp */,
+				27B64BEF107211CD002E95C4 /* RtMidi.h */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		27B64BF0107211CD002E95C4 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				27B64BF1107211CD002E95C4 /* ofxMidi.h */,
+				27B64BF2107211CD002E95C4 /* ofxMidiConstants.h */,
+				27B64BF3107211CD002E95C4 /* ofxMidiEvents.h */,
+				27B64BF4107211CD002E95C4 /* ofxMidiIn.cpp */,
+				27B64BF5107211CD002E95C4 /* ofxMidiIn.h */,
+				27B64BF6107211CD002E95C4 /* ofxMidiOut.cpp */,
+				27B64BF7107211CD002E95C4 /* ofxMidiOut.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		DD0C01501066874900BB3F9F /* ofxXmlSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -702,6 +751,8 @@
 		DDB85125105E7CC800D1ED92 /* outputs */ = {
 			isa = PBXGroup;
 			children = (
+				27B64B491072019D002E95C4 /* Frostscape.cpp */,
+				27B64B4A1072019D002E95C4 /* Frostscape.h */,
 				DDB85127105E7CC800D1ED92 /* MoonDust.h */,
 				27B7F436106A4A7C00E1E74B /* MoonDust.cpp */,
 				DD45B62D106BA2F600B4B19C /* BlobLight.cpp */,
@@ -717,6 +768,7 @@
 		DDB85141105E808700D1ED92 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				27B64BEA107211CD002E95C4 /* ofxMidi_002 */,
 				DD45B904106FDC4F00B4B19C /* ofxMSASpline */,
 				DD0C01501066874900BB3F9F /* ofxXmlSettings */,
 				DD7CC3AF1063C47100D3736A /* ofxOpenCv */,
@@ -1459,6 +1511,10 @@
 				DD45B9BB106FE04500B4B19C /* contourSimplify.cpp in Sources */,
 				2739E54F1070BEBE0078206D /* contourNormals.cpp in Sources */,
 				2797C7D91070DCDF00555A42 /* Folding.cpp in Sources */,
+				27B64B4B1072019D002E95C4 /* Frostscape.cpp in Sources */,
+				27B64BF9107211CD002E95C4 /* RtMidi.cpp in Sources */,
+				27B64BFA107211CD002E95C4 /* ofxMidiIn.cpp in Sources */,
+				27B64BFB107211CD002E95C4 /* ofxMidiOut.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
