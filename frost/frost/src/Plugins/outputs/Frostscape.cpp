@@ -9,7 +9,7 @@ BlackSpotObject::BlackSpotObject(){
 
 
 void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
-	vector<ofxVec2f> tmpPoints, tmpPoints2;
+	vector<ofxVec2f> tmpPoints, tmpPoints2, normals;
 	ProjectionSurfaces* proj = getPlugin<ProjectionSurfaces*>(controller);
 	//points.clear();
 	
@@ -18,7 +18,16 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 		tmpPoints.push_back(r);
 	}
 	
-	contourSimp.simplify(tmpPoints, tmpPoints2, 0.001);
+	if(points.size()>0){
+		contourNorm.makeNormals(tmpPoints, normals);
+	}
+	
+	for(int p=0;p<points.size();p++){
+		tmpPoints[p] -= normals[p] * 0.03;
+	}
+	
+	contourSimp.simplify(tmpPoints, tmpPoints2, 0.03);
+	
 	/*while (points.size() > 100) {
 	 contourSimp.simplify(tmpPoints, points, 0.001);
 	 }*/
@@ -26,17 +35,34 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 		for(int i=0;i<tmpPoints2.size()-points.size();i++){
 			points.push_back(ofxVec2f());
 			pointsV.push_back(ofxVec2f());
+			vector<ofxVec2f> v;
+			for(int i=0;i<numNoise;i++){
+				v.push_back(ofxVec2f());
+			}
+			noise.push_back(v);
 		}
 		
 	}
+	
+	
 	//	cout<<points.size()<<"   "<<tmpPoints2.size()<<endl;
 	
 	float tmpId = 0;
 	float a = (float)tmpPoints2.size()/points.size();
 	for(int i=0;i<points.size();i++){
-		pointsV[i] *= 0.95;
-		pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])/10.0;
+	//	cout<<i<<endl;
+		pointsV[i] *= 0.81;
+		pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])/1.0;
 		points[i] += pointsV[i]*1.0/ofGetFrameRate();
+	/*	for(int u=0;u<numNoise;u++){
+			noise[i][u]  *= 0.9;
+			noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * pointsV[i].length()*0.1;
+		}
+	*/	
+		/*	for(int u=0;u<numNoise;u++){
+		 //noise[i][u]  *= 0.9;
+		 noise[i][u] = -normals[i] * pointsV[i].length()*0.1;
+		 }*/
 		tmpId += a;
 	}
 	
@@ -56,11 +82,16 @@ void BlackSpotObject::draw(){
 	 glVertex2f(points[p].x,points[p].y);
 	 }
 	 glEnd();*/
-	ofBeginShape();
-	for(int p=0;p<points.size();p++){
-		ofVertex(points[p].x,points[p].y);
+	if(points.size()>0){
+		for(int i=0;i<noise[0].size();i++){
+			ofBeginShape();
+			for(int p=0;p<points.size();p++){
+				ofVertex(points[p].x+noise[p][i].x,points[p].y+noise[p][i].y);
+			}
+			ofEndShape(true);
+			
+		}
 	}
-	ofEndShape(true);
 }
 
 

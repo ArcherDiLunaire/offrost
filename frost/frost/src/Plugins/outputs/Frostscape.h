@@ -10,10 +10,13 @@ public:
 	BlackSpotObject();
 	vector<ofxVec2f> points;
 	vector<ofxVec2f> pointsV;
-
+	vector<vector<ofxVec2f> > noise;
+	
 	void updateBlob(ofxCvBlob b, PluginController * controller);
 	void draw();
 	contourSimplify contourSimp;
+	contourNormals contourNorm;
+	static const int numNoise = 5;
 
 };
 

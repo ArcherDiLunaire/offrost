@@ -135,7 +135,7 @@ void Cameras::draw(int _grabberIndex, float _x, float _y)
 }
 
 void Cameras::draw(){
-	draw(0, 0, 0);
+	//draw(0, 0, 0);
 }
 
 void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
