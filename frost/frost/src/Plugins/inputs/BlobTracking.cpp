@@ -19,6 +19,26 @@ Tracker::Tracker(){
 
 void Tracker::update(){ 
 	bool bNewFrame = false;
+	
+	if (getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active){
+		
+		grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
+		grayImageBlured = grayImage;
+		grayImageBlured.blur(blur);
+		
+		if (bLearnBakground == true){
+			grayBg = grayImageBlured;		
+			bLearnBakground = false;
+		}
+		
+		grayDiff.absDiff(grayBg, grayImageBlured);
+		grayDiff.threshold(threshold);
+		
+		contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
+		//			simplifiedContourFinder.findSimplifiedContours(grayDiff, 20, (grabber->getWidth()*grabber->getHeight())/3, 10, false, true);	
+	}
+	
+	/**
 	if(getPlugin<Cameras*>(controller)->isReady(cameraId)){
 		ofxVideoGrabber * grabber = getPlugin<Cameras*>(controller)->getVidGrabber(cameraId);
 		bNewFrame = grabber->isFrameNew();
@@ -40,6 +60,8 @@ void Tracker::update(){
 //			simplifiedContourFinder.findSimplifiedContours(grayDiff, 20, (grabber->getWidth()*grabber->getHeight())/3, 10, false, true);	
 		}
 	}
+	 
+	 **/
 }
 
 void Tracker::findContours(){
@@ -165,10 +187,7 @@ void BlobTracking::drawSettings(){
 		
 		int w = 250;
 		float a = 480.0/640.0;
-		ofxVideoGrabber * grabber = getPlugin<Cameras*>(controller)->getVidGrabber(trackers[i]->cameraId);
-		if(grabber != NULL){
-			grabber->draw(0,w*a*i,w,w*a);
-		}
+		getPlugin<Cameras*>(controller)->draw(trackers[i]->cameraId,0,w*a*i,w,w*a);
 		trackers[i]->grayImageBlured.draw(w,w*a*i,w,w*a);
 		trackers[i]->grayBg.draw(w*2,w*a*i, w,w*a);
 		trackers[i]->grayDiff.draw(w*3,w*a*i,w,w*a);

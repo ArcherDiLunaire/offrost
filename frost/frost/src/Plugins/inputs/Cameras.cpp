@@ -15,6 +15,7 @@ Cameras::Cameras(){
 		calibImage[i].allocate( camWidth, camHeight );
 		calib[i].allocate( csize, 7, 7 );
 		videoPlayerActivated[i] = false;
+		frameNew[i] = false;
 	}
 	
 }
@@ -49,20 +50,42 @@ void Cameras::setup(){
 			initGrabber(i, cameraGUIDs[i]);
 		}
 	}
+
+	// test videoPlayer
+	for (int i=0; i<3; i++) {
+		videoPlayerLoadUrl(i, "fingers.mov");
+		videoPlayerPlay(i);
+		videoPlayerActivate(i);
+	}
+	
+}
+
+bool Cameras::isFrameNew(int _grabberIndex){
+	return frameNew[_grabberIndex];
 }
 
 void Cameras::update(){
 	for (int i=0; i<3; i++) {
 		if (videoPlayerActivated[i]) {
 			videoPlayer[i].update();
-			if(videoPlayer[i].isFrameNew()){
-				calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(videoPlayer[i].getPixels(), videoPlayer[i].getWidth(),videoPlayer[i].getHeight());
+			frameNew[i] = videoPlayer[i].isFrameNew();
+			if(frameNew[i]){
+				
+				ofImage img;
+				
+				img.allocate(videoPlayer[i].getWidth(),videoPlayer[i].getHeight(), videoPlayer[i].)
+				
+				calibImage[i].resize(videoPlayer[i].getWidth(),videoPlayer[i].getHeight());
+				calibImage[i].setFromPixels(videoPlayer[i].getPixels(), videoPlayer[i].getWidth(),videoPlayer[i].getHeight());
+				calibImage[i].resize(camWidth,camHeight);
 			}
 		} else {
 			if(isReady(i)){
 				vidGrabber[i]->update();
-				if(vidGrabber[i]->isFrameNew()){
+				frameNew[i] = vidGrabber[i]->isFrameNew();
+				if(frameNew[i]){
 					calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
+					frameNew[getGrabberIndexFromGUID(getGUID(i))] = true;
 				}
 			}
 		}
@@ -72,6 +95,24 @@ void Cameras::update(){
 unsigned char* Cameras::getPixels(int _grabberIndex){
 	return calibImage[_grabberIndex].getPixels();
 }
+
+
+int Cameras::getHeight(int _grabberIndex){
+	return camHeight;
+}
+
+int Cameras::getWidth(int _grabberIndex){
+	return camWidth;
+}
+
+int Cameras::getHeight(){
+	return getHeight(0);
+}
+
+int Cameras::getWidth(){
+	return getWidth(0);
+}
+
 
 void Cameras::videoPlayerActivate(int _grabberIndex){
 	videoPlayerActivated[_grabberIndex] = true;
@@ -124,8 +165,12 @@ ofPoint Cameras::distortPoint(int _grabberIndex, float _PixelX, float _PixelY){
 
 void Cameras::draw(int _grabberIndex, float _x, float _y, float _w, float _h)
 {
-	if(isReady(_grabberIndex)){
-		vidGrabber[_grabberIndex]->draw(_x, _y, _w, _h);
+	if(videoPlayerActive(_grabberIndex)){
+		videoPlayer[_grabberIndex].draw(_x, _y, _w, _h);
+	} else {
+		if(isReady(_grabberIndex)){
+			vidGrabber[_grabberIndex]->draw(_x, _y, _w, _h);
+		}
 	}
 }
 
