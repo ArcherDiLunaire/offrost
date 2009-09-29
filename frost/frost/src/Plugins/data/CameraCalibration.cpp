@@ -113,7 +113,9 @@ void CameraCalibration::drawSettings(){
 	ofSetColor(255, 255, 255, 255);
 	glPushMatrix();
 	applyWarp(selectedKeystoner,w,h);
-	getPlugin<Cameras*>(controller)->getVidGrabber(selectedKeystoner)->draw(0,0,1,1);
+	if(getPlugin<Cameras*>(controller)->isReady(selectedKeystoner)){
+		getPlugin<Cameras*>(controller)->getVidGrabber(selectedKeystoner)->draw(0,0,1,1);
+	}
 	glPopMatrix();
 	
 	for(int i=0;i<4;i++){

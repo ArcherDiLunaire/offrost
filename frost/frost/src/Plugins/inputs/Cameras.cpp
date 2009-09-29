@@ -14,8 +14,9 @@ Cameras::Cameras(){
 		calibImage[i].setUseTexture(false);
 		calibImage[i].allocate( camWidth, camHeight );
 		calib[i].allocate( csize, 7, 7 );
+		videoPlayerActivated[i] = false;
 	}
-
+	
 }
 
 void Cameras::setup(){
@@ -52,13 +53,52 @@ void Cameras::setup(){
 
 void Cameras::update(){
 	for (int i=0; i<3; i++) {
-		if(isReady(i)){
-			vidGrabber[i]->update();
-			if(vidGrabber[i]->isFrameNew()){
-				calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
+		if (videoPlayerActivated[i]) {
+			videoPlayer[i].update();
+			if(videoPlayer[i].isFrameNew()){
+				calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(videoPlayer[i].getPixels(), videoPlayer[i].getWidth(),videoPlayer[i].getHeight());
+			}
+		} else {
+			if(isReady(i)){
+				vidGrabber[i]->update();
+				if(vidGrabber[i]->isFrameNew()){
+					calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
+				}
 			}
 		}
 	}	
+}
+
+unsigned char* Cameras::getPixels(int _grabberIndex){
+	return calibImage[_grabberIndex].getPixels();
+}
+
+void Cameras::videoPlayerActivate(int _grabberIndex){
+	videoPlayerActivated[_grabberIndex] = true;
+}
+
+void Cameras::videoPlayerDeactivate(int _grabberIndex){
+	videoPlayerActivated[_grabberIndex] = false;
+}
+
+bool Cameras::videoPlayerActive(int _grabberIndex){
+	return videoPlayerActivated[_grabberIndex];
+}
+
+void Cameras::videoPlayerPlay(int _grabberIndex){
+	videoPlayer[_grabberIndex].play();
+}
+
+void Cameras::videoPlayerStop(int _grabberIndex){
+	videoPlayer[_grabberIndex].stop();
+}
+
+void Cameras::videoPlayerSetLoopState(int _grabberIndex, int _state){
+	videoPlayer[_grabberIndex].setLoopState(_state);
+}
+
+bool Cameras::videoPlayerLoadUrl(int _grabberIndex, string url){
+	videoPlayer[_grabberIndex].loadMovie(url);
 }
 
 bool Cameras::calibAddSnapshot(uint64_t _cameraGUID){
@@ -84,14 +124,9 @@ ofPoint Cameras::distortPoint(int _grabberIndex, float _PixelX, float _PixelY){
 
 void Cameras::draw(int _grabberIndex, float _x, float _y, float _w, float _h)
 {
-	/**
-	if (bUseTexture){
-		tex.draw(_x, _y, _w, _h);
+	if(isReady(_grabberIndex)){
+		vidGrabber[_grabberIndex]->draw(_x, _y, _w, _h);
 	}
-	if(bGrabberInited){
-		settings->draw();
-	}
-	 **/
 }
 
 void Cameras::draw(int _grabberIndex, float _x, float _y)
@@ -216,10 +251,14 @@ ofxVideoGrabber * Cameras::getVidGrabber(int _cameraIndex){
 }
 
 bool Cameras::isReady(int _cameraIndex){
-	if (cameraInited[_cameraIndex] && vidGrabber[_cameraIndex] != NULL) {
-		return vidGrabber[_cameraIndex]->isReady();
+	if (_cameraIndex < 3 && _cameraIndex > -1) {
+		if (cameraInited[_cameraIndex] && vidGrabber[_cameraIndex] != NULL) {
+			return vidGrabber[_cameraIndex]->isReady();
+		}
+		return cameraInited[_cameraIndex];
+	} else {
+		return false;
 	}
-	return cameraInited[_cameraIndex];
 } 
 
 bool Cameras::cameraGUIDexists(uint64_t _cameraGUID){

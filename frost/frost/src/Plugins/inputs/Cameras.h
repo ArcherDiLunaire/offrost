@@ -18,13 +18,24 @@ class Cameras : public Input{
 public:
 	Cameras();
 	
+	void setup();
+	void update();
+
 	void draw(int _grabberIndex, float _x, float _y, float _w, float _h);
 	void draw(int _grabberIndex, float _x, float _y);
 	void draw();
-
-	void setup();
-	void update();
 	
+	void videoPlayerActivate(int _grabberIndex);
+	void videoPlayerDeactivate(int _grabberIndex);
+	
+	bool videoPlayerActive(int _grabberIndex);
+	void videoPlayerPlay(int _grabberIndex);
+	void videoPlayerStop(int _grabberIndex);
+	void videoPlayerSetLoopState(int _grabberIndex, int _state);
+	bool videoPlayerLoadUrl(int _grabberIndex, string url);
+		
+	virtual unsigned char* getPixels(int _grabberIndex);
+
 	bool calibAddSnapshot(uint64_t _cameraGUID);
 	bool calibrate(uint64_t _cameraGUID);
 
@@ -50,7 +61,7 @@ public:
 	bool setGUID(int _grabber, uint64_t _cameraGUID);
 	uint64_t getGUID(int _grabber);
 	int getGrabberIndexFromGUID(uint64_t _cameraGUID);
-
+	
 	u_int64_t cameraGUIDs[3];
 	
 	int camWidth;
@@ -62,5 +73,7 @@ private:
 
 	ofxVideoGrabber * vidGrabber[3];
 	
+	ofVideoPlayer videoPlayer[3];
+	bool videoPlayerActivated[3];
 
 };
