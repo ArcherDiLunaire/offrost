@@ -52,13 +52,13 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 	for(int i=0;i<points.size();i++){
 		//	cout<<i<<endl;
 		pointsV[i] *= 0.81;
-		pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])/1.0;
+		pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])*3;
 		points[i] += pointsV[i]*1.0/ofGetFrameRate();
-		/*	for(int u=0;u<numNoise;u++){
-		 noise[i][u]  *= 0.9;
-		 noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * pointsV[i].length()*0.1;
-		 }
-		 */	
+		for(int u=0;u<numNoise;u++){
+			noise[i][u]  *= 0.9;
+			noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * pointsV[i].length()*0.1;
+		}
+		
 		/*	for(int u=0;u<numNoise;u++){
 		 //noise[i][u]  *= 0.9;
 		 noise[i][u] = -normals[i] * pointsV[i].length()*0.1;
@@ -83,17 +83,17 @@ void BlackSpotObject::draw(){
 	 }
 	 glEnd();*/
 	if(points.size()>0){
-		//	for(int i=0;i<noise[0].size();i++){
-		ofBeginShape();
-		/*for(int p=0;p<points.size();p++){
-		 ofVertex(points[p].x+noise[p][i].x,points[p].y+noise[p][i].y);
-		 }*/
-		for(int p=0;p<points.size();p++){
-			ofVertex(points[p].x,points[p].y);
+		for(int i=0;i<noise[0].size();i++){
+			ofBeginShape();
+			for(int p=0;p<points.size();p++){
+				ofVertex(points[p].x+noise[p][i].x,points[p].y+noise[p][i].y);
+			}
+			/*for(int p=0;p<points.size();p++){
+			 ofVertex(points[p].x,points[p].y);
+			 }*/
+			ofEndShape(true);
+			
 		}
-		ofEndShape(true);
-		
-		//	}
 	}
 }
 
