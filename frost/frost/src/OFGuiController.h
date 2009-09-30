@@ -83,7 +83,7 @@
 	 **/
 	IBOutlet NSView *laLineaView;
 	IBOutlet NSButton * LaLineaDebug;
-
+	
 	
 	
 	/**
@@ -96,11 +96,11 @@
 	IBOutlet NSSlider * BlobLightBlur2;
 	IBOutlet NSSlider * BlobLightAlpha;
 	IBOutlet NSSlider * BlobLightBeta;
-
+	
 	IBOutlet NSSlider * BlobLightHistoryAlpha;
 	IBOutlet NSSlider * BlobLightBlobAlpha;
 	IBOutlet NSSlider * BlobLightAddBackground;
-
+	
 	IBOutlet NSColorWell * BlobLightColor;
 	
 	/**
@@ -114,7 +114,12 @@
 	 **/
 	
 	IBOutlet NSView *frostscapeView;
-	
+	IBOutlet NSSlider * FrostScapeSlider1;
+	IBOutlet NSSlider * FrostScapeSlider2;
+	IBOutlet NSSlider * FrostScapeSlider3;
+	IBOutlet NSSlider * FrostScapeSlider4;
+	IBOutlet NSSlider * FrostScapeSlider5;
+	IBOutlet NSSlider * FrostScapeSlider6;
 	/**
 	 * LiquidSpace outlets
 	 **/
@@ -208,6 +213,12 @@
 -(IBAction)		setBlobLightBackgroundAdd:(id)sender;
 -(IBAction)		setBlobLightBackgroundClear:(id)sender;
 
+-(IBAction)		setFrostscapeSlider1:(id)sender;
+-(IBAction)		setFrostscapeSlider2:(id)sender;
+-(IBAction)		setFrostscapeSlider3:(id)sender;
+-(IBAction)		setFrostscapeSlider4:(id)sender;
+-(IBAction)		setFrostscapeSlider5:(id)sender;
+-(IBAction)		setFrostscapeSlider6:(id)sender;
 
 -(IBAction)		setProjectorShowDebug:(id)sender;
 -(IBAction)		setProjectorMatrix:(id)sender;

@@ -18,9 +18,11 @@ public:
 	contourNormals contourNorm;
 	static const int numNoise = 5;
 	
+	
+	
 	vector<ofxVec2f> tmpPoints, tmpPoints2, normals;
-
-
+	
+	
 };
 
 class Frostscape : public Output{
@@ -38,5 +40,12 @@ public:
 	int cam;
 	
 	static float randomFactor;
-
+	static float slider1, slider2, slider3, slider4, slider5, slider6;
+	
+	void setslider1(float val);
+	void setslider2(float val);
+	void setslider3(float val);
+	void setslider4(float val);
+	void setslider5(float val);
+	void setslider6(float val);
 };

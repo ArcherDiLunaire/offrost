@@ -3,6 +3,13 @@
 #include "PluginIncludes.h"
 
 float Frostscape::randomFactor = 5.0;
+float Frostscape::slider1 = 0.0;
+float Frostscape::slider2 = 0;
+float Frostscape::slider3 = 0;
+float Frostscape::slider4 = 0;
+float Frostscape::slider5 = 0;
+float Frostscape::slider6 = 0.0;
+
 
 BlackSpotObject::BlackSpotObject(){
 }
@@ -26,7 +33,7 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 		tmpPoints[p] -= normals[p] * 0.03;
 	}
 	
-	contourSimp.simplify(&tmpPoints, &tmpPoints2, 0.003);
+	contourSimp.simplify(&tmpPoints, &tmpPoints2, 0.01*Frostscape::slider1);
 	
 	/*while (points.size() > 100) {
 	 contourSimp.simplify(tmpPoints, points, 0.001);
@@ -51,12 +58,13 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 	float a = (float)tmpPoints2.size()/points.size();
 	for(int i=0;i<points.size();i++){
 		//	cout<<i<<endl;
-		pointsV[i] *= 0.81;
-		pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])*3;
+		pointsV[i] *= Frostscape::slider2;
+		pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])*10.0*Frostscape::slider3;
 		points[i] += pointsV[i]*1.0/ofGetFrameRate();
 		for(int u=0;u<numNoise;u++){
-			noise[i][u]  *= 0.9;
-			noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * pointsV[i].length()*0.1;
+			noise[i][u]  *= Frostscape::slider6;
+
+			noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * pointsV[i].length()*0.1*Frostscape::slider4;
 		}
 		
 		/*	for(int u=0;u<numNoise;u++){
@@ -86,6 +94,8 @@ void BlackSpotObject::draw(){
 		for(int i=0;i<noise[0].size();i++){
 			ofBeginShape();
 			for(int p=0;p<points.size();p++){
+			//	cout<<p<<"  "<<i<<endl;
+
 				ofVertex(points[p].x+noise[p][i].x,points[p].y+noise[p][i].y);
 			}
 			/*for(int p=0;p<points.size();p++){
@@ -106,12 +116,12 @@ Frostscape::Frostscape(){
 
 void Frostscape::setup(){
 	blackSpots.push_back(BlackSpotObject());
-	blackSpots.push_back(BlackSpotObject());
+	//blackSpots.push_back(BlackSpotObject());
 }
 
 void Frostscape::update(){
-	blob(0)->postBlur = 100;
-	blob(0)->postThreshold = 10;
+	blob(0)->postBlur = 100*Frostscape::slider5;
+	blob(0)->postThreshold = 0;
 	
 	for(int i=0;i<MIN(blob(cam)->numBlobs(),blackSpots.size());i++){
 		ofxCvBlob b = blob(cam)->getBlob(i);
@@ -145,4 +155,24 @@ void Frostscape::drawOnFloor(){
 	 }	
 	 }*/
 	
+}
+
+void Frostscape::setslider1(float val){
+	Frostscape::slider1 = val;
+}
+
+void Frostscape::setslider2(float val){
+	Frostscape::slider2 = val;
+}
+void Frostscape::setslider3(float val){
+	Frostscape::slider3 = val;
+}
+void Frostscape::setslider4(float val){
+	Frostscape::slider4 = val;
+}
+void Frostscape::setslider5(float val){
+	Frostscape::slider5 = val;
+}
+void Frostscape::setslider6(float val){
+	Frostscape::slider6 = val;
 }

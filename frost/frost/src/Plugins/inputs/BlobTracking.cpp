@@ -77,7 +77,6 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 	
 	for(int i=0;i<blob->nPts;i++){
 		ofxVec2f v = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->pts[i].x, blob->pts[i].y);
-		//cout<<v.x<<endl;
 		deBarrelledBlob.pts.push_back(ofPoint(v.x, v.y));
 	}
 	

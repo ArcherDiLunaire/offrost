@@ -141,9 +141,14 @@ OFGuiController * gui = NULL;
 		(getPlugin<BlobLight*>(ofApp->pluginController))->beta = [userDefaults doubleForKey:@"bloblight.beta"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->historyalpha = [userDefaults doubleForKey:@"bloblight.historya"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blobalpha = [userDefaults doubleForKey:@"bloblight.bloba"];
-
 		(getPlugin<BlobLight*>(ofApp->pluginController))->addblack = [userDefaults doubleForKey:@"bloblight.addblack"];
-
+		
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider1([userDefaults doubleForKey:@"frostscape.val1"]);
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider2([userDefaults doubleForKey:@"frostscape.val2"]);
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider3([userDefaults doubleForKey:@"frostscape.val3"]);
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider4([userDefaults doubleForKey:@"frostscape.val4"]);
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider5([userDefaults doubleForKey:@"frostscape.val5"]);
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider6([userDefaults doubleForKey:@"frostscape.val6"]);
 		
 		
 		(getPlugin<BlobTracking*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"blob.drawdebug"];	
@@ -184,7 +189,7 @@ OFGuiController * gui = NULL;
 		[self addObject:@"Frostscape" isheader:FALSE plugin:getPlugin<Frostscape*>(ofApp->pluginController)];
 		[self addObject:@"Liquid Space" isheader:FALSE plugin:getPlugin<LiquidSpace*>(ofApp->pluginController)];
 		
-
+		
 		NSMutableArray * array;
 		array = viewItems;
 		for(int i=0;i<[viewItems count];i++){
@@ -509,6 +514,38 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 -(IBAction)		setBlobLightBackgroundClear:(id)sender{
 	(getPlugin<BlobLight*>(ofApp->pluginController))->history.set(0);
+}
+
+-(IBAction)		setFrostscapeSlider1:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider1([sender doubleValue]);
+	}
+}
+
+-(IBAction)		setFrostscapeSlider2:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider2([sender doubleValue]);
+	}
+}
+-(IBAction)		setFrostscapeSlider3:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider3([sender doubleValue]);
+	}
+}
+-(IBAction)		setFrostscapeSlider4:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider4([sender doubleValue]);
+	}
+}
+-(IBAction)		setFrostscapeSlider5:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider5([sender doubleValue]);
+	}
+}
+-(IBAction)		setFrostscapeSlider6:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider6([sender doubleValue]);
+	}
 }
 
 
