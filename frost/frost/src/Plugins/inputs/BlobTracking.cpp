@@ -15,6 +15,8 @@ Tracker::Tracker(){
 	grayDiff.allocate(cw,ch);
 	bLearnBakground = true;
 	mouseBlob = false;
+	postBlur = 0;
+	postThreshold = 0;
 }
 
 void Tracker::update(){ 
@@ -33,35 +35,22 @@ void Tracker::update(){
 		
 		grayDiff.absDiff(grayBg, grayImageBlured);
 		grayDiff.threshold(threshold);
-		
-		contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
-		//			simplifiedContourFinder.findSimplifiedContours(grayDiff, 20, (grabber->getWidth()*grabber->getHeight())/3, 10, false, true);	
-	}
-	
-	/**
-	if(getPlugin<Cameras*>(controller)->isReady(cameraId)){
-		ofxVideoGrabber * grabber = getPlugin<Cameras*>(controller)->getVidGrabber(cameraId);
-		bNewFrame = grabber->isFrameNew();
-		if (bNewFrame && active){
-			
-			grayImage.setFromPixels(grabber->getPixels(), grabber->getWidth(),grabber->getHeight());
-			grayImageBlured = grayImage;
-			grayImageBlured.blur(blur);
-			
-			if (bLearnBakground == true){
-				grayBg = grayImageBlured;		
-				bLearnBakground = false;
+
+		if(postBlur > 0){
+			grayDiff.blur(postBlur);
+			if(postThreshold > 0){
+				grayDiff.threshold(postThreshold, false);
 			}
 			
-			grayDiff.absDiff(grayBg, grayImageBlured);
-			grayDiff.threshold(threshold);
-			
-			contourFinder.findContours(grayDiff, 20, (grabber->getWidth()*grabber->getHeight())/3, 10, false, true);	
-//			simplifiedContourFinder.findSimplifiedContours(grayDiff, 20, (grabber->getWidth()*grabber->getHeight())/3, 10, false, true);	
 		}
+		
+		contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
+		
+		postBlur = 0;
+		postThreshold = 0;
 	}
-	 
-	 **/
+	
+
 }
 
 void Tracker::findContours(){
@@ -88,6 +77,7 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 	
 	for(int i=0;i<blob->nPts;i++){
 		ofxVec2f v = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->pts[i].x, blob->pts[i].y);
+		cout<<v.x<<endl;
 		deBarrelledBlob.pts.push_back(ofPoint(v.x, v.y));
 	}
 	

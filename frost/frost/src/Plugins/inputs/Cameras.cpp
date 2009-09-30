@@ -60,11 +60,11 @@ void Cameras::setup(){
 	}
 	//**/
 	
-	/*
-	videoPlayerLoadUrl(0, "/Users/frost/Desktop/Filmlarge.mov");
+	
+	videoPlayerLoadUrl(0, "/Users/jonas/Desktop/Filmlarge.mov");
 	videoPlayerPlay(0);
 	videoPlayerActivate(0);
-	*/
+	
 }
 
 bool Cameras::isFrameNew(int _grabberIndex){
@@ -198,7 +198,6 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 	
 	if(vidGrabber[_grabber]->initGrabber( camWidth, camHeight, VID_FORMAT_GREYSCALE, VID_FORMAT_GREYSCALE, 25, true, libdc1394Grabber )) {
 		cameraGUIDs[_grabber] = ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->getDeviceGUID();
-		initCameraCalibration(getGUID(_grabber));
 		/**
 		 
 		 FEATURE_BRIGHTNESS			= 0,
@@ -242,6 +241,8 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		ofLog(OF_LOG_FATAL_ERROR,"Camera failed to initialize.");
 		cameraInited[_grabber] = false;
 	}	
+	initCameraCalibration(getGUID(_grabber));
+
 }
 
 void Cameras::initCameraCalibration(uint64_t _cameraGUID){
@@ -291,6 +292,10 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 			
 			break;
 		default:
+
+			setCameraCalibration(_cameraGUID, 
+								 -0.3796366751, 0.1794384271, 0.0015031601, 0.0049067354,
+								 1054.0688476562, 513.7350463867, 1051.2467041016, 308.5940551758);
 			break;
 	}
 	
@@ -437,4 +442,4 @@ void Cameras::setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, f
 	calib[grabberIndex].camIntrinsics[7] = 0;
 	calib[grabberIndex].camIntrinsics[8] = 1;
 
-}
+}	

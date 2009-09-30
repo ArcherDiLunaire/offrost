@@ -59,6 +59,8 @@ public:
 	void extrudeBlob(ofxCvBlob * blob, float value);	
 	
 	contourSimplify contourSimp;
+	
+	float postBlur, postThreshold;
 
 private:
 	int cw, ch;

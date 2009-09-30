@@ -44,8 +44,8 @@ class contourSimplify{
 		}
 		
 		//------------------------------
-		void simplify(vector <ofxVec2f> &contourIn, vector <ofxVec2f> &contourOut, float tolerance){
-			int length = contourIn.size();
+		void simplify(vector <ofxVec2f> *contourIn, vector <ofxVec2f> *contourOut, float tolerance){
+			int length = contourIn->size();
 		
 			//the polyLine simplify class needs data as a vector of ofxPoint3fs 
 			ofxPoint3f  polyLineIn[length];
@@ -53,18 +53,18 @@ class contourSimplify{
 			
 			//first we copy over the data to a 3d point array
 			for(int i = 0; i < length; i++){
-				polyLineIn[i].x = contourIn[i].x;
-				polyLineIn[i].y = contourIn[i].y;
+				polyLineIn[i].x = contourIn->at(i).x;
+				polyLineIn[i].y = contourIn->at(i).y;
 			}
 				
 			int numPoints = poly_simplify(tolerance, polyLineIn, length, polyLineOut);
-			contourOut.clear();
-			contourOut.assign(numPoints, ofxVec2f());
+			contourOut->clear();
+			contourOut->assign(numPoints, ofxVec2f());
 		
 			//copy the data to our contourOut vector
 			for(int i = 0; i < numPoints; i++){
-				contourOut[i].x = polyLineOut[i].x;
-				contourOut[i].y = polyLineOut[i].y;
+				contourOut->at(i).x = polyLineOut[i].x;
+				contourOut->at(i).y = polyLineOut[i].y;
 			}
 			
 		}

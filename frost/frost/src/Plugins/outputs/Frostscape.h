@@ -17,6 +17,9 @@ public:
 	contourSimplify contourSimp;
 	contourNormals contourNorm;
 	static const int numNoise = 5;
+	
+	vector<ofxVec2f> tmpPoints, tmpPoints2, normals;
+
 
 };
 
