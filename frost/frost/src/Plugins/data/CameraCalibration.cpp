@@ -264,7 +264,7 @@ void CameraCalibration::saveXml(){
 		
 		int numCorners = keystoneXml->getNumTags("corner");
 		if(numCorners != 4){
-			cout<<"====== ERROR: Wrong number of corners ======"<<endl;
+			cout<<"====== ERROR: Wrong number of corners ======"<<endl; 
 		} else {
 			for(int i=0;i<4;i++){
 				keystoneXml->setAttribute("corner", "number", i, i);

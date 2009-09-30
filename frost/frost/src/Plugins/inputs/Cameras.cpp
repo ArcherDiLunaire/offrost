@@ -60,11 +60,11 @@ void Cameras::setup(){
 	}
 	//**/
 	
-	/*
+	
 	videoPlayerLoadUrl(0, "/Users/frost/Desktop/Filmlarge.mov");
 	videoPlayerPlay(0);
 	videoPlayerActivate(0);
-	*/
+	
 }
 
 bool Cameras::isFrameNew(int _grabberIndex){
