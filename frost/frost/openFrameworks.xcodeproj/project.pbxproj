@@ -150,6 +150,7 @@
 		27B64BF6107211CD002E95C4 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidiOut.cpp; sourceTree = "<group>"; };
 		27B64BF7107211CD002E95C4 /* ofxMidiOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMidiOut.h; sourceTree = "<group>"; };
 		27B7F436106A4A7C00E1E74B /* MoonDust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoonDust.cpp; path = src/Plugins/outputs/MoonDust.cpp; sourceTree = SOURCE_ROOT; };
+		27EC4A181073CB3600CCDB99 /* msaColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = msaColor.h; path = example/src/msaColor.h; sourceTree = "<group>"; };
 		3F1E59A9100B75550091B692 /* SharedContextGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedContextGLView.h; path = ../SharedContextGLView.h; sourceTree = "<group>"; };
 		3F1E59AA100B75550091B692 /* SharedContextGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedContextGLView.m; path = ../SharedContextGLView.m; sourceTree = "<group>"; };
 		3F1E59AF100B77800091B692 /* CustomGLViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomGLViewDelegate.h; path = ../CustomGLViewDelegate.h; sourceTree = "<group>"; };
@@ -498,6 +499,7 @@
 		276D9D9A1073B3F00084689D /* ofxMSAFluid */ = {
 			isa = PBXGroup;
 			children = (
+				27EC4A181073CB3600CCDB99 /* msaColor.h */,
 				276D9D9B1073B3F00084689D /* changelog.txt */,
 				276D9DA91073B3F00084689D /* LICENSE.txt */,
 				276D9DAA1073B3F00084689D /* src */,

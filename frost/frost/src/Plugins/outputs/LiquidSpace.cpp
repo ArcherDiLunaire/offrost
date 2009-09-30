@@ -104,8 +104,11 @@ void LiquidSpace::update(){
 		float _x;
 		float _y;
 		
-		_x = blob(0)->getLargestBlob().centroid.x;
-		_y = blob(0)->getLargestBlob().centroid.y;
+		
+		ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(blob(0)->getLargestBlob().centroid.x, blob(0)->getLargestBlob().centroid.y));			
+
+		_x = r.x;
+		_y = r.y;
 		
 		cout << _x << ", " << _y << endl;
 		
