@@ -134,13 +134,16 @@ OFGuiController * gui = NULL;
 		
 		
 		(getPlugin<BlobLight*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"bloblight.density"];
-		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [userDefaults boolForKey:@"bloblight.blur"];
-		(getPlugin<BlobLight*>(ofApp->pluginController))->threshold = [userDefaults boolForKey:@"bloblight.threshold"];
-		(getPlugin<BlobLight*>(ofApp->pluginController))->blur2 = [userDefaults boolForKey:@"bloblight.blur2"];
-		(getPlugin<BlobLight*>(ofApp->pluginController))->alpha = [userDefaults boolForKey:@"bloblight.alpha"];
-		(getPlugin<BlobLight*>(ofApp->pluginController))->beta = [userDefaults boolForKey:@"bloblight.beta"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [userDefaults doubleForKey:@"bloblight.blur"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->threshold = [userDefaults doubleForKey:@"bloblight.threshold"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->blur2 = [userDefaults doubleForKey:@"bloblight.blur2"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->alpha = [userDefaults doubleForKey:@"bloblight.alpha"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->beta = [userDefaults doubleForKey:@"bloblight.beta"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->historyalpha = [userDefaults doubleForKey:@"bloblight.historya"];
+		(getPlugin<BlobLight*>(ofApp->pluginController))->blobalpha = [userDefaults doubleForKey:@"bloblight.bloba"];
 
-		
+		(getPlugin<BlobLight*>(ofApp->pluginController))->addblack = [userDefaults doubleForKey:@"bloblight.addblack"];
+
 		
 		
 		(getPlugin<BlobTracking*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"blob.drawdebug"];	
@@ -474,6 +477,26 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		(getPlugin<BlobLight*>(ofApp->pluginController))->beta = [sender doubleValue];
 	}
 }
+-(IBAction)		setBlobLightHistoryAlpha:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<BlobLight*>(ofApp->pluginController))->historyalpha = [sender doubleValue];
+	}
+}
+
+-(IBAction)		setBlobLightBlobAlpha:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<BlobLight*>(ofApp->pluginController))->blobalpha = [sender doubleValue];
+	}
+}
+-(IBAction)		setBlobLightBackgroundAdd:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<BlobLight*>(ofApp->pluginController))->addblack = [sender doubleValue];
+	}
+}
+-(IBAction)		setBlobLightBackgroundClear:(id)sender{
+	(getPlugin<BlobLight*>(ofApp->pluginController))->history.set(0);
+}
+
 
 
 

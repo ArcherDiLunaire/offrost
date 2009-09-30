@@ -14,14 +14,18 @@ BlobLight::BlobLight(){
 	b = 255;
 	alpha = 0.0;
 	beta = 1.0;
+	addblack = 0;
 }
 
 void BlobLight::setup(){
-	w = (1280/2)/4;
-	h = (960/2)/4;
+	w = (1280.0/2.0)/2.0;
+	h = (960.0/2.0)/2.0;
 	history.allocate(w,h);
 	historyTmp.allocate(w,h);
-
+	black.allocate(w,h);
+	black.set(0);
+	history.set(0);
+	historyTmp.set(0);
 	img.allocate(w,h);
 }
 
@@ -29,7 +33,6 @@ void BlobLight::update(){
 	
 }
 void BlobLight::draw(){
-	ofSetColor(r, g, b, 255);
 	ofxCvGrayscaleImage Largeimg = blob(0)->grayDiff;
 	img.scaleIntoMe(Largeimg);
 	getPlugin<CameraCalibration*>(controller)->applyWarp(0);
@@ -41,10 +44,25 @@ void BlobLight::draw(){
 	if(blur2 > 0){
 		img.blurGaussian(blur2);
 	}
-	cvAddWeighted(history.getCvImage(),alpha, img.getCvImage(),(1.0-alpha),0.0, history.getCvImage());
+
+	
+	cvAddWeighted(history.getCvImage(),alpha, img.getCvImage(),beta,0.0, history.getCvImage());
+	cvSubS(history.getCvImage(), cvScalar(addblack*100) , history.getCvImage());
+
 	history.flagImageChanged();
+	
+	ofEnableAlphaBlending();
+	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
+
+	ofSetColor(historyalpha*r, historyalpha*g, historyalpha*b, historyalpha*255);
 	history.draw(0,0,1,1);
+	
+	
+	ofSetColor( blobalpha*r,  blobalpha*g,  blobalpha*b, blobalpha*255);
+	img.draw(0, 0, 1,1);
 	glPopMatrix();
+	
+//	img.draw(0, 0);
 
 	
 }

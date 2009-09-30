@@ -97,6 +97,10 @@
 	IBOutlet NSSlider * BlobLightAlpha;
 	IBOutlet NSSlider * BlobLightBeta;
 
+	IBOutlet NSSlider * BlobLightHistoryAlpha;
+	IBOutlet NSSlider * BlobLightBlobAlpha;
+	IBOutlet NSSlider * BlobLightAddBackground;
+
 	IBOutlet NSColorWell * BlobLightColor;
 	
 	/**
@@ -192,6 +196,10 @@
 -(IBAction)		setBlobLightBlur2:(id)sender;
 -(IBAction)		setBlobLightAlpha:(id)sender;
 -(IBAction)		setBlobLightBeta:(id)sender;
+-(IBAction)		setBlobLightHistoryAlpha:(id)sender;
+-(IBAction)		setBlobLightBlobAlpha:(id)sender;
+-(IBAction)		setBlobLightBackgroundAdd:(id)sender;
+-(IBAction)		setBlobLightBackgroundClear:(id)sender;
 
 
 -(IBAction)		setProjectorShowDebug:(id)sender;

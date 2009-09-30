@@ -76,21 +76,42 @@ int Tracker::numBlobs(){
 }
 
 ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibrator){
+	ofxCvBlob deBarrelledBlob;
+	
+	//todo: correction of area and height ?
+	deBarrelledBlob.area = blob->area;
+	deBarrelledBlob.length = blob->length;
+	
+	ofxVec2f dv = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->centroid.x, blob->centroid.y);
+	
+	deBarrelledBlob.centroid = ofPoint(dv.x,dv.y);
+	
+	for(int i=0;i<blob->nPts;i++){
+		ofxVec2f v = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->pts[i].x, blob->pts[i].y);
+		deBarrelledBlob.pts.push_back(ofPoint(v.x, v.y));
+	}
+	
+	deBarrelledBlob.nPts = blob->nPts;
+	
+	
+	
 	ofxCvBlob b;
 	float m = cw*ch;
-	b.area = blob->area/m;
-	b.length = blob->length/m;
+	b.area = deBarrelledBlob.area/m;
+	b.length = deBarrelledBlob.length/m;
 	//bounding rect not defined
 	
-	ofxVec2f v = calibrator->convertCoordinate(cameraId, blob->centroid.x/getWidth(), blob->centroid.y/getHeight());
+	ofxVec2f v = calibrator->convertCoordinate(cameraId, deBarrelledBlob.centroid.x/getWidth(), deBarrelledBlob.centroid.y/getHeight());
 	
 	b.centroid = ofPoint(v.x, v.y);
 	b.hole = blob->hole;
-	for(int i=0;i<blob->nPts;i++){
-		ofxVec2f v = calibrator->convertCoordinate(cameraId, blob->pts[i].x/getWidth(), blob->pts[i].y/getHeight());
+	for(int i=0;i<deBarrelledBlob.nPts;i++){
+		ofxVec2f v = calibrator->convertCoordinate(cameraId, deBarrelledBlob.pts[i].x/getWidth(), deBarrelledBlob.pts[i].y/getHeight());
 		b.pts.push_back(ofPoint(v.x, v.y));
 	}
-	b.nPts = blob->nPts;
+	b.nPts = deBarrelledBlob.nPts;
+	b.hole = blob->hole;
+
 	return b;
 }
 

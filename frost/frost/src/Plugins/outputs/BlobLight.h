@@ -17,11 +17,13 @@ public:
 	
 	float r, g, b;
 	float blur, threshold, blur2;
-	float alpha, beta;
+	float alpha, beta, blobalpha, historyalpha, addblack;
 	int w,h;
 	ofxCvGrayscaleImage history;
 	ofxCvGrayscaleImage historyTmp;
-
+	
 	ofxCvGrayscaleImage img;
+	
+		ofxCvGrayscaleImage black;
 
 };

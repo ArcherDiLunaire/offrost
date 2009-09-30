@@ -60,6 +60,11 @@ void Cameras::setup(){
 	}
 	//**/
 	
+	/*
+	videoPlayerLoadUrl(0, "/Users/frost/Desktop/Filmlarge.mov");
+	videoPlayerPlay(0);
+	videoPlayerActivate(0);
+	*/
 }
 
 bool Cameras::isFrameNew(int _grabberIndex){
@@ -67,7 +72,6 @@ bool Cameras::isFrameNew(int _grabberIndex){
 }
 
 void Cameras::update(){
-	cout << "FRAMERATES: ";
 	for (int i=0; i<3; i++) {
 		if (videoPlayerActivated[i]) {
 			videoPlayer[i].update();
@@ -83,7 +87,6 @@ void Cameras::update(){
 		} else {
 			if(isReady(i)){
 				vidGrabber[i]->update();
-				cout << vidGrabber[i]->frameRate<<", ";
 				frameNew[i] = vidGrabber[i]->isFrameNew();
 				if(frameNew[i]){
 					calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
@@ -92,7 +95,6 @@ void Cameras::update(){
 			}
 		}
 	}
-	cout << endl;
 }
 
 unsigned char* Cameras::getPixels(int _grabberIndex){
@@ -251,6 +253,9 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 	switch (_cameraGUID) {
 		case 0xb09d01008c1393ll:
 			//setCameraCalibration(_cameraGUID, );
+			setCameraCalibration(_cameraGUID, 
+								 -0.3796366751, 0.1794384271, 0.0015031601, 0.0049067354,
+								 1054.0688476562, 513.7350463867, 1051.2467041016, 308.5940551758);
 			break;
 		case 0xb09d01008c1394ll:
 			/**
@@ -280,9 +285,9 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 			 * 0.0000000000 2991.7260742188 378.9212646484 
 			 * 0.0000000000 0.0000000000 1.0000000000 
 			 **/
-	/*		setCameraCalibration(_cameraGUID, 
+			setCameraCalibration(_cameraGUID, 
 								 -0.5213706493, -7.2184705734, 0.0017122072, 0.0209310278,
-								 2983.3862304688, 360.2234497070, 2991.7260742188, 378.9212646484);*/
+								 2983.3862304688, 360.2234497070, 2991.7260742188, 378.9212646484);
 			
 			break;
 		default:
