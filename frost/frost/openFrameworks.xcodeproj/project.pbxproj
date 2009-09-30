@@ -123,8 +123,8 @@
 /* Begin PBXFileReference section */
 		2739E54D1070BEBE0078206D /* contourNormals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contourNormals.cpp; sourceTree = "<group>"; };
 		2739E54E1070BEBE0078206D /* contourNormals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contourNormals.h; sourceTree = "<group>"; };
-		276D9D811073AE5A0084689D /* LiquidSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiquidSpace.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/LiquidSpace.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
-		276D9D821073AE5A0084689D /* LiquidSpace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LiquidSpace.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/LiquidSpace.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		276D9D811073AE5A0084689D /* LiquidSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiquidSpace.h; sourceTree = "<group>"; };
+		276D9D821073AE5A0084689D /* LiquidSpace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LiquidSpace.cpp; sourceTree = "<group>"; };
 		276D9D9B1073B3F00084689D /* changelog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changelog.txt; sourceTree = "<group>"; };
 		276D9DA91073B3F00084689D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		276D9DAB1073B3F00084689D /* ofxMSAFluid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAFluid.h; sourceTree = "<group>"; };
@@ -181,6 +181,7 @@
 		DD45B9B8106FE04500B4B19C /* contourSimplify.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contourSimplify.cpp; sourceTree = "<group>"; };
 		DD45B9B9106FE04500B4B19C /* contourSimplify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contourSimplify.h; sourceTree = "<group>"; };
 		DD45B9BA106FE04500B4B19C /* convexHull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = convexHull.h; sourceTree = "<group>"; };
+		DD53C60B1073BF1800730546 /* msaColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msaColor.h; sourceTree = "<group>"; };
 		DD6EA0CE1062C832001EC207 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		DD6EA1291062C880001EC207 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		DD7CC2721063979800D3736A /* BlobTracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlobTracking.cpp; sourceTree = "<group>"; };
@@ -593,6 +594,7 @@
 		DD45B90C106FDC4F00B4B19C /* src */ = {
 			isa = PBXGroup;
 			children = (
+				DD53C60B1073BF1800730546 /* msaColor.h */,
 				DD45B90D106FDC4F00B4B19C /* ofxMSASpline.h */,
 				DD45B90E106FDC4F00B4B19C /* ofxMSASpline1D.h */,
 				DD45B90F106FDC4F00B4B19C /* ofxMSASpline2D.cpp */,
