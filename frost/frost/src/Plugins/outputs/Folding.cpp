@@ -18,7 +18,7 @@ void Folding::update(){
 void Folding::draw(){
 	projection()->applyCurtainProjection(0, 0);
 	ofSetColor(255, 255,255);
-	ofRect(0, 0, 1, 1);
+	//ofRect(0, 0, 1, 1);
 	glPushMatrix();
 	glTranslated(-1.4, 0.4, 0);
 	glRotated(-25, 0, 0, 1.0);

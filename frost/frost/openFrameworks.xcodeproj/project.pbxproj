@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2739E54F1070BEBE0078206D /* contourNormals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2739E54D1070BEBE0078206D /* contourNormals.cpp */; };
+		276D9D831073AE5A0084689D /* LiquidSpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 276D9D821073AE5A0084689D /* LiquidSpace.cpp */; };
+		276D9DB11073B3F00084689D /* changelog.txt in Resources */ = {isa = PBXBuildFile; fileRef = 276D9D9B1073B3F00084689D /* changelog.txt */; };
+		276D9DB71073B3F00084689D /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 276D9DA91073B3F00084689D /* LICENSE.txt */; };
+		276D9DB81073B3F00084689D /* ofxMSAFluidDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 276D9DAC1073B3F00084689D /* ofxMSAFluidDrawer.cpp */; };
+		276D9DB91073B3F00084689D /* ofxMSAFluidSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 276D9DAF1073B3F00084689D /* ofxMSAFluidSolver.cpp */; };
 		2797C7D91070DCDF00555A42 /* Folding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2797C7D71070DCDF00555A42 /* Folding.cpp */; };
 		279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AEC3A10668C0100FBEE17 /* coordWarp.cpp */; };
 		27B64B4B1072019D002E95C4 /* Frostscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64B491072019D002E95C4 /* Frostscape.cpp */; };
@@ -118,6 +123,16 @@
 /* Begin PBXFileReference section */
 		2739E54D1070BEBE0078206D /* contourNormals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contourNormals.cpp; sourceTree = "<group>"; };
 		2739E54E1070BEBE0078206D /* contourNormals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contourNormals.h; sourceTree = "<group>"; };
+		276D9D811073AE5A0084689D /* LiquidSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiquidSpace.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/LiquidSpace.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		276D9D821073AE5A0084689D /* LiquidSpace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LiquidSpace.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/LiquidSpace.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		276D9D9B1073B3F00084689D /* changelog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changelog.txt; sourceTree = "<group>"; };
+		276D9DA91073B3F00084689D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		276D9DAB1073B3F00084689D /* ofxMSAFluid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAFluid.h; sourceTree = "<group>"; };
+		276D9DAC1073B3F00084689D /* ofxMSAFluidDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMSAFluidDrawer.cpp; sourceTree = "<group>"; };
+		276D9DAD1073B3F00084689D /* ofxMSAFluidDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAFluidDrawer.h; sourceTree = "<group>"; };
+		276D9DAE1073B3F00084689D /* ofxMSAFluidParticleUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAFluidParticleUpdater.h; sourceTree = "<group>"; };
+		276D9DAF1073B3F00084689D /* ofxMSAFluidSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMSAFluidSolver.cpp; sourceTree = "<group>"; };
+		276D9DB01073B3F00084689D /* ofxMSAFluidSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAFluidSolver.h; sourceTree = "<group>"; };
 		2797C7D71070DCDF00555A42 /* Folding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Folding.cpp; sourceTree = "<group>"; };
 		2797C7D81070DCDF00555A42 /* Folding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Folding.h; sourceTree = "<group>"; };
 		279AEC3A10668C0100FBEE17 /* coordWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coordWarp.cpp; path = src/coordWarp.cpp; sourceTree = SOURCE_ROOT; };
@@ -479,6 +494,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		276D9D9A1073B3F00084689D /* ofxMSAFluid */ = {
+			isa = PBXGroup;
+			children = (
+				276D9D9B1073B3F00084689D /* changelog.txt */,
+				276D9DA91073B3F00084689D /* LICENSE.txt */,
+				276D9DAA1073B3F00084689D /* src */,
+			);
+			name = ofxMSAFluid;
+			path = ../../../memoAddons/ofxMSAFluid;
+			sourceTree = "<group>";
+		};
+		276D9DAA1073B3F00084689D /* src */ = {
+			isa = PBXGroup;
+			children = (
+				276D9DAB1073B3F00084689D /* ofxMSAFluid.h */,
+				276D9DAC1073B3F00084689D /* ofxMSAFluidDrawer.cpp */,
+				276D9DAD1073B3F00084689D /* ofxMSAFluidDrawer.h */,
+				276D9DAE1073B3F00084689D /* ofxMSAFluidParticleUpdater.h */,
+				276D9DAF1073B3F00084689D /* ofxMSAFluidSolver.cpp */,
+				276D9DB01073B3F00084689D /* ofxMSAFluidSolver.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		27B64BEA107211CD002E95C4 /* ofxMidi_002 */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +800,8 @@
 				DD45B630106BA2F600B4B19C /* LaLinea.h */,
 				2797C7D71070DCDF00555A42 /* Folding.cpp */,
 				2797C7D81070DCDF00555A42 /* Folding.h */,
+				276D9D811073AE5A0084689D /* LiquidSpace.h */,
+				276D9D821073AE5A0084689D /* LiquidSpace.cpp */,
 			);
 			path = outputs;
 			sourceTree = "<group>";
@@ -768,6 +809,7 @@
 		DDB85141105E808700D1ED92 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				276D9D9A1073B3F00084689D /* ofxMSAFluid */,
 				27B64BEA107211CD002E95C4 /* ofxMidi_002 */,
 				DD45B904106FDC4F00B4B19C /* ofxMSASpline */,
 				DD0C01501066874900BB3F9F /* ofxXmlSettings */,
@@ -1413,6 +1455,8 @@
 				E4C9805B0FF2901B0018D340 /* InfoPlist.strings in Resources */,
 				E4C9805C0FF2901B0018D340 /* MainMenu.nib in Resources */,
 				DD0C01661066874900BB3F9F /* install.xml in Resources */,
+				276D9DB11073B3F00084689D /* changelog.txt in Resources */,
+				276D9DB71073B3F00084689D /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1515,6 +1559,9 @@
 				27B64BF9107211CD002E95C4 /* RtMidi.cpp in Sources */,
 				27B64BFA107211CD002E95C4 /* ofxMidiIn.cpp in Sources */,
 				27B64BFB107211CD002E95C4 /* ofxMidiOut.cpp in Sources */,
+				276D9D831073AE5A0084689D /* LiquidSpace.cpp in Sources */,
+				276D9DB81073B3F00084689D /* ofxMSAFluidDrawer.cpp in Sources */,
+				276D9DB91073B3F00084689D /* ofxMSAFluidSolver.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

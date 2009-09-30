@@ -115,6 +115,12 @@
 	
 	IBOutlet NSView *frostscapeView;
 	
+	/**
+	 * LiquidSpace outlets
+	 **/
+	
+	IBOutlet NSView *liquidSpaceView;
+	
 	
 	/**
 	 * Camera Outlets

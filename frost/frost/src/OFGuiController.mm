@@ -182,6 +182,8 @@ OFGuiController * gui = NULL;
 		[self addObject:@"Blob light" isheader:FALSE plugin:getPlugin<BlobLight*>(ofApp->pluginController)];
 		[self addObject:@"Folding" isheader:FALSE plugin:getPlugin<Folding*>(ofApp->pluginController)];
 		[self addObject:@"Frostscape" isheader:FALSE plugin:getPlugin<Frostscape*>(ofApp->pluginController)];
+		[self addObject:@"Liquid Space" isheader:FALSE plugin:getPlugin<LiquidSpace*>(ofApp->pluginController)];
+		
 
 		NSMutableArray * array;
 		array = viewItems;
@@ -198,7 +200,8 @@ OFGuiController * gui = NULL;
 		[moonDustView retain];
 		[laLineaView retain];
 		[blobLightView retain];
-		
+		[frostscapeView retain];
+		[liquidSpaceView retain];
 		
 		uint64_t guidVal[3];
 		
@@ -289,6 +292,9 @@ OFGuiController * gui = NULL;
 		view = frostscapeView;
 	}	
 	
+	if(![(NSString*)[p name] compare:@"Liquid Space"]){
+		view = liquidSpaceView;
+	}	
 	
 	
 	[contentArea addSubview:view];

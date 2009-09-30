@@ -649,6 +649,7 @@ void Libdc1394Grabber::cleanupCamera()
 
 	/* cleanup and exit */
 	dc1394_capture_stop(camera);
+	dc1394_reset_bus(camera);
 	dc1394_camera_free (camera);
 	camera = NULL;
 
