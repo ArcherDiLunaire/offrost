@@ -16,6 +16,7 @@ public:
 	bool debug;
 	
 	float r, g, b;
+	float r2, g2, b2;
 	float blur, threshold, blur2;
 	float alpha, beta, blobalpha, historyalpha, addblack;
 	int w,h;

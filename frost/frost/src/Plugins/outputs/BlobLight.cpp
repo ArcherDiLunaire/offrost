@@ -36,6 +36,12 @@ void BlobLight::draw(){
 	ofxCvGrayscaleImage Largeimg = blob(0)->grayDiff;
 	img.scaleIntoMe(Largeimg);
 	getPlugin<CameraCalibration*>(controller)->applyWarp(0);
+
+	
+	cvAddWeighted(history.getCvImage(),alpha, img.getCvImage(),beta,0.0, history.getCvImage());
+	cvSubS(history.getCvImage(), cvScalar(addblack*100) , history.getCvImage());
+	history.flagImageChanged();	
+
 	if(blur > 0)
 		img.blur(blur);
 	if(threshold > 0){
@@ -44,21 +50,19 @@ void BlobLight::draw(){
 	if(blur2 > 0){
 		img.blurGaussian(blur2);
 	}
-
 	
-	cvAddWeighted(history.getCvImage(),alpha, img.getCvImage(),beta,0.0, history.getCvImage());
-	cvSubS(history.getCvImage(), cvScalar(addblack*100) , history.getCvImage());
 
-	history.flagImageChanged();
+	historyTmp = history;
+	historyTmp.blurGaussian(blur2);
 	
 	ofEnableAlphaBlending();
 	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
 
 	ofSetColor(historyalpha*r, historyalpha*g, historyalpha*b, historyalpha*255);
-	history.draw(0,0,1,1);
+	historyTmp.draw(0,0,1,1);
 	
 	
-	ofSetColor( blobalpha*r,  blobalpha*g,  blobalpha*b, blobalpha*255);
+	ofSetColor( blobalpha*r2,  blobalpha*g2,  blobalpha*b2, blobalpha*255);
 	img.draw(0, 0, 1,1);
 	glPopMatrix();
 	

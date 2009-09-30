@@ -191,6 +191,7 @@
 
 -(IBAction)		setBlobLightDebug:(id)sender;
 -(IBAction)		setBlobLightColor:(id)sender;
+-(IBAction)		setBlobLightColor2:(id)sender;
 -(IBAction)		setBlobLightBlur:(id)sender;
 -(IBAction)		setBlobLightThreshold:(id)sender;
 -(IBAction)		setBlobLightBlur2:(id)sender;

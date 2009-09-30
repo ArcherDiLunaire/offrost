@@ -450,6 +450,14 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		(getPlugin<BlobLight*>(ofApp->pluginController))->b  = [[sender color] blueComponent]*255;
 	}
 }
+-(IBAction)		setBlobLightColor2:(id)sender{	
+	if(ofApp->setupCalled){
+		
+		(getPlugin<BlobLight*>(ofApp->pluginController))->r2  = [[sender color] redComponent]*255;
+		(getPlugin<BlobLight*>(ofApp->pluginController))->g2  = [[sender color] greenComponent]*255;
+		(getPlugin<BlobLight*>(ofApp->pluginController))->b2  = [[sender color] blueComponent]*255;
+	}
+}
 -(IBAction)		setBlobLightBlur:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [sender doubleValue];
