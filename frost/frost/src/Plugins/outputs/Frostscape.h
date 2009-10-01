@@ -13,11 +13,11 @@ public:
 
 	vector<vector<ofxVec2f> > noise;
 	
-	void updateBlob(ofxCvBlob b, PluginController * controller);
+	void updateBlob(ofxCvBlob b, PluginController * controller, BlackSpotObject * otherObject);
 	void draw();
 	contourSimplify contourSimp;
 	contourNormals contourNorm;
-	static const int numNoise = 5;
+	static const int numNoise = 3;
 	
 	
 	ofxVec2f centroidV;
@@ -42,6 +42,7 @@ public:
 	
 	static float randomFactor;
 	static float slider1, slider2, slider3, slider4, slider5, slider6;
+	static bool applyToOther;
 	
 	void setslider1(float val);
 	void setslider2(float val);

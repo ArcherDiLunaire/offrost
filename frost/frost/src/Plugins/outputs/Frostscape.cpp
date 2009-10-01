@@ -9,13 +9,14 @@ float Frostscape::slider3 = 0;
 float Frostscape::slider4 = 0;
 float Frostscape::slider5 = 0;
 float Frostscape::slider6 = 0.0;
+bool Frostscape::applyToOther = false;
 
 
 BlackSpotObject::BlackSpotObject(){
 }
 
 
-void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
+void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller, BlackSpotObject * otherObject){
 	ProjectionSurfaces* proj = getPlugin<ProjectionSurfaces*>(controller);
 	//points.clear();
 	tmpPoints.clear();
@@ -38,8 +39,8 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 	/*while (points.size() > 100) {
 	 contourSimp.simplify(tmpPoints, points, 0.001);
 	 }*/
-	if(points.size()<tmpPoints2.size()){
-		for(int i=0;i<tmpPoints2.size()-points.size();i++){
+	if(points.size()<MIN(tmpPoints2.size(),100)){
+		for(int i=0;i<MIN(tmpPoints2.size(),100)-points.size();i++){
 			points.push_back(ofxVec2f());
 			pointsV.push_back(ofxVec2f());
 			vector<ofxVec2f> v;
@@ -55,32 +56,48 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 	//	cout<<points.size()<<"   "<<tmpPoints2.size()<<endl;
 	
 	float tmpId = 0;
-	float a = (float)tmpPoints2.size()/points.size();
-		
+	
 	centroidV = ofxVec2f();
 	for(int i=0;i<pointsV.size();i++){
 		centroidV += pointsV[i];
 	}
 	centroidV /= pointsV.size();
-	
-	for(int i=0;i<points.size();i++){
-		//	cout<<i<<endl;
-		pointsV[i] *= Frostscape::slider2;
-		pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])*10.0*Frostscape::slider3;
-		points[i] += pointsV[i]*1.0/ofGetFrameRate();
-		for(int u=0;u<numNoise;u++){
-			noise[i][u]  *= Frostscape::slider6;
+	if(Frostscape::applyToOther){
+		float a = (float)tmpPoints2.size()/MIN(points.size(),otherObject->points.size());
 
-			noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * (pointsV[i] - centroidV).length()*0.1*Frostscape::slider4;
+		for(int i=0;i<MIN(points.size(),otherObject->points.size());i++){
+			otherObject->pointsV[i] *= Frostscape::slider2;
+			otherObject->pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])*10.0*Frostscape::slider3;
+			otherObject->points[i] += pointsV[i]*1.0/ofGetFrameRate();
+			for(int u=0;u<numNoise;u++){
+				otherObject->noise[i][u]  *= Frostscape::slider6;
+				
+				otherObject->noise[i][u] = otherObject->noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * (otherObject->pointsV[i] - otherObject->centroidV).length()*0.1*Frostscape::slider4;
+			}
+			tmpId += a;
 		}
 
-		/*	for(int u=0;u<numNoise;u++){
-		 //noise[i][u]  *= 0.9;
-		 noise[i][u] = -normals[i] * pointsV[i].length()*0.1;
-		 }*/
-		tmpId += a;
+	} else {
+		float a = (float)tmpPoints2.size()/points.size();
+
+		for(int i=0;i<points.size();i++){
+			//	cout<<i<<endl;
+			pointsV[i] *= Frostscape::slider2;
+			pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])*10.0*Frostscape::slider3;
+			points[i] += pointsV[i]*1.0/ofGetFrameRate();
+			for(int u=0;u<numNoise;u++){
+				noise[i][u]  *= Frostscape::slider6;
+				
+				noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * (pointsV[i] - centroidV).length()*0.1*Frostscape::slider4;
+			}
+			
+			/*	for(int u=0;u<numNoise;u++){
+			 //noise[i][u]  *= 0.9;
+			 noise[i][u] = -normals[i] * pointsV[i].length()*0.1;
+			 }*/
+			tmpId += a;
+		}
 	}
-	
 	
 }
 
@@ -128,10 +145,12 @@ void Frostscape::update(){
 	blob(0)->postBlur = 100*Frostscape::slider5;
 	blob(0)->postThreshold = 0;
 	
+	BlackSpotObject * otherB = &blackSpots[1];
 	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),blackSpots.size());i++){
 		ofxCvBlob b = blob(cam)->persistentBlobs[i].blob;
 		blackSpots[i].centroidV = blob(cam)->persistentBlobs[i].centroidV;
-		blackSpots[i].updateBlob(b, controller);
+		blackSpots[i].updateBlob(b, controller, otherB);
+		otherB = &blackSpots[i];
 	}
 }
 void Frostscape::draw(){
@@ -139,11 +158,11 @@ void Frostscape::draw(){
 
 void Frostscape::drawOnFloor(){
 	ofFill();
-	ofSetColor(255, 255, 255);
+	ofSetColor(128, 128, 128);
 	ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	
 	ofEnableAlphaBlending();
-	ofSetColor(0, 0, 0,100);
+	ofSetColor(0, 0, 0,128);
 	for(int i=0;i<blackSpots.size();i++){
 		blackSpots[i].draw();
 	}

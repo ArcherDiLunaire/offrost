@@ -38,8 +38,8 @@ void Tracker::update(){
 		if (bLearnBakground == true){
 			grayBg = grayImageBlured;
 			ofImage saveImg;
-			saveImg.allocate(cw, ch, OF_IMAGE_GRAYSCALE);
-			saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), true, false);
+			saveImg.allocate(grayBg.getWidth(), grayBg.getHeight(), OF_IMAGE_GRAYSCALE);
+			saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), false);
 			saveImg.saveImage("blobtrackerBackground"+ofToString(cameraId)+".png");
 			bLearnBakground = false;
 		}
@@ -63,7 +63,6 @@ void Tracker::update(){
 		for(int u=0;u<numPersistentBlobs();u++){
 			ofxPoint2f p = persistentBlobs[u].centroid - persistentBlobs[u].lastcentroid;
 			persistentBlobs[u].centroidV = ofxVec2f(p.x, p.y);
-			cout<<p.x<<endl;
 			persistentBlobs[u].lastcentroid = persistentBlobs[u].centroid ;
 
 		}
@@ -78,6 +77,7 @@ void Tracker::update(){
 					persistentBlobs[u].centroid = centroid;
 					persistentBlobs[u].timeoutCounter = 0;
 					persistentBlobs[u].blob = getBlob(i);
+					break;
 				}
 			}
 			if(!blobFound){
@@ -320,10 +320,12 @@ void BlobTracking::draw(){
 			
 			for(int u =0;u<trackers[i]->numPersistentBlobs();u++){
 				ofxCvBlob b = trackers[i]->persistentBlobs[u].blob;
-				ofSetColor(0, 0, 255);
+				ofSetColor(255, 0, 255);
 				ofDrawBitmapString(ofToString(trackers[i]->persistentBlobs[u].id, 0), b.centroid.x*ofGetWidth(), b.centroid.y*ofGetHeight());
+				ofSetColor(0, 0, 255);
+
 				for(int x=0;x<b.nPts;x++){
-					ofEllipse(b.pts[x].x*ofGetWidth(), b.pts[x].y*ofGetHeight(), 5, 5);
+					ofEllipse(b.pts[x].x*ofGetWidth(), b.pts[x].y*ofGetHeight(), 10, 10);
 				}
 			}
 		}
