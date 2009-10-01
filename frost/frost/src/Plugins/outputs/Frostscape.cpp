@@ -2,6 +2,8 @@
 #include "PluginController.h"
 #include "PluginIncludes.h"
 
+
+
 float Frostscape::randomFactor = 5.0;
 float Frostscape::slider1 = 0.0;
 float Frostscape::slider2 = 0;
@@ -9,8 +11,10 @@ float Frostscape::slider3 = 0;
 float Frostscape::slider4 = 0;
 float Frostscape::slider5 = 0;
 float Frostscape::slider6 = 0.0;
+
 bool Frostscape::applyToOther = false;
 
+#pragma mark Blackspot
 
 BlackSpotObject::BlackSpotObject(){
 }
@@ -64,7 +68,7 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller, Bla
 	centroidV /= pointsV.size();
 	if(Frostscape::applyToOther){
 		float a = (float)tmpPoints2.size()/MIN(points.size(),otherObject->points.size());
-
+		
 		for(int i=0;i<MIN(points.size(),otherObject->points.size());i++){
 			otherObject->pointsV[i] *= Frostscape::slider2;
 			otherObject->pointsV[i] += (tmpPoints2[floor(tmpId)]-points[i])*10.0*Frostscape::slider3;
@@ -76,10 +80,10 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller, Bla
 			}
 			tmpId += a;
 		}
-
+		
 	} else {
 		float a = (float)tmpPoints2.size()/points.size();
-
+		
 		for(int i=0;i<points.size();i++){
 			//	cout<<i<<endl;
 			pointsV[i] *= Frostscape::slider2;
@@ -129,6 +133,246 @@ void BlackSpotObject::draw(){
 	}
 }
 
+#pragma mark IceBlock Joint
+
+void IceBlockJoint::update(){
+	
+}
+
+#pragma mark IceBlock
+
+IceBlock::IceBlock(){
+	int num = 5;
+	for(int i=0;i<num;i++){
+		joints.push_back(new IceBlockJoint);
+		joints[i]->position = ofxVec2f(cos(((float)i/num)*TWO_PI), sin(((float)i/num)*TWO_PI))/3.0 + ofxVec2f(0.5,0.5);
+		/*if(i%2 == 0){
+		 joints[i]->springJoint = true;
+		 } else {
+		 joints[i]->springJoint = false;	
+		 }*/
+		joints[i]->springJoint = false;	
+		joints[i]->joints = &joints;
+	}
+}
+
+void IceBlock::draw(){
+	
+	for(int i=0;i<joints.size();i++){
+		IceBlockJoint * next;
+		if(i < joints.size()-1){
+			next = joints[i+1];
+		} else {
+			next = joints[0];
+		}
+		
+		
+		if(joints[i]->springJoint){
+			ofSetColor(255, 255, 0);
+ 		} else {
+			ofSetColor(255, 0, 255);
+		}
+		
+		ofEllipse(joints[i]->position.x, joints[i]->position.y, 0.02, 0.02);
+		ofLine(joints[i]->position.x, joints[i]->position.y, next->position.x, next->position.y);
+		
+		ofxVec2f f = joints[i]->position + joints[i]->force;
+		ofSetColor(0, 255, 0);
+		ofLine(joints[i]->position.x, joints[i]->position.y, f.x, f.y);
+		
+	}
+	
+	/***
+	 *  Debug 
+	 ***/
+	for (int i=0; i<blobPoints.size(); i++) {
+		ofSetColor(255, 0, 0, 255);
+		if(!pointInside(blobPoints[i])){
+			ofSetColor(255, 255, 0, 255);
+			bool jointFound = false;
+			for(int u=0;u<joints.size();u++){
+				IceBlockJoint * next;
+				IceBlockJoint * cur = joints[u];
+				if(u < joints.size()-1){
+					next = joints[u+1];
+				} else {
+					next = joints[0];
+				}
+				
+				ofxVec2f b = next->position - cur->position;
+				ofxVec2f a = blobPoints[i] - cur->position;
+				
+				ofxVec2f ab = (a.dot(b))/(b.length()*b.length())*b;
+				
+				if(ab.align(b, 10) && ab.length()<b.length()){		
+					ofxVec2f c = a-ab;
+					ofxVec2f hat = ofxVec2f(-ab.y, ab.x);
+					if(!hat.align(c, 10)){
+						float p = ab.length() / b.length();
+						cur->force += c * (1.0-p);
+						next->force += c * (p);
+						
+						jointFound = true;
+						ofSetColor(255, 255, 0);
+						ofLine(cur->position.x,cur->position.y, (cur->position+ab).x, (cur->position+ab).y);
+						ofSetColor(0, 255, 255);
+						ofLine((cur->position+ab).x, (cur->position+ab).y, (cur->position+ab+c).x, (cur->position+ab+c).y);
+					}
+				}
+				
+			}
+			if(!jointFound){
+				float shortestDist = 0;
+				int bestJoint = -1;
+				for(int u=0;u<joints.size();u++){
+					if(bestJoint == -1 || (joints[u]->position-blobPoints[i]).length() < shortestDist){
+						bestJoint = u;
+						shortestDist = (joints[u]->position-blobPoints[i]).length();
+					}
+				}
+				
+				
+				ofSetColor(0, 158, 255);
+				ofLine(joints[bestJoint]->position.x, joints[bestJoint]->position.y, blobPoints[i].x, blobPoints[i].y);
+				
+				if(bestJoint != -1){
+					ofxVec2f c =  blobPoints[i]-joints[bestJoint]->position;
+					joints[bestJoint]->force += c;
+				}
+			}
+		}
+		
+		ofRect(blobPoints[i].x, blobPoints[i].y, 0.01, 0.01);
+	}
+	
+}
+void IceBlock::update(){
+	for(int i=0;i<blobPoints.size();i++){
+		if(!pointInside(blobPoints[i])){
+			//Go through all joints, and make projection on the line
+			for(int u=0;u<joints.size();u++){
+				IceBlockJoint * next;
+				IceBlockJoint * cur = joints[u];
+				if(i < joints.size()-1){
+					next = joints[i+1];
+				} else {
+					next = joints[0];
+				}
+				
+				ofxVec2f b = next->position - cur->position;
+				ofxVec2f a = blobPoints[i] - cur->position;
+				
+				ofxVec2f ab = (a.dot(b))/(b.length()*b.length())*b;
+				
+				
+			}
+		}
+	}
+	
+	for(int i=0;i<joints.size();i++){
+		IceBlockJoint * cur = joints[i];
+		
+		IceBlockJoint * next;
+		if(i < joints.size()-1){
+			next = joints[i+1];
+		} else {
+			next = joints[0];
+		}
+		IceBlockJoint * prev;
+		if(i > 0){
+			prev = joints[i-1];
+		} else {
+			prev = joints[joints.size()-1];
+		}	
+		
+		cur->force += (next->position - cur->position) * 0.1;
+		cur->force += (prev->position - cur->position) * 0.1;
+		
+		//if(cur->force.length() > 0.1){
+		
+		cur->speed *= 0.9;
+		//	if(cur->force.length() > cur->force.scale(0.01).length()){
+		//		cur->speed += cur->force.scale(0.01);
+		//	} else {
+		cur->speed += cur->force;
+		//	}
+		cur->position += cur->speed * 1.0/ofGetFrameRate();
+		
+		cur->force = ofxVec2f();
+		//}
+		
+	}
+}
+
+void IceBlock::setBlobPoints(vector<ofxVec2f> points){
+	blobPoints = points;
+}
+
+bool IceBlock::pointInside(ofxVec2f point){
+	/* The points creating the polygon. */
+	int numPoints = joints.size();
+	float x[numPoints];
+	float y[numPoints];
+	float x1,x2;
+	
+	/* The coordinates of the point */
+	float px = point.x;
+	float py = point.y;
+	
+	/* How many times the ray crosses a line-segment */
+	int crossings = 0;
+	
+	/* Coordinates of the points */
+	for(int i=0;i<numPoints;i++){
+		x[i] = joints[i]->position.x;
+		y[i] = joints[i]->position.y;
+	}
+	
+	/* Iterate through each line */
+	for ( int i = 0; i < numPoints; i++ ){
+		
+		/* This is done to ensure that we get the same result when
+		 the line goes from left to right and right to left */
+		if ( x[i] < x[ (i+1)%numPoints ] ){
+			x1 = x[i];
+			x2 = x[(i+1)%numPoints];
+		} else {
+			x1 = x[(i+1)%numPoints];
+			x2 = x[i];
+		}
+		
+		/* First check if the ray is possible to cross the line */
+		if ( px > x1 && px <= x2 && ( py < y[i] || py <= y[(i+1)%numPoints] ) ) {
+			static const float eps = 0.000001;
+			
+			/* Calculate the equation of the line */
+			float dx = x[(i+1)%numPoints] - x[i];
+			float dy = y[(i+1)%numPoints] - y[i];
+			float k;
+			
+			if ( fabs(dx) < eps ){
+				k = INFINITY;	// math.h
+			} else {
+				k = dy/dx;
+			}
+			
+			float m = y[i] - k * x[i];
+			
+			/* Find if the ray crosses the line */
+			float y2 = k * px + m;
+			if ( py <= y2 ){
+				crossings++;
+			}
+		}
+	}
+	if ( crossings % 2 == 1 ){
+		return true;
+	}
+	return false;
+	
+}
+
+#pragma mark Frostscape
 
 
 Frostscape::Frostscape(){
@@ -137,21 +381,35 @@ Frostscape::Frostscape(){
 }
 
 void Frostscape::setup(){
-	blackSpots.push_back(BlackSpotObject());
-	blackSpots.push_back(BlackSpotObject());
+	//blackSpots.push_back(BlackSpotObject());
+	//blackSpots.push_back(BlackSpotObject());
+	iceBlocks.push_back(IceBlock());
 }
 
 void Frostscape::update(){
-	blob(0)->postBlur = 100*Frostscape::slider5;
-	blob(0)->postThreshold = 0;
-	
-	BlackSpotObject * otherB = &blackSpots[1];
-	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),blackSpots.size());i++){
-		ofxCvBlob b = blob(cam)->persistentBlobs[i].blob;
-		blackSpots[i].centroidV = blob(cam)->persistentBlobs[i].centroidV;
-		blackSpots[i].updateBlob(b, controller, otherB);
-		otherB = &blackSpots[i];
+	//blob(0)->postBlur = 100*Frostscape::slider5;
+	//blob(0)->postThreshold = 0;
+	/*
+	 BlackSpotObject * otherB = &blackSpots[1];
+	 for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),blackSpots.size());i++){
+	 ofxCvBlob b = blob(cam)->persistentBlobs[i].blob;
+	 blackSpots[i].centroidV = blob(cam)->persistentBlobs[i].centroidV;
+	 blackSpots[i].updateBlob(b, controller, otherB);
+	 otherB = &blackSpots[i];
+	 }*/
+	for(int i=0;i<iceBlocks.size();i++){
+		if(blob(cam)->numPersistentBlobs() > 0){
+			ofxCvBlob b = blob(cam)->persistentBlobs[i].blob;
+			vector<ofxVec2f> p;
+			for(int u=0;u<b.nPts;u++){
+				p.push_back(ofxVec2f(b.pts[u].x, b.pts[u].y));
+			}
+			iceBlocks[i].setBlobPoints(p);
+		}
+		iceBlocks[i].update();
+		
 	}
+	
 }
 void Frostscape::draw(){
 }
@@ -166,20 +424,10 @@ void Frostscape::drawOnFloor(){
 	for(int i=0;i<blackSpots.size();i++){
 		blackSpots[i].draw();
 	}
-	/*
-	 ofEnableAlphaBlending();
-	 ofSetColor(0, 0, 0,30);
-	 for(int i=0;i<blob(cam)->numBlobs();i++){
-	 ofxCvBlob b = blob(cam)->getBlob(i);
-	 for(int u=0;u<10;u++){
-	 glBegin(GL_POLYGON);
-	 for(int p=0;p<b.nPts;p++){
-	 glVertex2f(b.pts[p].x+ofRandom(-0.01, 0.01)*randomFactor,b.pts[p].y+ofRandom(-0.01, 0.01)*randomFactor);
-	 }
-	 glEnd();
-	 }	
-	 }*/
 	
+	for(int i=0;i<iceBlocks.size();i++){
+		iceBlocks[i].draw();
+	}
 }
 
 void Frostscape::setslider1(float val){

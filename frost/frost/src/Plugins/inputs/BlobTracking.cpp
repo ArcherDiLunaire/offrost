@@ -29,42 +29,43 @@ Tracker::Tracker(){
 void Tracker::update(){ 
 	bool bNewFrame = false;
 	
-	if (getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active){
-		
-		grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
-		grayImageBlured = grayImage;
-		grayImageBlured.blur(blur);
-		
-		if (bLearnBakground == true){
-			grayBg = grayImageBlured;
-			ofImage saveImg;
-			saveImg.allocate(grayBg.getWidth(), grayBg.getHeight(), OF_IMAGE_GRAYSCALE);
-			saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), false);
-			saveImg.saveImage("blobtrackerBackground"+ofToString(cameraId)+".png");
-			bLearnBakground = false;
-		}
-		
-		grayDiff.absDiff(grayBg, grayImageBlured);
-		grayDiff.threshold(threshold);
-
-		if(postBlur > 0){
-			grayDiff.blur(postBlur);
-			if(postThreshold > 0){
-				grayDiff.threshold(postThreshold, false);
+	
+	if ((getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active) || mouseBlob){
+		if (getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active){
+			grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
+			grayImageBlured = grayImage;
+			grayImageBlured.blur(blur);
+			
+			if (bLearnBakground == true){
+				grayBg = grayImageBlured;
+				ofImage saveImg;
+				saveImg.allocate(grayBg.getWidth(), grayBg.getHeight(), OF_IMAGE_GRAYSCALE);
+				saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), false);
+				saveImg.saveImage("blobtrackerBackground"+ofToString(cameraId)+".png");
+				bLearnBakground = false;
 			}
 			
+			grayDiff.absDiff(grayBg, grayImageBlured);
+			grayDiff.threshold(threshold);
+			
+			if(postBlur > 0){
+				grayDiff.blur(postBlur);
+				if(postThreshold > 0){
+					grayDiff.threshold(postThreshold, false);
+				}
+				
+			}
+			
+			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
+			
+			postBlur = 0;
+			postThreshold = 0;
 		}
-		
-		contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
-		
-		postBlur = 0;
-		postThreshold = 0;
-		
 		for(int u=0;u<numPersistentBlobs();u++){
 			ofxPoint2f p = persistentBlobs[u].centroid - persistentBlobs[u].lastcentroid;
 			persistentBlobs[u].centroidV = ofxVec2f(p.x, p.y);
 			persistentBlobs[u].lastcentroid = persistentBlobs[u].centroid ;
-
+			
 		}
 		
 		for(int i=0;i<numBlobs();i++){
@@ -82,12 +83,12 @@ void Tracker::update(){
 			}
 			if(!blobFound){
 				ofxPoint2f centroid = ofxPoint2f(getBlob(i).centroid.x, getBlob(i).centroid.y);
-
+				
 				PersistentBlob newB;
 				newB.blob = getBlob(i);
 				newB.centroid = centroid;
 				persistentBlobs.push_back(newB);
-
+				
 			}
 		}
 		
@@ -97,10 +98,10 @@ void Tracker::update(){
 				deletePersistentBlobById(getPersistentBlobId(u));
 			}
 		}
-
+		
 	}
 	
-
+	
 }
 
 void Tracker::findContours(){
@@ -127,9 +128,9 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 	deBarrelledBlob.centroid = ofPoint(dv.x,dv.y);
 	
 	/*for(int i=0;i<blob->nPts;i++){
-		ofxVec2f v = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->pts[i].x, blob->pts[i].y);
-		deBarrelledBlob.pts.push_back(ofPoint(v.x, v.y));
-	}*/
+	 ofxVec2f v = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->pts[i].x, blob->pts[i].y);
+	 deBarrelledBlob.pts.push_back(ofPoint(v.x, v.y));
+	 }*/
 	
 	for(int i=0;i<blob->nPts;i++){
 		ofxVec2f v = blob->pts[i];
@@ -158,7 +159,7 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 	}
 	b.nPts = deBarrelledBlob.nPts;
 	b.hole = blob->hole;
-
+	
 	return b;
 }
 
@@ -228,12 +229,12 @@ void Tracker::updateMouseBlob(float x, float y, int button){
 ofxCvBlob Tracker::smoothBlob(ofxCvBlob blob, float smooth){
 	ofxCvBlob n = blob;
 	vector<ofxVec2f> p;
-//	contourSimp.smooth(blob.pts, p, smooth);
+	//	contourSimp.smooth(blob.pts, p, smooth);
 	for(int i=0;i<p.size();i++){
 		n.pts[i] = p[i];
 	}
 	return n;
-
+	
 }
 void Tracker::extrudeBlob(ofxCvBlob * blob, float value){
 	
@@ -292,7 +293,7 @@ void BlobTracking::drawSettings(){
 		trackers[i]->grayBg.draw(w*2,w*a*i, w,w*a);
 		trackers[i]->grayDiff.draw(w*3,w*a*i,w,w*a);
 		trackers[i]->contourFinder.draw(w*3,w*a*i,w,w*a);
-//		trackers[i]->simplifiedContourFinder.draw(w*3,w*a*i,w,w*a);
+		//		trackers[i]->simplifiedContourFinder.draw(w*3,w*a*i,w,w*a);
 	}
 }
 
@@ -323,7 +324,7 @@ void BlobTracking::draw(){
 				ofSetColor(255, 0, 255);
 				ofDrawBitmapString(ofToString(trackers[i]->persistentBlobs[u].id, 0), b.centroid.x*ofGetWidth(), b.centroid.y*ofGetHeight());
 				ofSetColor(0, 0, 255);
-
+				
 				for(int x=0;x<b.nPts;x++){
 					ofEllipse(b.pts[x].x*ofGetWidth(), b.pts[x].y*ofGetHeight(), 10, 10);
 				}

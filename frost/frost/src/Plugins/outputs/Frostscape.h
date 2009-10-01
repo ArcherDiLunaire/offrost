@@ -26,6 +26,34 @@ public:
 	
 };
 
+
+
+class IceBlockJoint {
+public:
+	ofxVec2f position;
+	bool springJoint;
+	ofxVec2f force;
+	ofxVec2f speed;
+	vector<IceBlockJoint*> * joints;
+	
+	void update();
+};
+
+
+class IceBlock {
+public:
+	IceBlock();
+	
+	void draw();
+	void update();
+	
+	void setBlobPoints(vector<ofxVec2f> points);
+	bool pointInside(ofxVec2f  joint);
+	
+	vector<ofxVec2f> blobPoints;
+	vector<IceBlockJoint*> joints;
+};
+
 class Frostscape : public Output{
 public:
 	Frostscape();
@@ -36,7 +64,8 @@ public:
 	void update();
 	
 	vector<BlackSpotObject> blackSpots;
-	
+	vector<IceBlock> iceBlocks;
+
 	bool debug;
 	int cam;
 	
