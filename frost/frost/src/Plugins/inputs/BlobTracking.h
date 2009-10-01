@@ -16,6 +16,20 @@ public:
 	int findSimplifiedContours( ofxCvGrayscaleImage&  input, int minArea, int maxArea, int nConsidered, bool bFindHoles, bool bUseApproximation) ;
 };
 
+class PersistentBlob {
+public:
+	PersistentBlob();
+	static unsigned long int idCounter;
+
+	long unsigned int id;
+	ofxPoint2f centroid;
+	ofxPoint2f lastcentroid;
+	ofxVec2f centroidV;
+
+	int timeoutCounter;
+	ofxCvBlob blob;
+};
+
 class Tracker {
 public:
 	Tracker();
@@ -29,7 +43,7 @@ public:
 	ofxCvGrayscaleImage 	grayBg;
 	ofxCvGrayscaleImage 	grayDiff;
 	
-	ofxExtendedBlobTracking 	contourFinder;
+	ofxCvContourFinder 	contourFinder;
 //	ofxExtendedBlobTracking 	simplifiedContourFinder;
 	PluginController * controller;
 	
@@ -49,6 +63,13 @@ public:
 	ofxCvBlob getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibrator);
 	ofxCvBlob getBlob(int n);
 	ofxCvBlob getLargestBlob();
+
+	ofxCvBlob getBlobById(unsigned long int _id);
+	int numPersistentBlobs();
+	bool persistentBlobExist(unsigned long int _id);
+	unsigned long int getPersistentBlobId(int n);
+	void deletePersistentBlobById(unsigned long int id);
+
 	int getWidth();
 	int getHeight();
 /*
@@ -61,6 +82,8 @@ public:
 	contourSimplify contourSimp;
 	
 	float postBlur, postThreshold;
+	
+	vector<PersistentBlob> persistentBlobs;
 
 private:
 	int cw, ch;

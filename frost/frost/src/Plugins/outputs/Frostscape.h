@@ -10,6 +10,7 @@ public:
 	BlackSpotObject();
 	vector<ofxVec2f> points;
 	vector<ofxVec2f> pointsV;
+
 	vector<vector<ofxVec2f> > noise;
 	
 	void updateBlob(ofxCvBlob b, PluginController * controller);
@@ -19,7 +20,7 @@ public:
 	static const int numNoise = 5;
 	
 	
-	
+	ofxVec2f centroidV;
 	vector<ofxVec2f> tmpPoints, tmpPoints2, normals;
 	
 	

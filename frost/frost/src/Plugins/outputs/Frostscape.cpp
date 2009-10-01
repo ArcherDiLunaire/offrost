@@ -56,6 +56,13 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 	
 	float tmpId = 0;
 	float a = (float)tmpPoints2.size()/points.size();
+		
+	centroidV = ofxVec2f();
+	for(int i=0;i<pointsV.size();i++){
+		centroidV += pointsV[i];
+	}
+	centroidV /= pointsV.size();
+	
 	for(int i=0;i<points.size();i++){
 		//	cout<<i<<endl;
 		pointsV[i] *= Frostscape::slider2;
@@ -64,9 +71,9 @@ void BlackSpotObject::updateBlob(ofxCvBlob b, PluginController * controller){
 		for(int u=0;u<numNoise;u++){
 			noise[i][u]  *= Frostscape::slider6;
 
-			noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * pointsV[i].length()*0.1*Frostscape::slider4;
+			noise[i][u] = noise[i][u] + ofxVec2f(ofRandom(-1, 1),ofRandom(-1, 1)) * (pointsV[i] - centroidV).length()*0.1*Frostscape::slider4;
 		}
-		
+
 		/*	for(int u=0;u<numNoise;u++){
 		 //noise[i][u]  *= 0.9;
 		 noise[i][u] = -normals[i] * pointsV[i].length()*0.1;
@@ -94,8 +101,6 @@ void BlackSpotObject::draw(){
 		for(int i=0;i<noise[0].size();i++){
 			ofBeginShape();
 			for(int p=0;p<points.size();p++){
-			//	cout<<p<<"  "<<i<<endl;
-
 				ofVertex(points[p].x+noise[p][i].x,points[p].y+noise[p][i].y);
 			}
 			/*for(int p=0;p<points.size();p++){
@@ -116,15 +121,16 @@ Frostscape::Frostscape(){
 
 void Frostscape::setup(){
 	blackSpots.push_back(BlackSpotObject());
-	//blackSpots.push_back(BlackSpotObject());
+	blackSpots.push_back(BlackSpotObject());
 }
 
 void Frostscape::update(){
 	blob(0)->postBlur = 100*Frostscape::slider5;
 	blob(0)->postThreshold = 0;
 	
-	for(int i=0;i<MIN(blob(cam)->numBlobs(),blackSpots.size());i++){
-		ofxCvBlob b = blob(cam)->getBlob(i);
+	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),blackSpots.size());i++){
+		ofxCvBlob b = blob(cam)->persistentBlobs[i].blob;
+		blackSpots[i].centroidV = blob(cam)->persistentBlobs[i].centroidV;
 		blackSpots[i].updateBlob(b, controller);
 	}
 }

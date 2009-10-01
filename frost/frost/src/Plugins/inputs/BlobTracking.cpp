@@ -4,6 +4,13 @@
 #include "Cameras.h"
 #include "CameraCalibration.h"
 
+unsigned long int PersistentBlob::idCounter = 0;
+
+PersistentBlob::PersistentBlob(){
+	id = PersistentBlob::idCounter++;
+	timeoutCounter = 0;
+}
+
 Tracker::Tracker(){
 	cw = 1280/2; 
 	ch=960/2;
@@ -48,6 +55,45 @@ void Tracker::update(){
 		
 		postBlur = 0;
 		postThreshold = 0;
+		
+		for(int u=0;u<numPersistentBlobs();u++){
+			ofxPoint2f p = persistentBlobs[u].centroid - persistentBlobs[u].lastcentroid;
+			persistentBlobs[u].centroidV = ofxVec2f(p.x, p.y);
+			cout<<p.x<<endl;
+			persistentBlobs[u].lastcentroid = persistentBlobs[u].centroid ;
+
+		}
+		
+		for(int i=0;i<numBlobs();i++){
+			bool blobFound = false;
+			for(int u=0;u<numPersistentBlobs();u++){
+				ofxPoint2f centroid = ofxPoint2f(getBlob(i).centroid.x, getBlob(i).centroid.y);
+				if(centroid.distance(getBlobById(getPersistentBlobId(u)).centroid) < 0.09){
+					blobFound = true;
+					
+					persistentBlobs[u].centroid = centroid;
+					persistentBlobs[u].timeoutCounter = 0;
+					persistentBlobs[u].blob = getBlob(i);
+				}
+			}
+			if(!blobFound){
+				ofxPoint2f centroid = ofxPoint2f(getBlob(i).centroid.x, getBlob(i).centroid.y);
+
+				PersistentBlob newB;
+				newB.blob = getBlob(i);
+				newB.centroid = centroid;
+				persistentBlobs.push_back(newB);
+
+			}
+		}
+		
+		for(int u=0;u<numPersistentBlobs();u++){
+			persistentBlobs[u].timeoutCounter ++;
+			if(persistentBlobs[u].timeoutCounter > 10){
+				deletePersistentBlobById(getPersistentBlobId(u));
+			}
+		}
+
 	}
 	
 
@@ -129,6 +175,32 @@ ofxCvBlob Tracker::getLargestBlob(){
 	}
 	return b;
 }
+
+ofxCvBlob Tracker::getBlobById(unsigned long int _id){
+	for(int i=0;i<numPersistentBlobs();i++){
+		if(persistentBlobs[i].id == _id){
+			return persistentBlobs[i].blob;
+		}
+	}
+}
+int Tracker::numPersistentBlobs(){
+	return persistentBlobs.size();
+}
+bool Tracker::persistentBlobExist(unsigned long int _id){
+	
+}
+unsigned long int Tracker::getPersistentBlobId(int n){
+	return persistentBlobs[n].id;
+}
+void Tracker::deletePersistentBlobById(unsigned long int id){
+	for(int i=0;i<numPersistentBlobs();i++){
+		if(persistentBlobs[i].id == id){
+			persistentBlobs.erase(persistentBlobs.begin()+i);
+			break;
+		}
+	}
+}
+
 
 void Tracker::updateMouseBlob(float x, float y, int button){
 	if(button != -1){
@@ -231,6 +303,15 @@ void BlobTracking::draw(){
 				ofxCvBlob b = trackers[i]->getBlob(u);
 				ofSetColor(255, 0, 255);
 				
+				for(int x=0;x<b.nPts;x++){
+					ofEllipse(b.pts[x].x*ofGetWidth(), b.pts[x].y*ofGetHeight(), 5, 5);
+				}
+			}
+			
+			for(int u =0;u<trackers[i]->numPersistentBlobs();u++){
+				ofxCvBlob b = trackers[i]->persistentBlobs[u].blob;
+				ofSetColor(0, 0, 255);
+				ofDrawBitmapString(ofToString(trackers[i]->persistentBlobs[u].id, 0), b.centroid.x*ofGetWidth(), b.centroid.y*ofGetHeight());
 				for(int x=0;x<b.nPts;x++){
 					ofEllipse(b.pts[x].x*ofGetWidth(), b.pts[x].y*ofGetHeight(), 5, 5);
 				}

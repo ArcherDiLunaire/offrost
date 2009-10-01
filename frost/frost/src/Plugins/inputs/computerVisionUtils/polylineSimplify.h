@@ -116,9 +116,8 @@ static void simplifyDP( float tol, ofxPoint3f* v, int j, int k, int* mk ){
 static int poly_simplify( float tol, ofxPoint3f* V, int n, ofxPoint3f* sV ){
     int    i, k, m, pv;            // misc counters
     float  tol2 = tol * tol;       // tolerance squared
-    ofxPoint3f* vt = new ofxPoint3f[n];      // vertex buffer
-    int*   mk = new int[n];  // marker buffer
-	memset(mk, 0, sizeof(int) * n );
+    ofxPoint3f vt[n];      // vertex buffer
+    int   mk[n];  // marker buffer
 
     // STAGE 1.  Vertex Reduction within tolerance of prior vertex cluster
     vt[0] = V[0];              // start at the beginning
@@ -140,7 +139,7 @@ static int poly_simplify( float tol, ofxPoint3f* V, int n, ofxPoint3f* sV ){
         if (mk[i])
             sV[m++] = vt[i];
     }
-    delete vt;
-    delete mk;
+   // delete vt;
+  //  delete mk;
     return m;         // m vertices in simplified polyline
 }
