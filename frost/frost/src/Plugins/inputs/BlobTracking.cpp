@@ -20,7 +20,7 @@ Tracker::Tracker(){
 	grayImage.allocate(cw,ch);
 	grayBg.allocate(cw,ch);
 	grayDiff.allocate(cw,ch);
-	bLearnBakground = true;
+	bLearnBakground = false;
 	mouseBlob = false;
 	postBlur = 0;
 	postThreshold = 0;
@@ -36,7 +36,11 @@ void Tracker::update(){
 		grayImageBlured.blur(blur);
 		
 		if (bLearnBakground == true){
-			grayBg = grayImageBlured;		
+			grayBg = grayImageBlured;
+			ofImage saveImg;
+			saveImg.allocate(cw, ch, OF_IMAGE_GRAYSCALE);
+			saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), true, false);
+			saveImg.saveImage("blobtrackerBackground"+ofToString(cameraId)+".png");
 			bLearnBakground = false;
 		}
 		
@@ -257,6 +261,12 @@ void BlobTracking::setup(){
 		trackers[i]->blur = initBlur[i];
 		trackers[i]->active = initActive[i];
 		trackers[i]->controller = controller;
+		ofImage loadImg;
+		if (loadImg.loadImage("blobtrackerBackground"+ofToString(i)+".png")) {
+			trackers[i]->grayBg.setFromPixels(loadImg.getPixels(), loadImg.getWidth(), loadImg.getHeight());
+		} else {
+			trackers[i]->bLearnBakground = true;
+		}
 	}
 }
 void BlobTracking::update(){

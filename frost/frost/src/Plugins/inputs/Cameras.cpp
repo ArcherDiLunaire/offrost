@@ -60,11 +60,15 @@ void Cameras::setup(){
 	}
 	//**/
 	
-	
-/*	videoPlayerLoadUrl(0, "/Users/frost/Desktop/Filmlarge.mov");
+/**	
+	if(videoPlayerLoadUrl(0, "Filmlarge.mov")){
+		cout << "                      FILMEN LOADET" << endl;
+	} else {
+		cout << "                      FILMEN ikke LOADET" << endl;
+	}
 	videoPlayerPlay(0);
 	videoPlayerActivate(0);
-	*/
+//**/
 	 
 }
 
@@ -145,7 +149,7 @@ void Cameras::videoPlayerSetLoopState(int _grabberIndex, int _state){
 }
 
 bool Cameras::videoPlayerLoadUrl(int _grabberIndex, string url){
-	videoPlayer[_grabberIndex].loadMovie(url);
+	return videoPlayer[_grabberIndex].loadMovie(url);
 }
 
 bool Cameras::calibAddSnapshot(uint64_t _cameraGUID){
