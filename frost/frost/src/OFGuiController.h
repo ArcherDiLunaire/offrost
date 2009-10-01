@@ -129,6 +129,7 @@
 	
 	IBOutlet NSButton * liquidSpaceFIll;
 	IBOutlet NSColorWell * liquidSpaceFillColor;
+	IBOutlet NSSlider * liquidSpaceFadeSpeed;
 	IBOutlet NSSlider * liquidSpaceViscosity;
 	IBOutlet NSSlider * liquidSpaceDiffusion;
 	IBOutlet NSColorWell * liquidSpaceDropColor;

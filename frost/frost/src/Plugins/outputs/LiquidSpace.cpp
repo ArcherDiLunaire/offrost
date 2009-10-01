@@ -8,7 +8,6 @@
 
 #include "PluginController.h"
 #include "PluginIncludes.h"
-#include "msaColor.h"
 
 #pragma mark Custom methods
 
@@ -30,7 +29,7 @@ void LiquidSpace::fill(){
 }
 
 // add force and dye to fluid, and create particles
-void LiquidSpace::addToFluid(float x, float y, float dx, float dy, bool addColor, bool addForce, ofColor color) {
+void LiquidSpace::addToFluid(float x, float y, float dx, float dy, bool addColor, bool addForce, msaColor color) {
     float speed = dx * dx  + dy * dy / window.aspectRatio2;    // balance the x and y components of speed with the screen aspect ratio
 	printf("%f, %f, %f\n", dx, dy, speed);
     if(speed > 0) {
@@ -39,8 +38,8 @@ void LiquidSpace::addToFluid(float x, float y, float dx, float dy, bool addColor
         if(y<0) y = 0; 
         else if(y>1) y = 1;
 		
-        float colorMult = 500;
-        float velocityMult = 30;
+        float colorMult = colorMultiplier;
+        float velocityMult = forceMultiplier;
 		
         int index = fluidSolver.getIndexForNormalizedPosition(x, y);
 		

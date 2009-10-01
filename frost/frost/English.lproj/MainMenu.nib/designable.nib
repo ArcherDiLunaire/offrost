@@ -3405,7 +3405,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="950406195">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">268</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="61151165">
@@ -3413,7 +3413,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 464}, {64, 18}}</string>
 							<reference key="NSSuperview" ref="950406195"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="525778601">
 								<int key="NSCellFlags">-2080244224</int>
@@ -3433,8 +3432,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{678, 500}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -3466,7 +3463,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="894960824">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">268</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSSlider" id="670813282">
@@ -3474,7 +3471,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 446}, {341, 21}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="891829778">
 								<int key="NSCellFlags">-2079981824</int>
@@ -3496,7 +3492,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 405}, {341, 21}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="776258090">
 								<int key="NSCellFlags">67501824</int>
@@ -3518,7 +3513,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 361}, {341, 21}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="805812286">
 								<int key="NSCellFlags">-2079981824</int>
@@ -3540,7 +3534,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 314}, {341, 21}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="244388703">
 								<int key="NSCellFlags">67501824</int>
@@ -3562,7 +3555,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 272}, {341, 21}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="776827113">
 								<int key="NSCellFlags">-2079981824</int>
@@ -3584,7 +3576,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 230}, {341, 21}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="798354877">
 								<int key="NSCellFlags">67501824</int>
@@ -3606,7 +3597,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{372, 450}, {55, 17}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="481449617">
 								<int key="NSCellFlags">68288064</int>
@@ -3623,7 +3613,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{372, 409}, {55, 17}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="7183811">
 								<int key="NSCellFlags">68288064</int>
@@ -3640,7 +3629,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{372, 364}, {55, 17}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="540081573">
 								<int key="NSCellFlags">68288064</int>
@@ -3657,7 +3645,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{367, 318}, {56, 17}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="882158341">
 								<int key="NSCellFlags">68288064</int>
@@ -3674,7 +3661,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{367, 276}, {38, 17}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="815239746">
 								<int key="NSCellFlags">68288064</int>
@@ -3691,7 +3677,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{367, 234}, {80, 17}}</string>
 							<reference key="NSSuperview" ref="894960824"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="445661233">
 								<int key="NSCellFlags">68288064</int>
@@ -3705,8 +3690,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{678, 500}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -6310,6 +6293,166 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</object>
 					<int key="connectionID">1784</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceViscosity</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="745571642"/>
+					</object>
+					<int key="connectionID">1785</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceDiffusion</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="386289754"/>
+					</object>
+					<int key="connectionID">1786</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceColorMultiplier</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="345772445"/>
+					</object>
+					<int key="connectionID">1787</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceForceMultiplier</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="35655409"/>
+					</object>
+					<int key="connectionID">1788</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceDropColor</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="655615917"/>
+					</object>
+					<int key="connectionID">1789</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceFillColor</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="962573914"/>
+					</object>
+					<int key="connectionID">1790</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceFIll</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="25332710"/>
+					</object>
+					<int key="connectionID">1791</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceAddingColor</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="1470935"/>
+					</object>
+					<int key="connectionID">1792</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceAddingForce</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="603321401"/>
+					</object>
+					<int key="connectionID">1793</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">fillLiquidSpace:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="25332710"/>
+					</object>
+					<int key="connectionID">1794</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceAddingColor:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="1470935"/>
+					</object>
+					<int key="connectionID">1795</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceAddingForce:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="603321401"/>
+					</object>
+					<int key="connectionID">1796</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceColorMultiplier:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="345772445"/>
+					</object>
+					<int key="connectionID">1797</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceDiffusion:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="386289754"/>
+					</object>
+					<int key="connectionID">1798</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceDropColor:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="655615917"/>
+					</object>
+					<int key="connectionID">1799</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceFadeSpeed:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="709334309"/>
+					</object>
+					<int key="connectionID">1800</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceFillColor:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="962573914"/>
+					</object>
+					<int key="connectionID">1801</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceForceMultiplier:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="35655409"/>
+					</object>
+					<int key="connectionID">1802</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setLiquidSpaceViscosity:</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="745571642"/>
+					</object>
+					<int key="connectionID">1803</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">liquidSpaceFadeSpeed</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="709334309"/>
+					</object>
+					<int key="connectionID">1804</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -9031,9 +9174,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="1656.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1657.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1661.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1664.IBEditorWindowLastContentRect">{{334, 97}, {678, 500}}</string>
+				<string key="1664.IBEditorWindowLastContentRect">{{520, 151}, {678, 500}}</string>
 				<string key="1664.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1664.IBWindowTemplateEditedContentRect">{{334, 97}, {678, 500}}</string>
+				<string key="1664.IBWindowTemplateEditedContentRect">{{520, 151}, {678, 500}}</string>
 				<boolean value="NO" key="1664.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="1665.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1668.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9355,7 +9498,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1784</int>
+			<int key="maxID">1804</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9443,6 +9586,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="cameraBindGuid2:">id</string>
 						<string key="cameraBindGuid3:">id</string>
 						<string key="drawBlobDebug:">id</string>
+						<string key="fillLiquidSpace:">id</string>
 						<string key="setBlobActive1:">id</string>
 						<string key="setBlobActive2:">id</string>
 						<string key="setBlobActive3:">id</string>
@@ -9473,9 +9617,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="setFrostscapeSlider5:">id</string>
 						<string key="setFrostscapeSlider6:">id</string>
 						<string key="setLaLineaDebug:">id</string>
+						<string key="setLiquidSpaceAddingColor:">id</string>
+						<string key="setLiquidSpaceAddingForce:">id</string>
 						<string key="setLiquidSpaceColorMultiplier:">id</string>
 						<string key="setLiquidSpaceDiffusion:">id</string>
 						<string key="setLiquidSpaceDropColor:">id</string>
+						<string key="setLiquidSpaceFadeSpeed:">id</string>
+						<string key="setLiquidSpaceFillColor:">id</string>
 						<string key="setLiquidSpaceForceMultiplier:">id</string>
 						<string key="setLiquidSpaceViscosity:">id</string>
 						<string key="setMoonDustDebug:">id</string>
@@ -9543,9 +9691,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="foldingView">NSView</string>
 						<string key="frostscapeView">NSView</string>
 						<string key="laLineaView">NSView</string>
+						<string key="liquidSpaceAddingColor">NSButton</string>
+						<string key="liquidSpaceAddingForce">NSButton</string>
 						<string key="liquidSpaceColorMultiplier">NSSlider</string>
 						<string key="liquidSpaceDiffusion">NSSlider</string>
 						<string key="liquidSpaceDropColor">NSColorWell</string>
+						<string key="liquidSpaceFIll">NSButton</string>
+						<string key="liquidSpaceFadeSpeed">NSSlider</string>
+						<string key="liquidSpaceFillColor">NSColorWell</string>
 						<string key="liquidSpaceForceMultiplier">NSSlider</string>
 						<string key="liquidSpaceView">NSView</string>
 						<string key="liquidSpaceViscosity">NSSlider</string>

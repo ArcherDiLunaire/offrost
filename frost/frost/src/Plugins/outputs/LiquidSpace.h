@@ -3,6 +3,7 @@
 #include "Output.h"
 #include "ofxVectorMath.h"
 #include "ofxMSAFluid.h"
+#include "msaColor.h"
 
 class LiquidSpace : public Output{
 public:
@@ -12,15 +13,17 @@ public:
 	void drawOnFloor();
 	void update();
 	
-	void addToFluid(float x, float y, float dx, float dy, bool addColor = true, bool addForce = true);
+	void addToFluid(float x, float y, float dx, float dy, bool addColor = true, bool addForce = true, msaColor color = msaColor(1.0,1.0,1.0));
 	
 	int					fluidCellsX;
 	bool				resizeFluid;
 	bool				drawFluid;
 	bool				drawParticles;
 	bool				renderUsingVA;
-	bool				addingForce;
+	float				colorMultiplier;
 	bool				addingColor;
+	float				forceMultiplier;
+	bool				addingForce;
 	
 	ofxMSAFluidSolver	fluidSolver;
 	ofxMSAFluidDrawer	fluidDrawer;	

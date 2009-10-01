@@ -131,7 +131,7 @@ OFGuiController * gui = NULL;
 		(getPlugin<MoonDust*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"moondust.density"];
 		
 		(getPlugin<LaLinea*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"lalinea.density"];
-		
+		[userDefaults arrayForKey:<#(NSString *)defaultName#>]
 		
 		(getPlugin<BlobLight*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"bloblight.density"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [userDefaults doubleForKey:@"bloblight.blur"];
@@ -372,6 +372,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     return [viewItems count];
 }
 
+#pragma mark Cameras
+
 -(IBAction)		cameraBindGuid1:(id)sender{
 	if(ofApp->setupCalled){
 		uint64_t guidVal;
@@ -399,6 +401,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
+#pragma mark Moon Dust
 
 
 -(IBAction)	setMoonDustForce:(id)sender{
@@ -432,6 +435,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }	
 
+#pragma mark La Linea
+
 -(IBAction)		setLaLineaDebug:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
@@ -442,6 +447,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
+#pragma mark Blob Light
 
 -(IBAction)		setBlobLightDebug:(id)sender{
 	if(ofApp->setupCalled){
@@ -516,6 +522,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	(getPlugin<BlobLight*>(ofApp->pluginController))->history.set(0);
 }
 
+#pragma mark Frostscape
+
 -(IBAction)		setFrostscapeSlider1:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider1([sender doubleValue]);
@@ -548,7 +556,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
-
+#pragma mark Liquid Space
 
 -(IBAction)		setLiquidSpaceFillColor:(id)sender{
 	if(ofApp->setupCalled){
@@ -588,16 +596,37 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 -(IBAction)		setLiquidSpaceAddingColor:(id)sender{
 	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addingColor = ;
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addingColor = b;
 	}
 }
 
--(IBAction)		setLiquidSpaceAddingColor:(id)sender;
--(IBAction)		setLiquidSpaceColorMultiplier:(id)sender;
--(IBAction)		setLiquidSpaceAddingForce:(id)sender;
--(IBAction)		setLiquidSpaceForceMultiplier:(id)sender;
+-(IBAction)		setLiquidSpaceColorMultiplier:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->colorMultiplier = [sender doubleValue];
+	}
+}
 
+-(IBAction)		setLiquidSpaceAddingForce:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addingForce = b;
+	}
+}
 
+-(IBAction)		setLiquidSpaceForceMultiplier:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->forceMultiplier = [sender doubleValue];
+	}
+}
+
+#pragma mark Projector calibration
 
 -(IBAction)		setProjectorShowDebug:(id)sender{
 	if(ofApp->setupCalled){
@@ -636,6 +665,9 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
+#pragma mark Camera calibration
+
+
 -(IBAction)		setCameraKeystoneShowDebug:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
@@ -651,6 +683,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
+#pragma mark Blob Tracker
 
 -(IBAction)		drawBlobDebug:(id)sender{
 	if(ofApp->setupCalled){
