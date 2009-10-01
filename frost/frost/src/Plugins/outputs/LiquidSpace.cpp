@@ -35,7 +35,7 @@ void LiquidSpace::addToFluid(float x, float y, float dx, float dy, bool addColor
         if(y<0) y = 0; 
         else if(y>1) y = 1;
 		
-        float colorMult = 50;
+        float colorMult = 500;
         float velocityMult = 30;
 		
         int index = fluidSolver.getIndexForNormalizedPosition(x, y);
@@ -69,10 +69,10 @@ LiquidSpace::LiquidSpace(){
 
 void LiquidSpace::setup(){
 
-	window.width		= 1.0;
+	window.width		= projection()->getFloor()->aspect;
 	window.height		= 1.0;
 	
-	window.invWidth		= 1.0;
+	window.invWidth		= 1.0/projection()->getFloor()->aspect;
 	window.invHeight	= 1.0;
 	window.aspectRatio	= projection()->getFloor()->aspect;
 	window.aspectRatio2 = window.aspectRatio / window.aspectRatio;
@@ -80,7 +80,7 @@ void LiquidSpace::setup(){
 	
 	// setup fluid stuff
 	fluidSolver.setup(100, 100);
-    fluidSolver.enableRGB(false).setFadeSpeed(0.000000005).setDeltaT(0.1).setVisc(0.000085).setColorDiffusion(0.00002);
+    fluidSolver.enableRGB(true).setFadeSpeed(0.00000001).setDeltaT(0.5).setVisc(0.0000001).setColorDiffusion(0.00000002);
 	fluidDrawer.setup(&fluidSolver);
 	
 	fluidCellsX			= 150;
@@ -112,7 +112,7 @@ void LiquidSpace::update(){
 		
 		cout << _x << ", " << _y << endl;
 		
-		addToFluid(_x, _y, _x-pX, _y-pY, true);
+		addToFluid(_x / projection()->getFloor()->aspect, _y, _x / projection()->getFloor()->aspect - pX / projection()->getFloor()->aspect, _y-pY, true);
 
 		pX = _x;
 		pY = _y;
@@ -122,6 +122,6 @@ void LiquidSpace::update(){
 void LiquidSpace::drawOnFloor(){
 	if(drawFluid) {
 		glColor3f(1, 1, 1);
-		fluidDrawer.draw(0, 0, 1.0, 1.0);
+		fluidDrawer.draw(0, 0, window.aspectRatio, 1.0);
 	}
 }
