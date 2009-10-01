@@ -10,6 +10,10 @@ class CameraCalibrationObject {
 public:
 	Warp * warp;
 	coordWarping * coordWarp;
+	coordWarping * coordWarpCalibration;
+	ofxPoint2f calibHandles[4];
+	ofxPoint2f calibPoints[4];
+
 	string name;
 };
 
@@ -49,5 +53,7 @@ public:
 	
 	void applyWarp(int cam, float _w=ofGetWidth(), float _h=ofGetHeight());
 	ofxVec2f convertCoordinate(int cam, float x, float y);
+	
 
+	void reCalibrate();
 };

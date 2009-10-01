@@ -71,14 +71,22 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 	deBarrelledBlob.area = blob->area;
 	deBarrelledBlob.length = blob->length;
 	
-	ofxVec2f dv = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->centroid.x, blob->centroid.y);
+	//ofxVec2f dv = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->centroid.x, blob->centroid.y);
+	ofxVec2f dv = blob->centroid;
 	
 	deBarrelledBlob.centroid = ofPoint(dv.x,dv.y);
 	
-	for(int i=0;i<blob->nPts;i++){
+	/*for(int i=0;i<blob->nPts;i++){
 		ofxVec2f v = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->pts[i].x, blob->pts[i].y);
 		deBarrelledBlob.pts.push_back(ofPoint(v.x, v.y));
+	}*/
+	
+	for(int i=0;i<blob->nPts;i++){
+		ofxVec2f v = blob->pts[i];
+		deBarrelledBlob.pts.push_back(ofPoint(v.x, v.y));
 	}
+	
+	
 	
 	deBarrelledBlob.nPts = blob->nPts;
 	
