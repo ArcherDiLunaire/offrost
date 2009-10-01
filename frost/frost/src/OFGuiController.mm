@@ -550,6 +550,54 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 
 
+-(IBAction)		setLiquidSpaceFillColor:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fillColor.set([[sender color] redComponent],[[sender color] greenComponent], [[sender color] blueComponent]);
+	}
+}
+
+-(IBAction)		fillLiquidSpace:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fill();
+	}
+}
+
+-(IBAction)		setLiquidSpaceFadeSpeed:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidSolver.setFadeSpeed(0.00000001 * [sender doubleValue]);
+	}
+}
+
+-(IBAction)		setLiquidSpaceViscosity:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidSolver.setVisc(0.00000002 * [sender doubleValue]);
+	}
+}
+
+-(IBAction)		setLiquidSpaceDiffusion:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidSolver.setColorDiffusion(0.00000002 * [sender doubleValue]);
+	}
+}
+
+-(IBAction)		setLiquidSpaceDropColor:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->dropColor.set([[sender color] redComponent],[[sender color] greenComponent], [[sender color] blueComponent]);
+	}
+}
+
+-(IBAction)		setLiquidSpaceAddingColor:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addingColor = ;
+	}
+}
+
+-(IBAction)		setLiquidSpaceAddingColor:(id)sender;
+-(IBAction)		setLiquidSpaceColorMultiplier:(id)sender;
+-(IBAction)		setLiquidSpaceAddingForce:(id)sender;
+-(IBAction)		setLiquidSpaceForceMultiplier:(id)sender;
+
+
 
 -(IBAction)		setProjectorShowDebug:(id)sender{
 	if(ofApp->setupCalled){

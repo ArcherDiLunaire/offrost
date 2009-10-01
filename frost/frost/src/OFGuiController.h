@@ -120,12 +120,22 @@
 	IBOutlet NSSlider * FrostScapeSlider4;
 	IBOutlet NSSlider * FrostScapeSlider5;
 	IBOutlet NSSlider * FrostScapeSlider6;
+
 	/**
 	 * LiquidSpace outlets
 	 **/
 	
 	IBOutlet NSView *liquidSpaceView;
 	
+	IBOutlet NSButton * liquidSpaceFIll;
+	IBOutlet NSColorWell * liquidSpaceFillColor;
+	IBOutlet NSSlider * liquidSpaceViscosity;
+	IBOutlet NSSlider * liquidSpaceDiffusion;
+	IBOutlet NSColorWell * liquidSpaceDropColor;
+	IBOutlet NSButton * liquidSpaceAddingColor;
+	IBOutlet NSSlider * liquidSpaceColorMultiplier;
+	IBOutlet NSButton * liquidSpaceAddingForce;
+	IBOutlet NSSlider * liquidSpaceForceMultiplier;
 	
 	/**
 	 * Camera Outlets
@@ -219,6 +229,17 @@
 -(IBAction)		setFrostscapeSlider4:(id)sender;
 -(IBAction)		setFrostscapeSlider5:(id)sender;
 -(IBAction)		setFrostscapeSlider6:(id)sender;
+
+-(IBAction)		setLiquidSpaceFillColor:(id)sender;
+-(IBAction)		fillLiquidSpace:(id)sender;
+-(IBAction)		setLiquidSpaceFadeSpeed:(id)sender;
+-(IBAction)		setLiquidSpaceViscosity:(id)sender;
+-(IBAction)		setLiquidSpaceDiffusion:(id)sender;
+-(IBAction)		setLiquidSpaceDropColor:(id)sender;
+-(IBAction)		setLiquidSpaceAddingColor:(id)sender;
+-(IBAction)		setLiquidSpaceColorMultiplier:(id)sender;
+-(IBAction)		setLiquidSpaceAddingForce:(id)sender;
+-(IBAction)		setLiquidSpaceForceMultiplier:(id)sender;
 
 -(IBAction)		setProjectorShowDebug:(id)sender;
 -(IBAction)		setProjectorMatrix:(id)sender;

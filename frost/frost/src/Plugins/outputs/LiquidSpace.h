@@ -19,6 +19,8 @@ public:
 	bool				drawFluid;
 	bool				drawParticles;
 	bool				renderUsingVA;
+	bool				addingForce;
+	bool				addingColor;
 	
 	ofxMSAFluidSolver	fluidSolver;
 	ofxMSAFluidDrawer	fluidDrawer;	
@@ -37,9 +39,12 @@ public:
 		float			aspectRatio2;
 	} window;
 	
-	
+	void fill();
 	
 	bool debug;
 	int cam;
+	
+	msaColor dropColor;
+	msaColor fillColor;
 	
 };

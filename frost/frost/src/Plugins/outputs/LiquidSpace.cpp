@@ -24,9 +24,13 @@ void fadeToColor(float r, float g, float b, float speed) {
     glEnd();
 }
 
+void LiquidSpace::fill(){
+	//not implemented
+	;
+}
 
 // add force and dye to fluid, and create particles
-void LiquidSpace::addToFluid(float x, float y, float dx, float dy, bool addColor, bool addForce) {
+void LiquidSpace::addToFluid(float x, float y, float dx, float dy, bool addColor, bool addForce, ofColor color) {
     float speed = dx * dx  + dy * dy / window.aspectRatio2;    // balance the x and y components of speed with the screen aspect ratio
 	printf("%f, %f, %f\n", dx, dy, speed);
     if(speed > 0) {
@@ -43,11 +47,10 @@ void LiquidSpace::addToFluid(float x, float y, float dx, float dy, bool addColor
 		if(addColor) {
 			msaColor drawColor;
 			int hue = lroundf((x + y) * 180 + ofGetFrameNum()) % 360;
-			drawColor.setHSV(hue, 1, 1);
-			
-			fluidSolver.r[index]  += drawColor.r * colorMult;
-			fluidSolver.g[index]  += drawColor.g * colorMult;
-			fluidSolver.b[index]  += drawColor.b * colorMult;			
+			drawColor.setHSV(hue, 1, 1);						
+			fluidSolver.r[index]  += color.r * colorMult;
+			fluidSolver.g[index]  += color.g * colorMult;
+			fluidSolver.b[index]  += color.b * colorMult;			
 		}
 		
 		if(addForce) {
@@ -59,13 +62,14 @@ void LiquidSpace::addToFluid(float x, float y, float dx, float dy, bool addColor
     }
 }
 
-
-
-
 LiquidSpace::LiquidSpace(){
 	type = OUTPUT;
 	cam = 1;
+	dropColor.set(1.0,1.0,1.0);
+	fillColor.set(0.0,0.0,0.0);
 }
+
+#pragma mark Callback methods
 
 void LiquidSpace::setup(){
 
@@ -112,7 +116,7 @@ void LiquidSpace::update(){
 		
 		cout << _x << ", " << _y << endl;
 		
-		addToFluid(_x / projection()->getFloor()->aspect, _y, _x / projection()->getFloor()->aspect - pX / projection()->getFloor()->aspect, _y-pY, true);
+		addToFluid(_x / projection()->getFloor()->aspect, _y, _x / projection()->getFloor()->aspect - pX / projection()->getFloor()->aspect, _y-pY, true, true, dropColor);
 
 		pX = _x;
 		pY = _y;
