@@ -145,8 +145,9 @@ void IceBlockBackgroundObject::generate(){
 	int n = int(ofRandom(4, 9));
 	points.clear();
 	points.reserve(n);
+	float offset = ofRandom(0,TWO_PI);
 	for(int i=0;i<n;i++){
-		float p = ((float)i/n)*TWO_PI;
+		float p = ((float)i/n)*TWO_PI+offset;
 		points.push_back(ofxVec2f(cos(p),sin(p)) * 0.12*ofRandom(0.5,1) );
 	}
 }
@@ -157,7 +158,8 @@ void IceBlockBackgroundObject::draw(){
 
 		glTranslated(position.x, position.y, 0);
 		ofSetColor(0, 0, 0, 80.0*a);
-	
+	//	ofSetColor(0, 0, 0, 255);
+		glLineWidth(2);
 		glBegin(GL_POLYGON);
 		for(int i=0;i<points.size();i++){
 			glVertex2f(points[i].x, points[i].y);
@@ -203,6 +205,8 @@ IceBlock::IceBlock(){
 		joints[i]->springJoint = false;	
 		joints[i]->joints = &joints;
 	}
+	
+	masterAlpha = 1.0;
 }
 
 void IceBlock::draw(){
@@ -226,6 +230,14 @@ void IceBlock::draw(){
 		//ofLine(joints[i]->position.x, joints[i]->position.y, f.x, f.y);
 		
 	}
+	ofSetColor(255, 255, 255, 255.0*Frostscape::slider4);
+
+	glBegin(GL_POLYGON);
+	for(int i=0;i<joints.size();i++){
+		glVertex2f(joints[i]->position.x, joints[i]->position.y);
+	}
+	glEnd();
+	
 	
 	/***
 	 *  Debug 
@@ -288,7 +300,7 @@ void IceBlock::draw(){
 			}
 		}
 		ofSetColor(255, 0, 0, 255.0*Frostscape::slider4);
-		ofRect(blobPoints[i].x, blobPoints[i].y, 0.01, 0.01);
+	//ofRect(blobPoints[i].x, blobPoints[i].y, 0.01, 0.01);
 	}
 	
 	glPopMatrix();
@@ -316,7 +328,7 @@ void IceBlock::update(){
 			}
 		}
 	}
-	
+	ofxVec2f totalV;
 	for(int i=0;i<joints.size();i++){
 		IceBlockJoint * cur = joints[i];
 		
@@ -343,6 +355,7 @@ void IceBlock::update(){
 		//		cur->speed += cur->force.scale(0.01);
 		//	} else {
 		cur->speed += cur->force;
+		totalV += cur->speed;
 		//	}
 		cur->position += cur->speed * 1.0/ofGetFrameRate();
 		if(cur->position.x > 2){
@@ -362,6 +375,10 @@ void IceBlock::update(){
 		//}
 		
 	}
+	
+	masterAlpha += (MIN(totalV.length()/5.0,1)-masterAlpha)*0.07;
+
+	
 }
 
 void IceBlock::setBlobPoints(vector<ofxVec2f> points){
@@ -455,7 +472,7 @@ void Frostscape::setup(){
 }
 
 void Frostscape::update(){
-	//blob(0)->postBlur = 100*Frostscape::slider5;
+	blob(0)->postBlur = 100*Frostscape::slider5;
 	//blob(0)->postThreshold = 0;
 	/*
 	 BlackSpotObject * otherB = &blackSpots[1];
@@ -477,7 +494,7 @@ void Frostscape::update(){
 		} else {
 			if( iceblockBackgrounds[u].a < 0){
 				iceblockBackgrounds[u].a = 0;
-				//	iceblockBackgrounds[u].generate();
+					iceblockBackgrounds[u].generate();
 			}
 		}
 	}	
@@ -499,7 +516,7 @@ void Frostscape::update(){
 		for(int u=0;u<iceblockBackgrounds.size();u++){
 			if(iceBlocks[i].pointInside(iceblockBackgrounds[u].position)){
 				if(iceblockBackgrounds[u].a < 1){
-					iceblockBackgrounds[u].a += 0.5;
+					iceblockBackgrounds[u].a += 0.5*iceBlocks[i].masterAlpha;
 				}
 				if(iceblockBackgrounds[u].a > 1){
 					iceblockBackgrounds[u].a = 1;
@@ -507,6 +524,9 @@ void Frostscape::update(){
 			}
 		}	
 	}
+	
+
+
 	
 
 	

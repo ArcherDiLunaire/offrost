@@ -59,6 +59,8 @@ public:
 	void setBlobPoints(vector<ofxVec2f> points);
 	bool pointInside(ofxVec2f  joint);
 	
+	float masterAlpha;
+	
 	vector<ofxVec2f> blobPoints;
 	vector<IceBlockJoint*> joints;
 };
