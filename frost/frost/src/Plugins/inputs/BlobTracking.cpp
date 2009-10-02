@@ -151,7 +151,6 @@ void Tracker::update(){
 			persistentBlobs[u].centroidV = ofxVec2f(p.x, p.y);
 			persistentBlobs[u].lastcentroid = persistentBlobs[u].centroid ;
 			persistentBlobs[u].blobs.clear();
-			//persistentBlobs[u].centroid = ofxVec2f();
 		}
 		
 		for(int i=0;i<numBlobs();i++){
@@ -161,9 +160,10 @@ void Tracker::update(){
 			ofxPoint2f centroid = ofxPoint2f(getBlob(i).centroid.x, getBlob(i).centroid.y);
 			
 			//Går igennem alle grupper for at finde den nærmeste gruppe som blobben kan tilhøre
+			//Magisk høj dist: 0.3
 			for(int u=0;u<numPersistentBlobs();u++){
 				float dist = centroid.distance(persistentBlobs[u].centroid);
-				if(dist < 0.3 && (dist < shortestDist || bestId == -1)){
+				if(dist < 0.2 && (dist < shortestDist || bestId == -1)){
 					bestId = u;
 					shortestDist = dist;
 					blobFound = true;

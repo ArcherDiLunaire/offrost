@@ -216,10 +216,10 @@ void IceBlock::draw(){
 		}
 		
 		
-		ofSetColor(255, 255, 255);
+		ofSetColor(255, 255, 255, 255.0*Frostscape::slider4);
 		
 		//		ofEllipse(joints[i]->position.x, joints[i]->position.y, 0.02, 0.02);
-	//	ofLine(joints[i]->position.x, joints[i]->position.y, next->position.x, next->position.y);
+		ofLine(joints[i]->position.x, joints[i]->position.y, next->position.x, next->position.y);
 		
 		ofxVec2f f = joints[i]->position + joints[i]->force;
 		ofSetColor(255, 255, 255);
@@ -230,6 +230,7 @@ void IceBlock::draw(){
 	/***
 	 *  Debug 
 	 ***/
+
 	for (int i=0; i<blobPoints.size(); i++) {
 		ofSetColor(255, 0, 0, 255);
 		if(!pointInside(blobPoints[i])){
@@ -286,8 +287,8 @@ void IceBlock::draw(){
 				}
 			}
 		}
-		
-		//ofRect(blobPoints[i].x, blobPoints[i].y, 0.01, 0.01);
+		ofSetColor(255, 0, 0, 255.0*Frostscape::slider4);
+		ofRect(blobPoints[i].x, blobPoints[i].y, 0.01, 0.01);
 	}
 	
 	glPopMatrix();
@@ -468,14 +469,21 @@ void Frostscape::update(){
 		if(iceblockBackgrounds[u].a > 0){
 			iceblockBackgrounds[u].a -= 0.1;
 		}
-		if( iceblockBackgrounds[u].a < 0){
-			iceblockBackgrounds[u].a = 0;
-			iceblockBackgrounds[u].generate();
+		if(u%10==0){
+		if( iceblockBackgrounds[u].a < 0.1){
+			iceblockBackgrounds[u].a = 0.1;
+		//	iceblockBackgrounds[u].generate();
+		}
+		} else {
+			if( iceblockBackgrounds[u].a < 0){
+				iceblockBackgrounds[u].a = 0;
+				//	iceblockBackgrounds[u].generate();
+			}
 		}
 	}	
 	
 	for(int i=0;i<iceBlocks.size();i++){
-		if(blob(cam)->numPersistentBlobs() > 0){
+		if(blob(cam)->numPersistentBlobs() > i){
 			vector<ofxCvBlob> b = blob(cam)->persistentBlobs[i].blobs;
 			vector<ofxVec2f> p;
 			for(int g=0;g<b.size();g++){
