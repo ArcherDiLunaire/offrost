@@ -304,13 +304,15 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>25</integer>
+									<integer>40</integer>
+									<integer>28</integer>
+									<integer>27</integer>
 									<integer>6</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 22}, {228, 727}}</string>
+							<string>{{0, 485}, {228, 727}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -327,7 +329,7 @@
 							<real>228</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>1 90 1440 786 0 0 1440 878 </string>
+						<string>0 92 1440 786 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -338,14 +340,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>DD4F16BD1047336400D10100</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>OFGuiController.h</string>
+								<string>frost.perspectivev3</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -353,11 +353,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>DD4F16BE1047336400D10100</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>OFGuiController.h</string>
+										<string>frost.perspectivev3</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DDAD812E10750C1000E4C681</string>
+										<string>DDB6B313107626E200D2722D</string>
 										<key>history</key>
 										<array>
 											<string>DD4F19041047423A00D10100</string>
@@ -411,7 +411,6 @@
 											<string>DD45B571106A745B00B4B19C</string>
 											<string>DD45B599106B988300B4B19C</string>
 											<string>DD45B59C106B988300B4B19C</string>
-											<string>DD45B635106BA43B00B4B19C</string>
 											<string>DD45B636106BA43B00B4B19C</string>
 											<string>DD45B65C106BA64A00B4B19C</string>
 											<string>DD45B697106BAD9300B4B19C</string>
@@ -444,7 +443,6 @@
 											<string>DD97876410725FA200BFEECC</string>
 											<string>DD9787841072606A00BFEECC</string>
 											<string>DD9787851072606A00BFEECC</string>
-											<string>DD9787861072606A00BFEECC</string>
 											<string>DD9787891072606A00BFEECC</string>
 											<string>DD53C04010738BCC00730546</string>
 											<string>DD53C087107398A800730546</string>
@@ -463,26 +461,22 @@
 											<string>DDAD80D31074D74200E4C681</string>
 											<string>DDAD80D71074D74200E4C681</string>
 											<string>DDAD80D81074D74200E4C681</string>
-											<string>DDAD80D91074D74200E4C681</string>
 											<string>DDAD810C1074D93700E4C681</string>
 											<string>DDAD810D1074D93700E4C681</string>
-											<string>DDAD810E1074D93700E4C681</string>
-											<string>DDAD810F1074D93700E4C681</string>
-											<string>DDAD81181074D9A400E4C681</string>
 											<string>DDAD81191074D9A400E4C681</string>
-											<string>DDAD812010750C1000E4C681</string>
-											<string>DDAD812110750C1000E4C681</string>
-											<string>DDAD812210750C1000E4C681</string>
-											<string>DDAD812310750C1000E4C681</string>
-											<string>DDAD812410750C1000E4C681</string>
-											<string>DDAD812510750C1000E4C681</string>
-											<string>DDAD812610750C1000E4C681</string>
-											<string>DDAD812710750C1000E4C681</string>
-											<string>DDAD812810750C1000E4C681</string>
-											<string>DDAD812910750C1000E4C681</string>
-											<string>DDAD812A10750C1000E4C681</string>
-											<string>DDAD812B10750C1000E4C681</string>
-											<string>DDAD812C10750C1000E4C681</string>
+											<string>DD6DFA34107535D4002BADA9</string>
+											<string>DDB6B306107626E200D2722D</string>
+											<string>DDB6B307107626E200D2722D</string>
+											<string>DDB6B308107626E200D2722D</string>
+											<string>DDB6B309107626E200D2722D</string>
+											<string>DDB6B30A107626E200D2722D</string>
+											<string>DDB6B30B107626E200D2722D</string>
+											<string>DDB6B30C107626E200D2722D</string>
+											<string>DDB6B30D107626E200D2722D</string>
+											<string>DDB6B30E107626E200D2722D</string>
+											<string>DDB6B30F107626E200D2722D</string>
+											<string>DDB6B310107626E200D2722D</string>
+											<string>DDB6B311107626E200D2722D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -496,18 +490,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1190, 502}}</string>
+								<string>{{0, 0}, {1190, 481}}</string>
 								<key>RubberWindowFrame</key>
-								<string>1 90 1440 786 0 0 1440 878 </string>
+								<string>0 92 1440 786 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>502pt</string>
+							<string>481pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>238pt</string>
+							<string>259pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -521,7 +515,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1190, 211}}</string>
+										<string>{{10, 27}, {1190, 232}}</string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -596,9 +590,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1190, 211}}</string>
+										<string>{{10, 27}, {1190, 232}}</string>
 										<key>RubberWindowFrame</key>
-										<string>1 90 1440 786 0 0 1440 878 </string>
+										<string>0 92 1440 786 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -626,11 +620,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DDAD80E11074D74B00E4C681</string>
+				<string>DDB6B315107626E200D2722D</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>DDAD80E21074D74B00E4C681</string>
+				<string>DDB6B316107626E200D2722D</string>
 				<string>DD4F16BD1047336400D10100</string>
-				<string>DDAD80E31074D74B00E4C681</string>
+				<string>DDB6B317107626E200D2722D</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -778,14 +772,14 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DDAD80E41074D74B00E4C681</string>
+				<string>DDB6B318107626E200D2722D</string>
 				<string>1CCC7628064C1048000F2A68</string>
 				<string>1CCC7629064C1048000F2A68</string>
-				<string>DDAD80E51074D74B00E4C681</string>
-				<string>DDAD80E61074D74B00E4C681</string>
-				<string>DDAD80E71074D74B00E4C681</string>
-				<string>DDAD80E81074D74B00E4C681</string>
-				<string>DD4F16BD1047336400D10100</string>
+				<string>DDB6B319107626E200D2722D</string>
+				<string>DDB6B31A107626E200D2722D</string>
+				<string>DDB6B31B107626E200D2722D</string>
+				<string>DDB6B31C107626E200D2722D</string>
+				<string>DDB6B31D107626E200D2722D</string>
 			</array>
 			<key>ToolbarConfigUserDefaultsMinorVersion</key>
 			<string>2</string>
@@ -819,12 +813,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DDAD80EA1074D74B00E4C681</string>
-		<string>DDAD80EB1074D74B00E4C681</string>
+		<string>DDB6B31E107626E200D2722D</string>
+		<string>DDB6B31F107626E200D2722D</string>
 		<string>/Users/jonas/Documents/udvilking/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/openFrameworks.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>1 90 1440 786 0 0 1440 878 </string>
+	<string>0 92 1440 786 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

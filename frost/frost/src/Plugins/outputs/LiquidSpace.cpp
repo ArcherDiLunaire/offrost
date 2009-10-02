@@ -86,7 +86,7 @@ void LiquidSpace::setup(){
     fluidSolver.enableRGB(true).setFadeSpeed(0.00000001).setDeltaT(0.5).setVisc(0.0000001).setColorDiffusion(0.00000002);
 	fluidDrawer.setup(&fluidSolver);
 	
-	fluidCellsX			= 100;
+	fluidCellsX			= 120;
 	
 	drawFluid			= true;
 	renderUsingVA		= true;
@@ -103,7 +103,27 @@ void LiquidSpace::update(){
 	}
 	
 	fluidSolver.update();
+	
 	if (blob(0)->numBlobs() > 0) {
+		for(int i =0;i<blob(0)->numBlobs();i++){
+			ofxCvBlob b = blob(0)->getBlob(i);
+			for(int j =0;j<b.nPts;j++){
+				float _x;
+				float _y;
+				
+				ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(blob(0)->getLargestBlob().centroid.x, blob(0)->getLargestBlob().centroid.y));			
+				
+				_x = r.x;
+				_y = r.y;
+				
+				cout << _x << ", " << _y << endl;
+				
+				addToFluid(_x / projection()->getFloor()->aspect, _y, _x / projection()->getFloor()->aspect - pX / projection()->getFloor()->aspect, _y-pY, addingColor, addingForce, dropColor);
+				
+				pX = _x;
+				pY = _y;
+			}
+		}
 		float _x;
 		float _y;
 		

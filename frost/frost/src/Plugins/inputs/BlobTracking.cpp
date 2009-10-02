@@ -18,14 +18,14 @@ Tracker::Tracker(){
 	//	int h = grabber->getHeight();//grabber->height;
 	grayImageBlured.allocate(cw,ch);
 	grayImage.allocate(cw,ch);
+	grayLastImage.allocate(cw,ch);
 	grayBg.allocate(cw,ch);
 	grayDiff.allocate(cw,ch);
+	opticalFlow.allocate(cw,ch);
 	bLearnBakground = false;
 	mouseBlob = false;
 	postBlur = 0;
 	postThreshold = 0;
-	
-	
 }
 
 void Tracker::setup(){
@@ -86,6 +86,10 @@ void Tracker::update(){
 			}
 			
 			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
+			
+			opticalFlow.calc(grayLastImage,grayImage,11);
+			
+			grayLastImage = grayImage;
 			
 			postBlur = 0;
 			postThreshold = 0; 
@@ -339,6 +343,9 @@ void BlobTracking::drawSettings(){
 		trackers[i]->grayBg.draw(w*2,w*a*i, w,w*a);
 		trackers[i]->grayDiff.draw(w*3,w*a*i,w,w*a);
 		trackers[i]->contourFinder.draw(w*3,w*a*i,w,w*a);
+		
+		// trackers[i]->opticalFlow.draw();
+		
 		//		trackers[i]->simplifiedContourFinder.draw(w*3,w*a*i,w,w*a);
 	}
 }

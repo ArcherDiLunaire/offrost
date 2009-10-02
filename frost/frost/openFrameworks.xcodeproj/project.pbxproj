@@ -51,6 +51,8 @@
 		DD7CC4A91063CE7200D3736A /* Libdc1394GrabberUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7CC4A21063CE7200D3736A /* Libdc1394GrabberUtils.cpp */; };
 		DD7CC4AA1063CE7200D3736A /* Libdc1394GrabberVideoFormatHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7CC4A41063CE7200D3736A /* Libdc1394GrabberVideoFormatHelper.cpp */; };
 		DD7CC4BE1063CE9100D3736A /* ofxThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7CC4B81063CE9100D3736A /* ofxThread.cpp */; };
+		DDB6B2DC107621C600D2722D /* ofxCvOpticalFlowBM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB6B2D8107621C600D2722D /* ofxCvOpticalFlowBM.cpp */; };
+		DDB6B2DD107621C600D2722D /* ofxCvOpticalFlowLK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB6B2DA107621C600D2722D /* ofxCvOpticalFlowLK.cpp */; };
 		DDB84A04105BF9D200D1ED92 /* OFGuiController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */; };
 		DDB8512E105E7CC800D1ED92 /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB85128105E7CC800D1ED92 /* Plugin.cpp */; };
 		DDB8512F105E7CC800D1ED92 /* PluginController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB8512A105E7CC800D1ED92 /* PluginController.cpp */; };
@@ -235,6 +237,10 @@
 		DD7CC4A51063CE7200D3736A /* Libdc1394GrabberVideoFormatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Libdc1394GrabberVideoFormatHelper.h; sourceTree = "<group>"; };
 		DD7CC4B81063CE9100D3736A /* ofxThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThread.cpp; sourceTree = "<group>"; };
 		DD7CC4B91063CE9100D3736A /* ofxThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThread.h; sourceTree = "<group>"; };
+		DDB6B2D8107621C600D2722D /* ofxCvOpticalFlowBM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCvOpticalFlowBM.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvOpticalFlowBM.cpp; sourceTree = SOURCE_ROOT; };
+		DDB6B2D9107621C600D2722D /* ofxCvOpticalFlowBM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCvOpticalFlowBM.h; path = ../../../addons/ofxOpenCv/src/ofxCvOpticalFlowBM.h; sourceTree = SOURCE_ROOT; };
+		DDB6B2DA107621C600D2722D /* ofxCvOpticalFlowLK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCvOpticalFlowLK.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvOpticalFlowLK.cpp; sourceTree = SOURCE_ROOT; };
+		DDB6B2DB107621C600D2722D /* ofxCvOpticalFlowLK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCvOpticalFlowLK.h; path = ../../../addons/ofxOpenCv/src/ofxCvOpticalFlowLK.h; sourceTree = SOURCE_ROOT; };
 		DDB84A02105BF9D200D1ED92 /* OFGuiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFGuiController.h; sourceTree = "<group>"; };
 		DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OFGuiController.mm; sourceTree = "<group>"; };
 		DDB85124105E7CC800D1ED92 /* Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Output.h; sourceTree = "<group>"; };
@@ -693,6 +699,10 @@
 		DD7CC3DF1063C47100D3736A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				DDB6B2D8107621C600D2722D /* ofxCvOpticalFlowBM.cpp */,
+				DDB6B2D9107621C600D2722D /* ofxCvOpticalFlowBM.h */,
+				DDB6B2DA107621C600D2722D /* ofxCvOpticalFlowLK.cpp */,
+				DDB6B2DB107621C600D2722D /* ofxCvOpticalFlowLK.h */,
 				DD7CC3E01063C47100D3736A /* ofxCvBlob.h */,
 				DD7CC3E11063C47100D3736A /* ofxCvColorImage.cpp */,
 				DD7CC3E21063C47100D3736A /* ofxCvColorImage.h */,
@@ -1566,6 +1576,8 @@
 				276D9D831073AE5A0084689D /* LiquidSpace.cpp in Sources */,
 				276D9DB81073B3F00084689D /* ofxMSAFluidDrawer.cpp in Sources */,
 				276D9DB91073B3F00084689D /* ofxMSAFluidSolver.cpp in Sources */,
+				DDB6B2DC107621C600D2722D /* ofxCvOpticalFlowBM.cpp in Sources */,
+				DDB6B2DD107621C600D2722D /* ofxCvOpticalFlowLK.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,7 +6,7 @@
 #include "ofxVideoGrabber.h"
 #include "contourSimplify.h"
 #include "ofxXmlSettings.h"
-
+#include "ofxCvOpticalFlowLK.h"
 
 
 class CameraCalibration;
@@ -43,6 +43,7 @@ public:
 
 	
 	ofxCvGrayscaleImage 	grayImage;
+	ofxCvGrayscaleImage 	grayLastImage;
 	ofxCvGrayscaleImage 	grayImageBlured;
 
 	ofxCvGrayscaleImage 	grayBg;
@@ -89,6 +90,8 @@ public:
 	float postBlur, postThreshold;
 	
 	vector<PersistentBlob> persistentBlobs;
+	
+	ofxCvOpticalFlowLK	opticalFlow;
 
 private:
 	int cw, ch;
