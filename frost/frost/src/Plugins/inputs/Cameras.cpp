@@ -21,9 +21,9 @@ Cameras::Cameras(){
 }
 
 void Cameras::setup(){
-
+	
 	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber;
-
+	
 	for (int i=0; i<3; i++) {
 		
 		Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber;
@@ -36,40 +36,41 @@ void Cameras::setup(){
 			}
 		}
 	}
-
+	
 	// first init the cams that are bound and exist
 	for (int i=0; i<3; i++) {
 		if(cameraGUIDexists(cameraGUIDs[i])){
 			initGrabber(i, cameraGUIDs[i]);
 		}
 	}
-
+	
 	// then init the cams that are NOT bound
 	for (int i=0; i<3; i++) {
 		if(!cameraGUIDexists(cameraGUIDs[i])){
 			initGrabber(i, cameraGUIDs[i]);
 		}
 	}
-
-	/**
-	// test videoPlayer
-	for (int i=0; i<3; i++) {
-		videoPlayerLoadUrl(i, "fingers.mov");
-		videoPlayerPlay(i);
-		videoPlayerActivate(i);
-	}
-	//**/
 	
-//**	
-	if(videoPlayerLoadUrl(0, "Filmlarge.mov")){
-		cout << "                      FILMEN LOADET" << endl;
-	} else {
-		cout << "                      FILMEN ikke LOADET" << endl;
-	}
-	videoPlayerPlay(0);
-	videoPlayerActivate(0);
-//**/
-	 
+	/**
+	 // test videoPlayer
+	 for (int i=0; i<3; i++) {
+	 videoPlayerLoadUrl(i, "fingers.mov");
+	 videoPlayerPlay(i);
+	 videoPlayerActivate(i);
+	 }
+	 //**/
+	
+	/**	
+	 if(videoPlayerLoadUrl(0, "Filmlarge.mov")){
+	 cout << "                      FILMEN LOADET" << endl;
+	 } else {
+	 cout << "                      FILMEN ikke LOADET" << endl;
+	 }
+	 videoPlayerPlay(0);
+	 videoPlayerActivate(0);
+	 //**/
+	
+
 }
 
 bool Cameras::isFrameNew(int _grabberIndex){
@@ -227,16 +228,16 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		 FEATURE_OPTICAL_FILTER		= 19,
 		 FEATURE_CAPTURE_SIZE		= 20,
 		 FEATURE_CAPTURE_QUALITY	= 21,
-		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_SHUTTER);
-		//((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(0.08, FEATURE_SHUTTER);
-		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_BRIGHTNESS);
-		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_EXPOSURE);
-		//((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureValue(2.0, FEATURE_EXPOSURE);
-		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_GAMMA);
-		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_GAIN);
-		//((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(250, FEATURE_GAIN);
-		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_IRIS);
-		((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_EXPOSURE);
+		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_SHUTTER);
+		 //((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(0.08, FEATURE_SHUTTER);
+		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_BRIGHTNESS);
+		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_EXPOSURE);
+		 //((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureValue(2.0, FEATURE_EXPOSURE);
+		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_GAMMA);
+		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_GAIN);
+		 //((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(250, FEATURE_GAIN);
+		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_IRIS);
+		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_EXPOSURE);
 		 **/		 
 		
 		ofLog(OF_LOG_NOTICE,"Camera succesfully initialized.");
@@ -247,7 +248,7 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		cameraInited[_grabber] = false;
 	}	
 	initCameraCalibration(getGUID(_grabber));
-
+	
 }
 
 void Cameras::initCameraCalibration(uint64_t _cameraGUID){
@@ -297,7 +298,7 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 			
 			break;
 		default:
-
+			
 			setCameraCalibration(_cameraGUID, 
 								 -0.3796366751, 0.1794384271, 0.0015031601, 0.0049067354,
 								 1054.0688476562, 513.7350463867, 1051.2467041016, 308.5940551758);
@@ -326,13 +327,13 @@ bool Cameras::isReady(int _cameraIndex){
 } 
 
 bool Cameras::cameraGUIDexists(uint64_t _cameraGUID){
-
+	
 	if(_cameraGUID == 0x0ll) return false;
 	
 	bool _cameraGUIDexists = false;
 	
 	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber;
-
+	
 	for (int i=0; i < libdc1394Grabber->list->num; i++) {
 		if(libdc1394Grabber->list->ids[i].guid == _cameraGUID){
 			_cameraGUIDexists = true;
@@ -349,7 +350,7 @@ bool Cameras::setGUID(int _grabber, uint64_t _cameraGUID){
 	
 	if(_grabber < 3 && _grabber >= 0){
 		if (_cameraGUID != getGUID(_grabber)) {
-
+			
 			for (int i=0; i<3; i++) {
 				delete vidGrabber[i];
 				cameraInited[i] = false;
@@ -384,7 +385,7 @@ bool Cameras::setGUID(int _grabber, uint64_t _cameraGUID){
 				cameraGUIDs[_grabber] = _cameraGUID;
 				initGrabber(_grabber, _cameraGUID);
 			}
-
+			
 			// first init the cams that are bound (guid != 0x0ll)
 			for (int i=0; i<3; i++) {
 				if(i != _grabber && cameraGUIDs[i] != 0x0ll){
@@ -392,7 +393,7 @@ bool Cameras::setGUID(int _grabber, uint64_t _cameraGUID){
 				}
 			}
 			// then init the cams that are NOT bound (guid == 0x0ll)
-
+			
 			for (int i=0; i<3; i++) {
 				if(cameraGUIDs[i] == 0x0ll){
 					initGrabber(i, cameraGUIDs[i]);
@@ -429,7 +430,7 @@ int Cameras::getGrabberIndexFromGUID(uint64_t _cameraGUID){
 
 void Cameras::setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, float _c1, float _c2, double _fx, double _cx, double _fy, double _cy){
 	int grabberIndex = getGrabberIndexFromGUID(_cameraGUID);
-
+	
 	calib[grabberIndex].distortionCoeffs[0] = _k1;
 	calib[grabberIndex].distortionCoeffs[1] = _k2;
 	calib[grabberIndex].distortionCoeffs[2] = _c1;
@@ -446,5 +447,5 @@ void Cameras::setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, f
 	calib[grabberIndex].camIntrinsics[6] = 0;
 	calib[grabberIndex].camIntrinsics[7] = 0;
 	calib[grabberIndex].camIntrinsics[8] = 1;
-
+	
 }	

@@ -26,7 +26,16 @@ public:
 	
 };
 
+class IceBlockBackgroundObject {
+public:	
 
+	ofxVec2f position;
+	float a;
+	vector<ofxVec2f> points;
+	IceBlockBackgroundObject(float x, float y);
+	void draw();
+	void generate();
+};
 
 class IceBlockJoint {
 public:
@@ -65,6 +74,7 @@ public:
 	
 	vector<BlackSpotObject> blackSpots;
 	vector<IceBlock> iceBlocks;
+	vector<IceBlockBackgroundObject> iceblockBackgrounds;
 
 	bool debug;
 	int cam;
