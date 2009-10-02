@@ -4,7 +4,43 @@
 #include "Cameras.h"
 #include "CameraCalibration.h"
 
+TrackerThread::TrackerThread(){
+	updateContour = false;
+}
+
+void TrackerThread::start(){
+	startThread(true, false);   // blocking, verbose
+}
+
+void TrackerThread::stop(){
+	stopThread();
+}
+
+//--------------------------
+void TrackerThread::threadedFunction(){
+	
+	while( isThreadRunning() != 0 ){
+		if( lock() ){
+			if(updateContour){
+				contourFinder.findContours(grayDiff, 20, (w*h)/3, 10, false, true);	
+				
+				//opticalFlow.calc(grayLastImage,grayImage,11);
+				
+				
+				updateContour = false;
+			}
+			unlock();
+			ofSleepMillis(1 * 10);
+		}
+	}
+}
+
+
+
 unsigned long int PersistentBlob::idCounter = 0;
+
+
+
 
 PersistentBlob::PersistentBlob(){
 	id = PersistentBlob::idCounter++;
@@ -21,7 +57,7 @@ Tracker::Tracker(){
 	grayLastImage.allocate(cw,ch);
 	grayBg.allocate(cw,ch);
 	grayDiff.allocate(cw,ch);
-	//opticalFlow.allocate(cw,ch);
+
 	bLearnBakground = false;
 	mouseBlob = false;
 	postBlur = 0;
@@ -37,6 +73,16 @@ void Tracker::setup(){
 		blackCorners[i] = ofxPoint2f(xml->getAttribute("corner", "x", 0.0, i), xml->getAttribute("corner", "y", 0.0, i));
 	}
 	
+	thread.w = getPlugin<Cameras*>(controller)->getWidth();
+	thread.h = getPlugin<Cameras*>(controller)->getHeight();	
+	thread.grayDiff.setUseTexture(false);
+	thread.grayDiff.allocate(cw,ch);
+	thread.opticalFlow.allocate(cw,ch);
+	thread.grayImage.allocate(cw,ch);
+	thread.grayLastImage.allocate(cw,ch);
+
+	
+	thread.start();
 }
 
 void Tracker::update(){ 
@@ -47,21 +93,21 @@ void Tracker::update(){
 		if (getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active){
 			grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
 			int nPoints = 4;
-
+			
 			/*CvPoint _cp1[4]= {{0,0}, {cw,0}, {blackCorners[1].x,blackCorners[1].y}, {blackCorners[0].x,blackCorners[0].y}};
-			CvPoint _cp2[4]= {{cw,0}, {cw,ch}, {blackCorners[2].x,blackCorners[2].y}, {blackCorners[1].x,blackCorners[1].y}};
-			CvPoint _cp3[4]= {{cw,ch},{0,ch}, {blackCorners[3].x,blackCorners[3].y}, {blackCorners[2].x,blackCorners[2].y}};			
-			CvPoint _cp4[4]= {{0,ch},{0,0}, {blackCorners[0].x,blackCorners[0].y}, {blackCorners[3].x,blackCorners[3].y}};			
-
-			CvPoint* cp1 = _cp1; cvFillPoly(grayImage.getCvImage(), &cp1, &nPoints, 1, cvScalar(0));
-			CvPoint* cp2 = _cp2; cvFillPoly(grayImage.getCvImage(), &cp2, &nPoints, 1, cvScalar(0));
-			CvPoint* cp3 = _cp3; cvFillPoly(grayImage.getCvImage(), &cp3, &nPoints, 1, cvScalar(0));
-			CvPoint* cp4 = _cp4; cvFillPoly(grayImage.getCvImage(), &cp4, &nPoints, 1, cvScalar(0));
-			*/
+			 CvPoint _cp2[4]= {{cw,0}, {cw,ch}, {blackCorners[2].x,blackCorners[2].y}, {blackCorners[1].x,blackCorners[1].y}};
+			 CvPoint _cp3[4]= {{cw,ch},{0,ch}, {blackCorners[3].x,blackCorners[3].y}, {blackCorners[2].x,blackCorners[2].y}};			
+			 CvPoint _cp4[4]= {{0,ch},{0,0}, {blackCorners[0].x,blackCorners[0].y}, {blackCorners[3].x,blackCorners[3].y}};			
+			 
+			 CvPoint* cp1 = _cp1; cvFillPoly(grayImage.getCvImage(), &cp1, &nPoints, 1, cvScalar(0));
+			 CvPoint* cp2 = _cp2; cvFillPoly(grayImage.getCvImage(), &cp2, &nPoints, 1, cvScalar(0));
+			 CvPoint* cp3 = _cp3; cvFillPoly(grayImage.getCvImage(), &cp3, &nPoints, 1, cvScalar(0));
+			 CvPoint* cp4 = _cp4; cvFillPoly(grayImage.getCvImage(), &cp4, &nPoints, 1, cvScalar(0));
+			 */
 			
 			CvPoint _cp[4]= {{blackCorners[0].x,blackCorners[0].y}, {blackCorners[1].x,blackCorners[1].y},{blackCorners[2].x,blackCorners[2].y},{blackCorners[3].x,blackCorners[3].y}};			
 			CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-
+			
 			grayImageBlured = grayImage;
 			grayImageBlured.blur(blur);
 			
@@ -85,9 +131,15 @@ void Tracker::update(){
 				
 			}
 			
-			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
+			if(thread.lock()){
+				thread.grayDiff = grayDiff;
+				thread.grayImage = grayImage;
+				thread.grayLastImage = grayLastImage;
+				thread.updateContour = true;
+				thread.unlock();
+			}
+			//			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
 			
-			//opticalFlow.calc(grayLastImage,grayImage, 11);
 			
 			grayLastImage = grayImage;
 			
@@ -161,7 +213,12 @@ int Tracker::numBlobs(){
 	if(mouseBlob){
 		return 1;
 	}
-	return contourFinder.nBlobs;
+	int r = 0;
+	if(thread.lock()){
+		r = thread.contourFinder.nBlobs;
+		thread.unlock();
+	}
+	return r;
 }
 
 ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibrator){
@@ -216,7 +273,13 @@ ofxCvBlob Tracker::getBlob(int n){
 	if(mouseBlob){
 		return mouseGeneratedBlob;
 	}
-	return getConvertedBlob(&contourFinder.blobs[n], getPlugin<CameraCalibration*>(controller));
+	ofxCvBlob r;
+	if(thread.lock()){
+		r = getConvertedBlob(&thread.contourFinder.blobs[n], getPlugin<CameraCalibration*>(controller));
+		thread.unlock();
+	}
+	
+	return r;
 }
 ofxCvBlob Tracker::getLargestBlob(){
 	float largets = 0;
@@ -342,7 +405,10 @@ void BlobTracking::drawSettings(){
 		trackers[i]->grayImageBlured.draw(w,w*a*i,w,w*a);
 		trackers[i]->grayBg.draw(w*2,w*a*i, w,w*a);
 		trackers[i]->grayDiff.draw(w*3,w*a*i,w,w*a);
-		trackers[i]->contourFinder.draw(w*3,w*a*i,w,w*a);
+		if(trackers[i]->thread.lock()){
+			trackers[i]->thread.contourFinder.draw(w*3,w*a*i,w,w*a);
+			trackers[i]->thread.unlock();
+		}
 		
 		// trackers[i]->opticalFlow.draw();
 		
