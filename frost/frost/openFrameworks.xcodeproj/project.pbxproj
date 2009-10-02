@@ -63,6 +63,7 @@
 		DDB85167105E809300D1ED92 /* ofxVec2f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB85159105E809300D1ED92 /* ofxVec2f.cpp */; };
 		DDB85168105E809300D1ED92 /* ofxVec3f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB8515B105E809300D1ED92 /* ofxVec3f.cpp */; };
 		DDB85169105E809300D1ED92 /* ofxVec4f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB8515D105E809300D1ED92 /* ofxVec4f.cpp */; };
+		DDD48938107636A80083759A /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD48937107636A80083759A /* CoreMIDI.framework */; };
 		DDE2346D105FB66B0006F30B /* ProjectionSurfaces.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE2346C105FB66B0006F30B /* ProjectionSurfaces.cpp */; };
 		DDE234BF105FBD6C0006F30B /* Warp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE234BD105FBD6C0006F30B /* Warp.cpp */; };
 		DDF383991067B3E800E8A20A /* CameraCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDF383971067B3E800E8A20A /* CameraCalibration.cpp */; };
@@ -265,6 +266,7 @@
 		DDB8515D105E809300D1ED92 /* ofxVec4f.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxVec4f.cpp; sourceTree = "<group>"; };
 		DDB8515E105E809300D1ED92 /* ofxVec4f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVec4f.h; sourceTree = "<group>"; };
 		DDB8515F105E809300D1ED92 /* ofxVectorMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVectorMath.h; sourceTree = "<group>"; };
+		DDD48937107636A80083759A /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
 		DDE2346B105FB66B0006F30B /* ProjectionSurfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectionSurfaces.h; sourceTree = "<group>"; };
 		DDE2346C105FB66B0006F30B /* ProjectionSurfaces.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectionSurfaces.cpp; sourceTree = "<group>"; };
 		DDE2346E105FB6C10006F30B /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 				DD6EA12A1062C880001EC207 /* QuartzCore.framework in Frameworks */,
 				DD7CC3F71063C47100D3736A /* libOpenCV.a in Frameworks */,
 				DDFEC8871063FA200068D31A /* IOKit.framework in Frameworks */,
+				DDD48938107636A80083759A /* CoreMIDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1389,6 +1392,7 @@
 				E439E8EF0FEFE04E0042BF96 /* AppKit.framework */,
 				E439E8F30FEFE05F0042BF96 /* Cocoa.framework */,
 				DDFEC8861063FA200068D31A /* IOKit.framework */,
+				DDD48937107636A80083759A /* CoreMIDI.framework */,
 			);
 			sourceTree = "<group>";
 		};

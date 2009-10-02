@@ -42,6 +42,10 @@ void testApp::setup(){
 	glEnable (GL_MULTISAMPLE_ARB);
     glHint (GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST);
 	
+	midiOut = new ofxMidiOut;
+	midiOut->listPorts();
+	midiOut->openPort(0);
+	
 }
 
 void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )

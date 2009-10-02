@@ -5,7 +5,7 @@
 
 #include "PluginIncludes.h"
 #include "PluginController.h"
-//#include "ofxMidi.h"
+#include "ofxMidi.h"
 //#include "ofxOsc.h"
 //#include "guiController.h"
 
@@ -71,7 +71,7 @@ public:
 	bool setupCalled;
 	int fps;
 	
-	//ofxMidiOut midi;
+	ofxMidiOut * midiOut;
 	
 };
 
