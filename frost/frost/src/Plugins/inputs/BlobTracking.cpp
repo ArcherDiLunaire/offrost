@@ -24,6 +24,19 @@ Tracker::Tracker(){
 	mouseBlob = false;
 	postBlur = 0;
 	postThreshold = 0;
+	
+	
+}
+
+void Tracker::setup(){
+	xml = new ofxXmlSettings;
+	xml->loadFile("keystoneSettings.xml");
+	xml->pushTag("blobblack", 0);
+	xml->pushTag("camera", cameraId);
+	for(int i=0;i<4;i++){
+		blackCorners[i] = ofxPoint2f(xml->getAttribute("corner", "x", 0.0, i), xml->getAttribute("corner", "y", 0.0, i));
+	}
+	
 }
 
 void Tracker::update(){ 
@@ -33,6 +46,22 @@ void Tracker::update(){
 	if ((getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active) || mouseBlob){
 		if (getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active){
 			grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
+			int nPoints = 4;
+
+			/*CvPoint _cp1[4]= {{0,0}, {cw,0}, {blackCorners[1].x,blackCorners[1].y}, {blackCorners[0].x,blackCorners[0].y}};
+			CvPoint _cp2[4]= {{cw,0}, {cw,ch}, {blackCorners[2].x,blackCorners[2].y}, {blackCorners[1].x,blackCorners[1].y}};
+			CvPoint _cp3[4]= {{cw,ch},{0,ch}, {blackCorners[3].x,blackCorners[3].y}, {blackCorners[2].x,blackCorners[2].y}};			
+			CvPoint _cp4[4]= {{0,ch},{0,0}, {blackCorners[0].x,blackCorners[0].y}, {blackCorners[3].x,blackCorners[3].y}};			
+
+			CvPoint* cp1 = _cp1; cvFillPoly(grayImage.getCvImage(), &cp1, &nPoints, 1, cvScalar(0));
+			CvPoint* cp2 = _cp2; cvFillPoly(grayImage.getCvImage(), &cp2, &nPoints, 1, cvScalar(0));
+			CvPoint* cp3 = _cp3; cvFillPoly(grayImage.getCvImage(), &cp3, &nPoints, 1, cvScalar(0));
+			CvPoint* cp4 = _cp4; cvFillPoly(grayImage.getCvImage(), &cp4, &nPoints, 1, cvScalar(0));
+			*/
+			
+			CvPoint _cp[4]= {{blackCorners[0].x,blackCorners[0].y}, {blackCorners[1].x,blackCorners[1].y},{blackCorners[2].x,blackCorners[2].y},{blackCorners[3].x,blackCorners[3].y}};			
+			CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+
 			grayImageBlured = grayImage;
 			grayImageBlured.blur(blur);
 			
@@ -59,36 +88,52 @@ void Tracker::update(){
 			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
 			
 			postBlur = 0;
-			postThreshold = 0;
+			postThreshold = 0; 
 		}
 		for(int u=0;u<numPersistentBlobs();u++){
 			ofxPoint2f p = persistentBlobs[u].centroid - persistentBlobs[u].lastcentroid;
 			persistentBlobs[u].centroidV = ofxVec2f(p.x, p.y);
 			persistentBlobs[u].lastcentroid = persistentBlobs[u].centroid ;
-			
+			persistentBlobs[u].blobs.clear();
+			//persistentBlobs[u].centroid = ofxVec2f();
 		}
 		
 		for(int i=0;i<numBlobs();i++){
 			bool blobFound = false;
+			float shortestDist = 0;
+			int bestId = -1;
+			ofxPoint2f centroid = ofxPoint2f(getBlob(i).centroid.x, getBlob(i).centroid.y);
+			
+			//Går igennem alle grupper for at finde den nærmeste gruppe som blobben kan tilhøre
 			for(int u=0;u<numPersistentBlobs();u++){
-				ofxPoint2f centroid = ofxPoint2f(getBlob(i).centroid.x, getBlob(i).centroid.y);
-				if(centroid.distance(getBlobById(getPersistentBlobId(u)).centroid) < 0.09){
+				float dist = centroid.distance(persistentBlobs[u].centroid);
+				if(dist < 0.3 && (dist < shortestDist || bestId == -1)){
+					bestId = u;
+					shortestDist = dist;
 					blobFound = true;
-					
-					persistentBlobs[u].centroid = centroid;
-					persistentBlobs[u].timeoutCounter = 0;
-					persistentBlobs[u].blob = getBlob(i);
-					break;
 				}
 			}
+			
+			if(blobFound){		
+				//Fandt en gruppe som den her blob kan tilhøre.. Pusher blobben ind
+				persistentBlobs[bestId].timeoutCounter = 0;
+				persistentBlobs[bestId].blobs.push_back(getBlob(i));
+				
+				//regner centroid ud fra alle blobs i den
+				persistentBlobs[bestId].centroid = ofxPoint2f();
+				for(int g=0;g<persistentBlobs[bestId].blobs.size();g++){
+					ofxPoint2f blobCentroid = ofxPoint2f(persistentBlobs[bestId].blobs[g].centroid.x, persistentBlobs[bestId].blobs[g].centroid.y);
+					persistentBlobs[bestId].centroid += blobCentroid;					
+				}
+				persistentBlobs[bestId].centroid /= (float)persistentBlobs[bestId].blobs.size();
+			}
+			
 			if(!blobFound){
-				ofxPoint2f centroid = ofxPoint2f(getBlob(i).centroid.x, getBlob(i).centroid.y);
-				
+				//Der var ingen gruppe til den her blob, så vi laver en
 				PersistentBlob newB;
-				newB.blob = getBlob(i);
+				newB.blobs.push_back(getBlob(i));
 				newB.centroid = centroid;
-				persistentBlobs.push_back(newB);
-				
+				persistentBlobs.push_back(newB);		
 			}
 		}
 		
@@ -96,12 +141,12 @@ void Tracker::update(){
 			persistentBlobs[u].timeoutCounter ++;
 			if(persistentBlobs[u].timeoutCounter > 10){
 				deletePersistentBlobById(getPersistentBlobId(u));
-			}
-		}
-		
-	}
-	
-	
+			} else {
+				
+				
+			}			
+		}	
+	}	
 }
 
 void Tracker::findContours(){
@@ -181,10 +226,10 @@ ofxCvBlob Tracker::getLargestBlob(){
 	return b;
 }
 
-ofxCvBlob Tracker::getBlobById(unsigned long int _id){
+vector<ofxCvBlob> Tracker::getBlobById(unsigned long int _id){
 	for(int i=0;i<numPersistentBlobs();i++){
 		if(persistentBlobs[i].id == _id){
-			return persistentBlobs[i].blob;
+			return persistentBlobs[i].blobs;
 		}
 	}
 }
@@ -268,6 +313,7 @@ void BlobTracking::setup(){
 		} else {
 			trackers[i]->bLearnBakground = true;
 		}
+		trackers[i]->setup();
 	}
 }
 void BlobTracking::update(){
@@ -299,11 +345,17 @@ void BlobTracking::drawSettings(){
 
 void BlobTracking::draw(){
 	if(drawDebug){
+		ofSetColor(255, 255, 255);
+		
+		
 		ofEnableAlphaBlending();
 		glBlendFunc (GL_SRC_COLOR, GL_ONE);	
 		
 		for(int i=0;i<trackers.size();i++){
-			ofSetColor(255, 255, 255);
+			ofDrawBitmapString(ofToString(trackers[i]->numBlobs(), 0), 10, 50*i+20);
+			ofDrawBitmapString(ofToString(trackers[i]->numPersistentBlobs(), 0), 10, 50*i+30);
+			
+			ofSetColor(128, 128, 128);
 			glPushMatrix();
 			getPlugin<CameraCalibration*>(controller)->applyWarp(i);
 			trackers[i]->grayDiff.draw(0,0,1,1);
@@ -320,13 +372,17 @@ void BlobTracking::draw(){
 			}
 			
 			for(int u =0;u<trackers[i]->numPersistentBlobs();u++){
-				ofxCvBlob b = trackers[i]->persistentBlobs[u].blob;
-				ofSetColor(255, 0, 255);
-				ofDrawBitmapString(ofToString(trackers[i]->persistentBlobs[u].id, 0), b.centroid.x*ofGetWidth(), b.centroid.y*ofGetHeight());
-				ofSetColor(0, 0, 255);
+				vector<ofxCvBlob> b = trackers[i]->persistentBlobs[u].blobs;
+				ofSetColor(0, 255, 255);
 				
-				for(int x=0;x<b.nPts;x++){
-					ofEllipse(b.pts[x].x*ofGetWidth(), b.pts[x].y*ofGetHeight(), 10, 10);
+				ofDrawBitmapString(ofToString(trackers[i]->persistentBlobs[u].id, 0), trackers[i]->persistentBlobs[u].centroid.x*ofGetWidth(), trackers[i]->persistentBlobs[u].centroid.y*ofGetHeight());
+				
+				for(int g=0;g<b.size();g++){
+					ofSetColor(0, 0, 255);
+					
+					for(int x=0;x<b[g].nPts;x++){
+						ofEllipse(b[g].pts[x].x*ofGetWidth(), b[g].pts[x].y*ofGetHeight(), 10, 10);
+					}
 				}
 			}
 		}

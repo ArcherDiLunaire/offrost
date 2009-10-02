@@ -5,7 +5,7 @@
 #include "ofxOpenCv.h"
 #include "ofxVideoGrabber.h"
 #include "contourSimplify.h"
-
+#include "ofxXmlSettings.h"
 
 
 
@@ -27,15 +27,20 @@ public:
 	ofxVec2f centroidV;
 
 	int timeoutCounter;
-	ofxCvBlob blob;
+	vector<ofxCvBlob> blobs;
 };
 
 class Tracker {
 public:
 	Tracker();
+	void setup();
 	void update();
 	void findContours();
 	int cameraId;
+	
+	ofxPoint2f blackCorners[4]; 
+	ofxXmlSettings * xml;
+
 	
 	ofxCvGrayscaleImage 	grayImage;
 	ofxCvGrayscaleImage 	grayImageBlured;
@@ -64,7 +69,7 @@ public:
 	ofxCvBlob getBlob(int n);
 	ofxCvBlob getLargestBlob();
 
-	ofxCvBlob getBlobById(unsigned long int _id);
+	vector<ofxCvBlob> getBlobById(unsigned long int _id);
 	int numPersistentBlobs();
 	bool persistentBlobExist(unsigned long int _id);
 	unsigned long int getPersistentBlobId(int n);

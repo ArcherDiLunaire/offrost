@@ -399,10 +399,13 @@ void Frostscape::update(){
 	 }*/
 	for(int i=0;i<iceBlocks.size();i++){
 		if(blob(cam)->numPersistentBlobs() > 0){
-			ofxCvBlob b = blob(cam)->persistentBlobs[i].blob;
+			vector<ofxCvBlob> b = blob(cam)->persistentBlobs[i].blobs;
 			vector<ofxVec2f> p;
-			for(int u=0;u<b.nPts;u++){
-				p.push_back(ofxVec2f(b.pts[u].x, b.pts[u].y));
+			for(int g=0;g<b.size();g++){
+				for(int u=0;u<b[g].nPts;u++){
+					ofxVec2f r = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b[g].pts[u].x,b[g].pts[u].y));			
+					p.push_back(r);
+				}
 			}
 			iceBlocks[i].setBlobPoints(p);
 		}
