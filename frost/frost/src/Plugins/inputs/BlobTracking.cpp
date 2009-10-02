@@ -21,7 +21,7 @@ Tracker::Tracker(){
 	grayLastImage.allocate(cw,ch);
 	grayBg.allocate(cw,ch);
 	grayDiff.allocate(cw,ch);
-	opticalFlow.allocate(cw,ch);
+	//opticalFlow.allocate(cw,ch);
 	bLearnBakground = false;
 	mouseBlob = false;
 	postBlur = 0;
@@ -87,7 +87,7 @@ void Tracker::update(){
 			
 			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
 			
-			opticalFlow.calc(grayLastImage,grayImage,11);
+			//opticalFlow.calc(grayLastImage,grayImage, 11);
 			
 			grayLastImage = grayImage;
 			

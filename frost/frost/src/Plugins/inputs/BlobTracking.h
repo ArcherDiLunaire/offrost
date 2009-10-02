@@ -91,7 +91,7 @@ public:
 	
 	vector<PersistentBlob> persistentBlobs;
 	
-	ofxCvOpticalFlowLK	opticalFlow;
+	//ofxCvOpticalFlowLK	opticalFlow;
 
 private:
 	int cw, ch;

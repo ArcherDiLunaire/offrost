@@ -105,29 +105,32 @@ void LiquidSpace::update(){
 	fluidSolver.update();
 	
 	if (blob(0)->numBlobs() > 0) {
+		
+		float _x;
+		float _y;
+			
 		for(int i =0;i<blob(0)->numBlobs();i++){
 			ofxCvBlob b = blob(0)->getBlob(i);
-			for(int j =0;j<b.nPts;j++){
-				float _x;
-				float _y;
-				
-				ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(blob(0)->getLargestBlob().centroid.x, blob(0)->getLargestBlob().centroid.y));			
+			ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(blob(0)->getLargestBlob().centroid.x, blob(0)->getLargestBlob().centroid.y));			
+
+			for(int j =0;j<b.nPts;j+=10){
+				ofxVec2f p = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[j].x, b.pts[j].y));			
+
 				
 				_x = r.x;
 				_y = r.y;
 				
-				cout << _x << ", " << _y << endl;
+//				cout << _x << ", " << _y << endl;
 				
-				addToFluid(_x / projection()->getFloor()->aspect, _y, _x / projection()->getFloor()->aspect - pX / projection()->getFloor()->aspect, _y-pY, addingColor, addingForce, dropColor);
+				int index = fluidSolver.getIndexForNormalizedPosition(p.x / projection()->getFloor()->aspect, p.y);
+				fluidSolver.r[index]  += dropColor.r * colorMultiplier * 0.5;
+				fluidSolver.g[index]  += dropColor.g * colorMultiplier * 0.5;
+				fluidSolver.b[index]  += dropColor.b * colorMultiplier * 0.5;	
 				
-				pX = _x;
-				pY = _y;
+				//addToFluid(_x / projection()->getFloor()->aspect, _y, ofRandom(-0.02, 0.02), ofRandom(-0.02, 0.02), addingColor, addingForce, dropColor);
 			}
 		}
-		float _x;
-		float _y;
-		
-		
+				
 		ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(blob(0)->getLargestBlob().centroid.x, blob(0)->getLargestBlob().centroid.y));			
 
 		_x = r.x;
@@ -137,6 +140,8 @@ void LiquidSpace::update(){
 		
 		addToFluid(_x / projection()->getFloor()->aspect, _y, _x / projection()->getFloor()->aspect - pX / projection()->getFloor()->aspect, _y-pY, addingColor, addingForce, dropColor);
 
+	
+		
 		pX = _x;
 		pY = _y;
 	}

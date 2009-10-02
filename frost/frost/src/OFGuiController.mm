@@ -166,6 +166,18 @@ OFGuiController * gui = NULL;
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
 		
 		
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fillColor.set(0.0,0.0,0.0);
+		
+		/**
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00005 * [userDefaults doubleForKey:@"liquidSpace.fadeSpeed"]);
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setVisc(0.0000001 * [userDefaults doubleForKey:@"liquidSpace.viscosity"]);
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setColorDiffusion(0.0000001 * [userDefaults doubleForKey:@"liquidSpace.diffusion"]);
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->dropColor.set(1.0,1.0,1.0);
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addingColor = [userDefaults boolForKey:@"liquidSpace.addingColor"];
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->colorMultiplier = 0.05 *  [userDefaults boolForKey:@"liquidSpace.colorMultiplier"];
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addingForce = [userDefaults boolForKey:@"liquidSpace.addingForce"];
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->forceMultiplier = 0.05 * [userDefaults boolForKey:@"liquidSpace.forceMultiplier"];
+		**/
 		
 		gui = self;
 		
@@ -571,7 +583,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 -(IBAction)		setLiquidSpaceFadeSpeed:(id)sender{
 	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00001 * [sender doubleValue]);
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00005 * [sender doubleValue]);
 	}
 }
 
