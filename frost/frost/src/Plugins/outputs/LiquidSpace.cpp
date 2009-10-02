@@ -86,7 +86,7 @@ void LiquidSpace::setup(){
     fluidSolver.enableRGB(true).setFadeSpeed(0.00000001).setDeltaT(0.5).setVisc(0.0000001).setColorDiffusion(0.00000002);
 	fluidDrawer.setup(&fluidSolver);
 	
-	fluidCellsX			= 150;
+	fluidCellsX			= 100;
 	
 	drawFluid			= true;
 	renderUsingVA		= true;
@@ -115,7 +115,7 @@ void LiquidSpace::update(){
 		
 		cout << _x << ", " << _y << endl;
 		
-		addToFluid(_x / projection()->getFloor()->aspect, _y, _x / projection()->getFloor()->aspect - pX / projection()->getFloor()->aspect, _y-pY, true, true, dropColor);
+		addToFluid(_x / projection()->getFloor()->aspect, _y, _x / projection()->getFloor()->aspect - pX / projection()->getFloor()->aspect, _y-pY, addingColor, addingForce, dropColor);
 
 		pX = _x;
 		pY = _y;

@@ -131,7 +131,6 @@ OFGuiController * gui = NULL;
 		(getPlugin<MoonDust*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"moondust.density"];
 		
 		(getPlugin<LaLinea*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"lalinea.density"];
-		[userDefaults arrayForKey:<#(NSString *)defaultName#>]
 		
 		(getPlugin<BlobLight*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"bloblight.density"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [userDefaults doubleForKey:@"bloblight.blur"];
@@ -572,19 +571,19 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 -(IBAction)		setLiquidSpaceFadeSpeed:(id)sender{
 	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidSolver.setFadeSpeed(0.00000001 * [sender doubleValue]);
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00001 * [sender doubleValue]);
 	}
 }
 
 -(IBAction)		setLiquidSpaceViscosity:(id)sender{
 	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidSolver.setVisc(0.00000002 * [sender doubleValue]);
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setVisc(0.0000001 * [sender doubleValue]);
 	}
 }
 
 -(IBAction)		setLiquidSpaceDiffusion:(id)sender{
 	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidSolver.setColorDiffusion(0.00000002 * [sender doubleValue]);
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setColorDiffusion(0.0000001 * [sender doubleValue]);
 	}
 }
 
@@ -606,7 +605,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 -(IBAction)		setLiquidSpaceColorMultiplier:(id)sender{
 	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->colorMultiplier = [sender doubleValue];
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->colorMultiplier = 0.05 * [sender doubleValue];
 	}
 }
 
@@ -622,7 +621,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 -(IBAction)		setLiquidSpaceForceMultiplier:(id)sender{
 	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->forceMultiplier = [sender doubleValue];
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->forceMultiplier = 0.05 * [sender doubleValue];
 	}
 }
 
