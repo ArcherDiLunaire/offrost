@@ -68,8 +68,9 @@
 //		[gui->BlobLightThreshold setFloatValue:0 ] ;
 		//printf("dasidj %f",[gui->BlobLightThreshold floatValue]);
 		[gui doMidiStuff];
-		
-		
+//		[gui->LaaLineaYPosition setDoubleValue:controlValue];
+		[gui->MoonDustLength setDoubleValue:controlValue];
+
 		packet = MIDIPacketNext(packet);
 	}	
 }

@@ -26,4 +26,6 @@ public:
 	contourNormals contourNorm;
 
 	float extrude;
+	
+	float yPosition;
 };

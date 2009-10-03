@@ -35,15 +35,7 @@ void MoonDust::setup(){
 void MoonDust::update(){
     vector<DustParticle>::iterator it;
     it = particles.begin();
-	ofxCvBlob b = blob(cam)->getLargestBlob();
 	
-	/*for(int i=0;i<b->nPts;i++){
-	 ofxPoint2f r = projection()->getFloor()->coordWarp->inversetransform(b->pts[i].x, b->pts[i].y);
-	 if(r.y > particles[i].pos().y - 0.01 && r.y < particles[i].pos().y + 0.01){
-	 bMin = r.x;
-	 bMax = -r.x;
-	 }
-	 }*/
 	ofxPoint2f p = projection()->getColumnCoordinate(1);
 	ofxVec2f dir = ofxVec2f(-1,0).rotated(-rotation);
 	int sections = 50;
@@ -52,27 +44,40 @@ void MoonDust::update(){
 		section[i] = ofRandom(0.04,0);	
 	}
 	
-	int lowestSection = 0;
-	if(blob(cam)->numBlobs() > 0){
-		for(int i=0;i<b.nPts-10;i+=10){
-			ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
-			ofxVec2f a = ofxVec2f(r.x-p.x, r.y-p.y);
-			ofxVec2f ab = ((a.dot(dir)) * dir);
-			for(int u=0;u<sections;u++){
-				if(ab.length() < (u+1)*1.0/sections && (ab+p).y > p.y){
-					if(fabs((p+ab).distance(r)) > section[u]){
-						section[u] = fabs((p+ab).distance(r));
-					}
-					if(lowestSection < u  ){
-						lowestSection = u;
-					}
-					break;
+//	for(int i=0;i<blob(cam)->numBlobs();i++){
+//		ofxCvBlob b = blob(cam)->getBlob(i);
+		ofxCvBlob b = blob(cam)->getLargestBlob();		
+		/*for(int i=0;i<b->nPts;i++){
+		 ofxPoint2f r = projection()->getFloor()->coordWarp->inversetransform(b->pts[i].x, b->pts[i].y);
+		 if(r.y > particles[i].pos().y - 0.01 && r.y < particles[i].pos().y + 0.01){
+		 bMin = r.x;
+		 bMax = -r.x;
+		 }
+		 }*/
+
+		
+		int lowestSection = 0;
+		if(blob(cam)->numBlobs() > 0){
+			for(int i=0;i<b.nPts-10;i+=10){
+				ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
+				ofxVec2f a = ofxVec2f(r.x-p.x, r.y-p.y);
+				ofxVec2f ab = ((a.dot(dir)) * dir);
+				for(int u=0;u<sections;u++){
+					if(ab.length() < (u+1)*1.0/sections && (ab+p).y > p.y){
+						if(fabs((p+ab).distance(r)) > section[u]){
+							section[u] = fabs((p+ab).distance(r));
+						}
+						if(lowestSection < u  ){
+							lowestSection = u;
+						}
+						break;
+					}	
 				}	
-			}	
+			}
+			
+			
 		}
-		
-		
-	}
+//	}
 	
 	for(int i=0; i<particles.size();i++){
 		particles[i].visible = false;

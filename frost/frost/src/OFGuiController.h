@@ -7,6 +7,23 @@
 #include "PluginIncludes.h"
 
 
+@interface frostSlider : NSControl
+{
+	NSSlider * valSlider;
+	NSTextField * valTextfield;
+	NSRect boundries;
+	id ibTarget;
+	SEL ibAction;
+}
+
+- (id)initWithFrame:(NSRect)frame;
+- (void) awakeFromNib;
+- (void)drawRect:(NSRect)rect;
+- (void) changeValueFromControl:(id)sender;
+
+@end
+
+
 @interface ofPlugin : NSObject 
 {
 	NSString * name;
@@ -46,7 +63,7 @@
 
 @interface OFGuiController : NSObject {
 @public
-
+	
 	testApp * ofApp;
 	
 	IBOutlet NSView * mainView;	
@@ -121,7 +138,7 @@
 	IBOutlet NSSlider * FrostScapeSlider4;
 	IBOutlet NSSlider * FrostScapeSlider5;
 	IBOutlet NSSlider * FrostScapeSlider6;
-
+	
 	/**
 	 * LiquidSpace outlets
 	 **/
@@ -191,6 +208,8 @@
 @property (retain, readwrite) NSMutableArray *viewItems;
 @property (retain, readwrite) NSMutableArray *views;
 
+-(IBAction) setListViewRow:(id)sender;
+
 
 // ------------------------------------------------
 - (id)tableView:(NSTableView *)aTableView;
@@ -203,65 +222,65 @@
 -(IBAction)		cameraBindGuid2:(id)sender;
 -(IBAction)		cameraBindGuid3:(id)sender;
 
--(IBAction)		setMoonDustForce:(id)sender;
--(IBAction)		setMoonDustLength:(id)sender;
--(IBAction)		setMoonDustSize:(id)sender;
--(IBAction)		setMoonDustDensity:(id)sender;
--(IBAction)		setMoonDustDebug:(id)sender;
+-(IBAction)		modifyMoonDustForce:(id)sender;
+-(IBAction)		modifyMoonDustLength:(id)sender;
+-(IBAction)		modifyMoonDustSize:(id)sender;
+-(IBAction)		modifyMoonDustDensity:(id)sender;
+-(IBAction)		modifyMoonDustDebug:(id)sender;
 
--(IBAction)		setLaLineaDebug:(id)sender;
+-(IBAction)		modifyLaLineaDebug:(id)sender;
 
 
--(IBAction)		setBlobLightDebug:(id)sender;
--(IBAction)		setBlobLightColor:(id)sender;
--(IBAction)		setBlobLightColor2:(id)sender;
--(IBAction)		setBlobLightBlur:(id)sender;
--(IBAction)		setBlobLightThreshold:(id)sender;
--(IBAction)		setBlobLightBlur2:(id)sender;
--(IBAction)		setBlobLightAlpha:(id)sender;
--(IBAction)		setBlobLightBeta:(id)sender;
--(IBAction)		setBlobLightHistoryAlpha:(id)sender;
--(IBAction)		setBlobLightBlobAlpha:(id)sender;
--(IBAction)		setBlobLightBackgroundAdd:(id)sender;
--(IBAction)		setBlobLightBackgroundClear:(id)sender;
+-(IBAction)		modifyBlobLightDebug:(id)sender;
+-(IBAction)		modifyBlobLightColor:(id)sender;
+-(IBAction)		modifyBlobLightColor2:(id)sender;
+-(IBAction)		modifyBlobLightBlur:(id)sender;
+-(IBAction)		modifyBlobLightThreshold:(id)sender;
+-(IBAction)		modifyBlobLightBlur2:(id)sender;
+-(IBAction)		modifyBlobLightAlpha:(id)sender;
+-(IBAction)		modifyBlobLightBeta:(id)sender;
+-(IBAction)		modifyBlobLightHistoryAlpha:(id)sender;
+-(IBAction)		modifyBlobLightBlobAlpha:(id)sender;
+-(IBAction)		modifyBlobLightBackgroundAdd:(id)sender;
+-(IBAction)		modifyBlobLightBackgroundClear:(id)sender;
 
--(IBAction)		setFrostscapeSlider1:(id)sender;
--(IBAction)		setFrostscapeSlider2:(id)sender;
--(IBAction)		setFrostscapeSlider3:(id)sender;
--(IBAction)		setFrostscapeSlider4:(id)sender;
--(IBAction)		setFrostscapeSlider5:(id)sender;
--(IBAction)		setFrostscapeSlider6:(id)sender;
+-(IBAction)		modifyFrostscapeSlider1:(id)sender;
+-(IBAction)		modifyFrostscapeSlider2:(id)sender;
+-(IBAction)		modifyFrostscapeSlider3:(id)sender;
+-(IBAction)		modifyFrostscapeSlider4:(id)sender;
+-(IBAction)		modifyFrostscapeSlider5:(id)sender;
+-(IBAction)		modifyFrostscapeSlider6:(id)sender;
 
--(IBAction)		setLiquidSpaceFillColor:(id)sender;
--(IBAction)		fillLiquidSpace:(id)sender;
--(IBAction)		setLiquidSpaceFadeSpeed:(id)sender;
--(IBAction)		setLiquidSpaceViscosity:(id)sender;
--(IBAction)		setLiquidSpaceDiffusion:(id)sender;
--(IBAction)		setLiquidSpaceDropColor:(id)sender;
--(IBAction)		setLiquidSpaceAddingColor:(id)sender;
--(IBAction)		setLiquidSpaceColorMultiplier:(id)sender;
--(IBAction)		setLiquidSpaceAddingForce:(id)sender;
--(IBAction)		setLiquidSpaceForceMultiplier:(id)sender;
+-(IBAction)		modifyLiquidSpaceFillColor:(id)sender;
+-(IBAction)		modifylLiquidSpace:(id)sender;
+-(IBAction)		modifyLiquidSpaceFadeSpeed:(id)sender;
+-(IBAction)		modifyLiquidSpaceViscosity:(id)sender;
+-(IBAction)		modifyLiquidSpaceDiffusion:(id)sender;
+-(IBAction)		modifyLiquidSpaceDropColor:(id)sender;
+-(IBAction)		modifyLiquidSpaceAddingColor:(id)sender;
+-(IBAction)		modifyLiquidSpaceColorMultiplier:(id)sender;
+-(IBAction)		modifyLiquidSpaceAddingForce:(id)sender;
+-(IBAction)		modifyLiquidSpaceForceMultiplier:(id)sender;
 
--(IBAction)		setProjectorShowDebug:(id)sender;
--(IBAction)		setProjectorMatrix:(id)sender;
--(IBAction)		setProjectorFloorAspect:(id)sender;
+-(IBAction)		modifyProjectorShowDebug:(id)sender;
+-(IBAction)		modifyProjectorMatrix:(id)sender;
+-(IBAction)		modifyProjectorFloorAspect:(id)sender;
 
--(IBAction)		setCameraKeystoneShowDebug:(id)sender;
--(IBAction)		setCameraKeystoneMatrix:(id)sender;
+-(IBAction)		modifyCameraKeystoneShowDebug:(id)sender;
+-(IBAction)		modifyCameraKeystoneMatrix:(id)sender;
 
--(IBAction)		setBlobThreshold1:(id)sender;
--(IBAction)		setBlobBlur1:(id)sender;
+-(IBAction)		modifyBlobThreshold1:(id)sender;
+-(IBAction)		modifyBlobBlur1:(id)sender;
 -(IBAction)		blobGrab1:(id)sender;
--(IBAction)		setBlobActive1:(id)sender;
--(IBAction)		setBlobThreshold2:(id)sender;
--(IBAction)		setBlobBlur2:(id)sender;
+-(IBAction)		modifyBlobActive1:(id)sender;
+-(IBAction)		modifyBlobThreshold2:(id)sender;
+-(IBAction)		modifyBlobBlur2:(id)sender;
 -(IBAction)		blobGrab2:(id)sender;
--(IBAction)		setBlobActive2:(id)sender;
--(IBAction)		setBlobThreshold3:(id)sender;
--(IBAction)		setBlobBlur3:(id)sender;
+-(IBAction)		modifyBlobActive2:(id)sender;
+-(IBAction)		modifyBlobThreshold3:(id)sender;
+-(IBAction)		modifyBlobBlur3:(id)sender;
 -(IBAction)		blobGrab3:(id)sender;
--(IBAction)		setBlobActive3:(id)sender;
+-(IBAction)		modifyBlobActive3:(id)sender;
 -(IBAction)		drawBlobDebug:(id)sender;
 
 

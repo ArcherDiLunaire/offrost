@@ -8,6 +8,123 @@
 
 OFGuiController * gui = NULL;
 
+@implementation frostSlider
+
+- (id)initWithFrame:(NSRect)frame {
+	boundries = frame;
+	[super initWithFrame:frame];
+
+//	[self setTarget:target
+//	[slider release];
+//	[slider initWithFrame:frame];
+}
+
+- (void) awakeFromNib{
+	if ([self target] == nil) {
+//		printf("NIIIIIIIIIIIIILLLLER");
+	} else {
+		printf("target set\n \n\n\n");
+		ibTarget = [self target];
+		ibAction = [self action];
+		[ibTarget retain];
+	}
+	if (ibTarget == nil) {
+	printf("NOO");	
+	} else {
+	printf("YAY");			
+	}
+
+	[self sendAction:ibAction to:ibTarget];
+
+//	[[self target] performSelector:[self action]];
+
+	NSRect frame = NSMakeRect(0,0, boundries.size.width-100, boundries.size.height); 
+
+
+	NSSlider* slider = [[NSSlider alloc] initWithFrame:frame];
+	[slider setMinValue:0];
+	[slider setMaxValue:100];
+	[slider setTickMarkPosition:NSTickMarkBelow];
+	[slider setNumberOfTickMarks:10];
+	[slider setTarget:self];
+
+	[slider setAction: @selector(changeValueFromControl:)];
+
+
+	frame = NSMakeRect(boundries.size.width-95, 4, 50, 22); 
+	NSTextField * val = [[NSTextField alloc] initWithFrame:frame];
+	[val setTarget:self];
+	[val setAction: @selector(changeValueFromControl:)];
+	[val takeDoubleValueFrom:self];
+	[val setFloatValue:[slider floatValue]];
+
+	
+	[self addSubview:slider];
+	[self addSubview:val];
+	
+	valSlider = slider;
+	valTextfield = val;
+	[slider release];
+	
+
+	[val release];
+	
+	
+	
+//	[slider setTarget:self];
+
+}
+
+- (void) changeValueFromControl:(id)sender{
+	printf("change %f",[sender floatValue]);
+	if(ibTarget == nil)
+		printf("null");
+	[self setFloatValue:[sender floatValue]];
+	[valTextfield setFloatValue:[sender floatValue]];
+	[self sendAction:ibAction to:ibTarget];
+	//[self sendAction];
+	
+}
+
+- (float) floatValue{
+	return [valSlider floatValue];
+}
+- (double) doubleValue{
+	return [valSlider doubleValue];
+}
+/*
+- (void)drawRect:(NSRect)rect{
+	printf("draw");
+	[super drawRect:rect];	
+	//[slider drawRect:rect];
+
+	NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+	[paragraphStyle setAlignment:NSCenterTextAlignment];
+	
+	
+	NSDictionary *textAttribs;
+	textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:12],
+				   NSFontAttributeName, [NSColor blackColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
+	
+	[@"Test" drawInRect:rect withAttributes:textAttribs];
+	
+}*/
+/*
+- (void) mouseDown:(NSEvent *)theEvent {
+	[super mouseDown:theEvent];
+	//[slider mouseDown:theEvent];
+	[self setNeedsDisplay: YES];
+	
+}
+- (void) mouseDragged:(NSEvent *)theEvent {
+	[super mouseDragged:theEvent];
+//	[slider mouseDragged:theEvent];
+	[self setNeedsDisplay: YES];
+	
+}*/
+
+@end
+
 
 
 @implementation ofPlugin
@@ -170,15 +287,15 @@ OFGuiController * gui = NULL;
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fillColor.set(0.0,0.0,0.0);
 		
 		/**
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00005 * [userDefaults doubleForKey:@"liquidSpace.fadeSpeed"]);
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setVisc(0.0000001 * [userDefaults doubleForKey:@"liquidSpace.viscosity"]);
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setColorDiffusion(0.0000001 * [userDefaults doubleForKey:@"liquidSpace.diffusion"]);
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->dropColor.set(1.0,1.0,1.0);
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addingColor = [userDefaults boolForKey:@"liquidSpace.addingColor"];
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->colorMultiplier = 0.05 *  [userDefaults boolForKey:@"liquidSpace.colorMultiplier"];
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addingForce = [userDefaults boolForKey:@"liquidSpace.addingForce"];
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->forceMultiplier = 0.05 * [userDefaults boolForKey:@"liquidSpace.forceMultiplier"];
-		**/
+		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00005 * [userDefaults doubleForKey:@"liquidSpace.fadeSpeed"]);
+		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setVisc(0.0000001 * [userDefaults doubleForKey:@"liquidSpace.viscosity"]);
+		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setColorDiffusion(0.0000001 * [userDefaults doubleForKey:@"liquidSpace.diffusion"]);
+		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->dropColor.set(1.0,1.0,1.0);
+		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->addingColor = [userDefaults boolForKey:@"liquidSpace.addingColor"];
+		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->colorMultiplier = 0.05 *  [userDefaults boolForKey:@"liquidSpace.colorMultiplier"];
+		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->addingForce = [userDefaults boolForKey:@"liquidSpace.addingForce"];
+		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->forceMultiplier = 0.05 * [userDefaults boolForKey:@"liquidSpace.forceMultiplier"];
+		 **/
 		
 		gui = self;
 		
@@ -416,28 +533,28 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 #pragma mark Moon Dust
 
 
--(IBAction)	setMoonDustForce:(id)sender{
+-(IBAction)	modifyMoonDustForce:(id)sender{
 	if(ofApp->setupCalled){
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->force = [sender doubleValue];
 	}
 }
 
--(IBAction)		setMoonDustLength:(id)sender {
+-(IBAction)		modifyMoonDustLength:(id)sender {
 	if(ofApp->setupCalled){
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->length = [sender doubleValue];
 	}
 }
--(IBAction)		setMoonDustSize:(id)sender {
+-(IBAction)		modifyMoonDustSize:(id)sender {
 	if(ofApp->setupCalled){
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->size = [sender doubleValue];
 	}
 }
--(IBAction)		setMoonDustDensity:(id)sender {
+-(IBAction)		modifyMoonDustDensity:(id)sender {
 	if(ofApp->setupCalled){
 		((MoonDust*)getPlugin<MoonDust*>(ofApp->pluginController))->density = [sender doubleValue];
 	}
 }
--(IBAction)		setMoonDustDebug:(id)sender{
+-(IBAction)		modifyMoonDustDebug:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -449,7 +566,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 #pragma mark La Linea
 
--(IBAction)		setLaLineaDebug:(id)sender{
+-(IBAction)		modifyLaLineaDebug:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -461,7 +578,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 #pragma mark Blob Light
 
--(IBAction)		setBlobLightDebug:(id)sender{
+-(IBAction)		modifyBlobLightDebug:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -471,7 +588,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
--(IBAction)		setBlobLightColor:(id)sender{	
+-(IBAction)		modifyBlobLightColor:(id)sender{	
 	if(ofApp->setupCalled){
 		
 		(getPlugin<BlobLight*>(ofApp->pluginController))->r  = [[sender color] redComponent]*255;
@@ -479,7 +596,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		(getPlugin<BlobLight*>(ofApp->pluginController))->b  = [[sender color] blueComponent]*255;
 	}
 }
--(IBAction)		setBlobLightColor2:(id)sender{	
+-(IBAction)		modifyBlobLightColor2:(id)sender{	
 	if(ofApp->setupCalled){
 		
 		(getPlugin<BlobLight*>(ofApp->pluginController))->r2  = [[sender color] redComponent]*255;
@@ -487,82 +604,83 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		(getPlugin<BlobLight*>(ofApp->pluginController))->b2  = [[sender color] blueComponent]*255;
 	}
 }
--(IBAction)		setBlobLightBlur:(id)sender{
+-(IBAction)		modifyBlobLightBlur:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [sender doubleValue];
 	}
 }
 
--(IBAction)		setBlobLightThreshold:(id)sender{
+-(IBAction)		modifyBlobLightThreshold:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->threshold = [sender doubleValue];
 	}
 }
 
--(IBAction)		setBlobLightBlur2:(id)sender{
+-(IBAction)		modifyBlobLightBlur2:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blur2 = [sender doubleValue];
 	}
 }
--(IBAction)		setBlobLightAlpha:(id)sender{
+-(IBAction)		modifyBlobLightAlpha:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->alpha = [sender doubleValue];
 	}
 }
--(IBAction)		setBlobLightBeta:(id)sender{
+-(IBAction)		modifyBlobLightBeta:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->beta = [sender doubleValue];
 	}
 }
--(IBAction)		setBlobLightHistoryAlpha:(id)sender{
+-(IBAction)		modifyBlobLightHistoryAlpha:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->historyalpha = [sender doubleValue];
 	}
 }
 
--(IBAction)		setBlobLightBlobAlpha:(id)sender{
+-(IBAction)		modifyBlobLightBlobAlpha:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blobalpha = [sender doubleValue];
 	}
 }
--(IBAction)		setBlobLightBackgroundAdd:(id)sender{
+-(IBAction)		modifyBlobLightBackgroundAdd:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<BlobLight*>(ofApp->pluginController))->addblack = [sender doubleValue];
 	}
 }
--(IBAction)		setBlobLightBackgroundClear:(id)sender{
+-(IBAction)		modifyBlobLightBackgroundClear:(id)sender{
 	(getPlugin<BlobLight*>(ofApp->pluginController))->history.set(0);
 }
 
 #pragma mark Frostscape
 
--(IBAction)		setFrostscapeSlider1:(id)sender{
+-(IBAction)		modifyFrostscapeSlider1:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider1([sender doubleValue]);
 	}
 }
 
--(IBAction)		setFrostscapeSlider2:(id)sender{
+-(IBAction)		modifyFrostscapeSlider2:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider2([sender doubleValue]);
 	}
 }
--(IBAction)		setFrostscapeSlider3:(id)sender{
+-(IBAction)		modifyFrostscapeSlider3:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider3([sender doubleValue]);
 	}
 }
--(IBAction)		setFrostscapeSlider4:(id)sender{
+-(IBAction)		modifyFrostscapeSlider4:(id)sender{
+	printf("asdpasdpo");
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider4([sender doubleValue]);
 	}
 }
--(IBAction)		setFrostscapeSlider5:(id)sender{
+-(IBAction)		modifyFrostscapeSlider5:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider5([sender doubleValue]);
 	}
 }
--(IBAction)		setFrostscapeSlider6:(id)sender{
+-(IBAction)		modifyFrostscapeSlider6:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider6([sender doubleValue]);
 	}
@@ -570,7 +688,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 #pragma mark Liquid Space
 
--(IBAction)		setLiquidSpaceFillColor:(id)sender{
+-(IBAction)		modifyLiquidSpaceFillColor:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fillColor.set([[sender color] redComponent],[[sender color] greenComponent], [[sender color] blueComponent]);
 	}
@@ -582,31 +700,31 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
--(IBAction)		setLiquidSpaceFadeSpeed:(id)sender{
+-(IBAction)		modifyLiquidSpaceFadeSpeed:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00005 * [sender doubleValue]);
 	}
 }
 
--(IBAction)		setLiquidSpaceViscosity:(id)sender{
+-(IBAction)		modifyLiquidSpaceViscosity:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setVisc(0.0000001 * [sender doubleValue]);
 	}
 }
 
--(IBAction)		setLiquidSpaceDiffusion:(id)sender{
+-(IBAction)		modifyLiquidSpaceDiffusion:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setColorDiffusion(0.0000001 * [sender doubleValue]);
 	}
 }
 
--(IBAction)		setLiquidSpaceDropColor:(id)sender{
+-(IBAction)		modifyLiquidSpaceDropColor:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->dropColor.set([[sender color] redComponent],[[sender color] greenComponent], [[sender color] blueComponent]);
 	}
 }
 
--(IBAction)		setLiquidSpaceAddingColor:(id)sender{
+-(IBAction)		modifyLiquidSpaceAddingColor:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -616,13 +734,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
--(IBAction)		setLiquidSpaceColorMultiplier:(id)sender{
+-(IBAction)		modifyLiquidSpaceColorMultiplier:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->colorMultiplier = 0.05 * [sender doubleValue];
 	}
 }
 
--(IBAction)		setLiquidSpaceAddingForce:(id)sender{
+-(IBAction)		modifyLiquidSpaceAddingForce:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -632,7 +750,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
--(IBAction)		setLiquidSpaceForceMultiplier:(id)sender{
+-(IBAction)		modifyLiquidSpaceForceMultiplier:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->forceMultiplier = 0.05 * [sender doubleValue];
 	}
@@ -640,7 +758,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 #pragma mark Projector calibration
 
--(IBAction)		setProjectorShowDebug:(id)sender{
+-(IBAction)		modifyProjectorShowDebug:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -650,7 +768,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }	
 
--(IBAction)		setProjectorMatrix:(id)sender {
+-(IBAction)		modifyProjectorMatrix:(id)sender {
 	if(ofApp->setupCalled){
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->selectedKeystoner = [sender selectedRow];
 		if([sender selectedRow] == 0){
@@ -668,7 +786,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 
--(IBAction)		setProjectorFloorAspect:(id)sender{
+-(IBAction)		modifyProjectorFloorAspect:(id)sender{
 	if(ofApp->setupCalled){
 		(((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->selectedKeystoner]->aspect) = [sender doubleValue];
 		[ProjectorFloorAspectText setStringValue:[sender stringValue]];
@@ -680,7 +798,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 #pragma mark Camera calibration
 
 
--(IBAction)		setCameraKeystoneShowDebug:(id)sender{
+-(IBAction)		modifyCameraKeystoneShowDebug:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -689,7 +807,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		(getPlugin<CameraCalibration*>(ofApp->pluginController))->drawDebug = b;
 	}
 }
--(IBAction)		setCameraKeystoneMatrix:(id)sender{
+-(IBAction)		modifyCameraKeystoneMatrix:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<CameraCalibration*>(ofApp->pluginController))->selectedKeystoner = [sender selectedRow];
 	}
@@ -707,13 +825,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
--(IBAction)	setBlobThreshold1:(id)sender{
+-(IBAction)	modifyBlobThreshold1:(id)sender{
 	if(ofApp->setupCalled){
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(0,[sender doubleValue]);
 	}
 }	
 
--(IBAction)	setBlobBlur1:(id)sender{
+-(IBAction)	modifyBlobBlur1:(id)sender{
 	if(ofApp->setupCalled){
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(0,[sender doubleValue]);
 	}
@@ -724,7 +842,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(0);
 	}
 }
--(IBAction)		setBlobActive1:(id)sender{
+-(IBAction)		modifyBlobActive1:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -736,13 +854,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	
 }
 
--(IBAction)	setBlobThreshold2:(id)sender{
+-(IBAction)	modifyBlobThreshold2:(id)sender{
 	if(ofApp->setupCalled){
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(1,[sender doubleValue]);
 	}
 }	
 
--(IBAction)	setBlobBlur2:(id)sender{
+-(IBAction)	modifyBlobBlur2:(id)sender{
 	if(ofApp->setupCalled){
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(1,[sender doubleValue]);
 	}
@@ -753,7 +871,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(1);
 	}
 }
--(IBAction)		setBlobActive2:(id)sender{
+-(IBAction)		modifyBlobActive2:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
@@ -765,13 +883,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	
 }
 
--(IBAction)	setBlobThreshold3:(id)sender{
+-(IBAction)	modifyBlobThreshold3:(id)sender{
 	if(ofApp->setupCalled){
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(2,[sender doubleValue]);
 	}
 }	
 
--(IBAction)	setBlobBlur3:(id)sender{
+-(IBAction)	modifyBlobBlur3:(id)sender{
 	if(ofApp->setupCalled){
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(2,[sender doubleValue]);
 	}
@@ -782,7 +900,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(2);
 	}
 }
--(IBAction)		setBlobActive3:(id)sender{
+-(IBAction)		modifyBlobActive3:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
