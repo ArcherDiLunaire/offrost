@@ -98,6 +98,7 @@ OFGuiController * gui = NULL;
 	[floorPreview setWindowId:4];
 	[floorPreview setDoDraw:TRUE];
 	
+	
 	[ProjectorFloorAspectText setStringValue:[[NSNumber numberWithFloat:((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[0]->aspect] stringValue]];
 	
 }
@@ -803,6 +804,10 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(2) != 0x0ll){
 		[CameraGUID3 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(2)]];
 	}
+}
+
+-(void) doMidiStuff{
+	[BlobLightBlur setFloatValue:0];
 }
 @end
 

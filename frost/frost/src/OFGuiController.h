@@ -45,7 +45,8 @@
 
 
 @interface OFGuiController : NSObject {
-	
+@public
+
 	testApp * ofApp;
 	
 	IBOutlet NSView * mainView;	
@@ -268,6 +269,8 @@
 -(void)			cameraUpdateGUIDs;
 
 -(id)			init;
+
+-(void) doMidiStuff;
 
 @end
 
