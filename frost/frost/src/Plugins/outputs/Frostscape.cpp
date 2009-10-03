@@ -157,7 +157,7 @@ void IceBlockBackgroundObject::draw(){
 		glPushMatrix();
 
 		glTranslated(position.x, position.y, 0);
-		ofSetColor(0, 0, 0, 80.0*a);
+		ofSetColor(0, 0, 0, 80.0*a*(1.0-Frostscape::slider4));
 	//	ofSetColor(0, 0, 0, 255);
 		glLineWidth(2);
 		glBegin(GL_POLYGON);
@@ -537,10 +537,11 @@ void Frostscape::draw(){
 
 void Frostscape::drawOnFloor(){
 	ofFill();
-	ofSetColor(128, 128, 128);
+	ofEnableAlphaBlending();
+
+	ofSetColor(128, 128, 128,255*(1.0-Frostscape::slider4));
 	ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	
-	ofEnableAlphaBlending();
 	ofSetColor(0, 0, 0,128);
 	/*for(int i=0;i<blackSpots.size();i++){
 		blackSpots[i].draw();

@@ -9,7 +9,7 @@ TrackerThread::TrackerThread(){
 }
 
 void TrackerThread::start(){
-	startThread(false, false);   // blocking, verbose
+	startThread(true, false);   // blocking, verbose
 }
 
 void TrackerThread::stop(){
@@ -79,7 +79,6 @@ void Tracker::setup(){
 	thread.opticalFlow.allocate(cw,ch);
 	thread.grayImage.allocate(cw,ch);
 	thread.grayLastImage.allocate(cw,ch);
-	
 	
 	thread.start();
 }

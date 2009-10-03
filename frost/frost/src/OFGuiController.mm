@@ -26,7 +26,6 @@ OFGuiController * gui = NULL;
 		printf("target set\n \n\n\n");
 		ibTarget = [self target];
 		ibAction = [self action];
-		[ibTarget retain];
 	}
 	if (ibTarget == nil) {
 	printf("NOO");	
@@ -34,9 +33,6 @@ OFGuiController * gui = NULL;
 	printf("YAY");			
 	}
 
-	[self sendAction:ibAction to:ibTarget];
-
-//	[[self target] performSelector:[self action]];
 
 	NSRect frame = NSMakeRect(0,0, boundries.size.width-100, boundries.size.height); 
 
@@ -64,10 +60,9 @@ OFGuiController * gui = NULL;
 	
 	valSlider = slider;
 	valTextfield = val;
-	[slider release];
-	
 
-	[val release];
+	[slider retain];
+	[val retain];
 	
 	
 	

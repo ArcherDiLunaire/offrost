@@ -469,6 +469,7 @@ void Libdc1394Grabber::captureFrame()
 		 *  make sure DMA buffer is fresh, even if we're lagging behind the cam
 		 *-----------------------------------------------------------------------*/
 
+		/**
 		bool bufferEmpty = false;
 		
 		while (!bufferEmpty){

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>ActivePerspectiveName</key>
-	<string>Debug</string>
+	<string>Project</string>
 	<key>AllowedModules</key>
 	<array>
 		<dict>
@@ -315,6 +315,8 @@
 							<string>MainColumn</string>
 							<real>329</real>
 						</array>
+						<key>RubberWindowFrame</key>
+						<string>0 115 1680 913 0 0 1680 1028 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -325,6 +327,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -342,7 +346,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>27BF09F8107749C50051D7EC</string>
+										<string>27BF0A181077543F0051D7EC</string>
 										<key>history</key>
 										<array>
 											<string>270D5F461063F0B5003347FA</string>
@@ -443,9 +447,7 @@
 											<string>275ADC241074D1CE002C116E</string>
 											<string>275ADC981074DAFE002C116E</string>
 											<string>275ADD241074EFCF002C116E</string>
-											<string>275ADD7C1074FC5C002C116E</string>
 											<string>275ADD7D1074FC5C002C116E</string>
-											<string>275ADD7E1074FC5C002C116E</string>
 											<string>2709BBFB10750ABA009A0746</string>
 											<string>2709BC2710751D10009A0746</string>
 											<string>2709BC2B10751D10009A0746</string>
@@ -468,13 +470,15 @@
 											<string>27D6307910764082002A1B88</string>
 											<string>27D6309610764A27002A1B88</string>
 											<string>27D630A610764C80002A1B88</string>
-											<string>27D630A710764C80002A1B88</string>
 											<string>27D630A810764C80002A1B88</string>
 											<string>27D630BD10764D09002A1B88</string>
 											<string>27D630D210765169002A1B88</string>
-											<string>27D6316210765CF2002A1B88</string>
 											<string>27BF09ED107749140051D7EC</string>
-											<string>27BF09EE107749140051D7EC</string>
+											<string>27BF0A131077543F0051D7EC</string>
+											<string>27BF0A141077543F0051D7EC</string>
+											<string>27BF0A151077543F0051D7EC</string>
+											<string>27BF0A161077543F0051D7EC</string>
+											<string>27BF0A171077543F0051D7EC</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -488,16 +492,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1329, 543}}</string>
+								<string>{{0, 0}, {1329, 393}}</string>
+								<key>RubberWindowFrame</key>
+								<string>0 115 1680 913 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>543pt</string>
+							<string>393pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>324pt</string>
+							<string>474pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -511,7 +517,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1329, 297}}</string>
+										<string>{{10, 27}, {1329, 447}}</string>
+										<key>RubberWindowFrame</key>
+										<string>0 115 1680 913 0 0 1680 1028 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -649,8 +657,6 @@
 					<dict>
 						<key>Frame</key>
 						<string>{{0, 0}, {1680, 126}}</string>
-						<key>RubberWindowFrame</key>
-						<string>0 115 1680 913 0 0 1680 1028 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugCLIModule</string>
@@ -725,11 +731,7 @@
 							</array>
 							<key>Frame</key>
 							<string>{{814, 0}, {866, 183}}</string>
-							<key>RubberWindowFrame</key>
-							<string>0 115 1680 913 0 0 1680 1028 </string>
 						</dict>
-						<key>RubberWindowFrame</key>
-						<string>0 115 1680 913 0 0 1680 1028 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugSessionModule</string>
@@ -793,7 +795,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>27BF09F9107749C50051D7EC</string>
+		<string>27BF0A191077543F0051D7EC</string>
 		<string>27BF09E91077487A0051D7EC</string>
 		<string>27BF09EA1077487A0051D7EC</string>
 		<string>/Developer/Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/openFrameworks.xcodeproj</string>

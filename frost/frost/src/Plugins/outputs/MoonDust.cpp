@@ -124,7 +124,7 @@ void MoonDust::drawOnFloor(){
 	int n = 0;
     while( it != particles.end() && n < density) {
 		if((*it).alpha > 0){
-			ofSetColor(255*it->alpha, 255*it->alpha, 255*it->alpha);
+			ofSetColor(255*it->alpha, 255*it->alpha, 255*it->alpha,255);
 			
 			particleTrack->draw((*it).x, (*it).y, -(*it).v.x*length*size, size);
 			//particleImg->draw((*it).x-size/2.0-(*it).v.x*100.0*size, (*it).y,size,size);
