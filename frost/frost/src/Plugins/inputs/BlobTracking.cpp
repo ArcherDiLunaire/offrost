@@ -9,7 +9,7 @@ TrackerThread::TrackerThread(){
 }
 
 void TrackerThread::start(){
-	startThread(true, false);   // blocking, verbose
+	startThread(false, false);   // blocking, verbose
 }
 
 void TrackerThread::stop(){
@@ -25,7 +25,7 @@ void TrackerThread::threadedFunction(){
 				contourFinder.findContours(grayDiff, 20, (w*h)/3, 10, false, true);	
 				
 				opticalFlow.calc(grayLastImage,grayImage,3);
-								
+				
 				updateContour = false;
 			}
 			unlock();
@@ -56,7 +56,7 @@ Tracker::Tracker(){
 	grayLastImage.allocate(cw,ch);
 	grayBg.allocate(cw,ch);
 	grayDiff.allocate(cw,ch);
-
+	
 	bLearnBakground = false;
 	mouseBlob = false;
 	postBlur = 0;
@@ -79,7 +79,7 @@ void Tracker::setup(){
 	thread.opticalFlow.allocate(cw,ch);
 	thread.grayImage.allocate(cw,ch);
 	thread.grayLastImage.allocate(cw,ch);
-
+	
 	
 	thread.start();
 }
@@ -90,60 +90,65 @@ void Tracker::update(){
 	
 	if ((getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active) || mouseBlob){
 		if (getPlugin<Cameras*>(controller)->isFrameNew(cameraId) && active){
-			grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
-			int nPoints = 4;
-			
-			/*CvPoint _cp1[4]= {{0,0}, {cw,0}, {blackCorners[1].x,blackCorners[1].y}, {blackCorners[0].x,blackCorners[0].y}};
-			 CvPoint _cp2[4]= {{cw,0}, {cw,ch}, {blackCorners[2].x,blackCorners[2].y}, {blackCorners[1].x,blackCorners[1].y}};
-			 CvPoint _cp3[4]= {{cw,ch},{0,ch}, {blackCorners[3].x,blackCorners[3].y}, {blackCorners[2].x,blackCorners[2].y}};			
-			 CvPoint _cp4[4]= {{0,ch},{0,0}, {blackCorners[0].x,blackCorners[0].y}, {blackCorners[3].x,blackCorners[3].y}};			
-			 
-			 CvPoint* cp1 = _cp1; cvFillPoly(grayImage.getCvImage(), &cp1, &nPoints, 1, cvScalar(0));
-			 CvPoint* cp2 = _cp2; cvFillPoly(grayImage.getCvImage(), &cp2, &nPoints, 1, cvScalar(0));
-			 CvPoint* cp3 = _cp3; cvFillPoly(grayImage.getCvImage(), &cp3, &nPoints, 1, cvScalar(0));
-			 CvPoint* cp4 = _cp4; cvFillPoly(grayImage.getCvImage(), &cp4, &nPoints, 1, cvScalar(0));
-			 */
-			
-			CvPoint _cp[4]= {{blackCorners[0].x,blackCorners[0].y}, {blackCorners[1].x,blackCorners[1].y},{blackCorners[2].x,blackCorners[2].y},{blackCorners[3].x,blackCorners[3].y}};			
-			CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-			
-			grayImageBlured = grayImage;
-			grayImageBlured.blur(blur);
-			
-			if (bLearnBakground == true){
-				grayBg = grayImageBlured;
-				ofImage saveImg;
-				saveImg.allocate(grayBg.getWidth(), grayBg.getHeight(), OF_IMAGE_GRAYSCALE);
-				saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), false);
-				saveImg.saveImage("blobtrackerBackground"+ofToString(cameraId)+".png");
-				bLearnBakground = false;
-			}
-			
-			grayDiff.absDiff(grayBg, grayImageBlured);
-			grayDiff.threshold(threshold);
-			
-			if(postBlur > 0){
-				grayDiff.blur(postBlur);
-				if(postThreshold > 0){
-					grayDiff.threshold(postThreshold, false);
+			//	int t = ofGetElapsedTimeMillis();
+			if(thread.lock()){
+				
+				grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
+				int nPoints = 4;
+				
+				/*CvPoint _cp1[4]= {{0,0}, {cw,0}, {blackCorners[1].x,blackCorners[1].y}, {blackCorners[0].x,blackCorners[0].y}};
+				 CvPoint _cp2[4]= {{cw,0}, {cw,ch}, {blackCorners[2].x,blackCorners[2].y}, {blackCorners[1].x,blackCorners[1].y}};
+				 CvPoint _cp3[4]= {{cw,ch},{0,ch}, {blackCorners[3].x,blackCorners[3].y}, {blackCorners[2].x,blackCorners[2].y}};			
+				 CvPoint _cp4[4]= {{0,ch},{0,0}, {blackCorners[0].x,blackCorners[0].y}, {blackCorners[3].x,blackCorners[3].y}};			
+				 
+				 CvPoint* cp1 = _cp1; cvFillPoly(grayImage.getCvImage(), &cp1, &nPoints, 1, cvScalar(0));
+				 CvPoint* cp2 = _cp2; cvFillPoly(grayImage.getCvImage(), &cp2, &nPoints, 1, cvScalar(0));
+				 CvPoint* cp3 = _cp3; cvFillPoly(grayImage.getCvImage(), &cp3, &nPoints, 1, cvScalar(0));
+				 CvPoint* cp4 = _cp4; cvFillPoly(grayImage.getCvImage(), &cp4, &nPoints, 1, cvScalar(0));
+				 */
+				
+				CvPoint _cp[4]= {{blackCorners[0].x,blackCorners[0].y}, {blackCorners[1].x,blackCorners[1].y},{blackCorners[2].x,blackCorners[2].y},{blackCorners[3].x,blackCorners[3].y}};			
+				CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+				
+				grayImageBlured = grayImage;
+				grayImageBlured.blur(blur);
+				
+				if (bLearnBakground == true){
+					grayBg = grayImageBlured;
+					ofImage saveImg;
+					saveImg.allocate(grayBg.getWidth(), grayBg.getHeight(), OF_IMAGE_GRAYSCALE);
+					saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), false);
+					saveImg.saveImage("blobtrackerBackground"+ofToString(cameraId)+".png");
+					bLearnBakground = false;
 				}
 				
-			}
-			
-			if(thread.lock()){
+				grayDiff.absDiff(grayBg, grayImageBlured);
+				grayDiff.threshold(threshold);
+				
+				if(postBlur > 0){
+					grayDiff.blur(postBlur);
+					if(postThreshold > 0){
+						grayDiff.threshold(postThreshold, false);
+					}
+					
+				}
+				// 		cout<<ofGetElapsedTimeMillis()-t<<endl;
+				
 				thread.grayDiff = grayDiff;
 				thread.grayImage = grayImage;
 				thread.grayLastImage = grayLastImage;
 				thread.updateContour = true;
 				thread.unlock();
+				
+				//			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
+				
+				
+				grayLastImage = grayImage;
+				
+				
+				postBlur = 0;
+				postThreshold = 0; 
 			}
-			//			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
-			
-			
-			grayLastImage = grayImage;
-			
-			postBlur = 0;
-			postThreshold = 0; 
 		}
 		for(int u=0;u<numPersistentBlobs();u++){
 			ofxPoint2f p = persistentBlobs[u].centroid - persistentBlobs[u].lastcentroid;
