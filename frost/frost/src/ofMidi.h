@@ -17,8 +17,10 @@
 	PYMIDIManager* manager;
 	PYMIDIEndpoint * endpoint;
 	IBOutlet OFGuiController * gui;
+	
+	NSMutableArray * frostSliderHookups;
 }
 
 -(void) awakeFromNib;
-
+-(void) hookupSlider:(frostSlider*)slider onChannel:(int)channel onNumber:(int)number controlChanges:(bool)control noteChanges:(bool)note scale:(float)scale;
 @end

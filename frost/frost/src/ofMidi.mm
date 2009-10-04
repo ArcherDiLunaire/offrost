@@ -19,19 +19,22 @@
     
     NSEnumerator* enumerator = [endpointArray objectEnumerator];
 	endpoint = [endpointArray lastObject];
-	//		printf("&&&&&&& List MIDI: &&&&&&&\n");
-  // while (endpoint = [enumerator nextObject]) {
-        //[myPopUp addItemWithTitle:[endpoint displayName]];
-//        [[myPopUp lastItem] setRepresentedObject:endpoint];
-		NSLog([endpoint displayName]);
-
-    //}
+	NSLog([endpoint displayName]);
 	printf("Is it in use? %d\n",[endpoint isInUse]);
 	[endpoint addReceiver:self];
+	
+	frostSliderHookups  = [[NSMutableArray alloc] initWithCapacity:10];
+	
+	[self hookupSlider:gui->FrostScapeSlider4 onChannel:1 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostScapeSlider1 onChannel:1 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 
 	
 }
+-(void) hookupSlider:(frostSlider*)slider onChannel:(int)channel onNumber:(int)number controlChanges:(bool)control noteChanges:(bool)note scale:(float)scale{
+	[frostSliderHookups addObject:slider];
 
+	[slider setMidiChannel:channel number:number control:control note:note scale:scale];
+}
 - (void)processMIDIPacketList:(MIDIPacketList*)packetList sender:(id)sender
 {
 	MIDIPacket *packet = &packetList->packet[0];
@@ -41,37 +44,38 @@
 		bool noteOff = false;
 		bool controlChange;
 		int channel = -1;
-		int note = -1;
-		int noteVel = -1;
-		int controlNumber = -1;
-		int controlValue = -1;
+		int number = -1;
+		int value = -1;
 		
 		if(packet->data[0] >= 144 && packet->data[0] <= 159){
 			noteOn = true;
 			channel = packet->data[0] - 143;
-			note = packet->data[1];
-			noteVel = packet->data[2];
+			number = packet->data[1];
+			value = packet->data[2];
 		}
 		if(packet->data[0] >= 128 && packet->data[0] <= 143){
 			noteOff = true;
 			channel = packet->data[0] - 127;
-			note = packet->data[1];
-			noteVel = packet->data[2];
+			number = packet->data[1];
+			value = packet->data[2];
 		}
 		if(packet->data[0] >= 176 && packet->data[0] <= 191){
 			controlChange = true;
 			channel = packet->data[0] - 175;
-			controlNumber = packet->data[1];
-			controlValue = packet->data[2];
+			number = packet->data[1];
+			value = packet->data[2];
 		}
 		
 //		[gui->BlobLightThreshold setFloatValue:0 ] ;
 		//printf("dasidj %f",[gui->BlobLightThreshold floatValue]);
-		[gui doMidiStuff];
+//		[gui doMidiStuff];
 		printf("MoonDust Length: %f\n",[gui->MoonDustLength floatValue]);
 //		[gui->LaaLineaYPosition setDoubleValue:controlValue];
-		[gui->FrostScapeSlider4 setDoubleValue:controlValue/127.0];
-
+		//[gui->FrostScapeSlider4 setDoubleValue:controlValue/127.0];
+		printf("n: %d",[frostSliderHookups count]);
+		for(int i=0;i<[frostSliderHookups count];i++){
+			[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
+		}
 		packet = MIDIPacketNext(packet);
 	}	
 }

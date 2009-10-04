@@ -13,8 +13,17 @@
 	NSTextField * valTextfield;
 	SEL myAction;
 	NSObject * myTarget;
+	
+	int midiChannel;
+	int midiNumber;
+	bool midiControlHookup;
+	bool midiNoteHookup;
+	float midiScaleFactor;
 }
 
+- (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value;
+
+- (void) setMidiChannel:(int)channel number:(int)number control:(bool)control note:(bool)note scale:(float)scale;
 - (id) initWithFrame:(NSRect)frame;
 - (void) awakeFromNib;
 - (void) changeValueFromControl:(id)sender;
@@ -129,12 +138,12 @@
 	 **/
 	
 	IBOutlet NSView *frostscapeView;
-	IBOutlet NSSlider * FrostScapeSlider1;
-	IBOutlet NSSlider * FrostScapeSlider2;
-	IBOutlet NSSlider * FrostScapeSlider3;
-	IBOutlet NSSlider * FrostScapeSlider4;
-	IBOutlet NSSlider * FrostScapeSlider5;
-	IBOutlet NSSlider * FrostScapeSlider6;
+	IBOutlet frostSlider * FrostScapeSlider1;
+	IBOutlet frostSlider * FrostScapeSlider2;
+	IBOutlet frostSlider * FrostScapeSlider3;
+	IBOutlet frostSlider * FrostScapeSlider4;
+	IBOutlet frostSlider * FrostScapeSlider5;
+	IBOutlet frostSlider * FrostScapeSlider6;
 	
 	/**
 	 * LiquidSpace outlets
@@ -286,7 +295,6 @@
 
 -(id)			init;
 
--(void) doMidiStuff;
 
 @end
 

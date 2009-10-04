@@ -9,6 +9,23 @@
 OFGuiController * gui = NULL;
 
 @implementation frostSlider
+- (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value{	
+	if(midiChannel == channel && number == midiNumber){
+		if((noteOn || noteOff) && midiNoteHookup){
+			[self setFloatValue:(float)value*midiScaleFactor]		;	
+		} 
+		if(control && midiControlHookup){
+			[self setFloatValue:(float)value*midiScaleFactor];
+		}
+	}
+}
+- (void) setMidiChannel:(int)channel number:(int)number control:(bool)control note:(bool)note scale:(float)scale{
+	midiChannel = channel;
+	midiNumber = number;
+	midiControlHookup = control;
+	midiNoteHookup = note;
+	midiScaleFactor = scale;
+}
 
 - (id)initWithFrame:(NSRect)frame {
 	self = [super initWithFrame:frame];
@@ -17,7 +34,7 @@ OFGuiController * gui = NULL;
 
 - (void) awakeFromNib{
 	
-	NSRect sliderFrame = NSMakeRect(0,0, [self frame].size.width-60, [self frame].size.height); 
+	NSRect sliderFrame = NSMakeRect(50,0, [self frame].size.width-110, [self frame].size.height); 
 	
 	NSSlider* slider = [[NSSlider alloc] initWithFrame:sliderFrame];
 	
@@ -75,6 +92,28 @@ OFGuiController * gui = NULL;
 	//[valTextfield drawRect:rect];
 	//[valSlider drawRect:rect];
 	// nothing here - the slider itself should be hidden;
+	NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+	[paragraphStyle setAlignment:NSCenterTextAlignment];
+	
+	if(midiNoteHookup || midiControlHookup){
+		NSDictionary *textAttribs;
+		textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:7],
+					   NSFontAttributeName, [NSColor blackColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
+		
+		NSRect frame = NSMakeRect(0, 0, 50, 30); 
+		
+		[[NSString stringWithFormat:@"Ch: %d C:%d \nNr: %d  N:%d",midiChannel,midiControlHookup,midiNumber,midiNoteHookup] drawInRect:frame withAttributes:textAttribs];
+		
+	} else {
+		NSDictionary *textAttribs;
+		textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:12],
+					   NSFontAttributeName, [NSColor blackColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
+		
+		NSRect frame = NSMakeRect(0, 0, 50, 30); 
+		
+		[@"-" drawInRect:frame withAttributes:textAttribs];
+		
+	}
 }
 
 - (void) setFloatValue:(float)aFloat {
@@ -89,7 +128,7 @@ OFGuiController * gui = NULL;
 	[valSlider setDoubleValue:aDouble];
 	[valTextfield setDoubleValue:aDouble];
 	[super setDoubleValue:aDouble];
-		[self sendAction:[self action] to:[self target]];
+	[self sendAction:[self action] to:[self target]];
 }
 
 @end
@@ -897,11 +936,6 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	
 }
 
-#pragma mark MIDI
-
--(void) doMidiStuff{
-	[BlobLightBlur setFloatValue:0];
-}
 @end
 
 
