@@ -485,6 +485,21 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
+
+-(void) cameraUpdateGUIDs{
+	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(0) != 0x0ll){
+		[CameraGUID1 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(0)]];
+	}
+	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(1) != 0x0ll){
+		[CameraGUID2 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(1)]];
+	}
+	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(2) != 0x0ll){
+		[CameraGUID3 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(2)]];
+	}
+}
+
+
+
 #pragma mark Moon Dust
 
 
@@ -867,17 +882,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	
 }
 
--(void) cameraUpdateGUIDs{
-	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(0) != 0x0ll){
-		[CameraGUID1 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(0)]];
-	}
-	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(1) != 0x0ll){
-		[CameraGUID2 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(1)]];
-	}
-	if((getPlugin<Cameras*>(ofApp->pluginController))->getGUID(2) != 0x0ll){
-		[CameraGUID3 setStringValue:[NSString stringWithFormat:@"%llx",(getPlugin<Cameras*>(ofApp->pluginController))->getGUID(2)]];
-	}
-}
+#pragma mark MIDI
 
 -(void) doMidiStuff{
 	[BlobLightBlur setFloatValue:0];
