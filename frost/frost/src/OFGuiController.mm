@@ -16,9 +16,9 @@ OFGuiController * gui = NULL;
 }
 
 - (void) awakeFromNib{
-
+	
 	NSRect sliderFrame = NSMakeRect(0,0, [self frame].size.width-60, [self frame].size.height); 
-
+	
 	NSSlider* slider = [[NSSlider alloc] initWithFrame:sliderFrame];
 	
 	[slider setMinValue:[self minValue]];
@@ -29,7 +29,7 @@ OFGuiController * gui = NULL;
 	[slider takeDoubleValueFrom:self];
 	[slider setTarget:self];
 	[slider setAction: @selector(changeValueFromControl:)];
-
+	
 	NSRect valFrame = NSMakeRect([self frame].size.width-50, 0, 50, 22); 
 	
 	NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
@@ -66,15 +66,30 @@ OFGuiController * gui = NULL;
 
 - (void) changeValueFromControl:(id)sender{
 	[self setFloatValue:[sender floatValue]];
-	[valSlider setFloatValue:[sender floatValue]];
-	[valTextfield setFloatValue:[sender floatValue]];
-	[self sendAction:[self action] to:[self target]];
+	//[valSlider setFloatValue:[sender floatValue]];
+	//[valTextfield setFloatValue:[sender floatValue]];
+//	[self sendAction:[self action] to:[self target]];
 }
 
 - (void)drawRect:(NSRect)rect{
 	//[valTextfield drawRect:rect];
 	//[valSlider drawRect:rect];
 	// nothing here - the slider itself should be hidden;
+}
+
+- (void) setFloatValue:(float)aFloat {
+	[valSlider setFloatValue:aFloat];
+	[valTextfield setFloatValue:aFloat];
+	[super setFloatValue:aFloat];
+		[self sendAction:[self action] to:[self target]];
+}
+
+- (void) setDoubleValue:(double)aDouble {
+//	[self changeValueFromControl:[NSNumber numberWithDouble:aDouble]];
+	[valSlider setDoubleValue:aDouble];
+	[valTextfield setDoubleValue:aDouble];
+	[super setDoubleValue:aDouble];
+		[self sendAction:[self action] to:[self target]];
 }
 
 @end

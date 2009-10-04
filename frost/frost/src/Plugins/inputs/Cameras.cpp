@@ -60,17 +60,15 @@ void Cameras::setup(){
 	 }
 	 //**/
 	
-	/**	
-	 if(videoPlayerLoadUrl(0, "FilmFrostscape.mov")){
-	 cout << "                      FILMEN LOADET" << endl;
-	 } else {
-	 cout << "                      FILMEN ikke LOADET" << endl;
-	 }
-	 videoPlayerPlay(0);
-	 videoPlayerActivate(0);
-	 //**/
-	
-
+	//**	
+	if(videoPlayerLoadUrl(0, "FilmFrostscape.mov")){
+		cout << "                      FILMEN LOADET" << endl;
+	} else {
+		cout << "                      FILMEN ikke LOADET" << endl;
+	}
+	videoPlayerPlay(0);
+	videoPlayerActivate(0);
+	//**/
 }
 
 bool Cameras::isFrameNew(int _grabberIndex){
