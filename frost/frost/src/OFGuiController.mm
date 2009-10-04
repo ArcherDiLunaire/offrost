@@ -11,117 +11,71 @@ OFGuiController * gui = NULL;
 @implementation frostSlider
 
 - (id)initWithFrame:(NSRect)frame {
-	boundries = frame;
-	[super initWithFrame:frame];
-
-//	[self setTarget:target
-//	[slider release];
-//	[slider initWithFrame:frame];
+	self = [super initWithFrame:frame];
+    return self;
 }
 
 - (void) awakeFromNib{
-	if ([self target] == nil) {
-//		printf("NIIIIIIIIIIIIILLLLER");
-	} else {
-		printf("\n\n\ntarget set\n \n\n\n");
-		ibTarget = [self target];
-		ibAction = [self action];
-		[ibTarget retain];
-	}
-	if (ibTarget == nil) {
-	printf("\n\n\nNOO\n\n\n");	
-	} else {
-	printf("\n\n\nYAY\n\n\n");			
-	}
 
-	[self sendAction:ibAction to:ibTarget];
+	NSRect sliderFrame = NSMakeRect(0,0, [self frame].size.width-60, [self frame].size.height); 
 
-//	[[self target] performSelector:[self action]];
-
-	NSRect frame = NSMakeRect(0,0, boundries.size.width-100, boundries.size.height); 
-
-
-	NSSlider* slider = [[NSSlider alloc] initWithFrame:frame];
-	[slider setMinValue:0];
-	[slider setMaxValue:100];
+	NSSlider* slider = [[NSSlider alloc] initWithFrame:sliderFrame];
+	
+	[slider setMinValue:[self minValue]];
+	[slider setMaxValue:[self maxValue]];
 	[slider setTickMarkPosition:NSTickMarkBelow];
 	[slider setNumberOfTickMarks:10];
+	[slider setContinuous:true];
+	[slider takeDoubleValueFrom:self];
 	[slider setTarget:self];
-
 	[slider setAction: @selector(changeValueFromControl:)];
 
-
-	frame = NSMakeRect(boundries.size.width-95, 4, 50, 22); 
-	NSTextField * val = [[NSTextField alloc] initWithFrame:frame];
+	NSRect valFrame = NSMakeRect([self frame].size.width-50, 0, 50, 22); 
+	
+	NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
+	
+	[numberFormatter setAllowsFloats:YES];
+	[numberFormatter setAlwaysShowsDecimalSeparator:YES];
+	[numberFormatter setHasThousandSeparators:NO];
+	[numberFormatter setNumberStyle:kCFNumberFormatterDecimalStyle];
+	[numberFormatter setMinimumFractionDigits:1];
+	
+	NSNumber * maximum = [[NSNumber alloc] initWithDouble:[self maxValue]];
+	NSNumber * minimum = [[NSNumber alloc] initWithDouble:[self minValue]];
+	
+	[numberFormatter setMaximum:maximum];
+	[numberFormatter setMinimum:minimum];
+	
+	NSTextField * val = [[NSTextField alloc] initWithFrame:valFrame];
+	
+	[val setFormatter:numberFormatter];
+	
 	[val setTarget:self];
 	[val setAction: @selector(changeValueFromControl:)];
 	[val takeDoubleValueFrom:self];
-	[val setFloatValue:[slider floatValue]];
-
 	
 	[self addSubview:slider];
 	[self addSubview:val];
 	
 	valSlider = slider;
 	valTextfield = val;
+	
 	[slider release];
-	
-
 	[val release];
-	
-	
-	
-//	[slider setTarget:self];
-
 }
 
 - (void) changeValueFromControl:(id)sender{
-	printf("change %f",[sender floatValue]);
-	if(ibTarget == nil)
-		printf("null");
 	[self setFloatValue:[sender floatValue]];
+	[valSlider setFloatValue:[sender floatValue]];
 	[valTextfield setFloatValue:[sender floatValue]];
-	[self sendAction:ibAction to:ibTarget];
-	//[self sendAction];
-	
+	[self sendAction:[self action] to:[self target]];
 }
 
-- (float) floatValue{
-	return [valSlider floatValue];
-}
-- (double) doubleValue{
-	return [valSlider doubleValue];
-}
-/*
 - (void)drawRect:(NSRect)rect{
-	printf("draw");
-	[super drawRect:rect];	
-	//[slider drawRect:rect];
-
-	NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	[paragraphStyle setAlignment:NSCenterTextAlignment];
-	
-	
-	NSDictionary *textAttribs;
-	textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:12],
-				   NSFontAttributeName, [NSColor blackColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
-	
-	[@"Test" drawInRect:rect withAttributes:textAttribs];
-	
-}*/
-/*
-- (void) mouseDown:(NSEvent *)theEvent {
-	[super mouseDown:theEvent];
-	//[slider mouseDown:theEvent];
-	[self setNeedsDisplay: YES];
-	
+	//[valTextfield drawRect:rect];
+	//[valSlider drawRect:rect];
+	// nothing here - the slider itself should be hidden;
 }
-- (void) mouseDragged:(NSEvent *)theEvent {
-	[super mouseDragged:theEvent];
-//	[slider mouseDragged:theEvent];
-	[self setNeedsDisplay: YES];
-	
-}*/
 
 @end
 
@@ -259,6 +213,7 @@ OFGuiController * gui = NULL;
 		(getPlugin<BlobLight*>(ofApp->pluginController))->historyalpha = [userDefaults doubleForKey:@"bloblight.historya"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blobalpha = [userDefaults doubleForKey:@"bloblight.bloba"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->addblack = [userDefaults doubleForKey:@"bloblight.addblack"];
+		
 		
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider1([userDefaults doubleForKey:@"frostscape.val1"]);
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider2([userDefaults doubleForKey:@"frostscape.val2"]);

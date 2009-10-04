@@ -7,18 +7,16 @@
 #include "PluginIncludes.h"
 
 
-@interface frostSlider : NSControl
+@interface frostSlider : NSSlider
 {
 	NSSlider * valSlider;
 	NSTextField * valTextfield;
-	NSRect boundries;
-	id ibTarget;
-	SEL ibAction;
+	SEL myAction;
+	NSObject * myTarget;
 }
 
-- (id)initWithFrame:(NSRect)frame;
+- (id) initWithFrame:(NSRect)frame;
 - (void) awakeFromNib;
-- (void)drawRect:(NSRect)rect;
 - (void) changeValueFromControl:(id)sender;
 
 @end
@@ -74,7 +72,6 @@
 	NSMutableArray * views;
 	
 	NSUserDefaults * userDefaults;
-	
 	
 	/**
 	 * Plugin View Outlets
