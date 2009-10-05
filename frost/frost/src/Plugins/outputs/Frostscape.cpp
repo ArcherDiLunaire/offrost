@@ -141,7 +141,7 @@ IceBlockBackgroundObject::IceBlockBackgroundObject(float x, float y){
 	generate();
 }
 void IceBlockBackgroundObject::generate(){
-	a = -0.5;
+	a = -3;
 	int n = int(ofRandom(4, 9));
 	points.clear();
 	points.reserve(n);
@@ -466,13 +466,21 @@ void Frostscape::setup(){
 	int n = 35;
 	for(int i=0;i<n*projection()->getFloor()->aspect;i++){
 		for(int u=0;u<n;u++){
-			iceblockBackgrounds.push_back(IceBlockBackgroundObject((float)i/n, (float)u/n));
+			float x = (float)i/n;
+			float y = (float)u/n;
+			ofxPoint2f p = ofxPoint2f(x,y);
+		//	if(((ofxVec2f)p-ofxVec2f(0.5*projection()->getFloor()->aspect,0.5)).y < ofRandom(0.4, 0.5)){
+		//		if(((ofxVec2f)p-ofxVec2f(0.5*projection()->getFloor()->aspect,0.5)).x < ofRandom(0.4, 0.5)*projection()->getFloor()->aspect){
+					
+					iceblockBackgrounds.push_back(IceBlockBackgroundObject(x, y));
+	//			}
+	//		}
 		}
 	}
 	
 	float r = 0.03;
 	float rSq = r*r;
-
+	
 	int num = iceblockBackgrounds.size();
 	for(int i=0;i<num;i++){
 		for(int u=0;u<num;u++){
@@ -536,7 +544,7 @@ void Frostscape::update(){
 				ofxVec2f centr = projection()->convertToCoordinate(projection()->getFloor(), pb->centroid);			
 				
 				if((centr - obj->position).length() < r){
-					obj->a += 0.08;
+					obj->a += 0.08*Frostscape::slider1;
 				} else {
 					//Is it close to a black background?
 					bool close = false;
@@ -544,8 +552,8 @@ void Frostscape::update(){
 						IceBlockBackgroundObject * obj2 = &iceblockBackgrounds[obj->closeBackgrounds[x]];
 						if(obj2->a > 0.9){
 							//if((obj2->position - obj->position).lengthSquared() < rSq){
-								close = true;
-								break;
+							close = true;
+							break;
 							//}
 						}
 					}
@@ -555,7 +563,7 @@ void Frostscape::update(){
 						for(int pu=0;pu<p.size();pu+=5){
 							if((p[pu] - obj->position).length() < r+0.05 ){
 								// then it should get black aswell
-								obj->a += 0.08;
+								obj->a += 0.08*Frostscape::slider2;
 								break;
 							}							
 						}
@@ -575,13 +583,21 @@ void Frostscape::update(){
 			iceblockBackgrounds[u].a = 1.0;
 		}
 	}
+
+	for(int u=0;u<iceblockBackgrounds.size();u++){
+		if(iceblockBackgrounds[u].a < -3){
+			iceblockBackgrounds[u].a = -3;
+		}
+	}
+	
+
 	
 	//#pragma omp parallel for
 	int numBackgrounds = iceblockBackgrounds.size();	
 	
 	for (int i=0; i<numBackgrounds; i++) {
 		IceBlockBackgroundObject * obj = &iceblockBackgrounds[i];
-		if(obj->a > 0.0){
+		//if(obj->a > 0.0){
 			//Lets find the closest backgrounds
 			float r = 0.03;
 			bool collapse = false;
@@ -606,9 +622,10 @@ void Frostscape::update(){
 			//}
 			if(collapse){
 				obj->a -= 0.08*Frostscape::slider5;
+				
 				//cout<<iceblockBackgrounds[i].a<<"  "<<i<<endl;
 			}
-		}
+		//}
 	}
 	
 	
