@@ -18,4 +18,9 @@ public:
 	bool debug;
 	int cam;
 	
+	float historyAlpha;
+	float historyAddMultiplier;
+
+	ofxCvGrayscaleImage historyImg;
+	
 };

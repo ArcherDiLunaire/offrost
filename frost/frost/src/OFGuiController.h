@@ -132,6 +132,8 @@
 	 **/
 	
 	IBOutlet NSView *foldingView;
+	IBOutlet frostSlider * foldingHistoryAddMultiplier;
+	
 	
 	/**
 	 * Frostscape outlets
@@ -236,7 +238,6 @@
 
 -(IBAction)		modifyLaLineaDebug:(id)sender;
 
-
 -(IBAction)		modifyBlobLightDebug:(id)sender;
 -(IBAction)		modifyBlobLightColor:(id)sender;
 -(IBAction)		modifyBlobLightColor2:(id)sender;
@@ -256,6 +257,8 @@
 -(IBAction)		modifyFrostscapeSlider4:(id)sender;
 -(IBAction)		modifyFrostscapeSlider5:(id)sender;
 -(IBAction)		modifyFrostscapeSlider6:(id)sender;
+
+-(IBAction)		modifyFoldingHistoryAddMultiplier:(id)sender;
 
 -(IBAction)		modifyLiquidSpaceFillColor:(id)sender;
 -(IBAction)		modifylLiquidSpace:(id)sender;

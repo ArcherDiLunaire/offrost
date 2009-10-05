@@ -132,7 +132,7 @@ bool Libdc1394Grabber::init( int _width, int _height, int _format, int _targetFo
 	if(!result) return false;
 
     initInternalBuffers();
-	startThread(false, true);   // blocking, verbose
+	startThread(false, false);   // blocking, verbose
 
 	return true;
 }
@@ -220,6 +220,21 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
         dc1394_log_error("Failed to initialize camera with guid %llx", cameraGUID);
         return false;
     }
+	
+	
+    // These methods would cleanup the mess left behind by other processes,
+    // but as of (libdc1394 2.0.0 rc9) this is not supported for the Juju stack
+#ifdef TARGET_OSX
+	dc1394_iso_release_bandwidth(camera, INT_MAX);
+	for (int channel = 0; channel < 64; ++channel) {
+		dc1394_iso_release_channel(camera, channel);
+	}
+#endif
+	
+#ifdef TARGET_LINUX
+	// This is rude, but for now needed (Juju)...
+	dc1394_reset_bus(camera);
+#endif
 	
 	free(cameras);
 
@@ -450,26 +465,31 @@ unsigned char* Libdc1394Grabber::getPixels()
 
 bool Libdc1394Grabber::grabFrame(unsigned char ** _pixels)
 {
-    if(bHasNewFrame)
+    lock();
+	if(bHasNewFrame)
     {
         bHasNewFrame = false;
         memcpy(*_pixels,pixels,width*height*bpp);
+		unlock();
         return true;
-    }
-    else return false;
+    } else {
+		unlock();
+		return false;
+	}
 }
 
 void Libdc1394Grabber::captureFrame()
 {
+    lock();
 
 	if( !bHasNewFrame && (camera != NULL ))
 	{
+	    unlock();
 
 		/*-----------------------------------------------------------------------
 		 *  make sure DMA buffer is fresh, even if we're lagging behind the cam
 		 *-----------------------------------------------------------------------*/
 
-		/**
 		bool bufferEmpty = false;
 		
 		while (!bufferEmpty){
@@ -477,7 +497,7 @@ void Libdc1394Grabber::captureFrame()
 			if (dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_POLL, &frameToDiscard) == DC1394_SUCCESS){
 				if(frameToDiscard != NULL){
 					dc1394_capture_enqueue(camera, frameToDiscard);
-					ofLog(OF_LOG_NOTICE, "discarded a frame");
+					//ofLog(OF_LOG_NOTICE, "discarded a frame");
 				} else {
 					bufferEmpty = true;
 				}
@@ -505,9 +525,13 @@ void Libdc1394Grabber::captureFrame()
 		processCameraImageData( frame->image );
 
 		dc1394_capture_enqueue(camera, frame);
-
+        lock();
 		bHasNewFrame = true;
+		unlock();
+	}else {
+		unlock();
 	}
+
 
 }
 
@@ -521,7 +545,10 @@ void Libdc1394Grabber::processCameraImageData( unsigned char* _cameraImageData )
 
 		if( targetFormat == VID_FORMAT_GREYSCALE || targetFormat == VID_FORMAT_Y8 )
 		{
-			pixels = _cameraImageData;
+			
+			lock();
+			memcpy(pixels, _cameraImageData, width * height * bpp);
+			unlock();
 			
 //			if(writeonce) {
 //			    writeonce = false;
@@ -530,7 +557,9 @@ void Libdc1394Grabber::processCameraImageData( unsigned char* _cameraImageData )
 		}
 		else if( targetFormat == VID_FORMAT_RGB )
 		{
+			lock();
 			dc1394_bayer_decoding_8bit( _cameraImageData, pixels, width, height,  bayerPattern, bayerMethod );
+			unlock();
 			if(writeonce) {
 			    writeonce = false;
                 cout << "processCameraImageData() targetFormat  = VID_FORMAT_RGB" << endl;
@@ -538,7 +567,9 @@ void Libdc1394Grabber::processCameraImageData( unsigned char* _cameraImageData )
 		}
 		else if ( targetFormat == VID_FORMAT_BGR )
 		{
+			lock();
 			dc1394_bayer_decoding_8bit( _cameraImageData, pixels, width, height,  bayerPattern, bayerMethod ); // we should really be converting this
+			unlock();
 		}
 		else
 		{
@@ -565,11 +596,15 @@ void Libdc1394Grabber::processCameraImageData( unsigned char* _cameraImageData )
 	{
 		if( targetFormat == VID_FORMAT_RGB )
 		{
+			lock();
 			dc1394_convert_to_RGB8( _cameraImageData, pixels, width, height, YUV_BYTE_ORDER, sourceFormatLibDC, 16);
+			unlock();
 		}
 		else if ( targetFormat == VID_FORMAT_BGR )
 		{
+			lock();
 			dc1394_convert_to_RGB8( _cameraImageData, pixels, width, height, YUV_BYTE_ORDER, sourceFormatLibDC, 16); // we should really be converting this
+			unlock();
 		}
 		else
 		{
@@ -581,11 +616,15 @@ void Libdc1394Grabber::processCameraImageData( unsigned char* _cameraImageData )
 	{
 		if( targetFormat == VID_FORMAT_RGB )
 		{
-		    pixels = _cameraImageData;
+			lock();
+			memcpy(pixels, _cameraImageData, width * height * bpp);
+			unlock();
 		}
 		else if ( targetFormat == VID_FORMAT_BGR )
 		{
-		    pixels = _cameraImageData;
+			lock();
+			memcpy(pixels, _cameraImageData, width * height * bpp);
+			unlock();
 			//memcpy ( pixels, _cameraImageData, finalImageDataBufferLength ); // we should really be converting this
 		}
 		else
@@ -639,6 +678,7 @@ void Libdc1394Grabber::cleanupCamera()
 	ofSleepMillis(200);
 
 	dc1394switch_t is_iso_on = DC1394_OFF;
+	if(camera) {
 	if (dc1394_video_get_transmission(camera, &is_iso_on)!=DC1394_SUCCESS) {
 		is_iso_on = DC1394_ON; // try to shut ISO anyway
 	}
@@ -649,16 +689,22 @@ void Libdc1394Grabber::cleanupCamera()
 	}
 
 	/* cleanup and exit */
+	
 	dc1394_capture_stop(camera);
 	dc1394_reset_bus(camera);
 	dc1394_camera_free (camera);
 	camera = NULL;
+	}
 
 	if(d && useCount < 1) {
 		dc1394_free (d);
 		d = NULL;
 	}
-
+	
+	if(pixels) {
+		delete [] pixels;
+		pixels = NULL;
+	}
 }
 
 

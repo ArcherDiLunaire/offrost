@@ -276,6 +276,7 @@ OFGuiController * gui = NULL;
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider5([userDefaults doubleForKey:@"frostscape.val5"]);
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider6([userDefaults doubleForKey:@"frostscape.val6"]);
 		
+		(getPlugin<Folding*>(ofApp->pluginController))->historyAddMultiplier = [userDefaults doubleForKey:@"folding.historyAddMultiplier"];
 		
 		(getPlugin<BlobTracking*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"blob.drawdebug"];	
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(0,[userDefaults doubleForKey:@"blob.threshold1"]);
@@ -673,6 +674,14 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 -(IBAction)		modifyBlobLightBackgroundClear:(id)sender{
 	(getPlugin<BlobLight*>(ofApp->pluginController))->history.set(0);
+}
+
+#pragma mark Foldign
+
+-(IBAction)		modifyFoldingHistoryAddMultiplier:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Folding*>(ofApp->pluginController))->historyAddMultiplier = [sender doubleValue];
+	}
 }
 
 #pragma mark Frostscape

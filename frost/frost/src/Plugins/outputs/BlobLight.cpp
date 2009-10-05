@@ -33,6 +33,7 @@ void BlobLight::update(){
 	
 }
 void BlobLight::draw(){
+	ofPushStyle();
 	ofxCvGrayscaleImage Largeimg = blob(0)->grayDiff;
 	img.scaleIntoMe(Largeimg);
 	getPlugin<CameraCalibration*>(controller)->applyWarp(0);
@@ -68,7 +69,7 @@ void BlobLight::draw(){
 	
 //	img.draw(0, 0);
 
-	
+	ofPopStyle();
 }
 
 void BlobLight::drawOnFloor(){
