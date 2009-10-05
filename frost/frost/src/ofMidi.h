@@ -15,7 +15,7 @@
 
 @interface ofMidi : NSObject {
 	PYMIDIManager* manager;
-	PYMIDIEndpoint * endpoint;
+	PYMIDIVirtualSource * endpoint;
 	IBOutlet OFGuiController * gui;
 	
 	NSMutableArray * frostSliderHookups;

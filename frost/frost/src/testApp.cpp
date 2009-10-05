@@ -11,7 +11,7 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController = new PluginController;
 	pluginController->addPlugin(new Cameras);
 	pluginController->addPlugin(new BlobTracking);
-
+	
 	pluginController->addPlugin(new ProjectionSurfaces);
 	pluginController->addPlugin(new CameraCalibration);
 	
@@ -22,7 +22,7 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new Frostscape);
 	pluginController->addPlugin(new LiquidSpace);
 	pluginController->addPlugin(new BlobLight);
-
+	
 }
 
 void testApp::setup(){	
@@ -30,13 +30,13 @@ void testApp::setup(){
 	ofSetDataPathRoot("data/");
 	ofEnableAlphaBlending();
 	ofBackground(0,0,0);	
-
+	
 	ofSetLogLevel(OF_LOG_VERBOSE);
 	
 	lucidaGrande.loadFont("LucidaGrande.ttc",22, false, true);
-			
+	
 	pluginController->setup();
-
+	
 	//pluginByType <int> obj;
 	//obj.get(pluginController);
 	setupCalled = true;
@@ -91,14 +91,14 @@ void testApp::update()
 {
 	float mousex = (float)mouseX/ofGetWidth();
 	float mousey = (float)mouseY/ofGetHeight();
-
+	
 	if(mousex < 0.5){
 		getPlugin<MoonDust*>(pluginController)->min = mousex-0.5;
 		getPlugin<MoonDust*>(pluginController)->max = 0;
 	} else {
 		getPlugin<MoonDust*>(pluginController)->max = mousex-0.5;
 		getPlugin<MoonDust*>(pluginController)->min = 0;
-	
+		
 	}
 	
 	pluginController->update(mousex, mousey);
@@ -106,12 +106,12 @@ void testApp::update()
 
 //--------------------------------------------------------------
 void testApp::draw(){
-//	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 20);
+	//	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 20);
 	
 	pluginController->draw();
 	pluginController->drawFloor();
 	pluginController->drawWall();
-
+	
 	fps = ofGetFrameRate();
 }
 
@@ -133,6 +133,13 @@ void testApp::drawCameraView(){
 		if(getPlugin<Cameras*>(pluginController)->cameraInited[i]){
 			ofSetColor(255,255, 255);
 			getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->draw((otherWindow->getWidth()/3.0)*i,0,otherWindow->getWidth()/3.0,otherWindow->getHeight());
+			if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->lock()){
+				if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->blinkCounter % 50 < 25){
+					ofSetColor(255, 0, 0);
+					ofEllipse((otherWindow->getWidth()/3.0)*i+10, 10, 10, 10);
+				}
+				((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->unlock();
+			}
 		} else {
 			ofEnableAlphaBlending();
 			ofSetColor(255,255,255,(((sinf(ofGetElapsedTimef()*5.0)/2.0)+0.5)*255));
@@ -152,7 +159,7 @@ void testApp::drawCameraCalibrationView(){
 void testApp::drawBlobWindow(){
 	ofSetColor(255,255, 255);
 	getPlugin<BlobTracking*>(pluginController)->drawSettings();
-
+	
 }
 
 void testApp::drawFloorPreview(){
@@ -167,10 +174,10 @@ void testApp::drawFloorPreview(){
 	}
 	
 	glPopMatrix();
-
+	
 	ofSetColor(255, 255, 255);
 	ofLine(0, floorPreview->m_Height/2.0, floorPreview->m_Width, floorPreview->m_Height/2.0);
-
+	
 	glPushMatrix();
 	
 	glTranslated(0.5, floorPreview->m_Height/2.0, 0);
@@ -193,7 +200,7 @@ void testApp::keyPressed(int key){
 	if(key == 'c'){
 		//getPlugin<Cameras*>(pluginController)->vidGrabber->videoSettings();
 	}
-	 if( key == ' ' ) {
+	if( key == ' ' ) {
 		if(getPlugin<Cameras*>(pluginController)->calibAddSnapshot(getPlugin<Cameras*>(pluginController)->getGUID(0))){
 			cout << "CALIB: Added snapshot image..." << endl;
 		} else {
@@ -226,7 +233,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+	
 }
 
 //--------------------------------------------------------------

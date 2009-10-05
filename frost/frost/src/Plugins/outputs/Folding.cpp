@@ -6,7 +6,7 @@
 
 Folding::Folding(){
 	type = OUTPUT;
-	cam = 0;
+	cam = 1;
 }
 
 void Folding::setup(){
@@ -40,5 +40,36 @@ void Folding::draw(){
 	glPopMatrix();
 	
 	ofPopStyle();
+
+	ofPushStyle();
+	ofEnableAlphaBlending();
+	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
+	projection()->applyCurtainProjection(0, 1);
+	ofSetColor(255, 255,255);
+	//ofRect(0, 0, 1, 1);
+	glPushMatrix();
+	glTranslated(-1.4, 0.4, 0);
+	glRotated(-25, 0, 0, 1.0);
+	historyImg.draw(0,0,4,4);
+	//blob(cam)->grayDiff.draw(0,0,4,4);
+	glPopMatrix();
+	
+	ofPopStyle();
+
+	ofPushStyle();
+	ofEnableAlphaBlending();
+	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
+	projection()->applyCurtainProjection(0, 2);
+	ofSetColor(255, 255,255);
+	//ofRect(0, 0, 1, 1);
+	glPushMatrix();
+	glTranslated(-1.4, 0.4, 0);
+	glRotated(-25, 0, 0, 1.0);
+	historyImg.draw(0,0,4,4);
+	//blob(cam)->grayDiff.draw(0,0,4,4);
+	glPopMatrix();
+	
+	ofPopStyle();
+	
 }
 

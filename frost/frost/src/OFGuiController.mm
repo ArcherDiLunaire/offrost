@@ -844,8 +844,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->w = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.50;
 			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->h = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.5;
 		}
-		//		[ProjectorFloorAspect setFloatValue:((*getPlugin<ProjectionSurfaces*>(ofApp->pluginController)->objects[[sender selectedRow]]->aspect))];
-		[ProjectorFloorAspect setMinValue:0.5];
+		[ProjectorFloorAspect setFloatValue:((getPlugin<ProjectionSurfaces*>(ofApp->pluginController)->objects[[sender selectedRow]]->aspect))];
+//		[ProjectorFloorAspect setMinValue:0.5];
 		[ProjectorFloorAspectText setDoubleValue:[ProjectorFloorAspect doubleValue]];
 		
 	}

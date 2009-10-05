@@ -17,15 +17,17 @@ public:
 	void update();
 	void drawOnWall();
 	
-	void drawContour(vector<ofxVec2f> * points, float _lineWidth, float _extrusion);
-	
 	bool debug;
 	int cam;
 	
 	contourSimplify contourSimp;
 	contourNormals contourNorm;
+	
+	void drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _extrusion);
 
 	float extrude;
+	float lineWidth;
 
 	float yPosition;
+	ofxVec2f camOffset(float x);
 };

@@ -69,6 +69,7 @@ class Libdc1394Grabber : public ofxVideoGrabberSDK, public ofxThread
 		dc1394bayer_method_t bayerMethod;
 
 		dc1394camera_list_t*  list;
+	int blinkCounter;
 
 	private:
 

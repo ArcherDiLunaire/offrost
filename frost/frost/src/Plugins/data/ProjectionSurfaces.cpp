@@ -271,16 +271,16 @@ void ProjectionSurfaces::keyPressed(ofKeyEventArgs & args){
 	ofxVec2f newPos =  objects[selectedKeystoner]->warp->corners[selectedCorner] ;
 	
 	if(args.key == 63233){
-		newPos -= ofxVec2f(0,-0.001);
+		newPos -= ofxVec2f(0,-0.0003);
 	}
 	if(args.key == 63232){
-		newPos += ofxVec2f(0,-0.001);
+		newPos += ofxVec2f(0,-0.0003);
 	}
 	if(args.key == 63234){
-		newPos += ofxVec2f(-0.001,0);
+		newPos += ofxVec2f(-0.0003,0);
 	}
 	if(args.key == 63235){
-		newPos -= ofxVec2f(-0.001,0);
+		newPos -= ofxVec2f(-0.0003,0);
 	}
 	objects[selectedKeystoner]->SetCorner(selectedCorner, newPos.x, newPos.y);
 	for(int i=0;i<objects.size();i++){

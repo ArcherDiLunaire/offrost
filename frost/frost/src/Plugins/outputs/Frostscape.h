@@ -36,6 +36,8 @@ public:
 	void draw();
 	void generate();
 	vector<int> closeBackgrounds;
+	int upTimer;
+	int downTimer;
 };
 
 class IceBlockJoint {

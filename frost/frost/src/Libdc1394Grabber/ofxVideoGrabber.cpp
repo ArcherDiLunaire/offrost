@@ -93,13 +93,23 @@ void ofxVideoGrabber::setUseTexture(bool bUse)
 //--------------------------------------------------------------------
 bool ofxVideoGrabber::isFrameNew()
 {
-    return bIsFrameNew;
+	bool ret;
+	if(((Libdc1394Grabber*)videoGrabber)->lock()){
+		ret = bIsFrameNew;
+		((Libdc1394Grabber*)videoGrabber)->unlock();
+	}
+    return ret;
 }
 
 //--------------------------------------------------------------------
 unsigned char* ofxVideoGrabber::getPixels()
 {
-    return pixels;
+unsigned char* ret;
+//	if(((Libdc1394Grabber*)videoGrabber)->lock()){
+		ret = pixels;
+//		((Libdc1394Grabber*)videoGrabber)->unlock();
+//	}
+    return ret;
 }
 
 //--------------------------------------------------------------------
@@ -108,6 +118,10 @@ void ofxVideoGrabber::update()
 	if(bGrabberInited){
 		grabFrame();
 		settings->update();
+		if(!((Libdc1394Grabber*) videoGrabber)->isThreadRunning()){
+			cout<<"Thread not running!!!!!"<<endl;
+			((Libdc1394Grabber*)videoGrabber)->startThread(true,false);
+		}
 	}
 }
 
@@ -152,12 +166,16 @@ void ofxVideoGrabber::grabFrame()
 //--------------------------------------------------------------------
 void ofxVideoGrabber::draw(float _x, float _y, float _w, float _h)
 {
-	if (bUseTexture){
-		tex.draw(_x, _y, _w, _h);
-	}
-	if(bGrabberInited){
-		settings->draw();
-	}
+	if(((Libdc1394Grabber*)videoGrabber)->lock()){
+		if (bUseTexture){
+			tex.draw(_x, _y, _w, _h);
+		}
+		if(bGrabberInited){
+			settings->draw();
+		}
+		
+		((Libdc1394Grabber*)videoGrabber)->unlock();
+	}	
 }
 
 //--------------------------------------------------------------------

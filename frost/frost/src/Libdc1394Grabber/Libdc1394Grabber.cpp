@@ -50,6 +50,7 @@ Libdc1394Grabber::Libdc1394Grabber()
 		err = dc1394_camera_enumerate(d, &list);
 		if(err){ ofLog(OF_LOG_ERROR, "Failed to enumerate cameras"); }
 	} 
+	blinkCounter = 0;
 }
 
 Libdc1394Grabber::~Libdc1394Grabber()
@@ -132,7 +133,7 @@ bool Libdc1394Grabber::init( int _width, int _height, int _format, int _targetFo
 	if(!result) return false;
 
     initInternalBuffers();
-	startThread(false, false);   // blocking, verbose
+	startThread(true, false);   // blocking, verbose
 
 	return true;
 }
@@ -527,6 +528,7 @@ void Libdc1394Grabber::captureFrame()
 		dc1394_capture_enqueue(camera, frame);
         lock();
 		bHasNewFrame = true;
+		blinkCounter++;
 		unlock();
 	}else {
 		unlock();

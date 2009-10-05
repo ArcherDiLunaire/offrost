@@ -24,7 +24,7 @@ void TrackerThread::threadedFunction(){
 			if(updateContour){
 				contourFinder.findContours(grayDiff, 20, (w*h)/3, 10, false, true);	
 				
-				opticalFlow.calc(grayLastImage,grayImage,3);
+//(				opticalFlow.calc(grayLastImage,grayImage,3);
 				
 				updateContour = false;
 			}

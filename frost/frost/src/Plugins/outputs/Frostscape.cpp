@@ -139,6 +139,8 @@ IceBlockBackgroundObject::IceBlockBackgroundObject(float x, float y){
 	position.x = x;
 	position.y = y;
 	generate();
+	upTimer = 0;
+	downTimer = 0;
 }
 void IceBlockBackgroundObject::generate(){
 	a = -3;
@@ -469,12 +471,12 @@ void Frostscape::setup(){
 			float x = (float)i/n;
 			float y = (float)u/n;
 			ofxPoint2f p = ofxPoint2f(x,y);
-		//	if(((ofxVec2f)p-ofxVec2f(0.5*projection()->getFloor()->aspect,0.5)).y < ofRandom(0.4, 0.5)){
-		//		if(((ofxVec2f)p-ofxVec2f(0.5*projection()->getFloor()->aspect,0.5)).x < ofRandom(0.4, 0.5)*projection()->getFloor()->aspect){
-					
-					iceblockBackgrounds.push_back(IceBlockBackgroundObject(x, y));
-	//			}
-	//		}
+			//	if(((ofxVec2f)p-ofxVec2f(0.5*projection()->getFloor()->aspect,0.5)).y < ofRandom(0.4, 0.5)){
+			//		if(((ofxVec2f)p-ofxVec2f(0.5*projection()->getFloor()->aspect,0.5)).x < ofRandom(0.4, 0.5)*projection()->getFloor()->aspect){
+			
+			iceblockBackgrounds.push_back(IceBlockBackgroundObject(x, y));
+			//			}
+			//		}
 		}
 	}
 	
@@ -563,7 +565,10 @@ void Frostscape::update(){
 						for(int pu=0;pu<p.size();pu+=5){
 							if((p[pu] - obj->position).length() < r+0.05 ){
 								// then it should get black aswell
-								obj->a += 0.08*Frostscape::slider2;
+								//	if(obj->downTimer > 10){
+								obj->a += 0.16*Frostscape::slider2;	
+								obj->upTimer = 0;
+								//}
 								break;
 							}							
 						}
@@ -583,14 +588,18 @@ void Frostscape::update(){
 			iceblockBackgrounds[u].a = 1.0;
 		}
 	}
-
+	
 	for(int u=0;u<iceblockBackgrounds.size();u++){
 		if(iceblockBackgrounds[u].a < -3){
 			iceblockBackgrounds[u].a = -3;
 		}
 	}
+	for(int u=0;u<iceblockBackgrounds.size();u++){
+		iceblockBackgrounds[u].upTimer ++;
+		iceblockBackgrounds[u].downTimer ++;
+	}
 	
-
+	
 	
 	//#pragma omp parallel for
 	int numBackgrounds = iceblockBackgrounds.size();	
@@ -598,33 +607,39 @@ void Frostscape::update(){
 	for (int i=0; i<numBackgrounds; i++) {
 		IceBlockBackgroundObject * obj = &iceblockBackgrounds[i];
 		//if(obj->a > 0.0){
-			//Lets find the closest backgrounds
-			float r = 0.03;
-			bool collapse = false;
-			
-			IceBlockBackgroundObject * obj2;
-			for(int u=0;u<obj->closeBackgrounds.size();u++){
-				obj2 = &iceblockBackgrounds[obj->closeBackgrounds[u]];
-				if((obj->position - obj2->position).length() < r && i != u){
-					if( Frostscape::slider6 > 0 && obj->a > 0.9){
-						//expand to the close background
-						obj2->a += 0.08*Frostscape::slider6;
-					}
-					if( Frostscape::slider5 > 0 && obj2->a < 0.1){
-						collapse = true;
-					}
-				} 
-			}
-			
-			
-			//for(int u=0;u<numBackgrounds;u++){
-			
-			//}
-			if(collapse){
+		//Lets find the closest backgrounds
+		float r = 0.03;
+		bool collapse = false;
+		
+		IceBlockBackgroundObject * obj2;
+		for(int u=0;u<obj->closeBackgrounds.size();u++){
+			obj2 = &iceblockBackgrounds[obj->closeBackgrounds[u]];
+			if((obj->position - obj2->position).length() < r && i != u){
+				if( Frostscape::slider6 > 0 && obj->a > 0.9){
+					//expand to the close background
+					//	if(obj2->downTimer > 10){
+					obj2->a += 0.08*Frostscape::slider6;
+					obj2->upTimer = 0;
+					//	}
+				}
+				if( Frostscape::slider5 > 0 && obj2->a < 0.1){
+					collapse = true;
+				}
+			} 
+		}
+		
+		
+		//for(int u=0;u<numBackgrounds;u++){
+		
+		//}
+		if(collapse){
+			if(obj->upTimer > 10){
 				obj->a -= 0.08*Frostscape::slider5;
-				
-				//cout<<iceblockBackgrounds[i].a<<"  "<<i<<endl;
+				obj->downTimer = 0;
 			}
+			
+			//cout<<iceblockBackgrounds[i].a<<"  "<<i<<endl;
+		}
 		//}
 	}
 	
