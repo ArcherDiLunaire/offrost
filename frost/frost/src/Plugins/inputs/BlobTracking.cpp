@@ -46,6 +46,18 @@ PersistentBlob::PersistentBlob(){
 	timeoutCounter = 0;
 }
 
+ofxPoint2f PersistentBlob::getLowestPoint(){
+	ofxPoint2f low;
+	for(int i=0;i<blobs.size();i++){
+		for(int u=0;u<blobs[i].nPts;u++){
+			if(blobs[i].pts[u].y > low.y){
+				low = blobs[i].pts[u];
+			}
+		}
+	}
+	return low;
+}
+
 Tracker::Tracker(){
 	cw = 1280/2; 
 	ch=960/2;

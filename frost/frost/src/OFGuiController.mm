@@ -83,6 +83,11 @@ OFGuiController * gui = NULL;
 
 - (void) changeValueFromControl:(id)sender{
 	[self setFloatValue:[sender floatValue]];
+	if(hookedUpToFloat){
+		*hookedUpFloat = [self floatValue];
+		printf("   %f",*hookedUpFloat);
+		
+	}
 	//[valSlider setFloatValue:[sender floatValue]];
 	//[valTextfield setFloatValue:[sender floatValue]];
 //	[self sendAction:[self action] to:[self target]];
@@ -115,12 +120,22 @@ OFGuiController * gui = NULL;
 		
 	}
 }
+- (void) hookUpFloat:(float*)f{
+	hookedUpFloat = f;
+	hookedUpToFloat = true;
+	*hookedUpFloat = [self floatValue];
+	printf("   %f",*hookedUpFloat);
+}
 
 - (void) setFloatValue:(float)aFloat {
 	[valSlider setFloatValue:aFloat];
 	[valTextfield setFloatValue:aFloat];
 	[super setFloatValue:aFloat];
-		[self sendAction:[self action] to:[self target]];
+	[self sendAction:[self action] to:[self target]];
+	if(hookedUpToFloat){
+		printf("   %f",*hookedUpFloat);
+		*hookedUpFloat = [self floatValue];
+	}
 }
 
 - (void) setDoubleValue:(double)aDouble {
@@ -129,6 +144,11 @@ OFGuiController * gui = NULL;
 	[valTextfield setDoubleValue:aDouble];
 	[super setDoubleValue:aDouble];
 	[self sendAction:[self action] to:[self target]];
+	if(hookedUpToFloat){
+		*hookedUpFloat = [self floatValue];
+		printf("   %f",*hookedUpFloat);
+
+	}
 }
 
 @end
@@ -226,6 +246,11 @@ OFGuiController * gui = NULL;
 	
 	[ProjectorFloorAspectText setStringValue:[[NSNumber numberWithFloat:((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[0]->aspect] stringValue]];
 	
+	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
+	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
+	[LaLineaFloorDirSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->dirSpeed];
+
+	
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {
@@ -235,6 +260,8 @@ OFGuiController * gui = NULL;
 	[obj setPlugin:p];
 	[obj setEnabled:[NSNumber numberWithBool:TRUE]];
 	[viewItems addObject:obj];
+	
+
 }
 
 // --------------------------------------------------- init
@@ -294,6 +321,7 @@ OFGuiController * gui = NULL;
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
 		
 		
+		
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fillColor.set(0.0,0.0,0.0);
 		
 		/**
@@ -323,6 +351,7 @@ OFGuiController * gui = NULL;
 		[self addObject:@"Outputs" isheader:TRUE  plugin:nil];		
 		[self addObject:@"Moon Dust" isheader:FALSE plugin:getPlugin<MoonDust*>(ofApp->pluginController)];
 		[self addObject:@"La Linea" isheader:FALSE plugin:getPlugin<LaLinea*>(ofApp->pluginController)];
+		[self addObject:@"La Linea Floor Line" isheader:FALSE plugin:getPlugin<LaLineaFloor*>(ofApp->pluginController)];
 		[self addObject:@"Blob light" isheader:FALSE plugin:getPlugin<BlobLight*>(ofApp->pluginController)];
 		[self addObject:@"Folding" isheader:FALSE plugin:getPlugin<Folding*>(ofApp->pluginController)];
 		[self addObject:@"Frostscape" isheader:FALSE plugin:getPlugin<Frostscape*>(ofApp->pluginController)];
@@ -343,6 +372,7 @@ OFGuiController * gui = NULL;
 		[cameraKeystoneView retain];
 		[moonDustView retain];
 		[laLineaView retain];
+		[laLineaFloorView retain];
 		[blobLightView retain];
 		[frostscapeView retain];
 		[liquidSpaceView retain];
@@ -423,6 +453,9 @@ OFGuiController * gui = NULL;
 	}	
 	if(![(NSString*)[p name] compare:@"La Linea"]){
 		view = laLineaView;
+	}	
+	if(![(NSString*)[p name] compare:@"La Linea Floor Line"]){
+		view = laLineaFloorView;
 	}	
 	if(![(NSString*)[p name] compare:@"Blob light"]){
 		view = blobLightView;
@@ -944,6 +977,15 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 	
 }
+
+#pragma mark LaLineaFloor
+-(IBAction)		modifyLaLineaFloorReset:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LaLineaFloor*>(ofApp->pluginController))->reset();
+	}
+}
+	
+
 
 @end
 

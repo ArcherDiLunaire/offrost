@@ -51,6 +51,7 @@
 		DD7CC4A91063CE7200D3736A /* Libdc1394GrabberUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7CC4A21063CE7200D3736A /* Libdc1394GrabberUtils.cpp */; };
 		DD7CC4AA1063CE7200D3736A /* Libdc1394GrabberVideoFormatHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7CC4A41063CE7200D3736A /* Libdc1394GrabberVideoFormatHelper.cpp */; };
 		DD7CC4BE1063CE9100D3736A /* ofxThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7CC4B81063CE9100D3736A /* ofxThread.cpp */; };
+		DD97BCFB107A72D1008108FC /* LaLineaFloor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD97BCF9107A72D1008108FC /* LaLineaFloor.cpp */; };
 		DDB6B2DC107621C600D2722D /* ofxCvOpticalFlowBM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB6B2D8107621C600D2722D /* ofxCvOpticalFlowBM.cpp */; };
 		DDB6B2DD107621C600D2722D /* ofxCvOpticalFlowLK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDB6B2DA107621C600D2722D /* ofxCvOpticalFlowLK.cpp */; };
 		DDB84A04105BF9D200D1ED92 /* OFGuiController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDB84A03105BF9D200D1ED92 /* OFGuiController.mm */; };
@@ -250,6 +251,8 @@
 		DD7CC4A51063CE7200D3736A /* Libdc1394GrabberVideoFormatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Libdc1394GrabberVideoFormatHelper.h; sourceTree = "<group>"; };
 		DD7CC4B81063CE9100D3736A /* ofxThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThread.cpp; sourceTree = "<group>"; };
 		DD7CC4B91063CE9100D3736A /* ofxThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThread.h; sourceTree = "<group>"; };
+		DD97BCF9107A72D1008108FC /* LaLineaFloor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LaLineaFloor.cpp; sourceTree = "<group>"; };
+		DD97BCFA107A72D1008108FC /* LaLineaFloor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaLineaFloor.h; sourceTree = "<group>"; };
 		DDB6B2D8107621C600D2722D /* ofxCvOpticalFlowBM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCvOpticalFlowBM.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvOpticalFlowBM.cpp; sourceTree = SOURCE_ROOT; };
 		DDB6B2D9107621C600D2722D /* ofxCvOpticalFlowBM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCvOpticalFlowBM.h; path = ../../../addons/ofxOpenCv/src/ofxCvOpticalFlowBM.h; sourceTree = SOURCE_ROOT; };
 		DDB6B2DA107621C600D2722D /* ofxCvOpticalFlowLK.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCvOpticalFlowLK.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvOpticalFlowLK.cpp; sourceTree = SOURCE_ROOT; };
@@ -852,6 +855,8 @@
 				DD45B62E106BA2F600B4B19C /* BlobLight.h */,
 				DD45B62F106BA2F600B4B19C /* LaLinea.cpp */,
 				DD45B630106BA2F600B4B19C /* LaLinea.h */,
+				DD97BCF9107A72D1008108FC /* LaLineaFloor.cpp */,
+				DD97BCFA107A72D1008108FC /* LaLineaFloor.h */,
 				2797C7D71070DCDF00555A42 /* Folding.cpp */,
 				2797C7D81070DCDF00555A42 /* Folding.h */,
 				276D9D811073AE5A0084689D /* LiquidSpace.h */,
@@ -1665,6 +1670,7 @@
 				DDD48A7D10766F110083759A /* PYMIDIVirtualEndpoint.m in Sources */,
 				DDD48A7E10766F110083759A /* PYMIDIVirtualSource.m in Sources */,
 				DDD48A8110766F290083759A /* ofMidi.mm in Sources */,
+				DD97BCFB107A72D1008108FC /* LaLineaFloor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

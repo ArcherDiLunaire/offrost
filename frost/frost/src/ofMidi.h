@@ -19,6 +19,7 @@
 	IBOutlet OFGuiController * gui;
 	
 	NSMutableArray * frostSliderHookups;
+	IBOutlet NSButton * midiActive;
 }
 
 -(void) awakeFromNib;

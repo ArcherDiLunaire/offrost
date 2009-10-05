@@ -12,7 +12,7 @@
 @implementation ofMidi
 -(void) awakeFromNib{
 	printf("\n\n\n&&&&&&& MIDI WAKE UP &&&&&&&\n");
-
+	
 	manager = [PYMIDIManager sharedInstance];
 	endpoint = new PYMIDIRealEndpoint;
     NSArray* endpointArray = [manager realSources];
@@ -27,12 +27,12 @@
 	
 	[self hookupSlider:gui->FrostScapeSlider4 onChannel:1 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider1 onChannel:1 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
-
+	
 	
 }
 -(void) hookupSlider:(frostSlider*)slider onChannel:(int)channel onNumber:(int)number controlChanges:(bool)control noteChanges:(bool)note scale:(float)scale{
 	[frostSliderHookups addObject:slider];
-
+	
 	[slider setMidiChannel:channel number:number control:control note:note scale:scale];
 }
 - (void)processMIDIPacketList:(MIDIPacketList*)packetList sender:(id)sender
@@ -65,9 +65,10 @@
 			number = packet->data[1];
 			value = packet->data[2];
 		}
-
-		for(int i=0;i<[frostSliderHookups count];i++){
-			[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
+		if([midiActive state] ==  NSOnState){
+			for(int i=0;i<[frostSliderHookups count];i++){
+				[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
+			}
 		}
 		packet = MIDIPacketNext(packet);
 	}	

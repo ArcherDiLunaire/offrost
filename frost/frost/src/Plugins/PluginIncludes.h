@@ -6,6 +6,7 @@
 
 #include "MoonDust.h"
 #include "LaLinea.h"
+#include "LaLineaFloor.h"
 #include "BlobLight.h"
 #include "Folding.h"
 #include "Frostscape.h"

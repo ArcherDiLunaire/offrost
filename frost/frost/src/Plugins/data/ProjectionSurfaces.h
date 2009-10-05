@@ -51,7 +51,9 @@ public:
 	ofxVec2f  convertToFloorCoordinate(ofxVec2f v);
 		ofxVec2f  convertToWallCoordinate(ofxVec2f v);
 	ofxVec2f  convertToCoordinate(ProjectionSurfacesObject * obj,  ofxVec2f v);
-
+	
+	ofxVec2f  convertBetweenSurfaces(ProjectionSurfacesObject * fromObject, ProjectionSurfacesObject * toObject,  ofxVec2f v);
+	ofxVec2f  convertToProjectionCoordinate(ProjectionSurfacesObject * surface,  ofxVec2f v);	
 	
 	bool drawDebug;
 	ofTrueTypeFont	verdana;

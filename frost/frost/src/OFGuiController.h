@@ -19,6 +19,9 @@
 	bool midiControlHookup;
 	bool midiNoteHookup;
 	float midiScaleFactor;
+	
+	bool hookedUpToFloat;
+	float * hookedUpFloat;
 }
 
 - (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value;
@@ -27,6 +30,7 @@
 - (id) initWithFrame:(NSRect)frame;
 - (void) awakeFromNib;
 - (void) changeValueFromControl:(id)sender;
+- (void) hookUpFloat:(float*)f;
 
 @end
 
@@ -108,8 +112,14 @@
 	IBOutlet NSView *laLineaView;
 	IBOutlet NSButton * LaLineaDebug;
 	
-	
-	
+	/**
+	 * La Linea Floor Outlets
+	 **/
+	IBOutlet NSView *laLineaFloorView;
+	IBOutlet frostSlider * LaLineaFloorSpeed;
+	IBOutlet frostSlider * LaLineaFloorWidth;	
+	IBOutlet frostSlider * LaLineaFloorDirSpeed;
+	IBOutlet NSButton * LaLineaFloorReset;
 	/**
 	 * Blob Light Outlets
 	 **/
@@ -237,6 +247,12 @@
 -(IBAction)		modifyMoonDustDebug:(id)sender;
 
 -(IBAction)		modifyLaLineaDebug:(id)sender;
+
+-(IBAction)		modifyLaLineaFloorWidth:(id)sender;
+-(IBAction)		modifyLaLineaFloorSpeed:(id)sender;
+-(IBAction)		modifyLaLineaFloorDirSpeed:(id)sender;
+-(IBAction)		modifyLaLineaFloorReset:(id)sender;
+
 
 -(IBAction)		modifyBlobLightDebug:(id)sender;
 -(IBAction)		modifyBlobLightColor:(id)sender;

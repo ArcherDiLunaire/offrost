@@ -41,6 +41,8 @@ public:
 	ofxPoint2f lastcentroid;
 	ofxVec2f centroidV;
 	
+	ofxPoint2f getLowestPoint();
+	
 	int timeoutCounter;
 	vector<ofxCvBlob> blobs;
 };

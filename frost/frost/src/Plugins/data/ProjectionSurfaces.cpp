@@ -384,6 +384,19 @@ ofxVec2f  ProjectionSurfaces::convertToCoordinate(ProjectionSurfacesObject * obj
 	return r;
 }
 
+ofxVec2f  ProjectionSurfaces::convertBetweenSurfaces(ProjectionSurfacesObject * obj1, ProjectionSurfacesObject * obj2,  ofxVec2f v){
+	ofxVec2f proj = convertToProjectionCoordinate(obj1, v);
+	ofxVec2f p = convertToCoordinate(obj2, proj);
+	return p;
+}
+
+ofxVec2f  ProjectionSurfaces::convertToProjectionCoordinate(ProjectionSurfacesObject * obj,  ofxVec2f v){
+	v.x /= obj->aspect;
+	ofxVec2f p = (ofxVec2f) obj->coordWarp->transform(v.x, v.y);
+	return p;
+}
+
+
 ofxPoint2f ProjectionSurfaces::getColumnCoordinate(int column){
 	ofxVec2f p1 = getColumn(column)->warp->corners[3]; 
 	ofxVec2f p2 = getColumn(column)->warp->corners[2];
