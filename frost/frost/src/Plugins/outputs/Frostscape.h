@@ -35,6 +35,7 @@ public:
 	IceBlockBackgroundObject(float x, float y);
 	void draw();
 	void generate();
+	vector<int> closeBackgrounds;
 };
 
 class IceBlockJoint {

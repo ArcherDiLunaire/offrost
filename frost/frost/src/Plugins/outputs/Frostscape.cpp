@@ -139,9 +139,9 @@ IceBlockBackgroundObject::IceBlockBackgroundObject(float x, float y){
 	position.x = x;
 	position.y = y;
 	generate();
-	a = 0;
 }
 void IceBlockBackgroundObject::generate(){
+	a = -0.5;
 	int n = int(ofRandom(4, 9));
 	points.clear();
 	points.reserve(n);
@@ -155,10 +155,10 @@ void IceBlockBackgroundObject::draw(){
 	ofEnableAlphaBlending();
 	if(a > 0){
 		glPushMatrix();
-
+		
 		glTranslated(position.x, position.y, 0);
-		ofSetColor(0, 0, 0, 80.0*a*(1.0-Frostscape::slider4));
-	//	ofSetColor(0, 0, 0, 255);
+		ofSetColor(0, 0, 0, 80.0*MIN(a,1.0)*(1.0-Frostscape::slider4));
+		//	ofSetColor(0, 0, 0, 255);
 		glLineWidth(2);
 		glBegin(GL_POLYGON);
 		for(int i=0;i<points.size();i++){
@@ -168,16 +168,16 @@ void IceBlockBackgroundObject::draw(){
 		glPopMatrix();
 	}
 	/*	glPushMatrix();
-
-		glTranslated(position.x, position.y, 0);
-
-	glBegin(GL_POLYGON);
-	for(int i=0;i<points.size();i++){
-		glVertex2f(points[i].x, points[i].y);
-	}
-	glEnd();
-	glPopMatrix();
-*/
+	 
+	 glTranslated(position.x, position.y, 0);
+	 
+	 glBegin(GL_POLYGON);
+	 for(int i=0;i<points.size();i++){
+	 glVertex2f(points[i].x, points[i].y);
+	 }
+	 glEnd();
+	 glPopMatrix();
+	 */
 }
 
 
@@ -219,7 +219,6 @@ void IceBlock::draw(){
 			next = joints[0];
 		}
 		
-		
 		ofSetColor(255, 255, 255, 255.0*Frostscape::slider4);
 		
 		//		ofEllipse(joints[i]->position.x, joints[i]->position.y, 0.02, 0.02);
@@ -231,7 +230,7 @@ void IceBlock::draw(){
 		
 	}
 	ofSetColor(255, 255, 255, 255.0*Frostscape::slider4);
-
+	
 	glBegin(GL_POLYGON);
 	for(int i=0;i<joints.size();i++){
 		glVertex2f(joints[i]->position.x, joints[i]->position.y);
@@ -242,7 +241,7 @@ void IceBlock::draw(){
 	/***
 	 *  Debug 
 	 ***/
-
+	
 	for (int i=0; i<blobPoints.size(); i++) {
 		ofSetColor(255, 0, 0, 255);
 		if(!pointInside(blobPoints[i])){
@@ -300,7 +299,7 @@ void IceBlock::draw(){
 			}
 		}
 		ofSetColor(255, 0, 0, 255.0*Frostscape::slider4);
-	//ofRect(blobPoints[i].x, blobPoints[i].y, 0.01, 0.01);
+		//ofRect(blobPoints[i].x, blobPoints[i].y, 0.01, 0.01);
 	}
 	
 	glPopMatrix();
@@ -377,7 +376,7 @@ void IceBlock::update(){
 	}
 	
 	masterAlpha += (MIN(totalV.length()/5.0,1)-masterAlpha)*0.07;
-
+	
 	
 }
 
@@ -462,17 +461,29 @@ void Frostscape::setup(){
 	//blackSpots.push_back(BlackSpotObject());
 	iceBlocks.push_back(IceBlock());
 	iceBlocks.push_back(IceBlock());
-
+	
 	int n = 35;
 	for(int i=0;i<n*projection()->getFloor()->aspect;i++){
 		for(int u=0;u<n;u++){
 			iceblockBackgrounds.push_back(IceBlockBackgroundObject((float)i/n, (float)u/n));
 		}
 	}
+	
+	float r = 0.03;
+	float rSq = r*r;
+
+	int num = iceblockBackgrounds.size();
+	for(int i=0;i<num;i++){
+		for(int u=0;u<num;u++){
+			if((iceblockBackgrounds[i].position - iceblockBackgrounds[u].position).lengthSquared() < rSq){
+				iceblockBackgrounds[i].closeBackgrounds.push_back(u);
+			}			
+		}
+	}
 }
 
 void Frostscape::update(){
-	blob(0)->postBlur = 100*Frostscape::slider5;
+	//blob(0)->postBlur = 100*Frostscape::slider5;
 	//blob(0)->postThreshold = 0;
 	/*
 	 BlackSpotObject * otherB = &blackSpots[1];
@@ -482,25 +493,27 @@ void Frostscape::update(){
 	 blackSpots[i].updateBlob(b, controller, otherB);
 	 otherB = &blackSpots[i];
 	 }*/
-	for(int u=0;u<iceblockBackgrounds.size();u++){
-		if(iceblockBackgrounds[u].a > 0){
-			iceblockBackgrounds[u].a -= 0.1;
-		}
-		if(u%10==0){
-		if( iceblockBackgrounds[u].a < 0.1){
-			iceblockBackgrounds[u].a = 0.1;
-		//	iceblockBackgrounds[u].generate();
-		}
-		} else {
-			if( iceblockBackgrounds[u].a < 0){
-				iceblockBackgrounds[u].a = 0;
-					iceblockBackgrounds[u].generate();
-			}
-		}
-	}	
-	
+	/*
+	 for(int u=0;u<iceblockBackgrounds.size();u++){
+	 if(iceblockBackgrounds[u].a > 0){
+	 iceblockBackgrounds[u].a -= 0.1;
+	 }
+	 if(u%10==0){
+	 if( iceblockBackgrounds[u].a < 0.1){
+	 iceblockBackgrounds[u].a = 0.1;
+	 //	iceblockBackgrounds[u].generate();
+	 }
+	 } else {
+	 if( iceblockBackgrounds[u].a < 0){
+	 iceblockBackgrounds[u].a = 0;
+	 iceblockBackgrounds[u].generate();
+	 }
+	 }
+	 }	
+	 */
 	for(int i=0;i<iceBlocks.size();i++){
 		if(blob(cam)->numPersistentBlobs() > i){
+			PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
 			vector<ofxCvBlob> b = blob(cam)->persistentBlobs[i].blobs;
 			vector<ofxVec2f> p;
 			for(int g=0;g<b.size();g++){
@@ -510,25 +523,138 @@ void Frostscape::update(){
 				}
 			}
 			iceBlocks[i].setBlobPoints(p);
+			
+			//Get backgrund inside radius from centroid
+			float r = 0.03;
+			float rSq = r*r;
+			int numBackgrounds = iceblockBackgrounds.size();
+#pragma omp parallel for
+			for(int u=0;u<numBackgrounds;u++){
+				IceBlockBackgroundObject * obj = &iceblockBackgrounds[u];
+				//See if this background is near to centroid and should break
+				ofxVec2f centr = projection()->convertToCoordinate(projection()->getFloor(), pb->centroid);			
+				
+				if((centr - obj->position).length() < r){
+					obj->a += 0.08;
+				} else {
+					//Is it close to a black background?
+					bool close = false;
+					for(int x=0;x<obj->closeBackgrounds.size();x++){
+						IceBlockBackgroundObject * obj2 = &iceblockBackgrounds[obj->closeBackgrounds[x]];
+						if(obj2->a > 0.9){
+							//if((obj2->position - obj->position).lengthSquared() < rSq){
+								close = true;
+								break;
+							//}
+						}
+					}
+					
+					if(close){
+						//If its close check if its near to a blob point
+						for(int pu=0;pu<p.size();pu+=5){
+							if((p[pu] - obj->position).length() < r){
+								// then it should get black aswell
+								obj->a += 0.08;
+								break;
+							}							
+						}
+					}
+					
+				}
+			}
+			
+			
 		}
 		iceBlocks[i].update();
 		
-		for(int u=0;u<iceblockBackgrounds.size();u++){
-			if(iceBlocks[i].pointInside(iceblockBackgrounds[u].position)){
-				if(iceblockBackgrounds[u].a < 1){
-					iceblockBackgrounds[u].a += 0.5*iceBlocks[i].masterAlpha;
-				}
-				if(iceblockBackgrounds[u].a > 1){
-					iceblockBackgrounds[u].a = 1;
-				}
-			}
-		}	
 	}
 	
-
-
+	for(int u=0;u<iceblockBackgrounds.size();u++){
+		if(iceblockBackgrounds[u].a > 1.0){
+			iceblockBackgrounds[u].a = 1.0;
+		}
+	}
 	
-
+	//#pragma omp parallel for
+	int numBackgrounds = iceblockBackgrounds.size();	
+	
+	for (int i=0; i<numBackgrounds; i++) {
+		IceBlockBackgroundObject * obj = &iceblockBackgrounds[i];
+		if(obj->a > 0.0){
+			//Lets find the closest backgrounds
+			float r = 0.03;
+			bool collapse = false;
+			
+			IceBlockBackgroundObject * obj2;
+			for(int u=0;u<obj->closeBackgrounds.size();u++){
+				obj2 = &iceblockBackgrounds[obj->closeBackgrounds[u]];
+				if((obj->position - obj2->position).length() < r && i != u){
+					if( Frostscape::slider6 > 0 && obj->a > 0.9){
+						//expand to the close background
+						obj2->a += 0.08*Frostscape::slider6;
+					}
+					if( Frostscape::slider5 > 0 && iceblockBackgrounds[u].a < 0.1){
+						collapse = true;
+					}
+				} 
+			}
+			
+			
+			//for(int u=0;u<numBackgrounds;u++){
+			
+			//}
+			if(collapse){
+				obj->a -= 0.08*Frostscape::slider5;
+				//cout<<iceblockBackgrounds[i].a<<"  "<<i<<endl;
+			}
+		}
+	}
+	
+	
+	/*
+	 for(int u=0;u<iceblockBackgrounds.size();u++){
+	 if(iceBlocks[i].pointInside(iceblockBackgrounds[u].position)){
+	 if(iceblockBackgrounds[u].a < 1){
+	 iceblockBackgrounds[u].a += 0.5*iceBlocks[i].masterAlpha;
+	 }
+	 if(iceblockBackgrounds[u].a > 1){
+	 iceblockBackgrounds[u].a = 1;
+	 }
+	 }
+	 }	
+	 */
+	
+	
+	
+	
+	//			} 
+	/*if(Frostscape::slider5 > 0){
+	 //Get backgrund inside radius
+	 float r = 0.03;
+	 bool whiteFound = false;
+	 for(int u=0;u<iceblockBackgrounds.size();u++){
+	 if((iceblockBackgrounds[i].position - iceblockBackgrounds[u].position).length() < r && i != u){
+	 if(iceblockBackgrounds[u].a < 0.1){
+	 whiteFound = true;
+	 break;
+	 }
+	 }
+	 }
+	 
+	 if(whiteFound){
+	 iceblockBackgrounds[i].a -= 0.08*Frostscape::slider5;
+	 cout<<"YAY"<<endl;
+	 }
+	 
+	 }*/
+	//	}
+	//}
+	
+	
+	
+	
+	
+	
 	
 	
 }
@@ -538,15 +664,15 @@ void Frostscape::draw(){
 void Frostscape::drawOnFloor(){
 	ofFill();
 	ofEnableAlphaBlending();
-
+	
 	ofSetColor(128, 128, 128,255*(1.0-Frostscape::slider4));
 	ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	
 	ofSetColor(0, 0, 0,128);
 	/*for(int i=0;i<blackSpots.size();i++){
-		blackSpots[i].draw();
-	}
-	*/
+	 blackSpots[i].draw();
+	 }
+	 */
 	for(int i=0;i<iceblockBackgrounds.size();i++){
 		iceblockBackgrounds[i].draw();
 	}
