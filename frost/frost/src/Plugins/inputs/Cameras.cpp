@@ -54,13 +54,13 @@ void Cameras::setup(){
 	/**
 	 // test videoPlayer
 	 for (int i=0; i<3; i++) {
-	 videoPlayerLoadUrl(i, "fingers.mov");
+	 videoPlayerLoadUrl(i, "FilmFrostscape.mov");
 	 videoPlayerPlay(i);
 	 videoPlayerActivate(i);
 	 }
 	 //**/
 	
-	/**	
+	//**	
 	if(videoPlayerLoadUrl(0, "FilmFrostscape.mov")){
 		cout << "                      FILMEN LOADET" << endl;
 	} else {

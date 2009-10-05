@@ -6,16 +6,23 @@
 
 Folding::Folding(){
 	type = OUTPUT;
-	cam = 1;
+	cam = 0;
 }
 
 void Folding::setup(){
 	historyImg.allocate(blob(cam)->grayDiff.width,blob(cam)->grayDiff.height);
 	historyImg.set(0);
+	historyImgTemp.allocate(blob(cam)->grayDiff.width,blob(cam)->grayDiff.height);
+	historyImgTemp.set(0);
 }
 
 void Folding::update(){
-	cvAddWeighted( blob(cam)->grayDiff.getCvImage(),(1.0-historyAddMultiplier), historyImg.getCvImage(),historyAddMultiplier,0.0, historyImg.getCvImage());
+	//	float historyMultipler = pow(sin(historyAddMultiplier/2*PI), 2);
+	// float historyMultipler = 1.0-exp(-5*pow(historyAddMultiplier,2));
+	// float historyMultipler = 1.0+(-pow(historyAddMultiplier-1.0, 2));
+	float historyMultipler = 1.0+(pow(historyAddMultiplier-1.0, 3));
+	cvAddWeighted( historyImg.getCvImage(),historyMultipler, blob(cam)->grayDiff.getCvImage(),1, -0.25, historyImgTemp.getCvImage());
+	historyImg = historyImgTemp;
 }
 
 void Folding::draw(){
@@ -29,7 +36,7 @@ void Folding::draw(){
 	glTranslated(-1.4, 0.4, 0);
 	glRotated(-25, 0, 0, 1.0);
 	historyImg.draw(0,0,4,4);
-	blob(cam)->grayDiff.draw(0,0,4,4);
+	//blob(cam)->grayDiff.draw(0,0,4,4);
 	glPopMatrix();
 	
 	ofPopStyle();

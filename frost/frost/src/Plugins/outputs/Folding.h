@@ -22,5 +22,6 @@ public:
 	float historyAddMultiplier;
 
 	ofxCvGrayscaleImage historyImg;
+	ofxCvGrayscaleImage historyImgTemp;
 	
 };

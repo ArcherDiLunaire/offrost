@@ -113,6 +113,7 @@ void Tracker::update(){
 				grayImageBlured.blur(blur);
 				
 				if (bLearnBakground == true){
+					ofLog(OF_LOG_NOTICE, "<<<<<<<< gemmer billede " + ofToString(cameraId));
 					grayBg = grayImageBlured;
 					ofImage saveImg;
 					saveImg.allocate(grayBg.getWidth(), grayBg.getHeight(), OF_IMAGE_GRAYSCALE);
@@ -489,7 +490,7 @@ void BlobTracking::setBlur(int n, int v){
 void setActive(int n, bool b);
 
 void BlobTracking::grab(int n){
-	if(trackers.size() > n){
+	if(3 > n){
 		trackers[n]->bLearnBakground = true;
 	}
 }
