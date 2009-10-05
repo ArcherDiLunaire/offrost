@@ -3892,7 +3892,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 											<object class="NSTextFieldCell" key="NSCell" id="445661233">
 												<int key="NSCellFlags">68288064</int>
 												<int key="NSCellFlags2">272630784</int>
-												<string key="NSContents">Noise damp</string>
+												<string key="NSContents">Growth</string>
 												<reference key="NSSupport" ref="60092098"/>
 												<reference key="NSControlView" ref="74616400"/>
 												<reference key="NSBackgroundColor" ref="221014484"/>
@@ -3912,7 +3912,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 												<reference key="NSControlView" ref="691092443"/>
 												<double key="NSMaxValue">1</double>
 												<double key="NSMinValue">0.0</double>
-												<double key="NSValue">0.79531249999999998</double>
+												<double key="NSValue">0.0</double>
 												<double key="NSAltIncValue">0.0</double>
 												<int key="NSNumberOfTickMarks">0</int>
 												<int key="NSTickMarkPosition">1</int>
@@ -9807,9 +9807,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="1609.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="161.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="161.ImportedFromIB2"/>
-				<string key="1615.IBEditorWindowLastContentRect">{{15, 290}, {1074, 500}}</string>
+				<string key="1615.IBEditorWindowLastContentRect">{{342, 340}, {1074, 500}}</string>
 				<string key="1615.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1615.IBWindowTemplateEditedContentRect">{{15, 290}, {1074, 500}}</string>
+				<string key="1615.IBWindowTemplateEditedContentRect">{{342, 340}, {1074, 500}}</string>
 				<boolean value="NO" key="1615.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="1616.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1617.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10375,12 +10375,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="CameraGUID1">NSTextField</string>
 						<string key="CameraGUID2">NSTextField</string>
 						<string key="CameraGUID3">NSTextField</string>
-						<string key="FrostScapeSlider1">NSSlider</string>
-						<string key="FrostScapeSlider2">NSSlider</string>
-						<string key="FrostScapeSlider3">NSSlider</string>
-						<string key="FrostScapeSlider4">NSSlider</string>
-						<string key="FrostScapeSlider5">NSSlider</string>
-						<string key="FrostScapeSlider6">NSSlider</string>
+						<string key="FrostScapeSlider1">frostSlider</string>
+						<string key="FrostScapeSlider2">frostSlider</string>
+						<string key="FrostScapeSlider3">frostSlider</string>
+						<string key="FrostScapeSlider4">frostSlider</string>
+						<string key="FrostScapeSlider5">frostSlider</string>
+						<string key="FrostScapeSlider6">frostSlider</string>
 						<string key="LaLineaDebug">NSButton</string>
 						<string key="MoonDustDebug">NSButton</string>
 						<string key="MoonDustDensity">NSSlider</string>
