@@ -18,7 +18,7 @@
     NSArray* endpointArray = [manager realSources];
     
     NSEnumerator* enumerator = [endpointArray objectEnumerator];
-	endpoint = [endpointArray lastObject];
+	endpoint = [endpointArray objectAtIndex:1];
 	NSLog([endpoint displayName]);
 	printf("Is it in use? %d\n",[endpoint isInUse]);
 	[endpoint addReceiver:self];
@@ -65,14 +65,7 @@
 			number = packet->data[1];
 			value = packet->data[2];
 		}
-		
-//		[gui->BlobLightThreshold setFloatValue:0 ] ;
-		//printf("dasidj %f",[gui->BlobLightThreshold floatValue]);
-//		[gui doMidiStuff];
-		printf("MoonDust Length: %f\n",[gui->MoonDustLength floatValue]);
-//		[gui->LaaLineaYPosition setDoubleValue:controlValue];
-		//[gui->FrostScapeSlider4 setDoubleValue:controlValue/127.0];
-		printf("n: %d",[frostSliderHookups count]);
+
 		for(int i=0;i<[frostSliderHookups count];i++){
 			[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
 		}
