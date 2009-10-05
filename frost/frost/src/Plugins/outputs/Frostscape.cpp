@@ -153,11 +153,12 @@ void IceBlockBackgroundObject::generate(){
 }
 void IceBlockBackgroundObject::draw(){
 	ofEnableAlphaBlending();
-	if(a > 0){
+	float drawA = 1.0-MAX(0.0,MIN(1.0,a));
+	if(drawA > 0){
 		glPushMatrix();
 		
 		glTranslated(position.x, position.y, 0);
-		ofSetColor(0, 0, 0, 80.0*MIN(a,1.0)*(1.0-Frostscape::slider4));
+		ofSetColor(255, 255,255,255*drawA*(1.0-Frostscape::slider4));
 		//	ofSetColor(0, 0, 0, 255);
 		glLineWidth(2);
 		glBegin(GL_POLYGON);
@@ -525,7 +526,7 @@ void Frostscape::update(){
 			iceBlocks[i].setBlobPoints(p);
 			
 			//Get backgrund inside radius from centroid
-			float r = 0.03;
+			float r = 0.05;
 			float rSq = r*r;
 			int numBackgrounds = iceblockBackgrounds.size();
 #pragma omp parallel for
@@ -552,7 +553,7 @@ void Frostscape::update(){
 					if(close){
 						//If its close check if its near to a blob point
 						for(int pu=0;pu<p.size();pu+=5){
-							if((p[pu] - obj->position).length() < r){
+							if((p[pu] - obj->position).length() < r+0.05 ){
 								// then it should get black aswell
 								obj->a += 0.08;
 								break;
@@ -593,7 +594,7 @@ void Frostscape::update(){
 						//expand to the close background
 						obj2->a += 0.08*Frostscape::slider6;
 					}
-					if( Frostscape::slider5 > 0 && iceblockBackgrounds[u].a < 0.1){
+					if( Frostscape::slider5 > 0 && obj2->a < 0.1){
 						collapse = true;
 					}
 				} 
@@ -666,7 +667,7 @@ void Frostscape::drawOnFloor(){
 	ofEnableAlphaBlending();
 	
 	ofSetColor(128, 128, 128,255*(1.0-Frostscape::slider4));
-	ofRect(0, 0, projection()->getFloor()->aspect, 1);
+	//ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	
 	ofSetColor(0, 0, 0,128);
 	/*for(int i=0;i<blackSpots.size();i++){

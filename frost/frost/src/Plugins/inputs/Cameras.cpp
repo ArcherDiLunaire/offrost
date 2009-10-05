@@ -60,7 +60,7 @@ void Cameras::setup(){
 	 }
 	 //**/
 	
-	//**	
+	/**	
 	if(videoPlayerLoadUrl(0, "FilmFrostscape.mov")){
 		cout << "                      FILMEN LOADET" << endl;
 	} else {
