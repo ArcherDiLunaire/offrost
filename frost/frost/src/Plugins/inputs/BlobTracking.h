@@ -76,6 +76,7 @@ public:
 	bool active;
 	
 	bool				bLearnBakground;
+	bool				bVideoPlayerWasActive;
 	
 	bool mouseBlob;
 	ofxCvBlob mouseGeneratedBlob;
@@ -96,6 +97,10 @@ public:
 	
 	int getWidth();
 	int getHeight();
+	
+	void saveBackground(int num = 0);
+	bool loadBackground(int num = 0);
+
 	/*
 	 void smoothBlobs(float smooth);
 	 void extrudeBlobs(float value);	
@@ -110,8 +115,7 @@ public:
 	
 private:
 	int cw, ch;
-	
-	
+		
 };
 
 class BlobTracking : public Input{

@@ -25,6 +25,6 @@ public:
 	
 	ofxCvGrayscaleImage img;
 	
-		ofxCvGrayscaleImage black;
+	ofxCvGrayscaleImage black;
 
 };

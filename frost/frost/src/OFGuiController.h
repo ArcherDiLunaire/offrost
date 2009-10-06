@@ -115,6 +115,7 @@
 	 **/
 	IBOutlet NSView *laLineaView;
 	IBOutlet NSButton * LaLineaDebug;
+	IBOutlet frostSlider *LaLineaUseFilm;
 	
 	/**
 	 * La Linea Floor Outlets

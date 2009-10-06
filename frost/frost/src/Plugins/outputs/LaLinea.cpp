@@ -8,15 +8,44 @@ LaLinea::LaLinea(){
 	extrude = 400.0;
 	lineWidth = 0.025;
 	yPosition = 0.95;
+	bUsingFilm = false;
+	useFilmUglyFloat = 0.0;
 }
 
 void LaLinea::setup(){
+
 }
 
 void LaLinea::update(){
-	
+	if (useFilmUglyFloat < 0.5) {
+		useCam();
+	} else {
+		useFilm();
+	}
 }
+
+void LaLinea::useFilm(){
+	ofLog(OF_LOG_NOTICE, "LaLinea using film");
+	bUsingFilm = getPlugin<Cameras*>(controller)->videoPlayerActive(cam);
+	if(!bUsingFilm){
+		getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLinea.mov");
+		getPlugin<Cameras*>(controller)->videoPlayerActivate(cam);
+		getPlugin<Cameras*>(controller)->videoPlayerPlay(cam);
+		bUsingFilm = true;
+	}
+}
+
+void LaLinea::useCam(){
+	ofLog(OF_LOG_NOTICE, "LaLinea using camera");
+	bUsingFilm = getPlugin<Cameras*>(controller)->videoPlayerActive(cam);
+	if(bUsingFilm){
+		getPlugin<Cameras*>(controller)->videoPlayerStop(cam);
+		getPlugin<Cameras*>(controller)->videoPlayerDeactivate(cam);
+	}
+}
+
 void LaLinea::draw(){
+
 }
 
 ofxVec2f LaLinea::camOffset(float x){
@@ -43,8 +72,6 @@ void LaLinea::drawOnWall(){
 	ofFill();
 	
 	glColor4f(1.0, 1.0,1.0, 1.0);
-	
-	
 	
 	glPopMatrix();
 	
@@ -107,7 +134,6 @@ void LaLinea::drawOnWall(){
 	
 	ofEndShape(true);
 	
-	
 	glPopMatrix();
 	
 	projection()->applyCurtainProjection(0, 2);
@@ -126,9 +152,7 @@ void LaLinea::drawOnWall(){
 	
 	ofRect(0.0, yPosition, 1000, 1000);
 	
-	
 	ofPopStyle();
-	
 	
 }
 

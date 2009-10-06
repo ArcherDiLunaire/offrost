@@ -17,6 +17,9 @@ public:
 	void update();
 	void drawOnWall();
 	
+	void useFilm();
+	void useCam();
+	
 	bool debug;
 	int cam;
 	
@@ -27,6 +30,9 @@ public:
 
 	float extrude;
 	float lineWidth;
+	
+	float useFilmUglyFloat;
+	bool bUsingFilm;
 
 	float yPosition;
 	ofxVec2f camOffset(float x);

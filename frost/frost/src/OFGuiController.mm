@@ -265,6 +265,8 @@ OFGuiController * gui = NULL;
 	[MoonDustMasterAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->masterAlpha];
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
 	
+	[LaLineaUseFilm hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->useFilmUglyFloat];
+	
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {

@@ -68,7 +68,7 @@ Tracker::Tracker(){
 	grayLastImage.allocate(cw,ch);
 	grayBg.allocate(cw,ch);
 	grayDiff.allocate(cw,ch);
-	
+	bVideoPlayerWasActive = false;
 	bLearnBakground = false;
 	mouseBlob = false;
 	postBlur = 0;
@@ -124,13 +124,19 @@ void Tracker::update(){
 				grayImageBlured = grayImage;
 				grayImageBlured.blur(blur);
 				
+				if (!bVideoPlayerWasActive && getPlugin<Cameras*>(controller)->videoPlayerActive(cameraId) ) {
+					bLearnBakground = true;
+				}
+				
+				if (bVideoPlayerWasActive && !getPlugin<Cameras*>(controller)->videoPlayerActive(cameraId) ) {
+					loadBackground();
+				}
+				
 				if (bLearnBakground == true){
-					ofLog(OF_LOG_NOTICE, "<<<<<<<< gemmer billede " + ofToString(cameraId));
+					if (!getPlugin<Cameras*>(controller)->videoPlayerActive(cameraId)) {
+						saveBackground();
+					}
 					grayBg = grayImageBlured;
-					ofImage saveImg;
-					saveImg.allocate(grayBg.getWidth(), grayBg.getHeight(), OF_IMAGE_GRAYSCALE);
-					saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), false);
-					saveImg.saveImage("blobtrackerBackground"+ofToString(cameraId)+".png");
 					bLearnBakground = false;
 				}
 				
@@ -144,7 +150,7 @@ void Tracker::update(){
 					}
 					
 				}
-				// 		cout<<ofGetElapsedTimeMillis()-t<<endl;
+				// cout<<ofGetElapsedTimeMillis()-t<<endl;
 				
 				thread.grayDiff = grayDiff;
 				thread.grayImage = grayImage;
@@ -152,7 +158,7 @@ void Tracker::update(){
 				thread.updateContour = true;
 				thread.unlock();
 				
-				//			contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
+				// contourFinder.findContours(grayDiff, 20, (getPlugin<Cameras*>(controller)->getWidth()*getPlugin<Cameras*>(controller)->getHeight())/3, 10, false, true);	
 				
 				
 				grayLastImage = grayImage;
@@ -160,6 +166,9 @@ void Tracker::update(){
 				
 				postBlur = 0;
 				postThreshold = 0; 
+				
+				bVideoPlayerWasActive = getPlugin<Cameras*>(controller)->videoPlayerActive(cameraId);
+				
 			}
 		}
 		for(int u=0;u<numPersistentBlobs();u++){
@@ -224,6 +233,23 @@ void Tracker::update(){
 void Tracker::findContours(){
 }
 
+void Tracker::saveBackground(int num){
+	ofLog(OF_LOG_NOTICE, "<<<<<<<< gemmer billede " + ofToString(cameraId));
+	ofImage saveImg;
+	saveImg.allocate(grayBg.getWidth(), grayBg.getHeight(), OF_IMAGE_GRAYSCALE);
+	saveImg.setFromPixels(grayBg.getPixels(), grayBg.getWidth(), grayBg.getHeight(), false);
+	saveImg.saveImage("blobTracker" +ofToString(cameraId)+"Background-" + ofToString(num) + ".png");
+}
+
+bool Tracker::loadBackground(int num){
+	ofImage loadImg;
+	if (loadImg.loadImage("blobTracker" +ofToString(cameraId)+"Background-" + ofToString(num) + ".png")) {
+		grayBg.setFromPixels(loadImg.getPixels(), loadImg.getWidth(), loadImg.getHeight());
+		return true;
+	} else {
+		return false;
+	}
+}
 
 int Tracker::numBlobs(){
 	if(mouseBlob){
@@ -390,12 +416,7 @@ void BlobTracking::setup(){
 		trackers[i]->blur = initBlur[i];
 		trackers[i]->active = initActive[i];
 		trackers[i]->controller = controller;
-		ofImage loadImg;
-		if (loadImg.loadImage("blobtrackerBackground"+ofToString(i)+".png")) {
-			trackers[i]->grayBg.setFromPixels(loadImg.getPixels(), loadImg.getWidth(), loadImg.getHeight());
-		} else {
-			trackers[i]->bLearnBakground = true;
-		}
+		trackers[i]->bLearnBakground != trackers[i]->loadBackground();
 		trackers[i]->setup();
 	}
 }

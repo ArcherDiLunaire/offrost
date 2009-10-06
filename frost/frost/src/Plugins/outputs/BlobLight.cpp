@@ -38,7 +38,6 @@ void BlobLight::draw(){
 	img.scaleIntoMe(Largeimg);
 	getPlugin<CameraCalibration*>(controller)->applyWarp(0);
 
-	
 	cvAddWeighted(history.getCvImage(),alpha, img.getCvImage(),beta,0.0, history.getCvImage());
 	cvSubS(history.getCvImage(), cvScalar(addblack*100) , history.getCvImage());
 	history.flagImageChanged();	
@@ -61,7 +60,6 @@ void BlobLight::draw(){
 
 	ofSetColor(historyalpha*r, historyalpha*g, historyalpha*b, historyalpha*255);
 	historyTmp.draw(0,0,1,1);
-	
 	
 	ofSetColor( blobalpha*r2,  blobalpha*g2,  blobalpha*b2, blobalpha*255);
 	img.draw(0, 0, 1,1);
