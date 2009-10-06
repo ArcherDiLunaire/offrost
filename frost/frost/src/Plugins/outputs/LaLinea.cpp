@@ -25,7 +25,6 @@ void LaLinea::update(){
 }
 
 void LaLinea::useFilm(){
-	ofLog(OF_LOG_NOTICE, "LaLinea using film");
 	bUsingFilm = getPlugin<Cameras*>(controller)->videoPlayerActive(cam);
 	if(!bUsingFilm){
 		getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLinea.mov");
@@ -36,7 +35,6 @@ void LaLinea::useFilm(){
 }
 
 void LaLinea::useCam(){
-	ofLog(OF_LOG_NOTICE, "LaLinea using camera");
 	bUsingFilm = getPlugin<Cameras*>(controller)->videoPlayerActive(cam);
 	if(bUsingFilm){
 		getPlugin<Cameras*>(controller)->videoPlayerStop(cam);
