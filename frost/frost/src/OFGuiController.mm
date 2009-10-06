@@ -1,5 +1,3 @@
-
-
 #import "OFGuiController.h"
 #include "testApp.h"
 #include "Plugin.h"
@@ -7,164 +5,6 @@
 #include "PluginIncludes.h"
 
 OFGuiController * gui = NULL;
-
-@implementation frostSlider
-- (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value{	
-	if(midiChannel == channel && number == midiNumber){
-		if((noteOn || noteOff) && midiNoteHookup){
-			[self setFloatValue:(float)value*midiScaleFactor]		;	
-		} 
-		if(control && midiControlHookup){
-			[self setFloatValue:(float)value*midiScaleFactor];
-		}
-	}
-}
-- (void) setMidiChannel:(int)channel number:(int)number control:(bool)control note:(bool)note scale:(float)scale{
-	midiChannel = channel;
-	midiNumber = number;
-	midiControlHookup = control;
-	midiNoteHookup = note;
-	midiScaleFactor = scale;
-}
-
-- (id)initWithFrame:(NSRect)frame {
-	self = [super initWithFrame:frame];
-    return self;
-}
-
-- (void) awakeFromNib{
-	
-	NSRect sliderFrame = NSMakeRect(50,0, [self frame].size.width-110, [self frame].size.height); 
-	
-	NSSlider* slider = [[NSSlider alloc] initWithFrame:sliderFrame];
-	
-	[slider setMinValue:[self minValue]];
-	[slider setMaxValue:[self maxValue]];
-	[slider setTickMarkPosition:NSTickMarkBelow];
-	[slider setNumberOfTickMarks:10];
-	[slider setContinuous:true];
-	[slider takeDoubleValueFrom:self];
-	[slider setTarget:self];
-	[slider setAction: @selector(changeValueFromControl:)];
-	
-	NSRect valFrame = NSMakeRect([self frame].size.width-50, 0, 50, 22); 
-	
-	NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
-	
-	[numberFormatter setAllowsFloats:YES];
-	[numberFormatter setAlwaysShowsDecimalSeparator:YES];
-	[numberFormatter setHasThousandSeparators:NO];
-	[numberFormatter setNumberStyle:kCFNumberFormatterDecimalStyle];
-	[numberFormatter setMinimumFractionDigits:1];
-	
-	NSNumber * maximum = [[NSNumber alloc] initWithDouble:[self maxValue]];
-	NSNumber * minimum = [[NSNumber alloc] initWithDouble:[self minValue]];
-	
-	[numberFormatter setMaximum:maximum];
-	[numberFormatter setMinimum:minimum];
-	
-	NSTextField * val = [[NSTextField alloc] initWithFrame:valFrame];
-	
-	[val setFormatter:numberFormatter];
-	
-	[val setTarget:self];
-	[val setAction: @selector(changeValueFromControl:)];
-	[val takeDoubleValueFrom:self];
-	
-	[self addSubview:slider];
-	[self addSubview:val];
-	
-	valSlider = slider;
-	valTextfield = val;
-	
-	[slider release];
-	[val release];
-}
-
-- (void) changeValueFromControl:(id)sender{
-	[self setFloatValue:[sender floatValue]];
-	if(hookedUpToFloat){
-		*hookedUpFloat = [self floatValue];
-		
-	}
-}
-
-
-- (void)drawRect:(NSRect)rect{
-	//[valTextfield drawRect:rect];
-	//[valSlider drawRect:rect];
-	// nothing here - the slider itself should be hidden;
-	NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	[paragraphStyle setAlignment:NSCenterTextAlignment];
-	
-	if(midiNoteHookup || midiControlHookup){
-		NSDictionary *textAttribs;
-		textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:7],
-					   NSFontAttributeName, [NSColor blackColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
-		
-		NSRect frame = NSMakeRect(0, 0, 50, 30); 
-		
-		[[NSString stringWithFormat:@"%d C:%d %i\n%d  N:%d",midiChannel,midiControlHookup,int(floor([self convertToMidiValue:[self floatValue]])),midiNumber,midiNoteHookup] drawInRect:frame withAttributes:textAttribs];
-		
-	} else {
-		NSDictionary *textAttribs;
-		textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:12],
-					   NSFontAttributeName, [NSColor blackColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
-		
-		NSRect frame = NSMakeRect(0, 0, 50, 30); 
-		
-		[@"-" drawInRect:frame withAttributes:textAttribs];
-		
-	}
-}
-- (void) hookUpFloat:(float*)f{
-	hookedUpFloat = f;
-	hookedUpToFloat = true;
-	*hookedUpFloat = [self floatValue];
-	printf("   %f",*hookedUpFloat);
-}
-
-- (float) convertToMidiValue:(float)f {
-	float a = [self maxValue] - [self minValue];
-	f -= [self minValue];
-	f /= a;
-	f *= 127.0;
-	return f;
-}
-- (float) convertFromMidiValue:(float)f{
-	float a = [self maxValue] - [self minValue];
-	f /= 127.0;
-	f *= a;
-	f += [self minValue];
-	return f;
-}
-
-- (void) setFloatValue:(float)aFloat {
-	[valSlider setFloatValue:aFloat];
-	[valTextfield setFloatValue:aFloat];
-	[super setFloatValue:aFloat];
-	[self sendAction:[self action] to:[self target]];
-	if(hookedUpToFloat){
-		printf("   %f",*hookedUpFloat);
-		*hookedUpFloat = [self floatValue];
-	}
-}
-
-- (void) setDoubleValue:(double)aDouble {
-//	[self changeValueFromControl:[NSNumber numberWithDouble:aDouble]];
-	[valSlider setDoubleValue:aDouble];
-	[valTextfield setDoubleValue:aDouble];
-	[super setDoubleValue:aDouble];
-	[self sendAction:[self action] to:[self target]];
-	if(hookedUpToFloat){
-		*hookedUpFloat = [self floatValue];
-		printf("   %f",*hookedUpFloat);
-
-	}
-}
-
-@end
-
 
 
 @implementation ofPlugin
@@ -175,8 +15,7 @@ OFGuiController * gui = NULL;
 	return [super init];
 }
 
-- (void) setEnabled:(NSNumber *) n 
-{
+- (void) setEnabled:(NSNumber *) n {
 	enabled = n;
 	if(plugin != nil){
 		plugin->enabled = [n boolValue];
@@ -184,7 +23,6 @@ OFGuiController * gui = NULL;
 }
 
 @end
-
 
 
 @implementation ListView
@@ -200,20 +38,16 @@ OFGuiController * gui = NULL;
 		
 		NSBezierPath*    clipShape = [NSBezierPath bezierPathWithRect:bounds];
 		
-		
-		
 		NSGradient* aGradient = [[[NSGradient alloc]
-								  //								  initWithColorsAndLocations:[NSColor colorWithCalibratedRed:89 green:153 blue:229 alpha:1.0], (CGFloat)0.0,
+								  // initWithColorsAndLocations:[NSColor colorWithCalibratedRed:89 green:153 blue:229 alpha:1.0], (CGFloat)0.0,
 								  initWithColorsAndLocations:[NSColor colorWithCalibratedHue:0.59 saturation:0.61 brightness:0.90 alpha:1.0], (CGFloat)0.0,
 								  [NSColor colorWithCalibratedHue:0.608 saturation:0.85 brightness:0.81 alpha:1.0], (CGFloat)1.0,
 								  nil] autorelease];
 		
 		[aGradient drawInBezierPath:clipShape angle:90.0];
 		
-		
 		NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 		[paragraphStyle setAlignment:NSCenterTextAlignment];
-		
 		
 		NSDictionary *textAttribs;
 		textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:12],
@@ -241,12 +75,10 @@ OFGuiController * gui = NULL;
 
 @synthesize viewItems,views;
 
-
-
-
-// --------------------------------------------------- awake from the nib file
 -(void) awakeFromNib {
-	printf("--- wake from nib ---\n");
+
+	NSLog(@"--- wake from nib ---\n");
+	
 	[camView setWindowId:1];
 	[projectorView setWindowId:2];
 	[cameraKeystoneOpenGlView setWindowId:5];
@@ -255,18 +87,26 @@ OFGuiController * gui = NULL;
 	[floorPreview setWindowId:4];
 	[floorPreview setDoDraw:TRUE];
 	
-	
 	[ProjectorFloorAspectText setStringValue:[[NSNumber numberWithFloat:((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[0]->aspect] stringValue]];
-	
+
 	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
 	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
 	[LaLineaFloorDirSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->dirSpeed];
-
+	[LaLineaFloorMasterAlpha hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->masterAlpha];
+	[LaLineaFloorCurl hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->curlValue];
+	
 	[MoonDustMasterAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->masterAlpha];
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
 	
 	[LaLineaUseFilm hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->useFilmUglyFloat];
-	
+	[LaLineaTrackingActive hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->tracking];
+	[LaLineaMasterAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->masterAlpha];
+
+	[LaLineaOffsetX1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.x];
+	[LaLineaOffsetY1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.y];
+	[LaLineaOffsetX2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.x];
+	[LaLineaOffsetY2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.y];
+
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {
@@ -280,15 +120,11 @@ OFGuiController * gui = NULL;
 
 }
 
-// --------------------------------------------------- init
 - (id)init {
-	printf("--- init ---\n");	
+	NSLog(@"--- init ---\n");	
 	
-	
-	
-    if(self = [super init]) {
-		
-		
+	if(self = [super init]) {
+			
 		userDefaults = [[NSUserDefaults standardUserDefaults] retain];
 		
 		ofApp = (testApp*)ofGetAppPtr();
@@ -310,7 +146,6 @@ OFGuiController * gui = NULL;
 		(getPlugin<BlobLight*>(ofApp->pluginController))->historyalpha = [userDefaults doubleForKey:@"bloblight.historya"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blobalpha = [userDefaults doubleForKey:@"bloblight.bloba"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->addblack = [userDefaults doubleForKey:@"bloblight.addblack"];
-		
 		
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider1([userDefaults doubleForKey:@"frostscape.val1"]);
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider2([userDefaults doubleForKey:@"frostscape.val2"]);
@@ -372,16 +207,18 @@ OFGuiController * gui = NULL;
 		[self addObject:@"Folding" isheader:FALSE plugin:getPlugin<Folding*>(ofApp->pluginController)];
 		[self addObject:@"Frostscape" isheader:FALSE plugin:getPlugin<Frostscape*>(ofApp->pluginController)];
 		[self addObject:@"Liquid Space" isheader:FALSE plugin:getPlugin<LiquidSpace*>(ofApp->pluginController)];
-		
-		
+		[self addObject:@"Blob History" isheader:FALSE plugin:getPlugin<BlobHistory*>(ofApp->pluginController)];
+		[self addObject:@"Spotlight" isheader:FALSE plugin:getPlugin<Spotlight*>(ofApp->pluginController)];
+		[self addObject:@"Mirror Ball" isheader:FALSE plugin:getPlugin<MirrorBall*>(ofApp->pluginController)];
+		[self addObject:@"LED Grid" isheader:FALSE plugin:getPlugin<LEDGrid*>(ofApp->pluginController)];
+
 		NSMutableArray * array;
 		array = viewItems;
 		for(int i=0;i<[viewItems count];i++){
 			ofPlugin * p = [array objectAtIndex:i];
 			[p setEnabled:[NSNumber numberWithBool:[userDefaults boolForKey:[NSString stringWithFormat:@"plugins.enable%d",i]]]];
 		}
-		
-		
+				
 		[blobTrackingView retain];
 		[cameraView retain];
 		[projectionSurfacesView retain];
@@ -392,6 +229,9 @@ OFGuiController * gui = NULL;
 		[blobLightView retain];
 		[frostscapeView retain];
 		[liquidSpaceView retain];
+		[BlobHistoryView retain];
+		[SpotlightView retain];
+		[MirrorBallView retain];
 		
 		uint64_t guidVal[3];
 		
@@ -416,8 +256,7 @@ OFGuiController * gui = NULL;
 		[self cameraUpdateGUIDs];
 		
     }
-	
-    return self;
+	return self;
 }
 
 
@@ -440,6 +279,7 @@ OFGuiController * gui = NULL;
 	[blobView setDoDraw:false];
 	
 	id view;
+	
 	if(![(NSString*)[p name] compare:@"Cameras"]){
 		view = cameraView;
 		
@@ -449,30 +289,35 @@ OFGuiController * gui = NULL;
 		
 		[camView setDoDraw:true];
 	}
+	
 	if(![(NSString*)[p name] compare:@"Blob Tracking"]){
 		view = blobTrackingView;
 		[blobView setDoDraw:true];
 	}
+	
 	if(![(NSString*)[p name] compare:@"Projection Surfaces"]){
 		view = projectionSurfacesView;
 		[projectorView setDoDraw:true];
 		
 	}	
+	
 	if(![(NSString*)[p name] compare:@"Camera Calibration"]){
 		view =cameraKeystoneView;
 		[cameraKeystoneOpenGlView setDoDraw:true];
-		
 	}	
 	
 	if(![(NSString*)[p name] compare:@"Moon Dust"]){
 		view = moonDustView;
 	}	
+	
 	if(![(NSString*)[p name] compare:@"La Linea"]){
 		view = laLineaView;
 	}	
+	
 	if(![(NSString*)[p name] compare:@"La Linea Floor Line"]){
 		view = laLineaFloorView;
 	}	
+	
 	if(![(NSString*)[p name] compare:@"Blob light"]){
 		view = blobLightView;
 	}	
@@ -487,8 +332,23 @@ OFGuiController * gui = NULL;
 	
 	if(![(NSString*)[p name] compare:@"Liquid Space"]){
 		view = liquidSpaceView;
-	}	
+	}
 	
+	if(![(NSString*)[p name] compare:@"Blob History"]){
+		view = BlobHistoryView;
+	}
+	
+	if(![(NSString*)[p name] compare:@"Spotlight"]){
+		view = SpotlightView;
+	}
+	
+	if(![(NSString*)[p name] compare:@"Mirror Ball"]){
+		view = MirrorBallView;
+	}
+	
+	if(![(NSString*)[p name] compare:@"LED Grid"]){
+		view = LEDGridlView;
+	}
 	
 	[contentArea addSubview:view];
 	NSRect currFrame = [contentArea frame];
@@ -725,7 +585,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	(getPlugin<BlobLight*>(ofApp->pluginController))->history.set(0);
 }
 
-#pragma mark Foldign
+#pragma mark Folding
 
 -(IBAction)		modifyFoldingHistoryAddMultiplier:(id)sender{
 	if(ofApp->setupCalled){
@@ -752,7 +612,6 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 -(IBAction)		modifyFrostscapeSlider4:(id)sender{
-	printf("asdpasdpo");
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider4([sender doubleValue]);
 	}
@@ -919,21 +778,19 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }	
 
--(IBAction)		blobGrab1:(id)sender{
+-(IBAction)	blobGrab1:(id)sender{
 	if(ofApp->setupCalled){
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(0);
 	}
 }
--(IBAction)		modifyBlobActive1:(id)sender{
+-(IBAction)	modifyBlobActive1:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
 			b = true;	
 		}
-		
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(0,b);
 	}
-	
 }
 
 -(IBAction)	modifyBlobThreshold2:(id)sender{
@@ -953,16 +810,15 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(1);
 	}
 }
+
 -(IBAction)		modifyBlobActive2:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
 		if([sender state] ==  NSOnState ){
 			b = true;	
 		}
-		
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(1,b);
-	}
-	
+	}	
 }
 
 -(IBAction)	modifyBlobThreshold3:(id)sender{
@@ -988,20 +844,16 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		if([sender state] ==  NSOnState ){
 			b = true;	
 		}
-		
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(2,b);
 	}
-	
 }
 
-#pragma mark LaLineaFloor
+#pragma mark La Linea Floor
 -(IBAction)		modifyLaLineaFloorReset:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LaLineaFloor*>(ofApp->pluginController))->reset();
 	}
 }
-	
-
 
 @end
 

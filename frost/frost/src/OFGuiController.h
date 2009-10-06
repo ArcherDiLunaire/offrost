@@ -6,37 +6,7 @@
 #include "Plugin.h"
 #include "PluginIncludes.h"
 
-
-@interface frostSlider : NSSlider
-{
-	NSSlider * valSlider;
-	NSTextField * valTextfield;
-	SEL myAction;
-	NSObject * myTarget;
-	
-	int midiChannel;
-	int midiNumber;
-	bool midiControlHookup;
-	bool midiNoteHookup;
-	float midiScaleFactor;
-	
-	bool hookedUpToFloat;
-	float * hookedUpFloat;
-}
-
-- (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value;
-
-- (void) setMidiChannel:(int)channel number:(int)number control:(bool)control note:(bool)note scale:(float)scale;
-- (id) initWithFrame:(NSRect)frame;
-- (void) awakeFromNib;
-- (void) changeValueFromControl:(id)sender;
-- (void) changeValueFromControlMidi:(id)sender;
-- (void) hookUpFloat:(float*)f;
-- (float) convertToMidiValue:(float)f;
-- (float) convertFromMidiValue:(float)f;
-
-@end
-
+#include "FrostGuiObjects.h"
 
 @interface ofPlugin : NSObject 
 {
@@ -89,18 +59,15 @@
 	
 	NSUserDefaults * userDefaults;
 	
-	/**
-	 * Plugin View Outlets
-	 **/
+#pragma mark Plugin View Outlets
 	
 	IBOutlet NSView *cameraView;
 	IBOutlet NSView *blobTrackingView;
 	IBOutlet NSView *projectionSurfacesView;
 	IBOutlet NSView *cameraKeystoneView;
 	
-	/**
-	 * Moon Dust Outlets
-	 **/
+#pragma mark Moon Dust Outlets
+
 	IBOutlet NSView *moonDustView;
 	
 	IBOutlet frostSlider * MoonDustForce;
@@ -110,24 +77,31 @@
 	IBOutlet NSButton * MoonDustDebug;
 	IBOutlet frostSlider * MoonDustMasterAlpha;
 	IBOutlet frostSlider * MoonDustColumnAlpha;	
-	/**
-	 * La Linea Outlets
-	 **/
+
+#pragma mark La Linea Outlets
+	
 	IBOutlet NSView *laLineaView;
 	IBOutlet NSButton * LaLineaDebug;
+	IBOutlet frostSlider * LaLineaMasterAlpha;
 	IBOutlet frostSlider *LaLineaUseFilm;
-	
-	/**
-	 * La Linea Floor Outlets
-	 **/
+	IBOutlet frostSlider *LaLineaOffsetX1;
+	IBOutlet frostSlider *LaLineaOffsetY1;
+	IBOutlet frostSlider *LaLineaOffsetX2;
+	IBOutlet frostSlider *LaLineaOffsetY2;
+	IBOutlet frostSlider * LaLineaTrackingActive;
+
+#pragma mark La Linea Floor Outlets
+
+	IBOutlet frostSlider * LaLineaFloorMasterAlpha;
 	IBOutlet NSView *laLineaFloorView;
 	IBOutlet frostSlider * LaLineaFloorSpeed;
 	IBOutlet frostSlider * LaLineaFloorWidth;	
 	IBOutlet frostSlider * LaLineaFloorDirSpeed;
+	IBOutlet frostSlider * LaLineaFloorCurl;
 	IBOutlet NSButton * LaLineaFloorReset;
-	/**
-	 * Blob Light Outlets
-	 **/
+
+#pragma mark Blob Light Outlets
+
 	IBOutlet NSView *blobLightView;
 	IBOutlet NSButton * BlobLightDebug;
 	IBOutlet NSSlider * BlobLightBlur;
@@ -142,17 +116,28 @@
 	
 	IBOutlet NSColorWell * BlobLightColor;
 	
-	/**
-	 * Folding outlets
-	 **/
+#pragma mark BlobHistory outlets
+	
+	IBOutlet NSView *BlobHistoryView;
+	
+#pragma mark Spotlight outlets
+	
+	IBOutlet NSView *SpotlightView;
+	
+#pragma mark MirrorBall outlets
+	
+	IBOutlet NSView *MirrorBallView;
+	
+#pragma mark LEDGrid outlets
+	
+	IBOutlet NSView *LEDGridlView;
+	
+#pragma mark Folding outlets
 	
 	IBOutlet NSView *foldingView;
 	IBOutlet frostSlider * foldingHistoryAddMultiplier;
 	
-	
-	/**
-	 * Frostscape outlets
-	 **/
+#pragma mark Frostscape outlets
 	
 	IBOutlet NSView *frostscapeView;
 	IBOutlet frostSlider * FrostScapeSlider1;
@@ -162,9 +147,7 @@
 	IBOutlet frostSlider * FrostScapeSlider5;
 	IBOutlet frostSlider * FrostScapeSlider6;
 	
-	/**
-	 * LiquidSpace outlets
-	 **/
+#pragma mark LiquidSpace outlets
 	
 	IBOutlet NSView *liquidSpaceView;
 	
@@ -179,9 +162,7 @@
 	IBOutlet NSButton * liquidSpaceAddingForce;
 	IBOutlet NSSlider * liquidSpaceForceMultiplier;
 	
-	/**
-	 * Camera Outlets
-	 **/
+#pragma mark Camera Outlets
 	
 	IBOutlet NSView * cameraSetting;
 	
@@ -193,32 +174,26 @@
 	IBOutlet NSTextField * CameraGUID2;
 	IBOutlet NSTextField * CameraGUID3;
 	
-	/**
-	 * Projector Outlets
-	 **/
+#pragma mark Projector Outlets
 	
 	IBOutlet NSButton * ProjectorShowDebug;
 	IBOutlet NSMatrix * ProjectorMatrix;
 	IBOutlet NSSlider * ProjectorFloorAspect;
 	IBOutlet NSTextField * ProjectorFloorAspectText;
 	
-	/**
-	 * Blob Detection Outlets
-	 **/
+#pragma mark Blob Detection Outlets
 	
 	IBOutlet NSSlider * BlobThreshold1;
 	IBOutlet NSSlider * BlobBlur1;
-	IBOutlet NSButton * BlobActive1;
+	IBOutlet frostCheckbox * BlobActive1;
 	IBOutlet NSSlider * BlobThreshold2;
 	IBOutlet NSSlider * BlobBlur2;
-	IBOutlet NSButton * BlobActive2;
+	IBOutlet frostCheckbox * BlobActive2;
 	IBOutlet NSSlider * BlobThreshold3;
 	IBOutlet NSSlider * BlobBlur3;
-	IBOutlet NSButton * BlobActive3;
+	IBOutlet frostCheckbox * BlobActive3;
 	
-	/**
-	 * OpenGL Views
-	 **/
+#pragma mark OpenGL Views
 	
 	IBOutlet CustomGLView * camView;
 	IBOutlet CustomGLView * projectorView;
@@ -241,15 +216,21 @@
 
 -(void)			setFPS:(float)framesPerSecond;
 
+#pragma mark Camera Actions
+
 -(IBAction)		cameraBindGuid1:(id)sender;
 -(IBAction)		cameraBindGuid2:(id)sender;
 -(IBAction)		cameraBindGuid3:(id)sender;
+
+#pragma mark MoonDust Actions
 
 -(IBAction)		modifyMoonDustForce:(id)sender;
 -(IBAction)		modifyMoonDustLength:(id)sender;
 -(IBAction)		modifyMoonDustSize:(id)sender;
 -(IBAction)		modifyMoonDustDensity:(id)sender;
 -(IBAction)		modifyMoonDustDebug:(id)sender;
+
+#pragma mark La Linea Actions
 
 -(IBAction)		modifyLaLineaDebug:(id)sender;
 
@@ -258,6 +239,7 @@
 -(IBAction)		modifyLaLineaFloorDirSpeed:(id)sender;
 -(IBAction)		modifyLaLineaFloorReset:(id)sender;
 
+#pragma mark Blob Light Actions
 
 -(IBAction)		modifyBlobLightDebug:(id)sender;
 -(IBAction)		modifyBlobLightColor:(id)sender;
@@ -272,6 +254,8 @@
 -(IBAction)		modifyBlobLightBackgroundAdd:(id)sender;
 -(IBAction)		modifyBlobLightBackgroundClear:(id)sender;
 
+#pragma mark Frostscape Actions
+
 -(IBAction)		modifyFrostscapeSlider1:(id)sender;
 -(IBAction)		modifyFrostscapeSlider2:(id)sender;
 -(IBAction)		modifyFrostscapeSlider3:(id)sender;
@@ -279,7 +263,11 @@
 -(IBAction)		modifyFrostscapeSlider5:(id)sender;
 -(IBAction)		modifyFrostscapeSlider6:(id)sender;
 
+#pragma mark Folding Actions
+
 -(IBAction)		modifyFoldingHistoryAddMultiplier:(id)sender;
+
+#pragma mark LiquidSpace Actions
 
 -(IBAction)		modifyLiquidSpaceFillColor:(id)sender;
 -(IBAction)		modifylLiquidSpace:(id)sender;
@@ -292,12 +280,18 @@
 -(IBAction)		modifyLiquidSpaceAddingForce:(id)sender;
 -(IBAction)		modifyLiquidSpaceForceMultiplier:(id)sender;
 
+#pragma mark Projector Surfaces Actions
+
 -(IBAction)		modifyProjectorShowDebug:(id)sender;
 -(IBAction)		modifyProjectorMatrix:(id)sender;
 -(IBAction)		modifyProjectorFloorAspect:(id)sender;
 
+#pragma mark Camera Keystone Actions
+
 -(IBAction)		modifyCameraKeystoneShowDebug:(id)sender;
 -(IBAction)		modifyCameraKeystoneMatrix:(id)sender;
+
+#pragma mark Blob Tracker Actions
 
 -(IBAction)		modifyBlobThreshold1:(id)sender;
 -(IBAction)		modifyBlobBlur1:(id)sender;

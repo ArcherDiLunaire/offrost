@@ -24,7 +24,7 @@
 	[endpoint addReceiver:self];
 	
 	frostSliderHookups  = [[NSMutableArray alloc] initWithCapacity:10];
-
+	
 	[self hookupSlider:gui->MoonDustMasterAlpha onChannel:4 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->MoonDustForce onChannel:4 onNumber:2 controlChanges:true noteChanges:false scale:3.0/127.0];
 	[self hookupSlider:gui->MoonDustLength onChannel:4 onNumber:3 controlChanges:true noteChanges:false scale:3000.0/127.0];
@@ -35,7 +35,17 @@
 	[self hookupSlider:gui->FrostScapeSlider4 onChannel:1 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider1 onChannel:1 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
+	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaTrackingActive onChannel:5 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaUseFilm onChannel:5 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
+	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:6 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorSpeed onChannel:6 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorDirSpeed onChannel:6 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorWidth onChannel:6 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorCurl onChannel:6 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+
+
 }
 -(void) hookupSlider:(frostSlider*)slider onChannel:(int)channel onNumber:(int)number controlChanges:(bool)control noteChanges:(bool)note scale:(float)scale{
 	[frostSliderHookups addObject:slider];
@@ -78,6 +88,61 @@
 			}
 		}
 		//packet = MIDIPacketNext(packet);
+		
+		//Blob tracker
+		if(controlChange && channel == 1){
+			if(number == 1){
+				if(value == 0){
+					[gui->BlobActive1 setState:NSOffState];
+				}
+				if(value > 0){
+					[gui->BlobActive1 setState:NSOnState];
+				}
+				[gui modifyBlobActive1:gui->BlobActive1];
+
+			}
+			
+			if(number == 2){
+				if(value == 0){
+					[gui->BlobActive2 setState:NSOffState];
+				}
+				if(value > 0){
+					[gui->BlobActive2 setState:NSOnState];
+				}
+								[gui modifyBlobActive2:gui->BlobActive2];
+			}
+			
+			if(number == 3){
+				if(value == 0){
+					[gui->BlobActive3 setState:NSOffState];
+				}
+				if(value > 0){
+					[gui->BlobActive3 setState:NSOnState];
+				}
+								[gui modifyBlobActive3:gui->BlobActive3];
+			}
+			
+			if(number == 4){
+				printf("Grab %i",value);
+				if(value == 0){
+					[gui blobGrab1:self];
+				}
+				if(value == 1){
+					[gui blobGrab2:self];
+				}
+				if(value == 2){
+					[gui blobGrab3:self];
+				}
+			}
+		}
+		
+		//LaLineaFloor
+		if(controlChange && channel == 6){
+			if(number == 6){
+				[gui modifyLaLineaFloorReset:self];
+			}
+		}
+		
 		packet = &packetList->packet[i];
 	}	
 }

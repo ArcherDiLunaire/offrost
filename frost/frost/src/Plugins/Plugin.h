@@ -25,9 +25,9 @@ public:
 	
 	PluginController * controller;
 	
-	
 	FrostPlugin();
-		virtual void setup(){};
+	
+	virtual void setup(){};
 	virtual void draw(){};
 	virtual void update(){};
 	
@@ -42,4 +42,3 @@ public:
 
 	float mouseX, mouseY;
 };
-

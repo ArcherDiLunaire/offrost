@@ -35,5 +35,10 @@ public:
 	bool bUsingFilm;
 
 	float yPosition;
-	ofxVec2f camOffset(float x);
+	ofxVec2f camOffset(ofxVec2f pointIn);
+	
+	ofxVec2f offsetPoint, offsetPoint2;
+	
+	float tracking;
+	
 };

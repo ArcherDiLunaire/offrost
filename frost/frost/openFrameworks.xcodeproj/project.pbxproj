@@ -15,6 +15,11 @@
 		276D9DB91073B3F00084689D /* ofxMSAFluidSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 276D9DAF1073B3F00084689D /* ofxMSAFluidSolver.cpp */; };
 		2797C7D91070DCDF00555A42 /* Folding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2797C7D71070DCDF00555A42 /* Folding.cpp */; };
 		279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AEC3A10668C0100FBEE17 /* coordWarp.cpp */; };
+		27A847B4107B9C0E008926F1 /* FrostGuiObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A847B3107B9C0E008926F1 /* FrostGuiObjects.m */; };
+		27A84822107BBF6B008926F1 /* BlobHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A84821107BBF6B008926F1 /* BlobHistory.cpp */; };
+		27A84827107BC032008926F1 /* Spotlight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A84826107BC032008926F1 /* Spotlight.cpp */; };
+		27A8482C107BC05C008926F1 /* MirrorBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A8482B107BC05C008926F1 /* MirrorBall.cpp */; };
+		27A84855107BD713008926F1 /* LEDGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A84854107BD713008926F1 /* LEDGrid.cpp */; };
 		27B64B4B1072019D002E95C4 /* Frostscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64B491072019D002E95C4 /* Frostscape.cpp */; };
 		27B64BF9107211CD002E95C4 /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BEE107211CD002E95C4 /* RtMidi.cpp */; };
 		27B64BFA107211CD002E95C4 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BF4107211CD002E95C4 /* ofxMidiIn.cpp */; };
@@ -153,6 +158,16 @@
 		2797C7D81070DCDF00555A42 /* Folding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Folding.h; sourceTree = "<group>"; };
 		279AEC3A10668C0100FBEE17 /* coordWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coordWarp.cpp; path = src/coordWarp.cpp; sourceTree = SOURCE_ROOT; };
 		279AEC3B10668C0100FBEE17 /* coordWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = coordWarp.h; path = src/coordWarp.h; sourceTree = SOURCE_ROOT; };
+		27A847B2107B9C0E008926F1 /* FrostGuiObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrostGuiObjects.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/FrostGuiObjects.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A847B3107B9C0E008926F1 /* FrostGuiObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FrostGuiObjects.m; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/FrostGuiObjects.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A84820107BBF6B008926F1 /* BlobHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlobHistory.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/BlobHistory.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A84821107BBF6B008926F1 /* BlobHistory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BlobHistory.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/BlobHistory.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A84825107BC032008926F1 /* Spotlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Spotlight.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/Spotlight.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A84826107BC032008926F1 /* Spotlight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Spotlight.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/Spotlight.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A8482A107BC05C008926F1 /* MirrorBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MirrorBall.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/MirrorBall.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A8482B107BC05C008926F1 /* MirrorBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MirrorBall.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/MirrorBall.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A84853107BD713008926F1 /* LEDGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LEDGrid.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/LEDGrid.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27A84854107BD713008926F1 /* LEDGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LEDGrid.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/LEDGrid.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		27B64B491072019D002E95C4 /* Frostscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Frostscape.cpp; sourceTree = "<group>"; };
 		27B64B4A1072019D002E95C4 /* Frostscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Frostscape.h; sourceTree = "<group>"; };
 		27B64BED107211CD002E95C4 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
@@ -861,6 +876,14 @@
 				2797C7D81070DCDF00555A42 /* Folding.h */,
 				276D9D811073AE5A0084689D /* LiquidSpace.h */,
 				276D9D821073AE5A0084689D /* LiquidSpace.cpp */,
+				27A84820107BBF6B008926F1 /* BlobHistory.h */,
+				27A84821107BBF6B008926F1 /* BlobHistory.cpp */,
+				27A84825107BC032008926F1 /* Spotlight.h */,
+				27A84826107BC032008926F1 /* Spotlight.cpp */,
+				27A8482A107BC05C008926F1 /* MirrorBall.h */,
+				27A8482B107BC05C008926F1 /* MirrorBall.cpp */,
+				27A84853107BD713008926F1 /* LEDGrid.h */,
+				27A84854107BD713008926F1 /* LEDGrid.cpp */,
 			);
 			path = outputs;
 			sourceTree = "<group>";
@@ -1473,6 +1496,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				27A847B2107B9C0E008926F1 /* FrostGuiObjects.h */,
+				27A847B3107B9C0E008926F1 /* FrostGuiObjects.m */,
 				279AEC3A10668C0100FBEE17 /* coordWarp.cpp */,
 				279AEC3B10668C0100FBEE17 /* coordWarp.h */,
 				E434918D0FF29FBB00E5A170 /* ofAppCocoaWindow */,
@@ -1671,6 +1696,11 @@
 				DDD48A7E10766F110083759A /* PYMIDIVirtualSource.m in Sources */,
 				DDD48A8110766F290083759A /* ofMidi.mm in Sources */,
 				DD97BCFB107A72D1008108FC /* LaLineaFloor.cpp in Sources */,
+				27A847B4107B9C0E008926F1 /* FrostGuiObjects.m in Sources */,
+				27A84822107BBF6B008926F1 /* BlobHistory.cpp in Sources */,
+				27A84827107BC032008926F1 /* Spotlight.cpp in Sources */,
+				27A8482C107BC05C008926F1 /* MirrorBall.cpp in Sources */,
+				27A84855107BD713008926F1 /* LEDGrid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

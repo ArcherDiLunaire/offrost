@@ -60,7 +60,7 @@ void MoonDust::update(){
 		
 		
 		//		if(blob(cam)->numBlobs() > 0){
-		for(int i=0;i<b.nPts-10;i+=10){
+		for(int i=0;i<b.nPts-5;i+=5){
 			ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
 			ofxVec2f a = ofxVec2f(r.x-p.x, r.y-p.y);
 			ofxVec2f ab = ((a.dot(dir)) * dir);
@@ -116,7 +116,7 @@ void MoonDust::update(){
 				}
 			}
 		}
-		particles[i].update(force, 1, bMin, bMax);
+		particles[i].update(force, 1, bMin*1.2, bMax*1.2);
 	}
 	
 	

@@ -13,7 +13,7 @@ LaLinea::LaLinea(){
 }
 
 void LaLinea::setup(){
-
+	
 }
 
 void LaLinea::update(){
@@ -43,22 +43,32 @@ void LaLinea::useCam(){
 }
 
 void LaLinea::draw(){
-
+	
 }
 
-ofxVec2f LaLinea::camOffset(float x){
-	ofxVec2f start = *projection()->getColumn(0)->corners[2];
-	ofxVec2f b = *projection()->getColumn(2)->corners[3] - *projection()->getColumn(0)->corners[2];
-	ofxVec2f a = (*projection()->getColumn(1)->corners[2] - *projection()->getColumn(1)->corners[3])/2.0 + *projection()->getColumn(1)->corners[3] - *projection()->getColumn(0)->corners[2];
-	ofxVec2f ab = b * a.dot(b)/(b.length()*b.length());
-	ofxVec2f c = a - ab;
+ofxVec2f LaLinea::camOffset(ofxVec2f pointIn){
+	/*ofxVec2f start = *projection()->getColumn(0)->corners[2];
+	 ofxVec2f b = *projection()->getColumn(2)->corners[3] - *projection()->getColumn(0)->corners[2];
+	 ofxVec2f a = (*projection()->getColumn(1)->corners[2] - *projection()->getColumn(1)->corners[3])/2.0 + *projection()->getColumn(1)->corners[3] - *projection()->getColumn(0)->corners[2];
+	 ofxVec2f ab = b * a.dot(b)/(b.length()*b.length());
+	 ofxVec2f c = a - ab;*/
 	
-	if(x < ab.length()){
-		float s = (float)(c.length())/ab.length();
-		return ofxVec2f(0,x*s);
+	float s1 = (offsetPoint.x / offsetPoint2.x);
+	float s2 = (1.0-offsetPoint.x) /(1.0- offsetPoint2.x);
+	
+	float sy1 = (offsetPoint.y / offsetPoint2.x);
+	float sy2;	
+	sy2 =  (-offsetPoint.y) /(1.0-offsetPoint2.x);	
+	
+	
+	if(pointIn.x <  offsetPoint2.x ){
+		return ofxVec2f(pointIn.x * s1, pointIn.y + (pointIn.x * sy1) );
+		
 	} else {
-		float s = (float)-(c.length())/(1.0-ab.length());		
-		return ofxVec2f(0,(c.length())+x*s);
+		//		return ofxVec2f(pointIn.x - (offsetPoint2.x-offsetPoint2.x) , pointIn.y);
+		return ofxVec2f(offsetPoint.x + (s2) * (pointIn.x-offsetPoint2.x)  , offsetPoint.y+pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2)   );
+		//		pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2  + offsetPoint.y )
+		//
 	}
 }
 
@@ -69,7 +79,7 @@ void LaLinea::drawOnWall(){
 	glDisable(GL_DEPTH_TEST);
 	ofFill();
 	
-	glColor4f(1.0, 1.0,1.0, 1.0);
+	glColor4f(1.0, 1.0,1.0, masterAlpha);
 	
 	glPopMatrix();
 	
@@ -97,41 +107,49 @@ void LaLinea::drawOnWall(){
 	
 	projection()->applyWallProjection();
 	
-	camOffset(0.5);
-	for(int i=0;i<blob(cam)->numBlobs();i++){
-		vector<ofxVec2f> points;
-		int n = 0;
-
-		ofxCvBlob b = blob(cam)->getBlob(i);
-		for(int j=b.nPts-1;j>=0;j--){
-			points.push_back(projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[j].x, b.pts[j].y)-2*camOffset(b.pts[j].x)));
-//			points[n] += camOffset(points[n].x);
-			n++;
+	if(tracking > 0.5){
+		for(int i=0;i<blob(cam)->numBlobs();i++){
+			vector<ofxVec2f> points;
+			int n = 0;
+			
+			ofxCvBlob b = blob(cam)->getBlob(i);
+			for(int j=b.nPts-1;j>=0;j--){
+				points.push_back(projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[j].x, b.pts[j].y)));
+				points[n] = camOffset(points[n]);
+				n++;
+			}
+			points.push_back(points[0]);
+			points.push_back(points[1]);
+			points.push_back(points[2]);
+			
+			drawContour(&points, lineWidth, lineWidth);
 		}
-		/*points.push_back(projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[b.nPts-1].x, b.pts[b.nPts-1].y)+camOffset(b.pts[b.nPts-1].x)));
-		 points.push_back(projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[b.nPts-2].x, b.pts[b.nPts-2].y)+camOffset(b.pts[b.nPts-2].x)));
-		 points.push_back(projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[b.nPts-3].x, b.pts[b.nPts-3].y)+camOffset(b.pts[b.nPts-3].x)));*/
 		
-		drawContour(&points, lineWidth, lineWidth);
-	}
-	
-	
-	ofFill();
-	
-	glColor4f(0.0, 0.0, 0.0, 1.0);
-	
-	ofBeginShape();
-	
-	for(int i=0;i<blob(cam)->numBlobs();i++){
-		ofxCvBlob b = blob(cam)->getBlob(i);
-		for(int j=0;j<b.nPts;j++){
-			ofxVec2f p = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[j].x, b.pts[j].y));
-			ofVertex(p.x, p.y);
+		
+		ofFill();
+		
+		glColor4f(0.0, 0.0, 0.0, 1.0);
+		
+		
+		for(int i=0;i<blob(cam)->numBlobs();i++){
+			ofBeginShape();
+			
+			ofxCvBlob b = blob(cam)->getBlob(i);
+			for(int j=0;j<b.nPts;j++){
+				ofxVec2f p = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[j].x, b.pts[j].y));
+				p = camOffset(p);
+				
+				ofVertex(p.x, p.y);
+			}
+			ofEndShape(true);
+			
 		}
+		
+		
+		/*ofSetColor(255,255, 0);
+		 ofRect(offsetPoint.x, 0.0, 0.05, 1);
+		 */
 	}
-	
-	ofEndShape(true);
-	
 	glPopMatrix();
 	
 	projection()->applyCurtainProjection(0, 2);
@@ -150,6 +168,16 @@ void LaLinea::drawOnWall(){
 	
 	ofRect(0.0, yPosition, 1000, 1000);
 	
+	glPopMatrix();
+	
+	ofDisableAlphaBlending();
+	for(int i=0;i<3;i++){
+		projection()->applyProjection(projection()->getColumn(i));
+		ofSetColor(0, 0, 0,255)	;
+		ofRect(0.0, 0, projection()->getColumn(i)->aspect, 1);
+		glPopMatrix();
+		
+	}
 	ofPopStyle();
 	
 }

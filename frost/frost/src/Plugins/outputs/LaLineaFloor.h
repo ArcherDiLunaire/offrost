@@ -30,6 +30,6 @@ public:
 	float width;
 	float speed;
 	float dirSpeed;
-	
+	float curlValue;
 	void reset();
 };

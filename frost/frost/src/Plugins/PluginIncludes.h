@@ -11,3 +11,7 @@
 #include "Folding.h"
 #include "Frostscape.h"
 #include "LiquidSpace.h"
+#include "BlobHistory.h"
+#include "Spotlight.h"
+#include "MirrorBall.h"
+#include "LEDGrid.h"

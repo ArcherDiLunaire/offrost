@@ -26,7 +26,7 @@ void LaLineaFloor::update(){
 		ofxPoint2f goal = projection()->convertToFloorCoordinate(blob(cam)->persistentBlobs[0].getLowestPoint());
 		if(goal.distance(pos) < 0.10 && time - lastTime > 3.0){
 			if(goal.distance(pos) < 0.05) itIsClose = true;
-			goal = goal += ofxVec2f(ofRandom(-0.5,0.75), ofRandom(-2.0,0.5));
+			goal = goal += curlValue*ofxVec2f(ofRandom(-0.5,0.75), ofRandom(-2.0,0.5));
 			lastTime = time;
 		}
 		
@@ -57,7 +57,7 @@ void LaLineaFloor::reset(){
 }
 
 void LaLineaFloor::drawOnFloor(){
-	ofSetColor(255, 255, 255, 255);
+	ofSetColor(255, 255, 255, 255*masterAlpha);
 	ofEnableSmoothing();
 	if(pnts.size() > 0){
 		glBegin(GL_QUAD_STRIP);
