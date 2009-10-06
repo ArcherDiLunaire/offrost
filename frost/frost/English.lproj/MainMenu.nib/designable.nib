@@ -11,7 +11,7 @@
 			<string key="NS.object.0">732</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="411"/>
+			<integer value="1493"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2336,7 +2336,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="98871383">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSBox" id="285467533">
@@ -2623,7 +2623,6 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{1074, 478}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -3582,7 +3581,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="950406195">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="355892590">
@@ -3621,7 +3620,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 										<object class="NSButton" id="61151165">
 											<reference key="NSNextResponder" ref="617669593"/>
 											<int key="NSvFlags">265</int>
-											<string key="NSFrame">{{958, 12}, {64, 18}}</string>
+											<string key="NSFrame">{{958, 13}, {64, 18}}</string>
 											<reference key="NSSuperview" ref="617669593"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="525778601">
@@ -3640,12 +3639,33 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 												<int key="NSPeriodicInterval">25</int>
 											</object>
 										</object>
+										<object class="NSSlider" id="53783420">
+											<reference key="NSNextResponder" ref="617669593"/>
+											<int key="NSvFlags">268</int>
+											<string key="NSFrame">{{16, 10}, {382, 21}}</string>
+											<reference key="NSSuperview" ref="617669593"/>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSSliderCell" key="NSCell" id="973919970">
+												<int key="NSCellFlags">67501824</int>
+												<int key="NSCellFlags2">0</int>
+												<string key="NSContents"/>
+												<reference key="NSControlView" ref="53783420"/>
+												<double key="NSMaxValue">1</double>
+												<double key="NSMinValue">0.0</double>
+												<double key="NSValue">0.0</double>
+												<double key="NSAltIncValue">0.0</double>
+												<int key="NSNumberOfTickMarks">0</int>
+												<int key="NSTickMarkPosition">1</int>
+												<bool key="NSAllowsTickMarkValuesOnly">YES</bool>
+												<bool key="NSVertical">NO</bool>
+											</object>
+										</object>
 									</array>
-									<string key="NSFrame">{{1, 1}, {1038, 40}}</string>
+									<string key="NSFrame">{{1, 1}, {1038, 41}}</string>
 									<reference key="NSSuperview" ref="811586554"/>
 								</object>
 							</array>
-							<string key="NSFrame">{{17, 392}, {1040, 42}}</string>
+							<string key="NSFrame">{{17, 391}, {1040, 43}}</string>
 							<reference key="NSSuperview" ref="950406195"/>
 							<string key="NSOffsets">{0, 0}</string>
 							<object class="NSTextFieldCell" key="NSTitleCell">
@@ -3667,6 +3687,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{1074, 500}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -7512,6 +7533,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 					<int key="connectionID">2125</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">LaLineaUseFilm</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="53783420"/>
+					</object>
+					<int key="connectionID">2138</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -9694,6 +9723,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="811586554"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="61151165"/>
+							<reference ref="53783420"/>
 						</array>
 						<reference key="parent" ref="950406195"/>
 					</object>
@@ -10511,6 +10541,19 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="398884364"/>
 						<reference key="parent" ref="232005222"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2134</int>
+						<reference key="object" ref="53783420"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="973919970"/>
+						</array>
+						<reference key="parent" ref="811586554"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2135</int>
+						<reference key="object" ref="973919970"/>
+						<reference key="parent" ref="53783420"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10617,9 +10660,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="1455.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="149.ImportedFromIB2"/>
-				<string key="1492.IBEditorWindowLastContentRect">{{298, 314}, {1074, 500}}</string>
+				<string key="1492.IBEditorWindowLastContentRect">{{300, 119}, {1074, 500}}</string>
 				<string key="1492.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1492.IBWindowTemplateEditedContentRect">{{298, 314}, {1074, 500}}</string>
+				<string key="1492.IBWindowTemplateEditedContentRect">{{300, 119}, {1074, 500}}</string>
 				<boolean value="NO" key="1492.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="1493.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1494.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -10900,6 +10943,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="2121.CustomClassName">frostSlider</string>
 				<string key="2121.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2122.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2134.CustomClassName">frostSlider</string>
+				<string key="2134.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2135.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="225.IBEditorWindowLastContentRect">{{472, 87}, {800, 620}}</string>
 				<string key="225.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="225.IBWindowTemplateEditedContentRect">{{472, 87}, {800, 620}}</string>
@@ -10972,9 +11018,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="400.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="407.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="408.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="410.IBEditorWindowLastContentRect">{{381, 378}, {1074, 478}}</string>
+				<string key="410.IBEditorWindowLastContentRect">{{319, 342}, {1074, 478}}</string>
 				<string key="410.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="410.IBWindowTemplateEditedContentRect">{{381, 378}, {1074, 478}}</string>
+				<string key="410.IBWindowTemplateEditedContentRect">{{319, 342}, {1074, 478}}</string>
 				<boolean value="NO" key="410.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="411.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="416.CustomClassName">frostSlider</string>
@@ -11121,7 +11167,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">2125</int>
+			<int key="maxID">2138</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -11388,6 +11434,180 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/ofMidi.h</string>
 					</object>
+				</object>
+			</array>
+			<array class="NSMutableArray" key="referencedPartialClassDescriptionsV3.1+">
+				<object class="IBPartialClassDescription">
+					<string key="className">ListView</string>
+					<string key="superclassName">NSTableView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="312494229">
+						<string key="majorKey">IBDocumentRelativeSource</string>
+						<string key="minorKey">../../../../../../../../../Users/jonas/Documents/udvilking/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/OFGuiController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">OFGuiController</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="blobGrab1:">id</string>
+						<string key="blobGrab2:">id</string>
+						<string key="blobGrab3:">id</string>
+						<string key="cameraBindGuid1:">id</string>
+						<string key="cameraBindGuid2:">id</string>
+						<string key="cameraBindGuid3:">id</string>
+						<string key="drawBlobDebug:">id</string>
+						<string key="modifyBlobActive1:">id</string>
+						<string key="modifyBlobActive2:">id</string>
+						<string key="modifyBlobActive3:">id</string>
+						<string key="modifyBlobBlur1:">id</string>
+						<string key="modifyBlobBlur2:">id</string>
+						<string key="modifyBlobBlur3:">id</string>
+						<string key="modifyBlobLightAlpha:">id</string>
+						<string key="modifyBlobLightBackgroundAdd:">id</string>
+						<string key="modifyBlobLightBackgroundClear:">id</string>
+						<string key="modifyBlobLightBeta:">id</string>
+						<string key="modifyBlobLightBlobAlpha:">id</string>
+						<string key="modifyBlobLightBlur2:">id</string>
+						<string key="modifyBlobLightBlur:">id</string>
+						<string key="modifyBlobLightColor2:">id</string>
+						<string key="modifyBlobLightColor:">id</string>
+						<string key="modifyBlobLightDebug:">id</string>
+						<string key="modifyBlobLightHistoryAlpha:">id</string>
+						<string key="modifyBlobLightThreshold:">id</string>
+						<string key="modifyBlobThreshold1:">id</string>
+						<string key="modifyBlobThreshold2:">id</string>
+						<string key="modifyBlobThreshold3:">id</string>
+						<string key="modifyCameraKeystoneMatrix:">id</string>
+						<string key="modifyCameraKeystoneShowDebug:">id</string>
+						<string key="modifyFoldingHistoryAddMultiplier:">id</string>
+						<string key="modifyFrostscapeSlider1:">id</string>
+						<string key="modifyFrostscapeSlider2:">id</string>
+						<string key="modifyFrostscapeSlider3:">id</string>
+						<string key="modifyFrostscapeSlider4:">id</string>
+						<string key="modifyFrostscapeSlider5:">id</string>
+						<string key="modifyFrostscapeSlider6:">id</string>
+						<string key="modifyLaLineaDebug:">id</string>
+						<string key="modifyLaLineaFloorDirSpeed:">id</string>
+						<string key="modifyLaLineaFloorReset:">id</string>
+						<string key="modifyLaLineaFloorSpeed:">id</string>
+						<string key="modifyLaLineaFloorWidth:">id</string>
+						<string key="modifyLiquidSpaceAddingColor:">id</string>
+						<string key="modifyLiquidSpaceAddingForce:">id</string>
+						<string key="modifyLiquidSpaceColorMultiplier:">id</string>
+						<string key="modifyLiquidSpaceDiffusion:">id</string>
+						<string key="modifyLiquidSpaceDropColor:">id</string>
+						<string key="modifyLiquidSpaceFadeSpeed:">id</string>
+						<string key="modifyLiquidSpaceFillColor:">id</string>
+						<string key="modifyLiquidSpaceForceMultiplier:">id</string>
+						<string key="modifyLiquidSpaceViscosity:">id</string>
+						<string key="modifyMoonDustDebug:">id</string>
+						<string key="modifyMoonDustDensity:">id</string>
+						<string key="modifyMoonDustForce:">id</string>
+						<string key="modifyMoonDustLength:">id</string>
+						<string key="modifyMoonDustSize:">id</string>
+						<string key="modifyProjectorFloorAspect:">id</string>
+						<string key="modifyProjectorMatrix:">id</string>
+						<string key="modifyProjectorShowDebug:">id</string>
+						<string key="modifylLiquidSpace:">id</string>
+						<string key="setListViewRow:">id</string>
+						<string key="toggleFullscreen:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="BlobActive1">NSButton</string>
+						<string key="BlobActive2">NSButton</string>
+						<string key="BlobActive3">NSButton</string>
+						<string key="BlobBlur1">NSSlider</string>
+						<string key="BlobBlur2">NSSlider</string>
+						<string key="BlobBlur3">NSSlider</string>
+						<string key="BlobLightAddBackground">NSSlider</string>
+						<string key="BlobLightAlpha">NSSlider</string>
+						<string key="BlobLightBeta">NSSlider</string>
+						<string key="BlobLightBlobAlpha">NSSlider</string>
+						<string key="BlobLightBlur">NSSlider</string>
+						<string key="BlobLightBlur2">NSSlider</string>
+						<string key="BlobLightColor">NSColorWell</string>
+						<string key="BlobLightDebug">NSButton</string>
+						<string key="BlobLightHistoryAlpha">NSSlider</string>
+						<string key="BlobLightThreshold">NSSlider</string>
+						<string key="BlobThreshold1">NSSlider</string>
+						<string key="BlobThreshold2">NSSlider</string>
+						<string key="BlobThreshold3">NSSlider</string>
+						<string key="CameraGUID1">NSTextField</string>
+						<string key="CameraGUID2">NSTextField</string>
+						<string key="CameraGUID3">NSTextField</string>
+						<string key="FrostScapeSlider1">frostSlider</string>
+						<string key="FrostScapeSlider2">frostSlider</string>
+						<string key="FrostScapeSlider3">frostSlider</string>
+						<string key="FrostScapeSlider4">frostSlider</string>
+						<string key="FrostScapeSlider5">frostSlider</string>
+						<string key="FrostScapeSlider6">frostSlider</string>
+						<string key="LaLineaDebug">NSButton</string>
+						<string key="LaLineaFloorDirSpeed">frostSlider</string>
+						<string key="LaLineaFloorReset">NSButton</string>
+						<string key="LaLineaFloorSpeed">frostSlider</string>
+						<string key="LaLineaFloorWidth">frostSlider</string>
+						<string key="LaLineaUseFilm">frostSlider</string>
+						<string key="MoonDustColumnAlpha">frostSlider</string>
+						<string key="MoonDustDebug">NSButton</string>
+						<string key="MoonDustDensity">frostSlider</string>
+						<string key="MoonDustForce">frostSlider</string>
+						<string key="MoonDustLength">frostSlider</string>
+						<string key="MoonDustMasterAlpha">frostSlider</string>
+						<string key="MoonDustSize">frostSlider</string>
+						<string key="ProjectorFloorAspect">NSSlider</string>
+						<string key="ProjectorFloorAspectText">NSTextField</string>
+						<string key="ProjectorMatrix">NSMatrix</string>
+						<string key="ProjectorShowDebug">NSButton</string>
+						<string key="blobLightView">NSView</string>
+						<string key="blobTrackingView">NSView</string>
+						<string key="blobView">CustomGLView</string>
+						<string key="camView">CustomGLView</string>
+						<string key="cameraKeystoneOpenGlView">CustomGLView</string>
+						<string key="cameraKeystoneView">NSView</string>
+						<string key="cameraSetting">NSView</string>
+						<string key="cameraSettings1">NSView</string>
+						<string key="cameraSettings2">NSView</string>
+						<string key="cameraSettings3">NSView</string>
+						<string key="cameraView">NSView</string>
+						<string key="contentArea">contentView</string>
+						<string key="floorPreview">CustomGLView</string>
+						<string key="foldingHistoryAddMultiplier">frostSlider</string>
+						<string key="foldingView">NSView</string>
+						<string key="frostscapeView">NSView</string>
+						<string key="laLineaFloorView">NSView</string>
+						<string key="laLineaView">NSView</string>
+						<string key="liquidSpaceAddingColor">NSButton</string>
+						<string key="liquidSpaceAddingForce">NSButton</string>
+						<string key="liquidSpaceColorMultiplier">NSSlider</string>
+						<string key="liquidSpaceDiffusion">NSSlider</string>
+						<string key="liquidSpaceDropColor">NSColorWell</string>
+						<string key="liquidSpaceFIll">NSButton</string>
+						<string key="liquidSpaceFadeSpeed">NSSlider</string>
+						<string key="liquidSpaceFillColor">NSColorWell</string>
+						<string key="liquidSpaceForceMultiplier">NSSlider</string>
+						<string key="liquidSpaceView">NSView</string>
+						<string key="liquidSpaceViscosity">NSSlider</string>
+						<string key="listView">ListView</string>
+						<string key="mainView">NSView</string>
+						<string key="moonDustView">NSView</string>
+						<string key="projectionSurfacesView">NSView</string>
+						<string key="projectorView">CustomGLView</string>
+					</dictionary>
+					<reference key="sourceIdentifier" ref="312494229"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">contentView</string>
+					<string key="superclassName">NSView</string>
+					<reference key="sourceIdentifier" ref="312494229"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">frostSlider</string>
+					<string key="superclassName">NSSlider</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="changeValueFromControl:">id</string>
+						<string key="changeValueFromControlMidi:">id</string>
+					</dictionary>
+					<reference key="sourceIdentifier" ref="312494229"/>
 				</object>
 			</array>
 			<array class="NSMutableArray" key="referencedPartialClassDescriptionsV3.2+">
