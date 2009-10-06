@@ -133,10 +133,10 @@ void Tracker::update(){
 				}
 				
 				if (bLearnBakground == true){
+					grayBg = grayImageBlured;
 					if (!getPlugin<Cameras*>(controller)->videoPlayerActive(cameraId)) {
 						saveBackground();
 					}
-					grayBg = grayImageBlured;
 					bLearnBakground = false;
 				}
 				
