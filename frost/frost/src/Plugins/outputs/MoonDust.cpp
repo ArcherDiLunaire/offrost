@@ -16,7 +16,7 @@ MoonDust::MoonDust(){
 	min = 0.2;
 	max = 0.5;
 	
-	rotation = 45;
+	rotation = 55;
 	size = 0.007;
 	length=3000.0;
 	density = 1.0;

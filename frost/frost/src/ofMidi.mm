@@ -24,6 +24,13 @@
 	[endpoint addReceiver:self];
 	
 	frostSliderHookups  = [[NSMutableArray alloc] initWithCapacity:10];
+
+	[self hookupSlider:gui->MoonDustMasterAlpha onChannel:4 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->MoonDustForce onChannel:4 onNumber:2 controlChanges:true noteChanges:false scale:3.0/127.0];
+	[self hookupSlider:gui->MoonDustLength onChannel:4 onNumber:3 controlChanges:true noteChanges:false scale:3000.0/127.0];
+	[self hookupSlider:gui->MoonDustDensity onChannel:4 onNumber:4 controlChanges:true noteChanges:false scale:10000.0/127.0];
+	[self hookupSlider:gui->MoonDustSize onChannel:4 onNumber:5 controlChanges:true noteChanges:false scale:0.1/127.0];
+	[self hookupSlider:gui->MoonDustColumnAlpha onChannel:4 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 	[self hookupSlider:gui->FrostScapeSlider4 onChannel:1 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider1 onChannel:1 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
@@ -70,7 +77,8 @@
 				[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
 			}
 		}
-		packet = MIDIPacketNext(packet);
+		//packet = MIDIPacketNext(packet);
+		packet = &packetList->packet[i];
 	}	
 }
 @end

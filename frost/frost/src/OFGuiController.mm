@@ -85,13 +85,10 @@ OFGuiController * gui = NULL;
 	[self setFloatValue:[sender floatValue]];
 	if(hookedUpToFloat){
 		*hookedUpFloat = [self floatValue];
-		printf("   %f",*hookedUpFloat);
 		
 	}
-	//[valSlider setFloatValue:[sender floatValue]];
-	//[valTextfield setFloatValue:[sender floatValue]];
-//	[self sendAction:[self action] to:[self target]];
 }
+
 
 - (void)drawRect:(NSRect)rect{
 	//[valTextfield drawRect:rect];
@@ -107,7 +104,7 @@ OFGuiController * gui = NULL;
 		
 		NSRect frame = NSMakeRect(0, 0, 50, 30); 
 		
-		[[NSString stringWithFormat:@"Ch: %d C:%d \nNr: %d  N:%d",midiChannel,midiControlHookup,midiNumber,midiNoteHookup] drawInRect:frame withAttributes:textAttribs];
+		[[NSString stringWithFormat:@"%d C:%d %i\n%d  N:%d",midiChannel,midiControlHookup,int(floor([self convertToMidiValue:[self floatValue]])),midiNumber,midiNoteHookup] drawInRect:frame withAttributes:textAttribs];
 		
 	} else {
 		NSDictionary *textAttribs;
@@ -125,6 +122,21 @@ OFGuiController * gui = NULL;
 	hookedUpToFloat = true;
 	*hookedUpFloat = [self floatValue];
 	printf("   %f",*hookedUpFloat);
+}
+
+- (float) convertToMidiValue:(float)f {
+	float a = [self maxValue] - [self minValue];
+	f -= [self minValue];
+	f /= a;
+	f *= 127.0;
+	return f;
+}
+- (float) convertFromMidiValue:(float)f{
+	float a = [self maxValue] - [self minValue];
+	f /= 127.0;
+	f *= a;
+	f += [self minValue];
+	return f;
 }
 
 - (void) setFloatValue:(float)aFloat {

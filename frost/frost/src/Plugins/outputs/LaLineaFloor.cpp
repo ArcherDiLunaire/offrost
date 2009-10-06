@@ -29,7 +29,7 @@ void LaLineaFloor::update(){
 		dir.normalize();
 		dir *= 0.005;
 		
-		pos += dir*100.0/ofGetFrameRate();
+		pos += dir*100.0/ofGetFrameRate()*speed;
 		pnts.push_back(pos);
 	}
 }

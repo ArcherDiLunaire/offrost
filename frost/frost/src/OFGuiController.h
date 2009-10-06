@@ -30,7 +30,10 @@
 - (id) initWithFrame:(NSRect)frame;
 - (void) awakeFromNib;
 - (void) changeValueFromControl:(id)sender;
+- (void) changeValueFromControlMidi:(id)sender;
 - (void) hookUpFloat:(float*)f;
+- (float) convertToMidiValue:(float)f;
+- (float) convertFromMidiValue:(float)f;
 
 @end
 
