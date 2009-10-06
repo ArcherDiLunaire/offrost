@@ -41,4 +41,6 @@ public:
 	ofImage * particleTrack;
 	
 	float rotation;
+	float columnAlpha;
+
 };

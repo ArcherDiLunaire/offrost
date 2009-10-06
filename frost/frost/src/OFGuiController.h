@@ -100,12 +100,13 @@
 	 **/
 	IBOutlet NSView *moonDustView;
 	
-	IBOutlet NSSlider * MoonDustForce;
-	IBOutlet NSSlider * MoonDustLength;
-	IBOutlet NSSlider * MoonDustDensity;	
-	IBOutlet NSSlider * MoonDustSize;
+	IBOutlet frostSlider * MoonDustForce;
+	IBOutlet frostSlider * MoonDustLength;
+	IBOutlet frostSlider * MoonDustDensity;	
+	IBOutlet frostSlider * MoonDustSize;
 	IBOutlet NSButton * MoonDustDebug;
-	
+	IBOutlet frostSlider * MoonDustMasterAlpha;
+	IBOutlet frostSlider * MoonDustColumnAlpha;	
 	/**
 	 * La Linea Outlets
 	 **/
