@@ -25,6 +25,7 @@ public:
 	ofxVec2f dir;
 		ofxVec2f pos;
 	float time;
+	float lastTime;
 	
 	float width;
 	float speed;

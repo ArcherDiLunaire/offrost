@@ -76,9 +76,25 @@ void MoonDust::update(){
 				}	
 			}	
 		}
+
 		//		}
 	}
 	
+	// even out sections
+
+	for(int u=0;u<sections-3;u++){
+		if (section[u] < section[u+1]) {
+			section[u] += (section[u+1] - section[u]) * 0.75;
+		}
+		if (section[u] < section[u+2]) {
+			section[u] += (section[u+2] - section[u]) * 0.50;
+		}
+		if (section[u] < section[u+3]) {
+			section[u] += (section[u+3] - section[u]) * 0.25;
+		}
+	}	
+		
+	// update particles that are hit by the blob 
 	
 	for(int i=0; i<particles.size();i++){
 		particles[i].visible = false;
@@ -97,12 +113,12 @@ void MoonDust::update(){
 					bMin = -section[u];
 					bMax = section[u];
 					break;
-				}	
-			}	
+				}
+			}
 		}
-		
 		particles[i].update(force, 1, bMin, bMax);
 	}
+	
 	
 }
 void MoonDust::draw(){

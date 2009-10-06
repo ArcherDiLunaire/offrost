@@ -7,6 +7,8 @@ LaLineaFloor::LaLineaFloor(){
 	type = OUTPUT;
 	cam = 0;
 	time = 0;
+	lastTime = 0;
+
 }
 
 void LaLineaFloor::setup(){
@@ -19,18 +21,28 @@ void LaLineaFloor::update(){
 	time += ofGetFrameRate()/100.0;
 	if(blob(cam)->numPersistentBlobs() > 0){
 		
+		bool itIsClose = false;
+		
 		ofxPoint2f goal = projection()->convertToFloorCoordinate(blob(cam)->persistentBlobs[0].getLowestPoint());
-//		ofxPoint2f goal = ofxVec2f(mouseX, mouseY);// + ofRandom(0.9,1.0)*ofxVec2f(cos(time/40.0), sin(time/10.0))/40.0;
+		if(goal.distance(pos) < 0.10 && time - lastTime > 3.0){
+			if(goal.distance(pos) < 0.05) itIsClose = true;
+			goal = goal += ofxVec2f(ofRandom(-0.5,0.75), ofRandom(-2.0,0.5));
+			lastTime = time;
+		}
 		
 		ofxVec2f v = goal - pos;
 		v.normalize();
 		
-		dir += v*0.003;
+		dir += v*(itIsClose?0.01:ofRandom(0.001,0.003));
 		dir.normalize();
+		if(itIsClose){
+			dir *= 2;
+		}
 		dir *= 0.005;
 		
 		pos += dir*100.0/ofGetFrameRate()*speed;
 		pnts.push_back(pos);
+
 	}
 }
 void LaLineaFloor::draw(){
