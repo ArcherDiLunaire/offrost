@@ -42,7 +42,7 @@
 	[self hookupSlider:gui->LaLineaFloorDirSpeed onChannel:6 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorWidth onChannel:6 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorCurl onChannel:6 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
-
+	
 	// set gui info for booleans
 	
 	[gui->BlobActive1 setMidiChannel:1 number:1 control:true note:false];
@@ -51,7 +51,7 @@
 	
 	[gui->LaLineaTrackingActive setMidiChannel:5 number:2 control:true note:false];
 	[gui->LaLineaUseFilm setMidiChannel:5 number:3 control:true note:false];
-
+	
 	
 	
 }
@@ -94,88 +94,88 @@
 			for(int i=0;i<[frostSliderHookups count];i++){
 				[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
 			}
-		
+			
 			//packet = MIDIPacketNext(packet);
-		
-		//Blob tracker
-		if(controlChange && channel == 1){
-			if(number == 1){
-				if(value == 0){
-					[gui->BlobActive1 setState:NSOffState];
-				}
-				if(value > 0){
-					[gui->BlobActive1 setState:NSOnState];
-				}
-				[gui modifyBlobActive1:gui->BlobActive1];
-
-			}
 			
-			if(number == 2){
-				if(value == 0){
-					[gui->BlobActive2 setState:NSOffState];
+			//Blob tracker
+			if(controlChange && channel == 1){
+				if(number == 1){
+					if(value == 0){
+						[gui->BlobActive1 setState:NSOffState];
+					}
+					if(value > 0){
+						[gui->BlobActive1 setState:NSOnState];
+					}
+					[gui modifyBlobActive1:gui->BlobActive1];
+					
 				}
-				if(value > 0){
-					[gui->BlobActive2 setState:NSOnState];
-				}
-								[gui modifyBlobActive2:gui->BlobActive2];
-			}
-			
-			if(number == 3){
-				if(value == 0){
-					[gui->BlobActive3 setState:NSOffState];
-				}
-				if(value > 0){
-					[gui->BlobActive3 setState:NSOnState];
-				}
-								[gui modifyBlobActive3:gui->BlobActive3];
-			}
-			
-			if(number == 4){
-				printf("Grab %i",value);
-				if(value == 0){
-					[gui blobGrab1:self];
-				}
-				if(value == 1){
-					[gui blobGrab2:self];
-				}
-				if(value == 2){
-					[gui blobGrab3:self];
-				}
-			}
-		}
-		
-		if(controlChange && channel == 5){
-			if(number == 2){
-				if(value == 0){
-					[gui->LaLineaTrackingActive setState:NSOffState];
-				}
-				if(value > 0){
-					[gui->LaLineaTrackingActive setState:NSOnState];
-				}
-				[gui modifyLaLineaTrackingActive:gui->LaLineaTrackingActive];
 				
-			}
-			if(number == 3){
-				if(value == 0){
-					[gui->LaLineaUseFilm setState:NSOffState];
+				if(number == 2){
+					if(value == 0){
+						[gui->BlobActive2 setState:NSOffState];
+					}
+					if(value > 0){
+						[gui->BlobActive2 setState:NSOnState];
+					}
+					[gui modifyBlobActive2:gui->BlobActive2];
 				}
-				if(value > 0){
-					[gui->LaLineaUseFilm setState:NSOnState];
-				}
-				[gui modifyLaLineaUseFilm:gui->LaLineaUseFilm];
 				
+				if(number == 3){
+					if(value == 0){
+						[gui->BlobActive3 setState:NSOffState];
+					}
+					if(value > 0){
+						[gui->BlobActive3 setState:NSOnState];
+					}
+					[gui modifyBlobActive3:gui->BlobActive3];
+				}
+				
+				if(number == 4){
+					printf("Grab %i",value);
+					if(value == 0){
+						[gui blobGrab1:self];
+					}
+					if(value == 1){
+						[gui blobGrab2:self];
+					}
+					if(value == 2){
+						[gui blobGrab3:self];
+					}
+				}
 			}
+			
+			if(controlChange && channel == 5){
+				if(number == 2){
+					if(value == 0){
+						[gui->LaLineaTrackingActive setState:NSOffState];
+					}
+					if(value > 0){
+						[gui->LaLineaTrackingActive setState:NSOnState];
+					}
+					[gui modifyLaLineaTrackingActive:gui->LaLineaTrackingActive];
+					
+				}
+				if(number == 3){
+					if(value == 0){
+						[gui->LaLineaUseFilm setState:NSOffState];
+					}
+					if(value > 0){
+						[gui->LaLineaUseFilm setState:NSOnState];
+					}
+					[gui modifyLaLineaUseFilm:gui->LaLineaUseFilm];
+					
+				}
+			}
+			
+			//LaLineaFloor
+			if(controlChange && channel == 6){
+				if(number == 6){
+					[gui modifyLaLineaFloorReset:self];
+				}
+			}
+			
 		}
 		
-		//LaLineaFloor
-		if(controlChange && channel == 6){
-			if(number == 6){
-				[gui modifyLaLineaFloorReset:self];
-			}
-		}
-		
-		}
-
 		packet = &packetList->packet[i];
 	}	
 }

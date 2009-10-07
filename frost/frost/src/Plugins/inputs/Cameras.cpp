@@ -60,14 +60,14 @@ void Cameras::setup(){
 	 }
 	 //**/
 	
-	/**	
-	if(videoPlayerLoadUrl(0, "FilmFrostscape.mov")){
+	//**	
+	if(videoPlayerLoadUrl(1, "Prints.mov")){
 		cout << "                      FILMEN LOADET" << endl;
 	} else {
 		cout << "                      FILMEN ikke LOADET" << endl;
 	}
-	videoPlayerPlay(0);
-	videoPlayerActivate(0);
+	videoPlayerPlay(1);
+	videoPlayerActivate(1);
 	//**/
 }
 

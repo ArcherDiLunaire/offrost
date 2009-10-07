@@ -107,6 +107,10 @@ OFGuiController * gui = NULL;
 
 	[SpotlightMasterAlpha hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->masterAlpha];
 	[SpotlightRadiusMultiplier hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->radiusMultiplier];
+	
+	[BlobHistoryAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyAlpha];
+	[BlobHistoryPrintsAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->snapshotAlpha];
+	[BlobHistoryPlayDirection hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyPlayStep];
 		
 }
 
@@ -907,43 +911,27 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 -(IBAction) modifyBlobHistoryClearHistory:(id)sender{
 	if(ofApp->setupCalled){
-		bool b = false;
-		if([sender state] ==  NSOnState ){
-			b = true;	
-		}
-		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bClearHistory = b;
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bClearHistory = true;
 	}
 }
 
 -(IBAction) modifyBlobHistoryAddSnapshot:(id)sender{
 	if(ofApp->setupCalled){
-		bool b = false;
-		if([sender state] ==  NSOnState ){
-			b = true;	
-		}
-		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bTakeSnapshot = b;
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bTakeSnapshot = true;
 	}
 }
 
 
 -(IBAction) modifyBlobHistoryRemoveSnapshot:(id)sender{
 	if(ofApp->setupCalled){
-		bool b = false;
-		if([sender state] ==  NSOnState ){
-			b = true;	
-		}
-		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bRemoveOldestSnapshot = b;
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bRemoveOldestSnapshot = true;
 	}
 }
 
 
 -(IBAction) modifyBlobHistoryClearSnapshots:(id)sender{
 	if(ofApp->setupCalled){
-		bool b = false;
-		if([sender state] ==  NSOnState ){
-			b = true;	
-		}
-		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bClearSnapshots = b;
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bClearSnapshots = true;
 	}
 }
 

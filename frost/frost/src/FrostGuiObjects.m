@@ -94,6 +94,7 @@
 		[@"-" drawInRect:frame withAttributes:textAttribs];
 		
 	}
+	
 }
 - (void) hookUpBool:(BOOL*)f{
 	hookedUpBool = f;

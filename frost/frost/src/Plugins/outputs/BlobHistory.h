@@ -19,8 +19,10 @@ public:
 	// the weird spaces below are important, or the 2d vector will not work !!!
 	
 	vector<vector<ofxCvBlob> > blobHistoryMatrix;
+	vector<GLuint> blobHistoryMatrixDisplayList;
 	
 	vector<vector<ofxCvBlob> > blobSnapshotMatrix;
+	vector<GLuint> blobSnapshotMatrixDisplayList;
 		
 	BlobHistory();
 	
@@ -38,4 +40,11 @@ public:
 	bool bRemoveOldestSnapshot;
 	bool bClearSnapshots;
 	
+	float historyPlayStep;
+	float historyAlpha;
+	
+	int historyOffset;
+
+	float snapshotAlpha;
+
 };
