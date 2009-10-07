@@ -61,7 +61,7 @@ void IceBlockBackgroundObject::draw(){
 #pragma mark FrostMotor
 
 FrostMotor::FrostMotor(){
-
+	
 }
 
 
@@ -90,9 +90,11 @@ void FrostMotor::generateBackgroundObjects(int resolution, float objectSizes, fl
 	
 	int num = iceblockBackgrounds.size();
 	for(int i=0;i<num;i++){
-		for(int u=0;u<num;u++){
+		for(int u=i+1;u<num;u++){
 			if((iceblockBackgrounds[i].position - iceblockBackgrounds[u].position).lengthSquared() < rSq){
 				iceblockBackgrounds[i].closeBackgrounds.push_back(u);
+				iceblockBackgrounds[u].closeBackgrounds.push_back(i);
+
 			}			
 		}
 	}
@@ -111,10 +113,17 @@ void FrostMotor::addBodyCenter(ofPoint p){
 }
 
 void FrostMotor::addFreezePoint(ofPoint p, float rate){
-	FreezePoint f;
-	f.position = (ofxPoint2f)p;
-	f.rate = rate;
-	freezePoints.push_back(f);
+	bool ok = true;
+	for(int i=0;i<freezePoints.size();i++){
+		if(freezePoints[i].position.distance(p) < r)
+			ok = false;
+	}
+	if(ok){
+		FreezePoint f;
+		f.position = (ofxPoint2f)p;
+		f.rate = rate;
+		freezePoints.push_back(f);
+	}
 }
 
 
@@ -124,8 +133,8 @@ void FrostMotor::update(){
 	
 #pragma omp parallel for
 	for(int u=0;u<numBackgrounds;u++){
-
-
+		
+		
 		IceBlockBackgroundObject * obj = &iceblockBackgrounds[u];
 		//See if this background is near to centroid and should break
 		
@@ -162,10 +171,10 @@ void FrostMotor::update(){
 				}
 			}
 		}
-
+		
 		
 		for(int i=0;i<freezePoints.size();i++){
-
+			
 			if(freezePoints[i].position.distance(obj->position) < r){
 				if(obj->upTimer > 10){
 					obj->a -= 0.08*freezePoints[i].rate*obj->speed;
@@ -175,7 +184,7 @@ void FrostMotor::update(){
 			}
 		}
 	}
-
+	
 	
 	for(int u=0;u<numBackgrounds;u++){
 		if(iceblockBackgrounds[u].a > 1.0){

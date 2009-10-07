@@ -22,7 +22,8 @@ BlobHistory::BlobHistory(){
 #pragma mark Callback methods
 
 void BlobHistory::setup(){
-	motor.generateBackgroundObjects(60, 0.2, projection()->getFloor()->aspect, 1.0, 1);
+	float s = 0.3;
+	motor.generateBackgroundObjects(35*s, 1*s, projection()->getFloor()->aspect, 1.0, 1);
 }
 
 void BlobHistory::draw(){
@@ -84,7 +85,7 @@ void BlobHistory::update(){
 	for(int i=0;i<blobSnapshotMatrix.size();i++){
 		for(int u=0;u<blobSnapshotMatrix[i].size();u++){
 			for(int v=0;v<blobSnapshotMatrix[i][u].nPts;v++){
-				if(ofRandom(0, 1) < 0.0001){
+				if(ofRandom(0, 1) < 0.001){
 					
 					ofxPoint2f proj = projection()->convertToCoordinate(projection()->getFloor(), blobSnapshotMatrix[i][u].pts[v]);
 					freezePoints.push_back(proj);
@@ -93,7 +94,7 @@ void BlobHistory::update(){
 		}
 	}
 	for(int i=0;i<freezePoints.size();i++){
-		motor.addFreezePoint(freezePoints[i], 0.1);
+		motor.addFreezePoint(freezePoints[i], 0.7);
 	}
 
 	motor.update();

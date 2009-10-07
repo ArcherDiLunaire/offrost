@@ -27,7 +27,7 @@ void LaLinea::update(){
 void LaLinea::useFilm(){
 	bUsingFilm = getPlugin<Cameras*>(controller)->videoPlayerActive(cam);
 	if(!bUsingFilm){
-		getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLineaEdham.mov");
+		getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLineaNelson2.mov");
 		getPlugin<Cameras*>(controller)->videoPlayerActivate(cam);
 		getPlugin<Cameras*>(controller)->videoPlayerPlay(cam);
 		bUsingFilm = true;

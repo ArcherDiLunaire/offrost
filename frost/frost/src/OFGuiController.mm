@@ -111,6 +111,11 @@ OFGuiController * gui = NULL;
 	[BlobHistoryAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyAlpha];
 	[BlobHistoryPrintsAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->snapshotAlpha];
 	[BlobHistoryPlayDirection hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyPlayStep];
+
+	[BlobHistoryGrow hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->growthValue];
+	[BlobHistoryDecrease hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->decreaseValue];
+	[BlobHistoryFreezeSpeed hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->freezeSpeed];
+	[BlobHistoryFreezeStrength hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->freezeRate];
 		
 }
 
@@ -121,8 +126,6 @@ OFGuiController * gui = NULL;
 	[obj setPlugin:p];
 	[obj setEnabled:[NSNumber numberWithBool:TRUE]];
 	[viewItems addObject:obj];
-	
-
 }
 
 - (id)init {
@@ -175,8 +178,6 @@ OFGuiController * gui = NULL;
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(2,[userDefaults boolForKey:@"blob.active3"]);
 		
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
-		
-		
 		
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fillColor.set(0.0,0.0,0.0);
 		

@@ -53,4 +53,9 @@ public:
 	
 	vector<ofxPoint2f> freezePoints;
 
+	float growthValue;
+	float decreaseValue;
+	float freezeSpeed;
+	float freezeRate;
+
 };

@@ -60,7 +60,7 @@ void Cameras::setup(){
 	 }
 	 //**/
 	
-	//**	
+	/**	
 	if(videoPlayerLoadUrl(1, "Prints.mov")){
 		cout << "                      FILMEN LOADET" << endl;
 	} else {

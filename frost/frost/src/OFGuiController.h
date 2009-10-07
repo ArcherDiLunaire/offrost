@@ -125,6 +125,11 @@
 	IBOutlet frostSlider *BlobHistoryAlpha;
 	IBOutlet frostSlider *BlobHistoryPrintsAlpha;
 	
+	IBOutlet frostSlider * BlobHistoryGrow;
+	IBOutlet frostSlider * BlobHistoryDecrease;
+	IBOutlet frostSlider * BlobHistoryFreezeSpeed;
+	IBOutlet frostSlider * BlobHistoryFreezeStrength;
+		
 #pragma mark Spotlight outlets
 	
 	IBOutlet NSView *SpotlightView;
@@ -200,7 +205,7 @@
 	IBOutlet NSSlider * BlobThreshold3;
 	IBOutlet NSSlider * BlobBlur3;
 	IBOutlet frostCheckbox * BlobActive3;
-	
+
 #pragma mark OpenGL Views
 	
 	IBOutlet CustomGLView * camView;
