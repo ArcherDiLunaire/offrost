@@ -19,14 +19,18 @@ Cameras::Cameras(){
 	}
 	
 }
-
+Cameras::~Cameras(){
+	for(int i=0;i<3;i++){
+		delete vidGrabber[i];
+	}
+}
 void Cameras::setup(){
 	
-	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber;
+	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
 	
 	for (int i=0; i<3; i++) {
 		
-		Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber;
+		Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
 		libdc1394Grabber->listDevices();
 		
 		if(cameraGUIDs[0] == 0x0ll && cameraGUIDs[1] == 0x0ll && cameraGUIDs[2] == 0x0ll){
@@ -60,7 +64,7 @@ void Cameras::setup(){
 	 }
 	 //**/
 	
-	//**	
+	/**	
 	if(videoPlayerLoadUrl(1, "Prints.mov")){
 		cout << "                      FILMEN LOADET" << endl;
 	} else {
@@ -89,7 +93,7 @@ void Cameras::update(){
 				img.clear();
 			}
 		} else {
-			if(isReady(i)){
+			if(isReady(i) && ((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->grabbedFirstImage){
 				vidGrabber[i]->update();
 				frameNew[i] = vidGrabber[i]->isFrameNew();
 				if(frameNew[i]){
@@ -103,6 +107,10 @@ void Cameras::update(){
 
 unsigned char* Cameras::getPixels(int _grabberIndex){
 	return calibImage[_grabberIndex].getPixels();
+}
+
+bool Cameras::isRunning(int _cameraIndex){
+	return ((Libdc1394Grabber*)vidGrabber[_cameraIndex])->grabbedFirstImage && isReady(_cameraIndex);
 }
 
 
@@ -174,6 +182,7 @@ ofPoint Cameras::distortPoint(int _grabberIndex, float _PixelX, float _PixelY){
 
 void Cameras::draw(int _grabberIndex, float _x, float _y, float _w, float _h)
 {
+	
 	if(videoPlayerActive(_grabberIndex)){
 		videoPlayer[_grabberIndex].draw(_x, _y, _w, _h);
 	} else {
@@ -181,6 +190,7 @@ void Cameras::draw(int _grabberIndex, float _x, float _y, float _w, float _h)
 			vidGrabber[_grabberIndex]->draw(_x, _y, _w, _h);
 		}
 	}
+	 
 }
 
 void Cameras::draw(int _grabberIndex, float _x, float _y)
@@ -193,12 +203,15 @@ void Cameras::draw(){
 }
 
 void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
-	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber;
+	
+	cameraInited[_grabber] = false;
+
+	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
 	if (_cameraGUID != 0x0ll) {
 		libdc1394Grabber->setDeviceGUID(_cameraGUID);
 	}
 	
-	vidGrabber[_grabber] = new ofxVideoGrabber;
+	vidGrabber[_grabber] = new ofxVideoGrabber();
 	
 	if(vidGrabber[_grabber]->initGrabber( camWidth, camHeight, VID_FORMAT_GREYSCALE, VID_FORMAT_GREYSCALE, 25, true, libdc1394Grabber )) {
 		cameraGUIDs[_grabber] = ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->getDeviceGUID();
@@ -330,7 +343,7 @@ bool Cameras::cameraGUIDexists(uint64_t _cameraGUID){
 	
 	bool _cameraGUIDexists = false;
 	
-	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber;
+	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
 	
 	for (int i=0; i < libdc1394Grabber->list->num; i++) {
 		if(libdc1394Grabber->list->ids[i].guid == _cameraGUID){
@@ -344,7 +357,7 @@ bool Cameras::setGUID(int _grabber, uint64_t _cameraGUID){
 	
 	ofLog(OF_LOG_NOTICE, "setGUID %llx", _cameraGUID);
 	
-	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber;
+	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
 	
 	if(_grabber < 3 && _grabber >= 0){
 		if (_cameraGUID != getGUID(_grabber)) {

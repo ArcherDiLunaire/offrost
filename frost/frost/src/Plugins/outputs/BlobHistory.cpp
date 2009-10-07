@@ -23,7 +23,7 @@ BlobHistory::BlobHistory(){
 
 void BlobHistory::setup(){
 	float s = 0.3;
-	motor.generateBackgroundObjects(35*s, 1*s, projection()->getFloor()->aspect, 1.0, 1);
+	motor.generateBackgroundObjects(35*1.0/s, 1*s, projection()->getFloor()->aspect, 1.0, 1);
 }
 
 void BlobHistory::draw(){

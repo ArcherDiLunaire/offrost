@@ -17,7 +17,7 @@
 class Cameras : public Input{
 public:
 	Cameras();
-	
+	~Cameras();
 	void setup();
 	void update();
 
@@ -56,14 +56,14 @@ public:
 	
 	void setCameraCalibration(uint64_t _cameraGUID, float _k1, float _k2, float _c1, float _c2, double fx, double cx, double fy, double cy);
 
-	bool isReady(int _cameraIndex);
 	bool isFrameNew(int _cameraIndex);
+	
+	bool isRunning(int _cameraIndex);
 	
 	bool setGUID(int _grabber, uint64_t _cameraGUID);
 	uint64_t getGUID(int _grabber);
 	int getGrabberIndexFromGUID(uint64_t _cameraGUID);
 	
-	u_int64_t cameraGUIDs[3];
 	
 	int camWidth;
 	int camHeight;
@@ -74,9 +74,13 @@ public:
 	int getHeight();
 	int getWidth();
 
-	bool cameraInited[3];
 
 private:
+	
+	u_int64_t cameraGUIDs[3];
+
+	bool cameraInited[3];
+	bool isReady(int _cameraIndex);
 
 	ofxVideoGrabber * vidGrabber[3];
 	

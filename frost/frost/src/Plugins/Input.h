@@ -5,6 +5,8 @@
 
 class Input : public FrostPlugin {
 public:
+	~Input(){};
+
 	void setup(){};
 	void draw(){};
 	void update(){};

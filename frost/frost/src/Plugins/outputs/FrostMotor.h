@@ -18,6 +18,8 @@ public:
 	int downTimer;
 	float size;
 	float speed;
+	pthread_mutex_t plock;
+
 };
 
 class FreezePoint {
@@ -58,5 +60,7 @@ public:
 	
 	float expandRate;
 	float decreaseRate;
+	
+
 	
 };

@@ -42,6 +42,7 @@ private:
 	
 public:
 	
+
 	testApp( ) ;	
 	
 	void setup();
@@ -71,7 +72,12 @@ public:
 	bool setupCalled;
 	int fps;
 	
+	int cameraThreadTimer;
+	unsigned long int cameraLastBlinkCount[3];
+	
 	ofxMidiOut * midiOut;
+	
+	uint64_t cameraGUIDs[3];
 	
 };
 

@@ -14,6 +14,7 @@ IceBlockBackgroundObject::IceBlockBackgroundObject(float x, float y,float initA,
 	downTimer = 0;
 	a = initA;
 	size = _size;
+	pthread_mutex_init(&plock, NULL);
 }
 void IceBlockBackgroundObject::generate(){
 	int n = int(ofRandom(4, 9));
@@ -75,7 +76,7 @@ void FrostMotor::setAreaValue(ofxPoint2f point, float radius, float value){
 }
 
 void FrostMotor::generateBackgroundObjects(int resolution, float objectSizes, float w, float h, float initValue){
-	r = 0.04*objectSizes;
+	r = 0.04*1.0/(resolution/35.0);
 	rSq = r*r;
 	
 	iceblockBackgrounds.clear();
@@ -87,17 +88,28 @@ void FrostMotor::generateBackgroundObjects(int resolution, float objectSizes, fl
 			iceblockBackgrounds.push_back(IceBlockBackgroundObject(x, y, initValue,objectSizes));
 		}
 	}
-	
+	int t = ofGetElapsedTimeMillis();
 	int num = iceblockBackgrounds.size();
+	cout<<num<<endl;
+	int count = 0;
+	#pragma omp parallel for 
 	for(int i=0;i<num;i++){
+		#pragma omp parallel for 
 		for(int u=i+1;u<num;u++){
-			if((iceblockBackgrounds[i].position - iceblockBackgrounds[u].position).lengthSquared() < rSq){
+			count++;
+			ofxVec2f v = (iceblockBackgrounds[i].position - iceblockBackgrounds[u].position);
+			if(v.lengthSquared() < rSq){
+				pthread_mutex_lock(&iceblockBackgrounds[i].plock);
 				iceblockBackgrounds[i].closeBackgrounds.push_back(u);
-				iceblockBackgrounds[u].closeBackgrounds.push_back(i);
+				pthread_mutex_unlock(&iceblockBackgrounds[i].plock);
 
+				pthread_mutex_lock(&iceblockBackgrounds[u].plock);
+				iceblockBackgrounds[u].closeBackgrounds.push_back(i);
+				pthread_mutex_unlock(&iceblockBackgrounds[u].plock);
 			}			
 		}
 	}
+	cout<<"Frost motor init time: "<<ofGetElapsedTimeMillis()-t<<endl;
 }
 
 void FrostMotor::addBodyPoint(ofPoint p){

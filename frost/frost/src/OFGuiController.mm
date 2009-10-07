@@ -257,6 +257,11 @@ OFGuiController * gui = NULL;
 			sscanf([[userDefaults stringForKey:@"camera.3.guid"] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal[2]);
 		}
 		
+		ofApp->cameraGUIDs[0] = (uint64_t)guidVal[0];
+		ofApp->cameraGUIDs[1] = (uint64_t)guidVal[1];
+		ofApp->cameraGUIDs[2] = (uint64_t)guidVal[2];
+
+		
 		(getPlugin<Cameras*>(ofApp->pluginController))->setGUIDs((uint64_t)guidVal[0],(uint64_t)guidVal[1],(uint64_t)guidVal[2]);
 		
 		[self cameraUpdateGUIDs];
@@ -436,6 +441,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		uint64_t guidVal;
 		sscanf([[CameraGUID1 stringValue] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal);
 		(getPlugin<Cameras*>(ofApp->pluginController))->setGUID(0, (uint64_t)guidVal);
+		ofApp->cameraGUIDs[0] = (uint64_t)guidVal;
 		[self cameraUpdateGUIDs];
 	}
 }
@@ -445,6 +451,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		uint64_t guidVal;
 		sscanf([[CameraGUID2 stringValue] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal);
 		(getPlugin<Cameras*>(ofApp->pluginController))->setGUID(1, (uint64_t)guidVal);
+		ofApp->cameraGUIDs[1] = (uint64_t)guidVal;
 		[self cameraUpdateGUIDs];
 	}
 }
@@ -454,6 +461,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		uint64_t guidVal;
 		sscanf([[CameraGUID3 stringValue] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal);
 		(getPlugin<Cameras*>(ofApp->pluginController))->setGUID(2, (uint64_t)guidVal);
+		ofApp->cameraGUIDs[2] = (uint64_t)guidVal;
 		[self cameraUpdateGUIDs];
 	}
 }

@@ -53,6 +53,8 @@ void testApp::setup(){
 	midiOut->listPorts();
 	midiOut->openPort(0);
 	
+	cameraThreadTimer = -500;
+	
 }
 
 void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
@@ -107,6 +109,43 @@ void testApp::update()
 	}
 	
 	pluginController->update(mousex, mousey);
+	
+	if(cameraThreadTimer > 100){
+		cout<<endl<<"ERROR: DEAD CAMERA"<<endl;
+		
+		vector<FrostPlugin*>::iterator it;
+		for(it=pluginController->plugins.begin(); it!=pluginController->plugins.end(); it++){
+			if(dynamic_cast<Cameras*> ((*it)) != NULL){
+				delete * it;  
+                pluginController->plugins.erase(it);
+				break;
+			}
+		}
+		
+		Cameras * c = new Cameras();
+		c->setGUIDs(cameraGUIDs[0], cameraGUIDs[1], cameraGUIDs[2]);
+		c->setup();
+		//	cout<<"GUIDS: "<<cameraGUIDs[0]<<"  "<<cameraGUIDs[1]<<"  "<<cameraGUIDs[2]<<endl;
+		pluginController->addPlugin(c);
+		ofSleepMillis(3500);
+		cameraThreadTimer = 0;
+	}
+	
+	for(int i=0;i<3;i++){
+		if(getPlugin<Cameras*>(pluginController)->isRunning(i)){			
+			if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->lock()){
+				if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->blinkCounter != cameraLastBlinkCount[i]){
+					cameraThreadTimer = 0;
+				} else {
+					cameraThreadTimer ++;
+				}
+				cameraLastBlinkCount[i] = ((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->blinkCounter;
+				((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->unlock();
+			}
+		} else {
+			cameraThreadTimer ++;
+		}
+	}
 }
 
 //--------------------------------------------------------------
@@ -135,7 +174,7 @@ void testApp::drawCameraView(){
 	}
 	
 	for (int i=0; i<3; i++) {
-		if(getPlugin<Cameras*>(pluginController)->cameraInited[i]){
+		if(getPlugin<Cameras*>(pluginController)->isRunning(i)){
 			ofSetColor(255,255, 255);
 			getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->draw((otherWindow->getWidth()/3.0)*i,0,otherWindow->getWidth()/3.0,otherWindow->getHeight());
 			if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->lock()){
@@ -151,6 +190,7 @@ void testApp::drawCameraView(){
 			lucidaGrande.drawString("camera offline",(45+((otherWindow->getWidth()/3.0)*i)),(otherWindow->getHeight()/2)+10);
 		}
 	}
+	 
 }
 
 void testApp::drawProjectionSurfaceView(){

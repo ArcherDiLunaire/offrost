@@ -52,13 +52,13 @@ class ofxVideoGrabber: public ofBaseVideo
 
 	float frameRate;
 	float fps;
+	bool bIsFrameNew;
 
 	protected:
 
         bool bGrabberInited;
         bool bUseTexture;
         ofTexture tex;
-        bool bIsFrameNew;
         int width;
         int height;
         unsigned int bpp;
