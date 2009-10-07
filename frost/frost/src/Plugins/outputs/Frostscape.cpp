@@ -133,57 +133,6 @@ void BlackSpotObject::draw(){
 	}
 }
 
-#pragma mark IceBlock Background object
-
-IceBlockBackgroundObject::IceBlockBackgroundObject(float x, float y){
-	position.x = x;
-	position.y = y;
-	generate();
-	upTimer = 0;
-	downTimer = 0;
-}
-void IceBlockBackgroundObject::generate(){
-	a = -3;
-	int n = int(ofRandom(4, 9));
-	points.clear();
-	points.reserve(n);
-	float offset = ofRandom(0,TWO_PI);
-	for(int i=0;i<n;i++){
-		float p = ((float)i/n)*TWO_PI+offset;
-		points.push_back(ofxVec2f(cos(p),sin(p)) * 0.12*ofRandom(0.5,1) );
-	}
-}
-void IceBlockBackgroundObject::draw(){
-	ofEnableAlphaBlending();
-	float drawA = 1.0-MAX(0.0,MIN(1.0,a));
-	if(drawA > 0){
-		glPushMatrix();
-		
-		glTranslated(position.x, position.y, 0);
-		ofSetColor(255, 255,255,255*drawA*(1.0-Frostscape::slider4));
-		//	ofSetColor(0, 0, 0, 255);
-		glLineWidth(2);
-		glBegin(GL_POLYGON);
-		for(int i=0;i<points.size();i++){
-			glVertex2f(points[i].x, points[i].y);
-		}
-		glEnd();
-		glPopMatrix();
-	}
-	/*	glPushMatrix();
-	 
-	 glTranslated(position.x, position.y, 0);
-	 
-	 glBegin(GL_POLYGON);
-	 for(int i=0;i<points.size();i++){
-	 glVertex2f(points[i].x, points[i].y);
-	 }
-	 glEnd();
-	 glPopMatrix();
-	 */
-}
-
-
 
 #pragma mark IceBlock Joint
 
@@ -460,6 +409,7 @@ Frostscape::Frostscape(){
 }
 
 void Frostscape::setup(){
+	/*
 	//blackSpots.push_back(BlackSpotObject());
 	//blackSpots.push_back(BlackSpotObject());
 	iceBlocks.push_back(IceBlock());
@@ -491,6 +441,7 @@ void Frostscape::setup(){
 			}			
 		}
 	}
+	 */
 }
 
 void Frostscape::update(){
@@ -522,6 +473,8 @@ void Frostscape::update(){
 	 }
 	 }	
 	 */
+	
+	/*
 	for(int i=0;i<iceBlocks.size();i++){
 		if(blob(cam)->numPersistentBlobs() > i){
 			PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
@@ -695,7 +648,7 @@ void Frostscape::draw(){
 }
 
 void Frostscape::drawOnFloor(){
-	ofFill();
+	/*ofFill();
 	ofEnableAlphaBlending();
 	
 	ofSetColor(128, 128, 128,255*(1.0-Frostscape::slider4));
@@ -706,6 +659,7 @@ void Frostscape::drawOnFloor(){
 	 blackSpots[i].draw();
 	 }
 	 */
+	/*
 	for(int i=0;i<iceblockBackgrounds.size();i++){
 		iceblockBackgrounds[i].draw();
 	}
@@ -713,6 +667,7 @@ void Frostscape::drawOnFloor(){
 	for(int i=0;i<iceBlocks.size();i++){
 		iceBlocks[i].draw();
 	}
+	 */
 }
 
 void Frostscape::setslider1(float val){

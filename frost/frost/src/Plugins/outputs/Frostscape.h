@@ -5,6 +5,8 @@
 #include "ofxMSASpline.h"
 #include "contourSimplify.h"
 #include "contourNormals.h"
+#include "FrostMotor.h"
+
 class BlackSpotObject{
 public:
 	BlackSpotObject();
@@ -26,19 +28,6 @@ public:
 	
 };
 
-class IceBlockBackgroundObject {
-public:	
-
-	ofxVec2f position;
-	float a;
-	vector<ofxVec2f> points;
-	IceBlockBackgroundObject(float x, float y);
-	void draw();
-	void generate();
-	vector<int> closeBackgrounds;
-	int upTimer;
-	int downTimer;
-};
 
 class IceBlockJoint {
 public:
@@ -79,8 +68,9 @@ public:
 	
 	vector<BlackSpotObject> blackSpots;
 	vector<IceBlock> iceBlocks;
-	vector<IceBlockBackgroundObject> iceblockBackgrounds;
 
+	FrostMotor motor;
+	
 	bool debug;
 	int cam;
 	
