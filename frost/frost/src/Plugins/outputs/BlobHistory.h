@@ -11,6 +11,7 @@
 #include "ofMain.h"
 #include "Output.h"
 #include "ofxVectorMath.h"
+#include "FrostMotor.h"
 
 class BlobHistory : public Output{
 
@@ -31,6 +32,9 @@ public:
 	void draw();
 	void update();
 
+	
+	FrostMotor motor;
+	
 	int cam;
 
 	bool bIsRecordingHistory;
@@ -46,5 +50,7 @@ public:
 	int historyOffset;
 
 	float snapshotAlpha;
+	
+	vector<ofxPoint2f> freezePoints;
 
 };

@@ -7,55 +7,6 @@
 #include "contourNormals.h"
 #include "FrostMotor.h"
 
-class BlackSpotObject{
-public:
-	BlackSpotObject();
-	vector<ofxVec2f> points;
-	vector<ofxVec2f> pointsV;
-
-	vector<vector<ofxVec2f> > noise;
-	
-	void updateBlob(ofxCvBlob b, PluginController * controller, BlackSpotObject * otherObject);
-	void draw();
-	contourSimplify contourSimp;
-	contourNormals contourNorm;
-	static const int numNoise = 3;
-	
-	
-	ofxVec2f centroidV;
-	vector<ofxVec2f> tmpPoints, tmpPoints2, normals;
-	
-	
-};
-
-
-class IceBlockJoint {
-public:
-	ofxVec2f position;
-	bool springJoint;
-	ofxVec2f force;
-	ofxVec2f speed;
-	vector<IceBlockJoint*> * joints;
-	
-	void update();
-};
-
-
-class IceBlock {
-public:
-	IceBlock();
-	
-	void draw();
-	void update();
-	
-	void setBlobPoints(vector<ofxVec2f> points);
-	bool pointInside(ofxVec2f  joint);
-	
-	float masterAlpha;
-	
-	vector<ofxVec2f> blobPoints;
-	vector<IceBlockJoint*> joints;
-};
 
 class Frostscape : public Output{
 public:
@@ -66,9 +17,6 @@ public:
 	void drawOnFloor();
 	void update();
 	
-	vector<BlackSpotObject> blackSpots;
-	vector<IceBlock> iceBlocks;
-
 	FrostMotor motor;
 	
 	bool debug;

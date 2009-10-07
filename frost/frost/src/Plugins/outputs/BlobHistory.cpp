@@ -22,7 +22,7 @@ BlobHistory::BlobHistory(){
 #pragma mark Callback methods
 
 void BlobHistory::setup(){
-	
+	motor.generateBackgroundObjects(60, 0.2, projection()->getFloor()->aspect, 1.0, 1);
 }
 
 void BlobHistory::draw(){
@@ -30,7 +30,7 @@ void BlobHistory::draw(){
 }
 
 void BlobHistory::drawOnFloor(){
-
+	motor.draw();
 	ofPushStyle();
 
 	ofEnableAlphaBlending();
@@ -63,7 +63,6 @@ void BlobHistory::drawOnFloor(){
 			ofxCvBlob b = blobSnapshotMatrix[i][j];
 			
 			ofBeginShape();
-			
 			for (int p = 0; p < b.nPts; p++) {
 				
 				ofxVec2f v = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b.pts[p].x, b.pts[p].y));
@@ -82,8 +81,23 @@ void BlobHistory::drawOnFloor(){
 }
 
 void BlobHistory::update(){
+	for(int i=0;i<blobSnapshotMatrix.size();i++){
+		for(int u=0;u<blobSnapshotMatrix[i].size();u++){
+			for(int v=0;v<blobSnapshotMatrix[i][u].nPts;v++){
+				if(ofRandom(0, 1) < 0.0001){
+					
+					ofxPoint2f proj = projection()->convertToCoordinate(projection()->getFloor(), blobSnapshotMatrix[i][u].pts[v]);
+					freezePoints.push_back(proj);
+				}
+			}
+		}
+	}
+	for(int i=0;i<freezePoints.size();i++){
+		motor.addFreezePoint(freezePoints[i], 0.1);
+	}
 
-	if (getPlugin<Cameras*>(controller)->isFrameNew(cam)) {
+	motor.update();
+	if (getPlugin<Cameras*>(controller)->isFrameNew(cam) ) {
 
 		historyOffset += round(historyPlayStep);
 	
