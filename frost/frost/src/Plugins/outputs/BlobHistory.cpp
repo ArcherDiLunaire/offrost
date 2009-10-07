@@ -53,12 +53,14 @@ void BlobHistory::drawOnFloor(){
 			
 		}
 	}
+	
 
 	ofPopStyle();
 	
 }
 
 void BlobHistory::update(){
+	
 	if (bIsRecording) {
 		vector<ofxCvBlob> blobList;
 		for (int i=0; i < blob(cam)->numBlobs(); i++) {
@@ -66,4 +68,5 @@ void BlobHistory::update(){
 		}
 		blobHistoryMatrix.push_back(blobList);
 	}
+	
 }

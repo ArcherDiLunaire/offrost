@@ -13,6 +13,7 @@ LaLineaFloor::LaLineaFloor(){
 
 void LaLineaFloor::setup(){
 	dir = ofxVec2f(1,0);
+	reset();
 	
 }
 
@@ -51,8 +52,10 @@ void LaLineaFloor::draw(){
 
 void LaLineaFloor::reset(){
 	pnts.clear();
-	pos = ofxVec2f();
-	dir = ofxVec2f(1,0);
+	ofxPoint2f p = projection()->getColumnCoordinate(0);
+
+	pos = p;
+	dir = ofxVec2f(-1,0);
 
 }
 
@@ -60,7 +63,7 @@ void LaLineaFloor::drawOnFloor(){
 	ofPushStyle();
 	glColor4f(1.0, 1.0,1.0, masterAlpha);
 	ofEnableSmoothing();
-	if(pnts.size() > 0){
+	if(pnts.size() > 1){
 		glBegin(GL_QUAD_STRIP);
 		
 		for(int i=0;i<pnts.size()-1;i++){
@@ -76,5 +79,16 @@ void LaLineaFloor::drawOnFloor(){
 		glEnd();
 	}
 	ofPopStyle();
+	
+	glPopMatrix();
+	
+	for(int i=0;i<3;i++){
+		projection()->applyProjection(projection()->getColumn(i));
+		ofSetColor(0, 0, 0,255)	;
+		ofRect(0.0, 0, projection()->getColumn(i)->aspect, 1);
+		glPopMatrix();
+		
+	}
+	
 }
 
