@@ -11,12 +11,17 @@
 #include "PluginIncludes.h"
 
 LEDGrid::LEDGrid(){
+	type = OUTPUT;
 	cam = 0;
 }
 
 #pragma mark Callback methods
 
 void LEDGrid::setup(){
+	
+}
+
+void LEDGrid::draw(){
 	
 }
 

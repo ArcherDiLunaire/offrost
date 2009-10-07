@@ -304,11 +304,15 @@
 	}
 }
 
-- (void) modifyEnabled:(id)sender{
+- (void) setEnabledWithButton:(id)sender{
 	if([sender state] == NSOnState){
-		[self setEnabled:FALSE];
+		[super setEnabled:FALSE];
+		[valSlider setEnabled:FALSE];
+		[valTextfield setEnabled:FALSE];
 	} else {
-		[self setEnabled:TRUE];
+		[super setEnabled:TRUE];
+		[valSlider setEnabled:TRUE];
+		[valTextfield setEnabled:TRUE];
 	}
 }
 

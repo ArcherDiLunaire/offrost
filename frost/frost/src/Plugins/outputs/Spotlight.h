@@ -19,9 +19,21 @@ public:
 	Spotlight();
 	
 	void setup();
+	void draw();
 	void drawOnFloor();
 	void update();
-	
+		
 	int cam;
 	
+	ofxVec2f center;
+	float radiusMultiplier;
+	float radius;
+	
+	float maxX;
+	float minX;
+	float maxY;
+	float minY;
+	
+	ofImage spotlightImage;
+
 };

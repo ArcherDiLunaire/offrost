@@ -9,7 +9,7 @@ LaLinea::LaLinea(){
 	lineWidth = 0.025;
 	yPosition = 0.95;
 	bUsingFilm = false;
-	useFilmUglyFloat = 0.0;
+	bHasToUseFilm = false;
 }
 
 void LaLinea::setup(){
@@ -17,10 +17,10 @@ void LaLinea::setup(){
 }
 
 void LaLinea::update(){
-	if (useFilmUglyFloat < 0.5) {
-		useCam();
-	} else {
+	if (bHasToUseFilm) {
 		useFilm();
+	} else {
+		useCam();
 	}
 }
 
@@ -76,6 +76,8 @@ void LaLinea::drawOnWall(){
 	ofPushStyle();
 	
 	ofEnableSmoothing();
+	ofEnableAlphaBlending();
+
 	glDisable(GL_DEPTH_TEST);
 	ofFill();
 	
@@ -107,7 +109,7 @@ void LaLinea::drawOnWall(){
 	
 	projection()->applyWallProjection();
 	
-	if(tracking > 0.5){
+	if(tracking){
 		for(int i=0;i<blob(cam)->numBlobs();i++){
 			vector<ofxVec2f> points;
 			int n = 0;
@@ -142,14 +144,14 @@ void LaLinea::drawOnWall(){
 				ofVertex(p.x, p.y);
 			}
 			ofEndShape(true);
-			
 		}
-		
-		
-		/*ofSetColor(255,255, 0);
-		 ofRect(offsetPoint.x, 0.0, 0.05, 1);
-		 */
 	}
+	
+	
+	ofFill();
+	
+	glColor4f(0.0, 0.0, 0.0, 1.0);
+	
 	glPopMatrix();
 	
 	projection()->applyCurtainProjection(0, 2);
@@ -170,7 +172,6 @@ void LaLinea::drawOnWall(){
 	
 	glPopMatrix();
 	
-	ofDisableAlphaBlending();
 	for(int i=0;i<3;i++){
 		projection()->applyProjection(projection()->getColumn(i));
 		ofSetColor(0, 0, 0,255)	;
@@ -194,11 +195,6 @@ void LaLinea::drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _e
 		contourSimp.smooth(*_points, p2, 0.6);
 		
 		contourNorm.makeNormals(p2, normals);
-		
-		glColor4f(255, 255, 255,255);
-		
-		//	glLineWidth(_lineWidth);
-		glColor4f(255, 255, 255,255);
 		
 		glBegin(GL_QUAD_STRIP);
 		for(int i =0;i<p2.size();i++){

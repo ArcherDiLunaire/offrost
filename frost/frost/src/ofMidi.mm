@@ -36,8 +36,6 @@
 	[self hookupSlider:gui->FrostScapeSlider1 onChannel:1 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaTrackingActive onChannel:5 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaUseFilm onChannel:5 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:6 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorSpeed onChannel:6 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
@@ -45,7 +43,17 @@
 	[self hookupSlider:gui->LaLineaFloorWidth onChannel:6 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorCurl onChannel:6 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
 
+	// set gui info for booleans
+	
+	[gui->BlobActive1 setMidiChannel:1 number:1 control:true note:false];
+	[gui->BlobActive2 setMidiChannel:1 number:2 control:true note:false];
+	[gui->BlobActive3 setMidiChannel:1 number:3 control:true note:false];
+	
+	[gui->LaLineaTrackingActive setMidiChannel:5 number:2 control:true note:false];
+	[gui->LaLineaUseFilm setMidiChannel:5 number:3 control:true note:false];
 
+	
+	
 }
 -(void) hookupSlider:(frostSlider*)slider onChannel:(int)channel onNumber:(int)number controlChanges:(bool)control noteChanges:(bool)note scale:(float)scale{
 	[frostSliderHookups addObject:slider];
@@ -86,8 +94,8 @@
 			for(int i=0;i<[frostSliderHookups count];i++){
 				[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
 			}
-		}
-		//packet = MIDIPacketNext(packet);
+		
+			//packet = MIDIPacketNext(packet);
 		
 		//Blob tracker
 		if(controlChange && channel == 1){
@@ -136,6 +144,29 @@
 			}
 		}
 		
+		if(controlChange && channel == 5){
+			if(number == 2){
+				if(value == 0){
+					[gui->LaLineaTrackingActive setState:NSOffState];
+				}
+				if(value > 0){
+					[gui->LaLineaTrackingActive setState:NSOnState];
+				}
+				[gui modifyLaLineaTrackingActive:gui->LaLineaTrackingActive];
+				
+			}
+			if(number == 3){
+				if(value == 0){
+					[gui->LaLineaUseFilm setState:NSOffState];
+				}
+				if(value > 0){
+					[gui->LaLineaUseFilm setState:NSOnState];
+				}
+				[gui modifyLaLineaUseFilm:gui->LaLineaUseFilm];
+				
+			}
+		}
+		
 		//LaLineaFloor
 		if(controlChange && channel == 6){
 			if(number == 6){
@@ -143,6 +174,8 @@
 			}
 		}
 		
+		}
+
 		packet = &packetList->packet[i];
 	}	
 }

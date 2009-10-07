@@ -98,8 +98,6 @@ OFGuiController * gui = NULL;
 	[MoonDustMasterAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->masterAlpha];
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
 	
-	[LaLineaUseFilm hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->useFilmUglyFloat];
-	[LaLineaTrackingActive hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->tracking];
 	[LaLineaMasterAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->masterAlpha];
 
 	[LaLineaOffsetX1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.x];
@@ -107,6 +105,9 @@ OFGuiController * gui = NULL;
 	[LaLineaOffsetX2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.x];
 	[LaLineaOffsetY2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.y];
 
+	[SpotlightMasterAlpha hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->masterAlpha];
+	[SpotlightRadiusMultiplier hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->radiusMultiplier];
+		
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {
@@ -298,7 +299,8 @@ OFGuiController * gui = NULL;
 	if(![(NSString*)[p name] compare:@"Projection Surfaces"]){
 		view = projectionSurfacesView;
 		[projectorView setDoDraw:true];
-		
+		[ProjectorLockFloorAspect setState:NSOnState];
+		[ProjectorFloorAspect setEnabledWithButton:ProjectorLockFloorAspect];
 	}	
 	
 	if(![(NSString*)[p name] compare:@"Camera Calibration"]){
@@ -312,6 +314,11 @@ OFGuiController * gui = NULL;
 	
 	if(![(NSString*)[p name] compare:@"La Linea"]){
 		view = laLineaView;
+		[LaLineaLockOffsetSliders setState:NSOnState];
+		[LaLineaOffsetX1 setEnabledWithButton:LaLineaLockOffsetSliders];
+		[LaLineaOffsetY1 setEnabledWithButton:LaLineaLockOffsetSliders];
+		[LaLineaOffsetX2 setEnabledWithButton:LaLineaLockOffsetSliders];
+		[LaLineaOffsetY2 setEnabledWithButton:LaLineaLockOffsetSliders];
 	}	
 	
 	if(![(NSString*)[p name] compare:@"La Linea Floor Line"]){
@@ -361,12 +368,9 @@ OFGuiController * gui = NULL;
 	
 }
 
-
-
 -(IBAction)		toggleFullscreen:(id)sender{
 	ofToggleFullscreen();
 }
-
 
 - (id)tableView:(NSTableView *)aTableView
 objectValueForTableColumn:(NSTableColumn *)aTableColumn
@@ -440,7 +444,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
--(IBAction)		cameraBindGuid3:(id)sender{
+-(IBAction)	cameraBindGuid3:(id)sender{
 	if(ofApp->setupCalled){
 		uint64_t guidVal;
 		sscanf([[CameraGUID3 stringValue] cStringUsingEncoding:NSUTF8StringEncoding], "%llx", &guidVal);
@@ -509,6 +513,35 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		(getPlugin<LaLinea*>(ofApp->pluginController))->debug = b;
 	}
 }
+
+-(IBAction)		modifyLaLineaLockOffsetSliders:(id)sender{
+	[LaLineaOffsetX1 setEnabledWithButton:sender];
+	[LaLineaOffsetY1 setEnabledWithButton:sender];
+	[LaLineaOffsetX2 setEnabledWithButton:sender];
+	[LaLineaOffsetY2 setEnabledWithButton:sender];
+}
+
+-(IBAction)		modifyLaLineaUseFilm:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		(getPlugin<LaLinea*>(ofApp->pluginController))->bHasToUseFilm = b;
+	}
+}
+
+-(IBAction)		modifyLaLineaTrackingActive:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		(getPlugin<LaLinea*>(ofApp->pluginController))->tracking = b;
+	}
+}
+
+
 
 #pragma mark Blob Light
 
@@ -736,6 +769,10 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
+-(IBAction)		modifyProjectorLockFloorAspect:(id)sender{
+	[ProjectorFloorAspect setEnabledWithButton:sender];
+}
+
 #pragma mark Camera calibration
 
 
@@ -838,6 +875,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->grab(2);
 	}
 }
+
 -(IBAction)		modifyBlobActive3:(id)sender{
 	if(ofApp->setupCalled){
 		bool b = false;
@@ -854,6 +892,19 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		(getPlugin<LaLineaFloor*>(ofApp->pluginController))->reset();
 	}
 }
+
+#pragma mark Blob History
+
+-(IBAction) modifyBlobHistoryIsRecording:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bIsRecording = b;
+	}
+}
+
 
 @end
 

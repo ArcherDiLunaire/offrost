@@ -21,7 +21,7 @@
 @property (retain, readwrite) NSNumber *enabled;
 @property (retain, readwrite) NSNumber *header;
 @property (assign, readwrite) NSNumber *settingsViewNumber;
-@property (assign, readwrite)FrostPlugin * plugin;
+@property (assign, readwrite) FrostPlugin * plugin;
 
 
 
@@ -82,13 +82,14 @@
 	
 	IBOutlet NSView *laLineaView;
 	IBOutlet NSButton * LaLineaDebug;
+	IBOutlet NSButton * LaLineaLockOffsetSliders;
 	IBOutlet frostSlider * LaLineaMasterAlpha;
-	IBOutlet frostSlider *LaLineaUseFilm;
+	IBOutlet frostCheckbox *LaLineaUseFilm;
 	IBOutlet frostSlider *LaLineaOffsetX1;
 	IBOutlet frostSlider *LaLineaOffsetY1;
 	IBOutlet frostSlider *LaLineaOffsetX2;
 	IBOutlet frostSlider *LaLineaOffsetY2;
-	IBOutlet frostSlider * LaLineaTrackingActive;
+	IBOutlet frostCheckbox * LaLineaTrackingActive;
 
 #pragma mark La Linea Floor Outlets
 
@@ -119,10 +120,13 @@
 #pragma mark BlobHistory outlets
 	
 	IBOutlet NSView *BlobHistoryView;
+	IBOutlet frostCheckbox *BlobHistoryIsRecording;
 	
 #pragma mark Spotlight outlets
 	
 	IBOutlet NSView *SpotlightView;
+	IBOutlet frostSlider * SpotlightMasterAlpha;
+	IBOutlet frostSlider * SpotlightRadiusMultiplier;
 	
 #pragma mark MirrorBall outlets
 	
@@ -179,9 +183,10 @@
 	IBOutlet NSButton * ProjectorShowDebug;
 	IBOutlet NSMatrix * ProjectorMatrix;
 	IBOutlet NSSlider * ProjectorFloorAspect;
+	IBOutlet NSButton * ProjectorLockFloorAspect;
 	IBOutlet NSTextField * ProjectorFloorAspectText;
 	
-#pragma mark Blob Detection Outlets
+#pragma mark Blob Tracking Outlets
 	
 	IBOutlet NSSlider * BlobThreshold1;
 	IBOutlet NSSlider * BlobBlur1;
@@ -239,6 +244,10 @@
 -(IBAction)		modifyLaLineaFloorDirSpeed:(id)sender;
 -(IBAction)		modifyLaLineaFloorReset:(id)sender;
 
+-(IBAction)		modifyLaLineaLockOffsetSliders:(id)sender;
+-(IBAction)		modifyLaLineaUseFilm:(id)sender;
+-(IBAction)		modifyLaLineaTrackingActive:(id)sender;
+
 #pragma mark Blob Light Actions
 
 -(IBAction)		modifyBlobLightDebug:(id)sender;
@@ -285,6 +294,8 @@
 -(IBAction)		modifyProjectorShowDebug:(id)sender;
 -(IBAction)		modifyProjectorMatrix:(id)sender;
 -(IBAction)		modifyProjectorFloorAspect:(id)sender;
+-(IBAction)		modifyProjectorLockFloorAspect:(id)sender;
+
 
 #pragma mark Camera Keystone Actions
 
@@ -307,6 +318,9 @@
 -(IBAction)		modifyBlobActive3:(id)sender;
 -(IBAction)		drawBlobDebug:(id)sender;
 
+#pragma mark Blob History Actions
+
+-(IBAction) modifyBlobHistoryIsRecording:(id)sender;
 
 -(void)			awakeFromNib;
 -(void)			cameraUpdateGUIDs;

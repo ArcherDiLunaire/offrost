@@ -31,14 +31,14 @@ public:
 	float extrude;
 	float lineWidth;
 	
-	float useFilmUglyFloat;
 	bool bUsingFilm;
-
+	bool bHasToUseFilm;
+	
 	float yPosition;
 	ofxVec2f camOffset(ofxVec2f pointIn);
 	
 	ofxVec2f offsetPoint, offsetPoint2;
 	
-	float tracking;
+	bool tracking;
 	
 };

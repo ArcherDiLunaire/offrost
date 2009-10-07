@@ -62,6 +62,5 @@
 - (void) hookUpFloat:(float*)f;
 - (float) convertToMidiValue:(float)f;
 - (float) convertFromMidiValue:(float)f;
-- (void) modifyEnabled:(id)sender;
 
 @end

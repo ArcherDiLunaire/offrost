@@ -270,10 +270,13 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 	deBarrelledBlob.area = blob->area;
 	deBarrelledBlob.length = blob->length;
 	
+	
 	//ofxVec2f dv = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->centroid.x, blob->centroid.y);
 	ofxVec2f dv = blob->centroid;
 	
 	deBarrelledBlob.centroid = ofPoint(dv.x,dv.y);
+	
+	deBarrelledBlob.boundingRect = blob->boundingRect;
 	
 	/*for(int i=0;i<blob->nPts;i++){
 	 ofxVec2f v = (getPlugin<Cameras*>(controller))->undistortPoint(cameraId, blob->pts[i].x, blob->pts[i].y);
@@ -295,7 +298,15 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 	float m = cw*ch;
 	b.area = deBarrelledBlob.area/m;
 	b.length = deBarrelledBlob.length/m;
-	//bounding rect not defined
+	
+	
+	ofxVec2f boundingRectPoint = calibrator->convertCoordinate(cameraId, deBarrelledBlob.boundingRect.x/getWidth(), deBarrelledBlob.boundingRect.y/getHeight());
+	ofxVec2f boundingRectDimensions = calibrator->convertCoordinate(cameraId, deBarrelledBlob.boundingRect.width/getWidth(), deBarrelledBlob.boundingRect.height/getHeight());
+	
+	b.boundingRect.x = boundingRectPoint.x;
+	b.boundingRect.y = boundingRectPoint.y;
+	b.boundingRect.width = boundingRectDimensions.x;
+	b.boundingRect.height = boundingRectDimensions.y;
 	
 	ofxVec2f v = calibrator->convertCoordinate(cameraId, deBarrelledBlob.centroid.x/getWidth(), deBarrelledBlob.centroid.y/getHeight());
 	
@@ -368,6 +379,10 @@ void Tracker::updateMouseBlob(float x, float y, int button){
 		mouseGeneratedBlob.area = 1;
 		mouseGeneratedBlob.length = 1;
 		mouseGeneratedBlob.centroid = ofPoint(x,y);
+		mouseGeneratedBlob.boundingRect.x = x - 0.5;
+		mouseGeneratedBlob.boundingRect.y = y - 0.5;
+		mouseGeneratedBlob.boundingRect.width = 1.0;
+		mouseGeneratedBlob.boundingRect.height = 1.0;
 		int n= 300;
 		for(int i=n;i>=0;i--){
 			float p = TWO_PI*i/(float)n;

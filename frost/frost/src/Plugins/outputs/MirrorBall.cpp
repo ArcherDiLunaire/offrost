@@ -12,12 +12,18 @@
 #include "PluginIncludes.h"
 
 MirrorBall::MirrorBall(){
+	type = OUTPUT;
+
 	cam = 0;
 }
 
 #pragma mark Callback methods
 
 void MirrorBall::setup(){
+	
+}
+
+void MirrorBall::draw(){
 	
 }
 

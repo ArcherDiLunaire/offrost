@@ -57,7 +57,8 @@ void LaLineaFloor::reset(){
 }
 
 void LaLineaFloor::drawOnFloor(){
-	ofSetColor(255, 255, 255, 255*masterAlpha);
+	ofPushStyle();
+	glColor4f(1.0, 1.0,1.0, masterAlpha);
 	ofEnableSmoothing();
 	if(pnts.size() > 0){
 		glBegin(GL_QUAD_STRIP);
@@ -74,5 +75,6 @@ void LaLineaFloor::drawOnFloor(){
 		}
 		glEnd();
 	}
+	ofPopStyle();
 }
 

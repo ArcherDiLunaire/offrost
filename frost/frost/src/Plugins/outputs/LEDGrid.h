@@ -20,6 +20,7 @@ public:
 	
 	void setup();
 	void drawOnFloor();
+	void draw();
 	void update();
 	
 	int cam;

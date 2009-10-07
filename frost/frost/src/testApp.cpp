@@ -23,6 +23,11 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new LiquidSpace);
 	pluginController->addPlugin(new BlobLight);
 	
+	pluginController->addPlugin(new BlobHistory);
+	pluginController->addPlugin(new Spotlight);
+	pluginController->addPlugin(new MirrorBall);
+	pluginController->addPlugin(new LEDGrid);
+	
 }
 
 void testApp::setup(){	

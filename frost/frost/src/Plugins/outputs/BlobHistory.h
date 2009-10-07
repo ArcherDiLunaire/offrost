@@ -16,12 +16,19 @@ class BlobHistory : public Output{
 
 public:
 
+	// the weird spaces below are important, or the 2d vector will not work !!!
+	
+	vector<vector<ofxCvBlob> > blobHistoryMatrix;
+	
 	BlobHistory();
 	
 	void setup();
 	void drawOnFloor();
+	void draw();
 	void update();
 
 	int cam;
+
+	bool bIsRecording;
 	
 };
