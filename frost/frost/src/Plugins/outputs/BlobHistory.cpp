@@ -13,7 +13,7 @@
 
 BlobHistory::BlobHistory(){
 	type = OUTPUT;
-	bIsRecording = false;
+	bIsRecordingHistory = false;
 	cam = 1;
 	masterAlpha = 1.0;
 }
@@ -60,13 +60,37 @@ void BlobHistory::drawOnFloor(){
 }
 
 void BlobHistory::update(){
+
+	if (bIsRecordingHistory) {
+		if (getPlugin<Cameras*>(controller)->isFrameNew(cam)) {
+			vector<ofxCvBlob> blobList;
+			for (int i=0; i < blob(cam)->numBlobs(); i++) {
+				blobList.push_back(blob(cam)->getBlob(i));
+			}
+			blobHistoryMatrix.push_back(blobList);
+		}
+	}
 	
-	if (bIsRecording) {
+	if (bClearHistory) {
+		blobHistoryMatrix.clear();
+	}
+	
+	if (bTakeSnapshot) {
 		vector<ofxCvBlob> blobList;
 		for (int i=0; i < blob(cam)->numBlobs(); i++) {
 			blobList.push_back(blob(cam)->getBlob(i));
 		}
-		blobHistoryMatrix.push_back(blobList);
+		blobSnapshotMatrix.push_back(blobList);
+	}
+
+	if (bRemoveOldestSnapshot) {
+		if (blobSnapshotMatrix.size() > 0) {
+			blobSnapshotMatrix.erase(blobSnapshotMatrix.begin());
+		}
+	}
+
+	if (bClearSnapshots) {
+		blobHistoryMatrix.clear();
 	}
 	
 }

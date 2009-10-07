@@ -20,6 +20,8 @@ public:
 	
 	vector<vector<ofxCvBlob> > blobHistoryMatrix;
 	
+	vector<vector<ofxCvBlob> > blobSnapshotMatrix;
+		
 	BlobHistory();
 	
 	void setup();
@@ -29,6 +31,11 @@ public:
 
 	int cam;
 
-	bool bIsRecording;
+	bool bIsRecordingHistory;
+	bool bClearHistory;
+
+	bool bTakeSnapshot;
+	bool bRemoveOldestSnapshot;
+	bool bClearSnapshots;
 	
 };

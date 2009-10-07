@@ -121,6 +121,11 @@
 	
 	IBOutlet NSView *BlobHistoryView;
 	IBOutlet frostCheckbox *BlobHistoryIsRecording;
+	IBOutlet frostSlider *BlobHistoryDelay;
+	IBOutlet frostSlider *BlobHistoryLength;
+	IBOutlet frostSlider *BlobHistoryAlpha;
+	IBOutlet frostSlider *BlobHistoryAlphaDecay;
+	IBOutlet frostSlider *BlobHistoryPrintsAlpha;
 	
 #pragma mark Spotlight outlets
 	
@@ -321,6 +326,10 @@
 #pragma mark Blob History Actions
 
 -(IBAction) modifyBlobHistoryIsRecording:(id)sender;
+-(IBAction) modifyBlobHistoryClearHistory:(id)sender;
+-(IBAction) modifyBlobHistoryAddSnapshot:(id)sender;
+-(IBAction) modifyBlobHistoryRemoveSnapshot:(id)sender;
+-(IBAction) modifyBlobHistoryClearSnapshots:(id)sender;
 
 -(void)			awakeFromNib;
 -(void)			cameraUpdateGUIDs;

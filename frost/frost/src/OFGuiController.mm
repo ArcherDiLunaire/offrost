@@ -901,10 +901,51 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		if([sender state] ==  NSOnState ){
 			b = true;	
 		}
-		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bIsRecording = b;
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bIsRecordingHistory = b;
 	}
 }
 
+-(IBAction) modifyBlobHistoryClearHistory:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bClearHistory = b;
+	}
+}
+
+-(IBAction) modifyBlobHistoryAddSnapshot:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bTakeSnapshot = b;
+	}
+}
+
+
+-(IBAction) modifyBlobHistoryRemoveSnapshot:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bRemoveOldestSnapshot = b;
+	}
+}
+
+
+-(IBAction) modifyBlobHistoryClearSnapshots:(id)sender{
+	if(ofApp->setupCalled){
+		bool b = false;
+		if([sender state] ==  NSOnState ){
+			b = true;	
+		}
+		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bClearSnapshots = b;
+	}
+}
 
 @end
 
