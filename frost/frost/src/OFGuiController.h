@@ -161,6 +161,8 @@
 	
 	IBOutlet frostSlider * FrostscapeSideFreeze;
 	IBOutlet frostSlider * FrostscapeColumnFreeze;
+	IBOutlet frostSlider * FrostscapeWhiteBackground;
+
 	IBOutlet frostCheckbox * FrostscapeInvert;
 	IBOutlet frostSlider * FrostscapeMasterAlpha;
 
@@ -236,6 +238,7 @@
 -(void)			setFPS:(float)framesPerSecond;
 
 -(void) changePluginEnabled:(int)n enable:(bool)enable;
+-(void) changeView:(int)n;
 
 #pragma mark Camera Actions
 

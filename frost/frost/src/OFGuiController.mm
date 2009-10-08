@@ -94,6 +94,8 @@ OFGuiController * gui = NULL;
 	[FrostscapeColumnFreeze hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->columnFreeze];
 	[FrostscapeInvert hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->invert];
 	[FrostscapeMasterAlpha hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->masterAlpha];
+	[FrostscapeWhiteBackground hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->whiteBackground];
+
 
 	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
 	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
@@ -277,9 +279,9 @@ OFGuiController * gui = NULL;
 }
 
 
--(IBAction) setListViewRow:(id)sender {
-	ofPlugin * p = [viewItems objectAtIndex:[sender selectedRow]];
-	int row = [sender selectedRow];
+-(void) changeView:(int)n{
+	ofPlugin * p = [viewItems objectAtIndex:n];
+	int row = n;
 	NSEnumerator *enumerator = [[contentArea subviews] objectEnumerator];
 	id anObject;
 	
@@ -384,6 +386,10 @@ OFGuiController * gui = NULL;
 	
 }
 
+-(IBAction) setListViewRow:(id)sender {
+	[self changeView:[sender selectedRow]];
+}
+
 -(IBAction)		toggleFullscreen:(id)sender{
 	ofToggleFullscreen();
 }
@@ -436,7 +442,18 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 -(void) changePluginEnabled:(int)n enable:(bool)enable{
-	
+	NSMutableArray * array;
+	int i;
+	if(n < [viewItems count]){
+		array = viewItems;
+		i = n;
+	}
+
+	ofPlugin * p = [array objectAtIndex:i];
+	[p setEnabled:[NSNumber numberWithBool:enable]];	
+	[userDefaults setValue:[p enabled] forKey:[NSString stringWithFormat:@"plugins.enable%d",i]];
+	 [self changeView:n];
+
 }
 
 

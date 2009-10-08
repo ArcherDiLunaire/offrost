@@ -12,6 +12,18 @@
 #include "Output.h"
 #include "ofxVectorMath.h"
 
+class lamp{
+public:
+	lamp();
+	int r, g, b, a;
+	ofxPoint2f pos;
+	int channel;
+	
+	int sentR, sentG, sentB, sentA;
+	
+	void update();
+};
+
 class LEDGrid: public Output{
 	
 public:
@@ -25,4 +37,8 @@ public:
 	
 	int cam;
 	
+	vector<lamp> lamps;
+
+	bool ok;
+	ofSerial serial;
 };

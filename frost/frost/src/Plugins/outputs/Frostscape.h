@@ -39,4 +39,8 @@ public:
 	float sideFreeze;
 	float columnFreeze;
 		BOOL invert;
+	
+	float whiteBackground;
+	
+	float columnParticlePos[3];
 };

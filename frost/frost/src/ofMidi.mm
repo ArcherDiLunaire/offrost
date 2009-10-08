@@ -45,7 +45,8 @@
 	[self hookupSlider:gui->FrostscapeColumnFreeze onChannel:9 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider4 onChannel:9 onNumber:9 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupButton:gui->FrostscapeInvert onChannel:9 onNumber:12 controlChanges:true noteChanges:false];
-	
+	[self hookupSlider:gui->FrostscapeWhiteBackground onChannel:9 onNumber:13 controlChanges:true noteChanges:false scale:1.0/127.0];
+
 	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:6 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
@@ -112,6 +113,9 @@
 			}
 			
 			//packet = MIDIPacketNext(packet);
+			if(controlChange && number == 0){
+				//[gui changePluginEnabled:channel enable:(value ==0)?false:true];
+			}	
 			
 			//Blob tracker
 			if(controlChange && channel == 1){

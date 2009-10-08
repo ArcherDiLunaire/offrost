@@ -41,8 +41,10 @@ void Spotlight::draw(){
 	ofEnableAlphaBlending();
 	glColor4f(1.0, 1.0,1.0, masterAlpha);
 	
-	spotlightImage.draw(center.x-(radius*radiusMultiplier), center.y-(radius*radiusMultiplier)-0.02, radius*radiusMultiplier*2, radius*radiusMultiplier*2);
+	//spotlightImage.draw(center.x-(radius*radiusMultiplier), center.y-(radius*radiusMultiplier)-0.02, radius*radiusMultiplier*2, radius*radiusMultiplier*2);
 		
+	ofRect(center.x-(radius*radiusMultiplier), center.y-(radius*radiusMultiplier)-0.02, radius*radiusMultiplier*2, radius*radiusMultiplier*2);
+	
 	glPopMatrix();
 	
 }

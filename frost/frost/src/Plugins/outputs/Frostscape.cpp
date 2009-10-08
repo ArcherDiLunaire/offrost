@@ -31,7 +31,7 @@ void Frostscape::setup(){
 void Frostscape::update(){
 	motor.centerBreakRate =  Frostscape::slider1;
 	motor.bodyBreakRate =  Frostscape::slider2;	
-	motor.decreaseRate = Frostscape::slider5*3;
+	motor.decreaseRate = Frostscape::slider5*10;
 	motor.expandRate = Frostscape::slider6;
 	if(invert){
 		ofColor c;
@@ -55,26 +55,40 @@ void Frostscape::update(){
 		for (int i=0;i<n; i++) {
 			motor.addFreezePoint(ofPoint(projection()->getFloor()->aspect*i/n,0), sideFreeze);
 			motor.addFreezePoint(ofPoint(projection()->getFloor()->aspect*i/n,1), sideFreeze);
-
-		}
-	}
-	if(columnFreeze > 0.1){
-		for(int i=0;i<3;i++){
-			motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze);
-	
-		}
-	} else if(columnFreeze < -0.1){
-		for(int i=0;i<3;i++){
-			motor.addBodyCenter(projection()->getColumnCoordinate(i));
 			
 		}
 	}
+	/*if(columnFreeze > 0.1){
+	 for(int i=0;i<3;i++){
+	 motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze);
+	 
+	 }
+	 } else if(columnFreeze < -0.1){
+	 for(int i=0;i<3;i++){
+	 motor.addBodyCenter(projection()->getColumnCoordinate(i));
+	 
+	 }
+	 }*/
+	
+	if(columnFreeze  > 0){
+		for(int i=0;i<3;i++){
+	//	int i=1;
+			columnParticlePos[i] += 0.02;	
+			if(columnParticlePos[i] > 0.8){
+				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze);	
+			}
+		}
+	} else {
+		for(int i=0;i<3;i++){
+			columnParticlePos[i] = ofRandom(-0.5, -0.1);	
+		}
+	}
 	///*
-	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),2);i++){
+	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),6);i++){
 		PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
 		vector<ofxCvBlob> b = blob(cam)->persistentBlobs[i].blobs;
 		ofxVec2f r = projection()->convertToCoordinate(projection()->getFloor(), pb->centroid);			
-
+		
 		motor.addBodyCenter(r);
 		for(int g=0;g<b.size();g++){
 			for(int u=0;u<b[g].nPts;u++){
@@ -86,20 +100,21 @@ void Frostscape::update(){
 		
 	}
 	//*/
-/*
-	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),2);i++){
-		PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
-//		vector<ofxCvBlob> b = blob(cam)->persistentBlobs[i].blobs;
-		ofxVec2f r = projection()->convertToCoordinate(projection()->getFloor(), pb->centroid);			
-
-		motor.addFreezePoint(r,0.1);
-				
-	}
-	//*/
+	/*
+	 for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),2);i++){
+	 PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
+	 //		vector<ofxCvBlob> b = blob(cam)->persistentBlobs[i].blobs;
+	 ofxVec2f r = projection()->convertToCoordinate(projection()->getFloor(), pb->centroid);			
+	 
+	 motor.addFreezePoint(r,0.1);
+	 
+	 }
+	 //*/
 	
 	motor.update();
 }
 void Frostscape::draw(){
+	
 }
 
 void Frostscape::drawOnFloor(){
@@ -109,6 +124,34 @@ void Frostscape::drawOnFloor(){
 		ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	}
 	motor.draw();
+	
+	if(whiteBackground > 0){
+		ofFill();
+		ofSetColor(255, 255, 255,255.0*whiteBackground);
+		ofRect(0, 0, projection()->getFloor()->aspect, 1);
+	}
+	
+	glPopMatrix();
+	
+	for(int i=0;i<3;i++){
+		projection()->applyProjection(projection()->getColumn(i));
+	
+		ofFill();
+		ofSetColor(255, 255, 255, 255);
+		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);
+		
+		ofFill();
+		ofSetColor(0, 0, 0, 255);
+		ofRect(0, 0, projection()->getColumn(i)->aspect, columnParticlePos[i]);
+		
+		/*if(columnParticlePos[i] < 1-projection()->getColumn(i)->aspect/2.0){
+			ofSetColor(0, 0, 0, 255);
+			ofEllipse(projection()->getColumn(i)->aspect/2.0, columnParticlePos[i], projection()->getColumn(i)->aspect,projection()->getColumn(i)->aspect);
+		}*/
+		
+		glPopMatrix();
+
+	}
 }
 
 void Frostscape::fillIce(){
