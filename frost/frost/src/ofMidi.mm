@@ -31,9 +31,20 @@
 	[self hookupSlider:gui->MoonDustDensity onChannel:4 onNumber:4 controlChanges:true noteChanges:false scale:10000.0/127.0];
 	[self hookupSlider:gui->MoonDustSize onChannel:4 onNumber:5 controlChanges:true noteChanges:false scale:0.1/127.0];
 	[self hookupSlider:gui->MoonDustColumnAlpha onChannel:4 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
+
+	[self hookupSlider:gui->foldingHistoryAddMultiplier onChannel:8 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+
 	
-	[self hookupSlider:gui->FrostScapeSlider4 onChannel:1 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->FrostScapeSlider1 onChannel:1 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostscapeMasterAlpha onChannel:9 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostScapeSlider1 onChannel:9 onNumber:2 controlChanges:true noteChanges:false scale:10.0/127.0];
+	[self hookupSlider:gui->FrostScapeSlider2 onChannel:9 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostScapeSlider3 onChannel:9 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostScapeSlider5 onChannel:9 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostScapeSlider6 onChannel:9 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostscapeSideFreeze onChannel:9 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostscapeColumnFreeze onChannel:9 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostScapeSlider4 onChannel:9 onNumber:9 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupButton:gui->FrostscapeInvert onChannel:9 onNumber:12 controlChanges:true noteChanges:false];
 	
 	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
@@ -59,6 +70,11 @@
 	[frostSliderHookups addObject:slider];
 	
 	[slider setMidiChannel:channel number:number control:control note:note scale:scale];
+}
+
+-(void) hookupButton:(frostCheckbox*)slider onChannel:(int)channel onNumber:(int)number controlChanges:(bool)control noteChanges:(bool)note {
+	[frostSliderHookups addObject:slider];
+	[slider setMidiChannel:channel number:number control:control note:note];
 }
 - (void)processMIDIPacketList:(MIDIPacketList*)packetList sender:(id)sender
 {
@@ -173,6 +189,20 @@
 					[gui modifyLaLineaFloorReset:self];
 				}
 			}
+			
+			//Frostscape
+			if(controlChange && channel == 9){
+				if(number == 10 && value > 0){
+					[gui frostscapeEmptyIce:self];
+					cout<<"EMPTY ICE"<<endl;
+				}
+
+				if(number == 11 && value > 0){
+					[gui frostscapeFillIce:self];
+				}
+			}
+
+
 			
 		}
 		

@@ -162,6 +162,8 @@
 	IBOutlet frostSlider * FrostscapeSideFreeze;
 	IBOutlet frostSlider * FrostscapeColumnFreeze;
 	IBOutlet frostCheckbox * FrostscapeInvert;
+	IBOutlet frostSlider * FrostscapeMasterAlpha;
+
 
 #pragma mark LiquidSpace outlets
 	
@@ -232,6 +234,8 @@
 -(IBAction)		toggleFullscreen:(id)sender;
 
 -(void)			setFPS:(float)framesPerSecond;
+
+-(void) changePluginEnabled:(int)n enable:(bool)enable;
 
 #pragma mark Camera Actions
 

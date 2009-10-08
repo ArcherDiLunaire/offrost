@@ -93,6 +93,7 @@ OFGuiController * gui = NULL;
 	[FrostscapeSideFreeze hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->sideFreeze];
 	[FrostscapeColumnFreeze hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->columnFreeze];
 	[FrostscapeInvert hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->invert];
+	[FrostscapeMasterAlpha hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->masterAlpha];
 
 	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
 	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
@@ -433,6 +434,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}  
 	return;
 }
+
+-(void) changePluginEnabled:(int)n enable:(bool)enable{
+	
+}
+
 
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
