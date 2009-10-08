@@ -15,6 +15,7 @@ IceBlockBackgroundObject::IceBlockBackgroundObject(float x, float y,float initA,
 	a = initA;
 	size = _size;
 	pthread_mutex_init(&plock, NULL);
+	color = ofColor();
 }
 void IceBlockBackgroundObject::generate(){
 	int n = int(ofRandom(4, 9));
@@ -35,7 +36,7 @@ void IceBlockBackgroundObject::draw(){
 		
 		glTranslated(position.x, position.y, 0);
 		//		ofSetColor(255, 255,255,255*drawA*(1.0-FrostMotor::slider4));
-		ofSetColor(255, 255,255,255*drawA);
+		ofSetColor(color.r,color.g,color.b,255*drawA);
 		//	ofSetColor(0, 0, 0, 255);
 		glLineWidth(2);
 		glBegin(GL_POLYGON);
@@ -65,7 +66,11 @@ FrostMotor::FrostMotor(){
 	
 }
 
-
+void FrostMotor::setColor(ofColor c){
+	for(int i=0;i<iceblockBackgrounds.size();i++){
+		iceblockBackgrounds[i].color = c;
+	}
+}
 void FrostMotor::setAreaValue(ofxPoint2f point, float radius, float value){
 	for(int i=0;i<iceblockBackgrounds.size();i++){
 		if(point.distance(iceblockBackgrounds[i].position) < radius){
@@ -73,7 +78,14 @@ void FrostMotor::setAreaValue(ofxPoint2f point, float radius, float value){
 			
 		}
 	}
+}	
+
+void FrostMotor::setValueOnAll( float value){
+	for(int i=0;i<iceblockBackgrounds.size();i++){
+		iceblockBackgrounds[i].a = value;
+	}
 }
+
 
 void FrostMotor::generateBackgroundObjects(int resolution, float objectSizes, float w, float h, float initValue){
 	r = 0.04*1.0/(resolution/35.0);
@@ -92,9 +104,9 @@ void FrostMotor::generateBackgroundObjects(int resolution, float objectSizes, fl
 	int num = iceblockBackgrounds.size();
 	cout<<num<<endl;
 	int count = 0;
-	#pragma omp parallel for 
+#pragma omp parallel for 
 	for(int i=0;i<num;i++){
-		#pragma omp parallel for 
+#pragma omp parallel for 
 		for(int u=i+1;u<num;u++){
 			count++;
 			ofxVec2f v = (iceblockBackgrounds[i].position - iceblockBackgrounds[u].position);
@@ -102,7 +114,7 @@ void FrostMotor::generateBackgroundObjects(int resolution, float objectSizes, fl
 				pthread_mutex_lock(&iceblockBackgrounds[i].plock);
 				iceblockBackgrounds[i].closeBackgrounds.push_back(u);
 				pthread_mutex_unlock(&iceblockBackgrounds[i].plock);
-
+				
 				pthread_mutex_lock(&iceblockBackgrounds[u].plock);
 				iceblockBackgrounds[u].closeBackgrounds.push_back(i);
 				pthread_mutex_unlock(&iceblockBackgrounds[u].plock);

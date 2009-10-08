@@ -159,6 +159,10 @@
 	IBOutlet frostSlider * FrostScapeSlider5;
 	IBOutlet frostSlider * FrostScapeSlider6;
 	
+	IBOutlet frostSlider * FrostscapeSideFreeze;
+	IBOutlet frostSlider * FrostscapeColumnFreeze;
+	IBOutlet frostCheckbox * FrostscapeInvert;
+
 #pragma mark LiquidSpace outlets
 	
 	IBOutlet NSView *liquidSpaceView;
@@ -279,6 +283,8 @@
 -(IBAction)		modifyFrostscapeSlider4:(id)sender;
 -(IBAction)		modifyFrostscapeSlider5:(id)sender;
 -(IBAction)		modifyFrostscapeSlider6:(id)sender;
+-(IBAction)		frostscapeFillIce:(id)sender;
+-(IBAction)		frostscapeEmptyIce:(id)sender;
 
 #pragma mark Folding Actions
 

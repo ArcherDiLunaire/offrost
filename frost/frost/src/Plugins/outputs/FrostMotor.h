@@ -19,6 +19,8 @@ public:
 	float size;
 	float speed;
 	pthread_mutex_t plock;
+	ofColor color;
+
 
 };
 
@@ -37,6 +39,7 @@ public:
 	void draw();
 	void update();
 	
+	void setValueOnAll( float value);
 	void setAreaValue(ofxPoint2f point, float radius, float value);
 	void generateBackgroundObjects(int resolution, float objectSizes, float w, float h, float initValue=-3.0);
 
@@ -61,6 +64,7 @@ public:
 	float expandRate;
 	float decreaseRate;
 	
+	void setColor(ofColor c);
 
 	
 };

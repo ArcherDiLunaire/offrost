@@ -21,6 +21,7 @@ bool Frostscape::applyToOther = false;
 Frostscape::Frostscape(){
 	type = OUTPUT;
 	cam = 0;
+	invert = false;
 }
 
 void Frostscape::setup(){
@@ -30,8 +31,44 @@ void Frostscape::setup(){
 void Frostscape::update(){
 	motor.centerBreakRate =  Frostscape::slider1;
 	motor.bodyBreakRate =  Frostscape::slider2;	
-	motor.decreaseRate = Frostscape::slider5;
+	motor.decreaseRate = Frostscape::slider5*3;
 	motor.expandRate = Frostscape::slider6;
+	if(invert){
+		ofColor c;
+		c.r = 0;
+		c.g = 0;
+		c.b = 0;
+		motor.setColor(c);
+	} else{
+		ofColor c;
+		motor.setColor(c);
+	}
+	
+	if(sideFreeze > 0){
+		float n = 3.0;
+		for (int i=0;i<n; i++) {
+			motor.addFreezePoint(ofPoint(0,i/n), sideFreeze);
+		}
+		for (int i=0;i<n; i++) {
+			motor.addFreezePoint(ofPoint(projection()->getFloor()->aspect,i/n), sideFreeze);
+		}
+		for (int i=0;i<n; i++) {
+			motor.addFreezePoint(ofPoint(projection()->getFloor()->aspect*i/n,0), sideFreeze);
+			motor.addFreezePoint(ofPoint(projection()->getFloor()->aspect*i/n,1), sideFreeze);
+
+		}
+	}
+	if(columnFreeze > 0.1){
+		for(int i=0;i<3;i++){
+			motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze);
+	
+		}
+	} else if(columnFreeze < -0.1){
+		for(int i=0;i<3;i++){
+			motor.addBodyCenter(projection()->getColumnCoordinate(i));
+			
+		}
+	}
 	///*
 	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),2);i++){
 		PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
@@ -66,7 +103,19 @@ void Frostscape::draw(){
 }
 
 void Frostscape::drawOnFloor(){
+	if(invert){
+		ofFill();
+		ofSetColor(255, 255, 255,255);
+		ofRect(0, 0, projection()->getFloor()->aspect, 1);
+	}
 	motor.draw();
+}
+
+void Frostscape::fillIce(){
+	motor.setValueOnAll(-3.0);
+}
+void Frostscape::emptyIce(){
+	motor.setValueOnAll(1.0);	
 }
 
 void Frostscape::setslider1(float val){

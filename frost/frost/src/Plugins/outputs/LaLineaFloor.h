@@ -32,4 +32,5 @@ public:
 	float dirSpeed;
 	float curlValue;
 	void reset();
+
 };

@@ -32,4 +32,11 @@ public:
 	void setslider4(float val);
 	void setslider5(float val);
 	void setslider6(float val);
+	
+	void fillIce();
+	void emptyIce();
+	
+	float sideFreeze;
+	float columnFreeze;
+		BOOL invert;
 };

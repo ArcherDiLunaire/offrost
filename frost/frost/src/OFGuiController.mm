@@ -88,6 +88,11 @@ OFGuiController * gui = NULL;
 	[floorPreview setDoDraw:TRUE];
 	
 	[ProjectorFloorAspectText setStringValue:[[NSNumber numberWithFloat:((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->objects[0]->aspect] stringValue]];
+	
+	
+	[FrostscapeSideFreeze hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->sideFreeze];
+	[FrostscapeColumnFreeze hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->columnFreeze];
+	[FrostscapeInvert hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->invert];
 
 	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
 	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
@@ -670,6 +675,16 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 -(IBAction)		modifyFrostscapeSlider6:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<Frostscape*>(ofApp->pluginController))->setslider6([sender doubleValue]);
+	}
+}
+-(IBAction)		frostscapeFillIce:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Frostscape*>(ofApp->pluginController))->fillIce();
+	}
+}
+-(IBAction)		frostscapeEmptyIce:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<Frostscape*>(ofApp->pluginController))->emptyIce();
 	}
 }
 
