@@ -143,7 +143,8 @@ void testApp::update()
 				((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->unlock();
 			}
 		} else {
-			cameraThreadTimer ++;
+			if(getPlugin<Cameras*>(pluginController)->hasCameras)
+				cameraThreadTimer ++;
 		}
 	}
 }

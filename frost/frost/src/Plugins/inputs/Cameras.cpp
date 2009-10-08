@@ -16,7 +16,9 @@ Cameras::Cameras(){
 		calib[i].allocate( csize, 7, 7 );
 		videoPlayerActivated[i] = false;
 		frameNew[i] = false;
+		timeSinceLastCameraCheck = 0;
 	}
+	hasCameras = true;
 	
 }
 Cameras::~Cameras(){
@@ -25,8 +27,6 @@ Cameras::~Cameras(){
 	}
 }
 void Cameras::setup(){
-	
-	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
 	
 	for (int i=0; i<3; i++) {
 		
@@ -40,6 +40,8 @@ void Cameras::setup(){
 			}
 		}
 	}
+	
+	
 	
 	// first init the cams that are bound and exist
 	for (int i=0; i<3; i++) {
@@ -55,6 +57,7 @@ void Cameras::setup(){
 		}
 	}
 	
+	
 	/**
 	 // test videoPlayer
 	 for (int i=0; i<3; i++) {
@@ -65,14 +68,22 @@ void Cameras::setup(){
 	 //**/
 	
 	/**	
-	if(videoPlayerLoadUrl(1, "Prints.mov")){
-		cout << "                      FILMEN LOADET" << endl;
-	} else {
-		cout << "                      FILMEN ikke LOADET" << endl;
+	 if(videoPlayerLoadUrl(1, "Prints.mov")){
+	 cout << "                      FILMEN LOADET" << endl;
+	 } else {
+	 cout << "                      FILMEN ikke LOADET" << endl;
+	 }
+	 videoPlayerPlay(1);
+	 videoPlayerActivate(1);
+	 //**/
+
+	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
+
+	if(libdc1394Grabber->list->num == 0){
+		
+		hasCameras = false;
+		
 	}
-	videoPlayerPlay(1);
-	videoPlayerActivate(1);
-	//**/
 }
 
 bool Cameras::isFrameNew(int _grabberIndex){
@@ -80,6 +91,25 @@ bool Cameras::isFrameNew(int _grabberIndex){
 }
 
 void Cameras::update(){
+	
+	timeSinceLastCameraCheck++;
+	
+	if(!hasCameras && timeSinceLastCameraCheck > 250){
+		
+		ofLog(OF_LOG_NOTICE, "Cameras looking for newly attached devices");
+		
+		Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
+		
+		if(libdc1394Grabber->list->num > 0){
+			
+			hasCameras = true;
+			
+		}
+		
+		timeSinceLastCameraCheck = 0;
+		
+	}
+	
 	for (int i=0; i<3; i++) {
 		if (videoPlayerActivated[i]) {
 			videoPlayer[i].update();
@@ -93,7 +123,7 @@ void Cameras::update(){
 				img.clear();
 			}
 		} else {
-			if(isReady(i) && ((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->grabbedFirstImage){
+			if(hasCameras && isReady(i) && ((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->grabbedFirstImage){
 				vidGrabber[i]->update();
 				frameNew[i] = vidGrabber[i]->isFrameNew();
 				if(frameNew[i]){
@@ -190,7 +220,7 @@ void Cameras::draw(int _grabberIndex, float _x, float _y, float _w, float _h)
 			vidGrabber[_grabberIndex]->draw(_x, _y, _w, _h);
 		}
 	}
-	 
+	
 }
 
 void Cameras::draw(int _grabberIndex, float _x, float _y)
@@ -205,7 +235,7 @@ void Cameras::draw(){
 void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 	
 	cameraInited[_grabber] = false;
-
+	
 	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
 	if (_cameraGUID != 0x0ll) {
 		libdc1394Grabber->setDeviceGUID(_cameraGUID);

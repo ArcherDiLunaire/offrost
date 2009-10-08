@@ -32,6 +32,7 @@ public:
 	void draw();
 	void update();
 
+	//void setNSViewPointer(NSView * nsViewPointer);
 	
 	FrostMotor motor;
 	

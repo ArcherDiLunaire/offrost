@@ -74,6 +74,7 @@ public:
 	int getHeight();
 	int getWidth();
 
+	bool hasCameras;
 
 private:
 	
@@ -82,6 +83,8 @@ private:
 	bool cameraInited[3];
 	bool isReady(int _cameraIndex);
 
+	int timeSinceLastCameraCheck;
+	
 	ofxVideoGrabber * vidGrabber[3];
 	
 	ofVideoPlayer videoPlayer[3];
