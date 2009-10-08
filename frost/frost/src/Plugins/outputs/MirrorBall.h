@@ -26,9 +26,11 @@ public:
 	void update();
 	void addDot(float x, float y);
 	
+	void drawMirrorBall(int numCircles);
 	
 	int cam;
 	
+	float rotation;
 	float rotationDirection;
 	
 	vector<ofxVec2f> dots;

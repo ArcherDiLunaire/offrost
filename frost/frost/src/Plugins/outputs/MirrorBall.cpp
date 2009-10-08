@@ -14,7 +14,8 @@
 MirrorBall::MirrorBall(){
 	type = OUTPUT;
 
-	rotationDirection = 0;
+	rotation = 0;
+	rotationDirection = 0.001;
 		
 	center = ofxVec2f(0.5,0.5);
 	
@@ -29,41 +30,69 @@ void MirrorBall::setup(){
 
 void MirrorBall::draw(){
 	
+
 }
 
 void MirrorBall::drawOnFloor(){
-	glPushMatrix();
+	
+	
 	ofPushStyle();
-	
-	
-
+	ofEnableAlphaBlending();
+	glPushMatrix();
 	ofSetColor(255, 255, 255);
 	
 	glTranslated(0.5*projection()->getFloor()->aspect, 0.5, 0);
+
+	ofSetColor(255,200,0,120);
+	drawMirrorBall(15);
 	
-	for (int i=1; i < 3; i++) {
+	glTranslated(0.005*projection()->getFloor()->aspect, 0.005, 0);
+	
+	ofSetColor(255,255,255,120);
+	drawMirrorBall(15);
+	
+	glPopMatrix();
+	ofPopStyle();
+	
+}
 
-		for (int j=1; j < i*i; j++) {
+void MirrorBall::update(){
 
+	rotation += rotationDirection;
+	
+	rotation = fmodf(rotation, 1.0);
+	
+}
+
+void MirrorBall::drawMirrorBall(int numCircles){
+	
+	glPushMatrix();
+	
+	for (int i=1; i< numCircles; i++) {
+		
+		glTranslated(0.0006*i*i, -0.0006*i*i, 0);
+
+		int numDots =  i*i-1;
+		
+		for (int j=0; j < numDots; j++) {
 			glPushMatrix();
 			
-			glRotated(1.0*((i*i)/j), 0, 0, 1.0);
-			
-			glTranslated(0, i*0.2, 0);
+			glRotatef((rotation*360.0)/i, 0, 0, 1.0);
 
-			mirrorBallImage.draw(-0.02,-0.02,0.04,0.04);
+			glRotatef((j/(1.0*numDots))*360.0, 0, 0, 1.0);
+			
+			glTranslated(0, ((i-1)*0.09)*(i*0.12), 0);
+			
+			ofCircle(sin(j*10020.6)*0.003*((i+2)-(numCircles*1.0/i)), sin(j*10000.6)*0.003*((i+2)-(numCircles*1.0/i)), 0.01);
+			
+			//mirrorBallImage.draw(-0.02,-0.02,0.04,0.04);
 			
 			glPopMatrix();
 			
 		}
 		
 	}
-	ofPopStyle();
-	
 	glPopMatrix();
-}
-
-void MirrorBall::update(){
 	
 }
 
