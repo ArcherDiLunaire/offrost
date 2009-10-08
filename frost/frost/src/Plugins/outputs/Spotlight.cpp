@@ -26,6 +26,7 @@ void Spotlight::setup(){
 	minX = 0.0;
 	maxY = 0.0;
 	minY = 0.0;
+	inertia = 0.0;
 	spotlightImage.loadImage("spotlight.png");
 }
 
@@ -79,7 +80,7 @@ void Spotlight::update(){
 		
 		for(int i=0;i<blob(cam)->numBlobs();i++){
 			
-			if(blob(cam)->getBlob(i).area > 0.001){
+			if(blob(cam)->getBlob(i).area > 0.0005){
 				ofxVec2f c = (blob(cam)-> getBlob(i).centroid);
 				
 				if(c.x < minX)
@@ -112,15 +113,17 @@ void Spotlight::update(){
 			radiusDst = 0.0;
 			radius *=.9;
 		} else {
-			center = ofxVec2f(0.5,0.5);
-			centerDst = ofxVec2f(0.5,0.5);
-			radiusDst = 0.0;
-			radius = 0.0;
+//			center = ofxVec2f(0.5,0.5);
+//			centerDst = ofxVec2f(0.5,0.5);
+//			radiusDst = 0.0;
+//			radius = 0.0;
 		}
 
 	}
+	
+	inertia = inertia * 0.99 + (centerDst - center).length()*0.02;
 
-	center += ((centerDst - center).length() < 0.04)?(centerDst - center) * 0.0005:(centerDst - center) * 0.01;
+	center += ((centerDst - center).length() < 0.04 && inertia < 0.075)?(centerDst - center) * 0.001:(centerDst - center) * inertia;
 	radius += (fabs(radiusDst - radius) < 0.04)?0:fmin(fabs(radiusDst - radius) * 0.005 ,0.025)*((radiusDst - radius < 0)?-0.25:1.0);
 	
 	radius = 0.2;

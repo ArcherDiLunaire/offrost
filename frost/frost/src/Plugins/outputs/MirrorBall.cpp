@@ -14,13 +14,17 @@
 MirrorBall::MirrorBall(){
 	type = OUTPUT;
 
+	rotationDirection = 0;
+		
+	center = ofxVec2f(0.5,0.5);
+	
 	cam = 0;
 }
 
 #pragma mark Callback methods
 
 void MirrorBall::setup(){
-	
+	mirrorBallImage.loadImage("spotlight.png");
 }
 
 void MirrorBall::draw(){
@@ -28,9 +32,33 @@ void MirrorBall::draw(){
 }
 
 void MirrorBall::drawOnFloor(){
+	glPushMatrix();
+
+	glTranslated(0.5*projection()->getFloor()->aspect, 0.5, 0);
 	
+	for (int i=1; i< 3; i++) {
+		for (int j=1; j < i*i; i++) {
+			
+			glPushMatrix();
+
+			glRotated(1.0*(1.0*i/j), 0, 0, 1.0);
+
+			glTranslated(0, i*0.1, 0);
+			
+			mirrorBallImage.draw(-0.02,-0.02,0.04,0.04);
+
+			
+			glPopMatrix();
+			
+		}
+	}
+	glPopMatrix();
 }
 
 void MirrorBall::update(){
+	
+}
+
+void MirrorBall:: addDot(float x, float y){
 	
 }

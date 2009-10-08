@@ -18,11 +18,21 @@ public:
 	
 	MirrorBall();
 	
+	ofImage mirrorBallImage;
+	
 	void setup();
 	void drawOnFloor();
 	void draw();
 	void update();
+	void addDot(float x, float y);
+	
 	
 	int cam;
+	
+	float rotationDirection;
+	
+	vector<ofxVec2f> dots;
+	
+	ofxVec2f center;
 	
 };

@@ -36,4 +36,6 @@ public:
 	
 	ofImage spotlightImage;
 
+	float inertia;
+
 };
