@@ -140,6 +140,24 @@
 	
 	IBOutlet NSView *MirrorBallView;
 	
+	IBOutlet frostSlider * MirrorBallMasterAlpha;
+	
+	IBOutlet frostCheckbox * MirrorBallReflection1DotAdd;
+	IBOutlet frostCheckbox * MirrorBallReflection1DotRemove;
+	IBOutlet frostCheckbox * MirrorBallReflection1Clear;
+
+	IBOutlet frostSlider * MirrorBallReflection1OnFraction;
+	IBOutlet frostSlider * MirrorBallReflection1AlphaFraction;
+	
+	IBOutlet frostCheckbox * MirrorBallReflection2DotAdd;
+	IBOutlet frostCheckbox * MirrorBallReflection2DotRemove;
+	IBOutlet frostCheckbox * MirrorBallReflection2Clear;
+	
+	IBOutlet frostSlider * MirrorBallReflection2OnFraction;
+	IBOutlet frostSlider * MirrorBallReflection2AlphaFraction;
+	
+	IBOutlet frostSlider * MirrorBallRotationFactor;
+	
 #pragma mark LEDGrid outlets
 	
 	IBOutlet NSView *LEDGridlView;
@@ -346,6 +364,18 @@
 -(IBAction) modifyBlobHistoryAddSnapshot:(id)sender;
 -(IBAction) modifyBlobHistoryRemoveSnapshot:(id)sender;
 -(IBAction) modifyBlobHistoryClearSnapshots:(id)sender;
+
+#pragma mark MirrorBall Actions
+
+-(IBAction) modifyMirrorBall1AddReflection:(id)sender;
+-(IBAction) modifyMirrorBall1RemoveReflection:(id)sender;
+-(IBAction) modifyMirrorBall1ClearReflections:(id)sender;
+
+-(IBAction) modifyMirrorBall2AddReflection:(id)sender;
+-(IBAction) modifyMirrorBall2RemoveReflection:(id)sender;
+-(IBAction) modifyMirrorBall2ClearReflections:(id)sender;
+
+# pragma mark Callbacks
 
 -(void)			awakeFromNib;
 -(void)			cameraUpdateGUIDs;

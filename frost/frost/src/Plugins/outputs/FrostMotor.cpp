@@ -250,7 +250,6 @@ void FrostMotor::update(){
 		}		
 	}
 	
-	
 	bodyPoints.clear();
 	bodyCenters.clear();
 	freezePoints.clear();

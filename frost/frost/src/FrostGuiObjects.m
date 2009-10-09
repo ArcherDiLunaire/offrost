@@ -46,6 +46,7 @@
 	[button setAction: @selector(changeValueFromControl:)];
 	[button setButtonType: NSSwitchButton ];
 	[button setTitle:[self title]];
+	[button setCell:[self cell]];
 	
 	[self addSubview:button];
 	
