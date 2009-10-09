@@ -97,7 +97,7 @@
 	}
 	
 }
-- (void) hookUpBool:(BOOL*)f{
+- (void) hookUpBool:(bool*)f{
 	hookedUpBool = f;
 	hookedUpToBool = TRUE;
 	*hookedUpBool = [self boolValue];

@@ -107,6 +107,7 @@ OFGuiController * gui = NULL;
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
 	
 	[LaLineaMasterAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->masterAlpha];
+		[LaLineaMaskAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->maskAlpha];
 
 	[LaLineaOffsetX1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.x];
 	[LaLineaOffsetY1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.y];

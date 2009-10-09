@@ -16,7 +16,7 @@ MoonDust::MoonDust(){
 	min = 0.2;
 	max = 0.5;
 	
-	rotation = 55;
+	rotation = 47;
 	size = 0.007;
 	length=3000.0;
 	density = 1.0;
@@ -107,7 +107,7 @@ void MoonDust::update(){
 		}  else {
 			for(int u=0;u<sections;u++){
 				if(particles[i].pos().y < (u+1)*1.0/sections){
-					if(u  < lowestSection+3){
+					if(u  < lowestSection+6){
 						particles[i].visible = true;
 					}
 					bMin = -section[u];

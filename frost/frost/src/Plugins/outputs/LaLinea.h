@@ -41,4 +41,6 @@ public:
 	
 	bool tracking;
 	
+	float maskAlpha;
+	
 };

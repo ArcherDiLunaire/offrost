@@ -15,7 +15,21 @@ void Folding::setup(){
 	historyImgTemp.allocate(blob(cam)->grayDiff.width,blob(cam)->grayDiff.height);
 	historyImgTemp.set(0);
 	
-	fbo.allocate(640, 480, true);
+	histPos = 0;
+	
+	for(int i=0;i<25.0*10;i++){
+		ofxCvGrayscaleImage  img;
+		img.allocate(blob(cam)->grayDiff.width,blob(cam)->grayDiff.height);
+		img.set(0);
+		history.push_back(img);
+		
+		ofxCvGrayscaleImage  img2;
+		img2.allocate(blob(cam)->grayDiff.width,blob(cam)->grayDiff.height);
+		img2.set(0);
+		now.push_back(img2);
+	}
+	
+	//	fbo.allocate(640, 480, true);
 	
 }
 
@@ -25,14 +39,23 @@ void Folding::update(){
 	// float historyMultipler = 1.0+(-pow(historyAddMultiplier-1.0, 2));
 	if (getPlugin<Cameras*>(controller)->isFrameNew(cam) ) {
 		float historyMultipler = 1.0+(pow(historyAddMultiplier-1.0, 3));
-		now.push_back(blob(cam)->grayDiff);
 		cvAddWeighted( historyImg.getCvImage(),historyMultipler, blob(cam)->grayDiff.getCvImage(),1, -0.25, historyImgTemp.getCvImage());
 		historyImg = historyImgTemp;
-		history.push_back(historyImg);
-		while(history.size() > 10*50){
-			history.erase(history.begin());
-			now.erase(now.begin());
-		}
+		historyImg.blur(9);
+		
+		
+		
+		//		*img = historyImg;
+		cvCopy(historyImg.getCvImage(), history[histPos].getCvImage());
+		history[histPos] = historyImg;
+		history[histPos].flagImageChanged();
+		
+		cvCopy(blob(cam)->grayDiff.getCvImage(), now[histPos].getCvImage());
+		now[histPos].flagImageChanged();
+		
+		histPos ++;
+		if(histPos >= history.size())
+			histPos = 0;
 	}
 	
 	/*if (getPlugin<Cameras*>(controller)->isFrameNew(cam) || blob(cam)->mouseBlob ) {
@@ -71,50 +94,53 @@ void Folding::update(){
 }
 
 void Folding::draw(){
-	ofPushStyle();
+	//ofPushStyle();
 	ofEnableAlphaBlending();
 	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
+	ofSetColor(255, 255,255);
+	
+	
 	projection()->applyCurtainProjection(0, 0);
-	ofSetColor(255, 255,255);
-	//ofRect(0, 0, 1, 1);
-	glPushMatrix();
 	glTranslated(-1.4, 0.4, 0);
 	glRotated(-25, 0, 0, 1.0);
-	historyImg.draw(0,0,4,4);
+	//historyImg.draw(0,0,4,4);
+	if(histPos > 0){
+		history[histPos-1].draw(0,0,4,4);
+		now[histPos-1].draw(0,0,4,4);
+	}
 	//blob(cam)->grayDiff.draw(0,0,4,4);
-	glPopMatrix();
+	glPopMatrix();	
 	
-	ofPopStyle();
 	
-	ofPushStyle();
-	ofEnableAlphaBlending();
-	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
 	projection()->applyCurtainProjection(0, 1);
-	ofSetColor(255, 255,255);
-	//ofRect(0, 0, 1, 1);
-	glPushMatrix();
 	glTranslated(-1.4, 0.4, 0);
 	glRotated(-25, 0, 0, 1.0);
-	historyImg.draw(0,0,4,4);
-	//blob(cam)->grayDiff.draw(0,0,4,4);
-	glPopMatrix();
+	//historyImg.draw(0,0,4,4);
 	
-	ofPopStyle();
+	int b = histPos - 25.0*3;
+	if(b < 0){
+		b = history.size() + b;
+	}	
+	history[b].draw(0,0,4,4);	
+	now[b].draw(0,0,4,4);	
+
+	glPopMatrix();	
 	
-	ofPushStyle();
-	ofEnableAlphaBlending();
-	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
+	
 	projection()->applyCurtainProjection(0, 2);
-	ofSetColor(255, 255,255);
-	//ofRect(0, 0, 1, 1);
-	glPushMatrix();
 	glTranslated(-1.4, 0.4, 0);
 	glRotated(-25, 0, 0, 1.0);
-	historyImg.draw(0,0,4,4);
-	//blob(cam)->grayDiff.draw(0,0,4,4);
-	glPopMatrix();
+	//historyImg.draw(0,0,4,4);
 	
-	ofPopStyle();
+	b = histPos - 25.0*6;
+	if(b < 0){
+		b = history.size() + b;
+	}	
+	history[b].draw(0,0,4,4);	
+	now[b].draw(0,0,4,4);	
+	glPopMatrix();	
+	
+	
 	
 	
 	/*

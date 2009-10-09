@@ -31,9 +31,9 @@
 	[self hookupSlider:gui->MoonDustDensity onChannel:4 onNumber:4 controlChanges:true noteChanges:false scale:10000.0/127.0];
 	[self hookupSlider:gui->MoonDustSize onChannel:4 onNumber:5 controlChanges:true noteChanges:false scale:0.1/127.0];
 	[self hookupSlider:gui->MoonDustColumnAlpha onChannel:4 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
-
+	
 	[self hookupSlider:gui->foldingHistoryAddMultiplier onChannel:8 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
-
+	
 	
 	[self hookupSlider:gui->FrostscapeMasterAlpha onChannel:9 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider1 onChannel:9 onNumber:2 controlChanges:true noteChanges:false scale:10.0/127.0];
@@ -46,14 +46,15 @@
 	[self hookupSlider:gui->FrostScapeSlider4 onChannel:9 onNumber:9 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupButton:gui->FrostscapeInvert onChannel:9 onNumber:12 controlChanges:true noteChanges:false];
 	[self hookupSlider:gui->FrostscapeWhiteBackground onChannel:9 onNumber:13 controlChanges:true noteChanges:false scale:1.0/127.0];
-
-	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
-	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:6 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	
 	[self hookupSlider:gui->LaLineaFloorSpeed onChannel:6 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorDirSpeed onChannel:6 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorWidth onChannel:6 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorCurl onChannel:6 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaMaskAlpha onChannel:6 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 	// set gui info for booleans
 	
@@ -200,13 +201,13 @@
 					[gui frostscapeEmptyIce:self];
 					cout<<"EMPTY ICE"<<endl;
 				}
-
+				
 				if(number == 11 && value > 0){
 					[gui frostscapeFillIce:self];
 				}
 			}
-
-
+			
+			
 			
 		}
 		

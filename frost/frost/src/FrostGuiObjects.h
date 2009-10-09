@@ -28,7 +28,7 @@
 - (id) initWithFrame:(NSRect)frame;
 - (void) awakeFromNib;
 - (void) changeValueFromControl:(id)sender;
-- (void) hookUpBool:(BOOL*)f;
+- (void) hookUpBool:(bool*)f;
 - (BOOL) boolValue;
 
 @end

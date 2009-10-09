@@ -31,7 +31,7 @@ void BlobHistory::draw(){
 }
 
 void BlobHistory::drawOnFloor(){
-	motor.draw();
+	//motor.draw();
 	ofPushStyle();
 
 	ofEnableAlphaBlending();

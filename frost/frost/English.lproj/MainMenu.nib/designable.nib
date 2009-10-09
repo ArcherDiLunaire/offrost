@@ -11,7 +11,8 @@
 			<string key="NS.object.0">732</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="2261"/>
+			<integer value="2037"/>
+			<integer value="1938"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1349,6 +1350,8 @@
 					<string>blobHistory.historyDelay</string>
 					<string>blobHistory.historyRecording</string>
 					<string>spotlight.masterAlpha</string>
+					<string>lalineafloor.curl</string>
+					<string>lalinea.maskAlpha</string>
 				</array>
 				<bool key="NSAppliesImmediately">YES</bool>
 			</object>
@@ -3410,7 +3413,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="950406195">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="355892590">
@@ -3510,6 +3513,43 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 												<string key="NSKeyEquivalent"/>
 												<int key="NSPeriodicDelay">200</int>
 												<int key="NSPeriodicInterval">25</int>
+											</object>
+										</object>
+										<object class="NSSlider" id="374408370">
+											<reference key="NSNextResponder" ref="617669593"/>
+											<int key="NSvFlags">268</int>
+											<string key="NSFrame">{{265, 45}, {341, 21}}</string>
+											<reference key="NSSuperview" ref="617669593"/>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSSliderCell" key="NSCell" id="474014554">
+												<int key="NSCellFlags">67501824</int>
+												<int key="NSCellFlags2">0</int>
+												<string key="NSContents"/>
+												<reference key="NSControlView" ref="374408370"/>
+												<double key="NSMaxValue">1</double>
+												<double key="NSMinValue">0.0</double>
+												<double key="NSValue">0.0</double>
+												<double key="NSAltIncValue">0.0</double>
+												<int key="NSNumberOfTickMarks">0</int>
+												<int key="NSTickMarkPosition">1</int>
+												<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
+												<bool key="NSVertical">NO</bool>
+											</object>
+										</object>
+										<object class="NSTextField" id="331344250">
+											<reference key="NSNextResponder" ref="617669593"/>
+											<int key="NSvFlags">266</int>
+											<string key="NSFrame">{{609, 47}, {121, 17}}</string>
+											<reference key="NSSuperview" ref="617669593"/>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSTextFieldCell" key="NSCell" id="794151881">
+												<int key="NSCellFlags">68288064</int>
+												<int key="NSCellFlags2">272630784</int>
+												<string key="NSContents">Mask Alpha</string>
+												<reference key="NSSupport" ref="60092098"/>
+												<reference key="NSControlView" ref="331344250"/>
+												<reference key="NSBackgroundColor" ref="221014484"/>
+												<reference key="NSTextColor" ref="394756801"/>
 											</object>
 										</object>
 									</array>
@@ -3790,6 +3830,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{1074, 500}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -4152,7 +4193,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="852388809">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="408362678">
@@ -4315,6 +4356,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{1074, 500}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -5022,7 +5064,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="13359247">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="386083665">
@@ -5492,7 +5534,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{1074, 500}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -9232,22 +9273,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<int key="connectionID">2177</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.lalineafloor.width</string>
-						<reference key="source" ref="233943148"/>
-						<reference key="destination" ref="69454326"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="233943148"/>
-							<reference key="NSDestination" ref="69454326"/>
-							<string key="NSLabel">value: values.lalineafloor.width</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.lalineafloor.width</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">2191</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">LaLineaFloorCurl</string>
 						<reference key="source" ref="716592705"/>
@@ -9758,6 +9783,30 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="destination" ref="344504165"/>
 					</object>
 					<int key="connectionID">2618</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.lalineafloor.curl</string>
+						<reference key="source" ref="233943148"/>
+						<reference key="destination" ref="69454326"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="233943148"/>
+							<reference key="NSDestination" ref="69454326"/>
+							<string key="NSLabel">value: values.lalineafloor.curl</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.lalineafloor.curl</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">2619</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">LaLineaMaskAlpha</string>
+						<reference key="source" ref="716592705"/>
+						<reference key="destination" ref="374408370"/>
+					</object>
+					<int key="connectionID">2628</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -11699,6 +11748,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="61151165"/>
 							<reference ref="115025176"/>
 							<reference ref="158376475"/>
+							<reference ref="331344250"/>
+							<reference ref="374408370"/>
 						</array>
 						<reference key="parent" ref="950406195"/>
 					</object>
@@ -13830,6 +13881,32 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="508365527"/>
 						<reference key="parent" ref="204525549"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2620</int>
+						<reference key="object" ref="374408370"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="474014554"/>
+						</array>
+						<reference key="parent" ref="811586554"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2623</int>
+						<reference key="object" ref="474014554"/>
+						<reference key="parent" ref="374408370"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2621</int>
+						<reference key="object" ref="331344250"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="794151881"/>
+						</array>
+						<reference key="parent" ref="811586554"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2622</int>
+						<reference key="object" ref="794151881"/>
+						<reference key="parent" ref="331344250"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -13923,9 +14000,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="1455.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="149.ImportedFromIB2"/>
-				<string key="1492.IBEditorWindowLastContentRect">{{379, 58}, {1074, 500}}</string>
+				<string key="1492.IBEditorWindowLastContentRect">{{379, 60}, {1074, 500}}</string>
 				<string key="1492.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1492.IBWindowTemplateEditedContentRect">{{379, 58}, {1074, 500}}</string>
+				<string key="1492.IBWindowTemplateEditedContentRect">{{379, 60}, {1074, 500}}</string>
 				<boolean value="NO" key="1492.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="1493.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1494.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -14253,9 +14330,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="2255.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="226.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="226.ImportedFromIB2"/>
-				<string key="2260.IBEditorWindowLastContentRect">{{324, 188}, {1074, 500}}</string>
+				<string key="2260.IBEditorWindowLastContentRect">{{353, 188}, {1074, 500}}</string>
 				<string key="2260.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="2260.IBWindowTemplateEditedContentRect">{{324, 188}, {1074, 500}}</string>
+				<string key="2260.IBWindowTemplateEditedContentRect">{{353, 188}, {1074, 500}}</string>
 				<boolean value="NO" key="2260.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="2261.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2262.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -14442,6 +14519,11 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="2597.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2598.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2599.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2620.CustomClassName">frostSlider</string>
+				<string key="2620.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2621.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2622.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2623.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="275.IBEditorWindowLastContentRect">{{468, 108}, {1072, 816}}</string>
 				<string key="275.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="275.IBWindowTemplateEditedContentRect">{{468, 108}, {1072, 816}}</string>
@@ -14618,7 +14700,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">2618</int>
+			<int key="maxID">2628</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -14831,6 +14913,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="LaLineaFloorSpeed">frostSlider</string>
 						<string key="LaLineaFloorWidth">frostSlider</string>
 						<string key="LaLineaLockOffsetSliders">NSButton</string>
+						<string key="LaLineaMaskAlpha">frostSlider</string>
 						<string key="LaLineaMasterAlpha">frostSlider</string>
 						<string key="LaLineaOffsetX1">frostSlider</string>
 						<string key="LaLineaOffsetX2">frostSlider</string>

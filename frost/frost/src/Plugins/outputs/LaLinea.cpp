@@ -27,7 +27,7 @@ void LaLinea::update(){
 void LaLinea::useFilm(){
 	bUsingFilm = getPlugin<Cameras*>(controller)->videoPlayerActive(cam);
 	if(!bUsingFilm){
-		getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLineaNelson2.mov");
+		getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLineaEdhamMixed.mov");
 		getPlugin<Cameras*>(controller)->videoPlayerActivate(cam);
 		getPlugin<Cameras*>(controller)->videoPlayerPlay(cam);
 		bUsingFilm = true;
@@ -150,7 +150,7 @@ void LaLinea::drawOnWall(){
 	
 	ofFill();
 	
-	glColor4f(0.0, 0.0, 0.0, 1.0);
+	glColor4f(0.0, 0.0, 0.0, maskAlpha);
 	
 	glPopMatrix();
 	
@@ -166,11 +166,7 @@ void LaLinea::drawOnWall(){
 	
 	glPopMatrix();
 	
-	projection()->applyCurtainProjection(1, 2);
 	
-	ofRect(0.0, yPosition, 1000, 1000);
-	
-	glPopMatrix();
 	
 	for(int i=0;i<3;i++){
 		projection()->applyProjection(projection()->getColumn(i));

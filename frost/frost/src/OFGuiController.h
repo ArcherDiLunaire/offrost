@@ -99,6 +99,8 @@
 	IBOutlet frostSlider * LaLineaFloorWidth;	
 	IBOutlet frostSlider * LaLineaFloorDirSpeed;
 	IBOutlet frostSlider * LaLineaFloorCurl;
+	IBOutlet frostSlider * LaLineaMaskAlpha;
+
 	IBOutlet NSButton * LaLineaFloorReset;
 
 #pragma mark Blob Light Outlets

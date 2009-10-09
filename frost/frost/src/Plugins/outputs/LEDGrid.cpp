@@ -84,16 +84,16 @@ void LEDGrid::draw(){
 }
 
 void LEDGrid::drawOnFloor(){
-/*	for(int i=0;i<lamps.size();i++){
+	for(int i=0;i<lamps.size();i++){
 		
 //		ofSetColor(255*lamps[i].r, 255*lamps[i].g, 255*lamps[i].b);
 		ofSetColor(255, 0, 0);
 		ofFill();
-		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1*lamps[i].a/255.0,  0.1*lamps[i].a/255.0)	;
-		ofNoFill();
-		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1,  0.1)	;
+		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1*lamps[i].b/255.0,  0.1*lamps[i].b/255.0)	;
+		/*ofNoFill();
+		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1,  0.1)	;*/
 
-	}*/
+	}
 	
 }
 
@@ -132,7 +132,7 @@ void LEDGrid::update(){
 						a = 1;*/
 					lamps[i].a =255;
 					lamps[i].r = 0;		
-					lamps[i].g += (120*(1.0-a)-lamps[i].g ) * 0.2;		
+					lamps[i].g = 0;// (120*(1.0-a)-lamps[i].g ) * 0.2;		
 					lamps[i].b += (255*a-lamps[i].b  ) * 0.2;		
 					
 					if(lamps[i].a > 254){

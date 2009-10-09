@@ -118,6 +118,8 @@ void Frostscape::draw(){
 }
 
 void Frostscape::drawOnFloor(){
+	invert = false;
+
 	if(invert){
 		ofFill();
 		ofSetColor(255, 255, 255,255);

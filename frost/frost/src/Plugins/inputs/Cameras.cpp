@@ -67,14 +67,15 @@ void Cameras::setup(){
 	 }
 	 //**/
 	
+	
 	/**	
-	 if(videoPlayerLoadUrl(1, "Prints.mov")){
+	 if(videoPlayerLoadUrl(0, "FilmFrostscape.mov")){
 	 cout << "                      FILMEN LOADET" << endl;
 	 } else {
 	 cout << "                      FILMEN ikke LOADET" << endl;
 	 }
-	 videoPlayerPlay(1);
-	 videoPlayerActivate(1);
+	 videoPlayerPlay(0);
+	 videoPlayerActivate(0);
 	 //**/
 
 	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();

@@ -5,7 +5,7 @@
 #include "ofxMSASpline.h"
 #include "contourSimplify.h"
 #include "contourNormals.h"
-#include "ofFBOTexture.h"
+//#include "ofFBOTexture.h"
 
 class Folding : public Output{
 public:
@@ -27,9 +27,11 @@ public:
 	
 	vector<GLuint> blobHistoryMatrixDisplayList;
 	
-	ofFBOTexture fbo;
+//	ofFBOTexture fbo;
 	ofTexture tex;
 	
 	vector<ofxCvGrayscaleImage> history;
 	vector<ofxCvGrayscaleImage> now;
+	
+	int histPos;
 };

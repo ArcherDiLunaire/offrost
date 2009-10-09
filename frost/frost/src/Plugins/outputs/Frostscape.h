@@ -38,7 +38,7 @@ public:
 	
 	float sideFreeze;
 	float columnFreeze;
-		BOOL invert;
+		bool invert;
 	
 	float whiteBackground;
 	
