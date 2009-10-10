@@ -91,7 +91,10 @@ OFGuiController * gui = NULL;
 	
 	
 	[FrostscapeSideFreeze hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->sideFreeze];
-	[FrostscapeColumnFreeze hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->columnFreeze];
+	[FrostscapeColumnFreeze1 hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->columnFreeze[0]];
+	[FrostscapeColumnFreeze2 hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->columnFreeze[1]];
+	[FrostscapeColumnFreeze3 hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->columnFreeze[2]];
+	[FrostscapeFreezeColumns hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->freezeColumns];
 	[FrostscapeInvert hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->invert];
 	[FrostscapeMasterAlpha hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->masterAlpha];
 	[FrostscapeWhiteBackground hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->whiteBackground];

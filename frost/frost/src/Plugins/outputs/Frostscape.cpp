@@ -29,6 +29,7 @@ void Frostscape::setup(){
 }
 
 void Frostscape::update(){
+	invert = false;
 	motor.centerBreakRate =  Frostscape::slider1;
 	motor.bodyBreakRate =  Frostscape::slider2;	
 	motor.decreaseRate = Frostscape::slider5*10;
@@ -70,19 +71,19 @@ void Frostscape::update(){
 	 }
 	 }*/
 	
-	if(columnFreeze  > 0){
-		for(int i=0;i<3;i++){
-	//	int i=1;
+	
+	for(int i=0;i<3;i++){
+		cout<<i<<"  "<<columnFreeze[i]<<endl;
+		if(columnFreeze[i] > 0){
+			//	int i=1;
 			columnParticlePos[i] += 0.02;	
-			if(columnParticlePos[i] > 0.8){
-				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze);	
+			if(columnParticlePos[i] > 1 && columnParticlePos[i] < 1.3){
+				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]);	
 			}
+		}else {
+				columnParticlePos[i] = ofRandom(-0.5, -0.1);	
 		}
-	} else {
-		for(int i=0;i<3;i++){
-			columnParticlePos[i] = ofRandom(-0.5, -0.1);	
-		}
-	}
+	} 
 	///*
 	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),6);i++){
 		PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
@@ -119,7 +120,7 @@ void Frostscape::draw(){
 
 void Frostscape::drawOnFloor(){
 	invert = false;
-
+	
 	if(invert){
 		ofFill();
 		ofSetColor(255, 255, 255,255);
@@ -137,22 +138,22 @@ void Frostscape::drawOnFloor(){
 	
 	for(int i=0;i<3;i++){
 		projection()->applyProjection(projection()->getColumn(i));
-	
+		
 		ofFill();
 		ofSetColor(255, 255, 255, 255);
 		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);
 		
 		ofFill();
 		ofSetColor(0, 0, 0, 255);
-		ofRect(0, 0, projection()->getColumn(i)->aspect, columnParticlePos[i]);
+		ofRect(0, 0, projection()->getColumn(i)->aspect, MIN( columnParticlePos[i],1));
 		
 		/*if(columnParticlePos[i] < 1-projection()->getColumn(i)->aspect/2.0){
-			ofSetColor(0, 0, 0, 255);
-			ofEllipse(projection()->getColumn(i)->aspect/2.0, columnParticlePos[i], projection()->getColumn(i)->aspect,projection()->getColumn(i)->aspect);
-		}*/
+		 ofSetColor(0, 0, 0, 255);
+		 ofEllipse(projection()->getColumn(i)->aspect/2.0, columnParticlePos[i], projection()->getColumn(i)->aspect,projection()->getColumn(i)->aspect);
+		 }*/
 		
 		glPopMatrix();
-
+		
 	}
 }
 

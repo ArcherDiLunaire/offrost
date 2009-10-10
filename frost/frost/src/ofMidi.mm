@@ -42,7 +42,7 @@
 	[self hookupSlider:gui->FrostScapeSlider5 onChannel:9 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider6 onChannel:9 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostscapeSideFreeze onChannel:9 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->FrostscapeColumnFreeze onChannel:9 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostscapeColumnFreeze1 onChannel:9 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider4 onChannel:9 onNumber:9 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupButton:gui->FrostscapeInvert onChannel:9 onNumber:12 controlChanges:true noteChanges:false];
 	[self hookupSlider:gui->FrostscapeWhiteBackground onChannel:9 onNumber:13 controlChanges:true noteChanges:false scale:1.0/127.0];

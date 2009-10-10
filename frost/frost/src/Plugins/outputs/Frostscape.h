@@ -37,7 +37,8 @@ public:
 	void emptyIce();
 	
 	float sideFreeze;
-	float columnFreeze;
+	float columnFreeze[3];
+	float freezeColumns;
 		bool invert;
 	
 	float whiteBackground;

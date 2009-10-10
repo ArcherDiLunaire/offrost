@@ -180,7 +180,11 @@
 	IBOutlet frostSlider * FrostScapeSlider6;
 	
 	IBOutlet frostSlider * FrostscapeSideFreeze;
-	IBOutlet frostSlider * FrostscapeColumnFreeze;
+	IBOutlet frostSlider * FrostscapeColumnFreeze1;
+	IBOutlet frostSlider * FrostscapeColumnFreeze2;
+	IBOutlet frostSlider * FrostscapeColumnFreeze3;
+	IBOutlet frostSlider * FrostscapeFreezeColumns;
+
 	IBOutlet frostSlider * FrostscapeWhiteBackground;
 
 	IBOutlet frostCheckbox * FrostscapeInvert;
