@@ -231,6 +231,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -290,7 +292,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {325, 727}}</string>
+							<string>{{0, 722}, {325, 727}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -318,8 +320,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -334,10 +334,6 @@
 										<string>DD4F16BE1047336400D10100</string>
 										<key>PBXProjectModuleLabel</key>
 										<string>Frostscape.cpp</string>
-										<key>_historyCapacity</key>
-										<integer>0</integer>
-										<key>bookmark</key>
-										<string>DDF732961080A6A9004DBB9B</string>
 										<key>history</key>
 										<array>
 											<string>DDB84A26105BFC4400D1ED92</string>
@@ -520,7 +516,6 @@
 											<string>DDF732741080A527004DBB9B</string>
 											<string>DDF732751080A527004DBB9B</string>
 											<string>DDF732761080A527004DBB9B</string>
-											<string>DDF732891080A5B3004DBB9B</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -534,18 +529,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1093, 578}}</string>
+								<string>{{0, 0}, {1093, 573}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 92 1440 786 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>578pt</string>
+							<string>573pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>162pt</string>
+							<string>167pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -559,7 +554,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1093, 135}}</string>
+										<string>{{10, 27}, {1093, 140}}</string>
+										<key>RubberWindowFrame</key>
+										<string>0 92 1440 786 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -635,8 +632,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {1093, 135}}</string>
-										<key>RubberWindowFrame</key>
-										<string>0 92 1440 786 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -664,11 +659,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DDF7327A1080A52B004DBB9B</string>
+				<string>DDF732A11080F37E004DBB9B</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>DDF7327B1080A52B004DBB9B</string>
+				<string>DDF732A21080F37E004DBB9B</string>
 				<string>DD4F16BD1047336400D10100</string>
-				<string>DDF7327C1080A52B004DBB9B</string>
+				<string>DDF732A31080F37E004DBB9B</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -857,8 +852,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DDF732831080A52B004DBB9B</string>
-		<string>DDF732841080A52B004DBB9B</string>
 		<string>/Users/jonas/Documents/udvilking/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/openFrameworks.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

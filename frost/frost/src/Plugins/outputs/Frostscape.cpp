@@ -73,15 +73,16 @@ void Frostscape::update(){
 	
 	
 	for(int i=0;i<3;i++){
-		cout<<i<<"  "<<columnFreeze[i]<<endl;
 		if(columnFreeze[i] > 0){
 			//	int i=1;
+
 			columnParticlePos[i] += 0.02;	
 			if(columnParticlePos[i] > 1 && columnParticlePos[i] < 1.3){
 				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]);	
 			}
+
 		}else {
-				columnParticlePos[i] = ofRandom(-0.5, -0.1);	
+			columnParticlePos[i] = ofRandom(-0.5, -0.1);	
 		}
 	} 
 	///*
