@@ -14,7 +14,7 @@ LaLineaFloor::LaLineaFloor(){
 void LaLineaFloor::setup(){
 	dir = ofxVec2f(1,0);
 	reset();
-	
+	texture.loadImage("lineTexture.png");
 }
 
 void LaLineaFloor::update(){
@@ -34,7 +34,12 @@ void LaLineaFloor::update(){
 		ofxVec2f v = goal - pos;
 		v.normalize();
 		
-		dir += v*(itIsClose?0.01:ofRandom(0.001,0.003));
+		//dir += v*(itIsClose?0.01:ofRandom(0.001,0.003));
+		dir += v*ofRandom(0.001,0.003)*dirSpeed;
+		float angle = dir.angle(v);
+//		cout<<angle<<endl;
+		dir.rotate(angle*ofRandom(0.001,0.003)*dirSpeed);
+		
 		dir.normalize();
 		if(itIsClose){
 			dir *= 2;
@@ -63,9 +68,12 @@ void LaLineaFloor::drawOnFloor(){
 	ofPushStyle();
 	glColor4f(1.0, 1.0,1.0, masterAlpha);
 	ofEnableSmoothing();
+	ofEnableAlphaBlending();
 	if(pnts.size() > 1){
+		texture.getTextureReference().bind();
 		glBegin(GL_QUAD_STRIP);
-		
+		glNormal3f( 0.0f, 0.0f, 1.0f);      // Normal Pointing Towards
+
 		for(int i=0;i<pnts.size()-1;i++){
 			ofxVec2f v = pnts[i+1] - pnts[i];
 			ofxVec2f hat;
@@ -73,10 +81,14 @@ void LaLineaFloor::drawOnFloor(){
 			hat.y = v.x;
 			hat.normalize();
 			hat *= 0.02*width;
+			glTexCoord2f(0.0f, 0.0f);    
 			glVertex2f(pnts[i].x-hat.x, pnts[i].y-hat.y);
+			glTexCoord2f(50, 0.0f);     
 			glVertex2f(pnts[i].x+hat.x, pnts[i].y+hat.y);
 		}
 		glEnd();
+		texture.getTextureReference().unbind();
+
 	}
 	ofPopStyle();
 	
