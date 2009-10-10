@@ -5,11 +5,23 @@
 #include "ofxMSAFluid.h"
 #include "msaColor.h"
 
+class ring {
+public:
+	float size;
+	float age;
+	ofxPoint2f center;
+	float speed;
+	float height ;
+	int column;
+};
+
+
 class LiquidSpace : public Output{
 public:
 	LiquidSpace();
 	
 	void setup();
+		void draw();
 	void drawOnFloor();
 	void update();
 	
@@ -50,4 +62,8 @@ public:
 	msaColor dropColor;
 	msaColor fillColor;
 	
+	vector<ring> rings;
+	bool updateMotor;
+	ofImage ringTexture;
+	void addRing(int i);
 };

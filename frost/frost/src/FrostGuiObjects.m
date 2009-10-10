@@ -46,7 +46,7 @@
 	[button setAction: @selector(changeValueFromControl:)];
 	[button setButtonType: NSSwitchButton ];
 	[button setTitle:[self title]];
-	[button setCell:[self cell]];
+//	[button setCell:[self cell]];
 	
 	[self addSubview:button];
 	
@@ -62,11 +62,11 @@
 	}
 }
 
-- (BOOL) boolValue{
+- (bool) boolValue{
 	if([self state] == NSOnState){
-		return TRUE;
+		return true;
 	} else {
-		return FALSE;
+		return false;
 	}
 }
 - (void)drawRect:(NSRect)rect{

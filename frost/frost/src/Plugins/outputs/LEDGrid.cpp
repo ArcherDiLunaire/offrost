@@ -29,7 +29,12 @@ void lamp::update(){
 LEDGrid::LEDGrid(){
 	type = OUTPUT;
 	cam = 0;
-	
+	r = 255;
+	g = 255;
+	b = 255;
+	r2 = 0;
+	g2 = 0;
+	b2 = 0;
 }
 
 #pragma mark Callback methods
@@ -86,10 +91,12 @@ void LEDGrid::draw(){
 void LEDGrid::drawOnFloor(){
 	for(int i=0;i<lamps.size();i++){
 		
-//		ofSetColor(255*lamps[i].r, 255*lamps[i].g, 255*lamps[i].b);
-		ofSetColor(255, 0, 0);
+		ofSetColor(lamps[i].r,lamps[i].g, lamps[i].b);
+//		ofSetColor(255, 0, 0);
 		ofFill();
-		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1*lamps[i].b/255.0,  0.1*lamps[i].b/255.0)	;
+		float a = lamps[i].b + lamps[i].g + lamps[i].r;
+		a /= 255.0*3.0;
+		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1*a,  0.1*a)	;
 		/*ofNoFill();
 		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1,  0.1)	;*/
 
@@ -114,8 +121,8 @@ void LEDGrid::update(){
 					float a = 0;
 					
 					float d = p.distance(lamps[i].pos);
-					d = 0.3-d;
-					a = d*3;
+					d = (radius-d)/radius;
+					a = d;
 					if(a > 1){
 						a = 1;
 					}
@@ -131,9 +138,12 @@ void LEDGrid::update(){
 					else 
 						a = 1;*/
 					lamps[i].a =255;
-					lamps[i].r = 0;		
-					lamps[i].g = 0;// (120*(1.0-a)-lamps[i].g ) * 0.2;		
-					lamps[i].b += (255*a-lamps[i].b  ) * 0.2;		
+					lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.2;		
+					lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.2;		
+					lamps[i].b += ((b-lamps[i].b  )*a + (b2-lamps[i].b  )*(1.0-a) ) * 0.2;		
+
+
+					
 					
 					if(lamps[i].a > 254){
 						lamps[i].a = 254;

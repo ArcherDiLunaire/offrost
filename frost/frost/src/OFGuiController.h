@@ -137,6 +137,11 @@
 	IBOutlet NSView *SpotlightView;
 	IBOutlet frostSlider * SpotlightMasterAlpha;
 	IBOutlet frostSlider * SpotlightRadiusMultiplier;
+
+#pragma mark Spotlight outlets
+	IBOutlet frostSlider * LEDRadius;
+	IBOutlet NSColorWell * LEDblobColor;
+	IBOutlet NSColorWell * LEDbackgroundColor;
 	
 #pragma mark MirrorBall outlets
 	
@@ -194,7 +199,7 @@
 #pragma mark LiquidSpace outlets
 	
 	IBOutlet NSView *liquidSpaceView;
-	
+	IBOutlet frostCheckbox * liquidUpdateMotor;
 	IBOutlet NSButton * liquidSpaceFIll;
 	IBOutlet NSColorWell * liquidSpaceFillColor;
 	IBOutlet NSSlider * liquidSpaceFadeSpeed;
@@ -323,6 +328,10 @@
 
 #pragma mark LiquidSpace Actions
 
+-(IBAction)		liquidAddRing1:(id)sender;
+-(IBAction)		liquidAddRing2:(id)sender;
+-(IBAction)		liquidAddRing3:(id)sender;
+
 -(IBAction)		modifyLiquidSpaceFillColor:(id)sender;
 -(IBAction)		modifylLiquidSpace:(id)sender;
 -(IBAction)		modifyLiquidSpaceFadeSpeed:(id)sender;
@@ -381,6 +390,8 @@
 -(IBAction) modifyMirrorBall2RemoveReflection:(id)sender;
 -(IBAction) modifyMirrorBall2ClearReflections:(id)sender;
 
+-(IBAction) ledSetBlobColor:(id)sender;
+-(IBAction) ledSetBackgroundColor:(id)sender;
 # pragma mark Callbacks
 
 -(void)			awakeFromNib;

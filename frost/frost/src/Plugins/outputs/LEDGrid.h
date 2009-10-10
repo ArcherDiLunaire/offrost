@@ -41,4 +41,9 @@ public:
 
 	bool ok;
 	ofSerial serial;
+	
+	float radius;
+	
+	float r,g,b;
+	float r2,g2,b2;
 };

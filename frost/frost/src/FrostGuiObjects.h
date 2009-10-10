@@ -29,7 +29,7 @@
 - (void) awakeFromNib;
 - (void) changeValueFromControl:(id)sender;
 - (void) hookUpBool:(bool*)f;
-- (BOOL) boolValue;
+- (bool) boolValue;
 
 @end
 

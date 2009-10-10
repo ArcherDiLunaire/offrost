@@ -98,6 +98,10 @@ OFGuiController * gui = NULL;
 	[FrostscapeInvert hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->invert];
 	[FrostscapeMasterAlpha hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->masterAlpha];
 	[FrostscapeWhiteBackground hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->whiteBackground];
+	
+	[liquidUpdateMotor hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->updateMotor];
+	
+	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];
 
 
 	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
@@ -992,6 +996,38 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bClearSnapshots = true;
 	}
 }
+
+-(IBAction)		liquidAddRing1:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(0);
+	}
+}
+-(IBAction)		liquidAddRing2:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(1);
+	}
+}
+-(IBAction)		liquidAddRing3:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(2);
+	}
+}
+
+-(IBAction) ledSetBlobColor:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LEDGrid*>(ofApp->pluginController))->r  = [[sender color] redComponent]*255;
+		(getPlugin<LEDGrid*>(ofApp->pluginController))->g  = [[sender color] greenComponent]*255;
+		(getPlugin<LEDGrid*>(ofApp->pluginController))->b  = [[sender color] blueComponent]*255;
+	}
+}
+-(IBAction) ledSetBackgroundColor:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LEDGrid*>(ofApp->pluginController))->r2  = [[sender color] redComponent]*255;
+		(getPlugin<LEDGrid*>(ofApp->pluginController))->g2  = [[sender color] greenComponent]*255;
+		(getPlugin<LEDGrid*>(ofApp->pluginController))->b2  = [[sender color] blueComponent]*255;
+	}
+}
+
 
 @end
 
