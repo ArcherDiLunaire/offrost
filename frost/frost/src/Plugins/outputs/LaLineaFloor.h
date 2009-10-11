@@ -33,4 +33,6 @@ public:
 	float curlValue;
 	void reset();
 	ofImage texture;
+	
+	bool bReset;
 };

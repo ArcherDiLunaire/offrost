@@ -89,6 +89,10 @@
 	IBOutlet frostSlider *LaLineaOffsetY1;
 	IBOutlet frostSlider *LaLineaOffsetX2;
 	IBOutlet frostSlider *LaLineaOffsetY2;
+	
+	IBOutlet frostSlider *LaLineaNoise1;
+	IBOutlet frostSlider *LaLineaNoise2;	
+	IBOutlet frostSlider *LaLineaNoise3;
 	IBOutlet frostCheckbox * LaLineaTrackingActive;
 
 #pragma mark La Linea Floor Outlets

@@ -104,12 +104,8 @@ OFGuiController * gui = NULL;
 	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];
 	
 	
-	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
-	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
-	[LaLineaFloorDirSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->dirSpeed];
-	[LaLineaFloorMasterAlpha hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->masterAlpha];
-	[LaLineaFloorCurl hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->curlValue];
-	
+
+
 	[MoonDustMasterAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->masterAlpha];
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
 	
@@ -120,6 +116,16 @@ OFGuiController * gui = NULL;
 	[LaLineaOffsetY1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.y];
 	[LaLineaOffsetX2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.x];
 	[LaLineaOffsetY2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.y];
+	[LaLineaNoise1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise1];
+	[LaLineaNoise2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise2];
+	[LaLineaNoise3 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise3];
+	
+	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
+	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
+	[LaLineaFloorDirSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->dirSpeed];
+	[LaLineaFloorMasterAlpha hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->masterAlpha];
+	[LaLineaFloorCurl hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->curlValue];
+	[LaLineaFloorReset hookUpBool:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->bReset];
 	
 	[SpotlightMasterAlpha hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->masterAlpha];
 	[SpotlightRadiusMultiplier hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->radiusMultiplier];
@@ -471,11 +477,21 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		array = viewItems;
 		i = n;
 	}
+	i ++;
+	if(i >= 3){
+		i++;	
+	}	
+	if(i >= 6){
+		i++;	
+	}
+	
 	
 	ofPlugin * p = [array objectAtIndex:i];
 	[p setEnabled:[NSNumber numberWithBool:enable]];	
 	[userDefaults setValue:[p enabled] forKey:[NSString stringWithFormat:@"plugins.enable%d",i]];
-	[self changeView:n];
+	[listView setNeedsDisplay:TRUE];
+
+	[self changeView:i];
 	
 }
 
@@ -960,12 +976,12 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
-#pragma mark La Linea Floor
+/*#pragma mark La Linea Floor
 -(IBAction)		modifyLaLineaFloorReset:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LaLineaFloor*>(ofApp->pluginController))->reset();
 	}
-}
+}*/
 
 #pragma mark Blob History
 

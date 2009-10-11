@@ -91,8 +91,15 @@ void LaLinea::drawOnWall(){
 	ofxVec2f lineWidthPoint2 = projection()->convertBetweenSurfaces(projection()->getWall(), projection()->getCurtain(2), ofxVec2f(0,0));
 	
 	float lineWidthScaled = lineWidthPoint.y-lineWidthPoint2.y;
-	
-	ofRect(0.0, yPosition-lineWidthScaled, projection()->getCurtain(2)->aspect , lineWidthScaled);
+	int n= 30;
+	glBegin(GL_QUAD_STRIP);
+	for(int i=0;i<n;i++){
+		ofxVec2f noise = ofxVec2f(0,ofRandom(0, noise1*0.3));
+		glVertex2f((float)projection()->getCurtain(2)->aspect*i/n, yPosition-lineWidthScaled-noise.y);
+		glVertex2f((float)projection()->getCurtain(2)->aspect*i/n, yPosition-noise.y);
+	}
+	glEnd();
+//	ofRect(0.0, yPosition-lineWidthScaled, projection()->getCurtain(2)->aspect , lineWidthScaled);
 	
 	glPopMatrix();
 	
@@ -102,8 +109,15 @@ void LaLinea::drawOnWall(){
 	lineWidthPoint2 = projection()->convertBetweenSurfaces(projection()->getWall(), projection()->getCurtain(5), ofxVec2f(0,0));
 	
 	lineWidthScaled = lineWidthPoint.y-lineWidthPoint2.y;
+	glBegin(GL_QUAD_STRIP);
+	for(int i=0;i<n;i++){
+		ofxVec2f noise = ofxVec2f(0,ofRandom(0, noise1*0.3));
+		glVertex2f((float)projection()->getCurtain(5)->aspect*i/n, yPosition-lineWidthScaled-noise.y);
+		glVertex2f((float)projection()->getCurtain(5)->aspect*i/n, yPosition-noise.y);
+	}
+	glEnd();
 	
-	ofRect(0.0, yPosition-lineWidthScaled, projection()->getCurtain(5)->aspect , lineWidthScaled);
+	//ofRect(0.0, yPosition-lineWidthScaled, projection()->getCurtain(5)->aspect , lineWidthScaled);
 	
 	glPopMatrix();
 	
@@ -196,8 +210,9 @@ void LaLinea::drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _e
 		
 		glBegin(GL_QUAD_STRIP);
 		for(int i =0;i<p2.size();i++){
-			glVertex3d(p2[i].x+normals[i].x*_lineWidth, p2[i].y+normals[i].y*_lineWidth,0);
-			glVertex3d(p2[i].x, p2[i].y,0);		
+			ofxVec2f n = normals[i]*ofRandom(0, noise1*0.1);
+			glVertex3d(p2[i].x+normals[i].x*_lineWidth+n.x, p2[i].y+normals[i].y*_lineWidth+n.y,0);
+			glVertex3d(p2[i].x+n.x, p2[i].y+n.y,0);		
 			
 		}
 		

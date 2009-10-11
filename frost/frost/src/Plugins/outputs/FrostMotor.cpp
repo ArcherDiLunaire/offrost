@@ -146,6 +146,7 @@ int FrostMotor::addFreezePoint(ofPoint p, float rate){
 		}
 	}
 	if(ok){
+
 		FreezePoint f;
 		f.position = p;
 		f.rate = rate;

@@ -34,14 +34,18 @@
 	
 	
 	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaMaskAlpha onChannel:5 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaNoise1 onChannel:5 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaNoise2 onChannel:5 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaNoise2 onChannel:5 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
+	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:6 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorSpeed onChannel:6 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorDirSpeed onChannel:6 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorWidth onChannel:6 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorCurl onChannel:6 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaMaskAlpha onChannel:6 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
-	
+	[self hookupButton:gui->LaLineaFloorReset onChannel:6 onNumber:6 controlChanges:true noteChanges:false];
+
 	
 	[self hookupSlider:gui->foldingHistoryAddMultiplier onChannel:8 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
@@ -134,7 +138,7 @@
 			
 			//packet = MIDIPacketNext(packet);
 			if(controlChange && number == 0){
-				//[gui changePluginEnabled:channel enable:(value ==0)?false:true];
+				[gui changePluginEnabled:channel enable:(value ==0)?false:true];
 			}	
 			
 			//Blob tracker
@@ -208,11 +212,11 @@
 			}
 			
 			//LaLineaFloor
-			if(controlChange && channel == 6){
+			/*if(controlChange && channel == 6){
 				if(number == 6){
 					[gui modifyLaLineaFloorReset:self];
 				}
-			}
+			}*/
 			
 			//Frostscape
 			if(controlChange && channel == 9){

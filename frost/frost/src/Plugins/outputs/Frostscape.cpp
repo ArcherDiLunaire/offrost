@@ -76,13 +76,13 @@ void Frostscape::update(){
 		if(columnFreeze[i] > 0){
 			//	int i=1;
 
-			columnParticlePos[i] += 0.02;	
-			if(columnParticlePos[i] > 1 && columnParticlePos[i] < 1.3){
+			columnParticlePos[i] += 0.02*60.0/ofGetFrameRate();	
+			if(columnParticlePos[i] > 1 && columnParticlePos[i] < 1.1){
+
 				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]);	
 			}
-
-		}else {
-			columnParticlePos[i] = ofRandom(-0.5, -0.1);	
+		} else {
+			columnParticlePos[i] = -0.1;	
 		}
 	} 
 	///*

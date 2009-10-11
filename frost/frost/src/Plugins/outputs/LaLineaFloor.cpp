@@ -8,7 +8,7 @@ LaLineaFloor::LaLineaFloor(){
 	cam = 0;
 	time = 0;
 	lastTime = 0;
-
+	bReset = true;
 }
 
 void LaLineaFloor::setup(){
@@ -19,6 +19,11 @@ void LaLineaFloor::setup(){
 
 void LaLineaFloor::update(){
 	//cout<<width<<endl;
+	if(bReset){
+		bReset = false;
+		reset();
+	}
+	
 	time += ofGetFrameRate()/100.0;
 	if(blob(cam)->numPersistentBlobs() > 0){
 		
@@ -73,18 +78,21 @@ void LaLineaFloor::drawOnFloor(){
 		texture.getTextureReference().bind();
 		glBegin(GL_QUAD_STRIP);
 		glNormal3f( 0.0f, 0.0f, 1.0f);      // Normal Pointing Towards
-
+		float noise1 = getPlugin<LaLinea*>(controller)->noise1;
 		for(int i=0;i<pnts.size()-1;i++){
 			ofxVec2f v = pnts[i+1] - pnts[i];
 			ofxVec2f hat;
 			hat.x = -v.y;
 			hat.y = v.x;
 			hat.normalize();
+			ofxVec2f noise = hat * ofRandom(-noise1, noise1)*0.01;
+
 			hat *= 0.02*width;
+
 			glTexCoord2f(0.0f, 0.0f);    
-			glVertex2f(pnts[i].x-hat.x, pnts[i].y-hat.y);
+			glVertex2f(pnts[i].x-hat.x+noise.x, pnts[i].y-hat.y+noise.y);
 			glTexCoord2f(50, 0.0f);     
-			glVertex2f(pnts[i].x+hat.x, pnts[i].y+hat.y);
+			glVertex2f(pnts[i].x+hat.x+noise.x, pnts[i].y+hat.y+noise.y);
 		}
 		glEnd();
 		texture.getTextureReference().unbind();
