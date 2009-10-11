@@ -196,11 +196,11 @@ void FrostMotor::update(){
 			}
 		}
 		
-		
-		for(int i=0;i<freezePoints.size();i++){
-			
-			if(freezePoints[i].position.distance(obj->position) < r){
-				if(obj->upTimer > 10){
+		if(obj->upTimer > 10){		
+			for(int i=0;i<freezePoints.size();i++){
+
+				if(freezePoints[i].position.distanceSquared(obj->position) < rSq){
+					
 					obj->a -= 0.08*freezePoints[i].rate*obj->speed;
 					obj->downTimer = 0;
 				}		

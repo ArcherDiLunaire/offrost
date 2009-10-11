@@ -76,7 +76,7 @@ OFGuiController * gui = NULL;
 @synthesize viewItems,views;
 
 -(void) awakeFromNib {
-
+	
 	NSLog(@"--- wake from nib ---\n");
 	
 	[camView setWindowId:1];
@@ -102,8 +102,8 @@ OFGuiController * gui = NULL;
 	[liquidUpdateMotor hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->updateMotor];
 	
 	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];
-
-
+	
+	
 	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
 	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
 	[LaLineaFloorDirSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->dirSpeed];
@@ -114,20 +114,20 @@ OFGuiController * gui = NULL;
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
 	
 	[LaLineaMasterAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->masterAlpha];
-		[LaLineaMaskAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->maskAlpha];
-
+	[LaLineaMaskAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->maskAlpha];
+	
 	[LaLineaOffsetX1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.x];
 	[LaLineaOffsetY1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.y];
 	[LaLineaOffsetX2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.x];
 	[LaLineaOffsetY2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.y];
-
+	
 	[SpotlightMasterAlpha hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->masterAlpha];
 	[SpotlightRadiusMultiplier hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->radiusMultiplier];
 	
 	[BlobHistoryAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyAlpha];
 	[BlobHistoryPrintsAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->snapshotAlpha];
 	[BlobHistoryPlayDirection hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyPlayStep];
-
+	
 	[BlobHistoryGrow hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->growthValue];
 	[BlobHistoryDecrease hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->decreaseValue];
 	[BlobHistoryFreezeSpeed hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->freezeSpeed];
@@ -155,7 +155,7 @@ OFGuiController * gui = NULL;
 	NSLog(@"--- init ---\n");	
 	
 	if(self = [super init]) {
-			
+		
 		userDefaults = [[NSUserDefaults standardUserDefaults] retain];
 		
 		ofApp = (testApp*)ofGetAppPtr();
@@ -240,14 +240,14 @@ OFGuiController * gui = NULL;
 		[self addObject:@"Spotlight" isheader:FALSE plugin:getPlugin<Spotlight*>(ofApp->pluginController)];
 		[self addObject:@"Mirror Ball" isheader:FALSE plugin:getPlugin<MirrorBall*>(ofApp->pluginController)];
 		[self addObject:@"LED Grid" isheader:FALSE plugin:getPlugin<LEDGrid*>(ofApp->pluginController)];
-
+		
 		NSMutableArray * array;
 		array = viewItems;
 		for(int i=0;i<[viewItems count];i++){
 			ofPlugin * p = [array objectAtIndex:i];
 			[p setEnabled:[NSNumber numberWithBool:[userDefaults boolForKey:[NSString stringWithFormat:@"plugins.enable%d",i]]]];
 		}
-				
+		
 		[blobTrackingView retain];
 		[cameraView retain];
 		[projectionSurfacesView retain];
@@ -283,7 +283,7 @@ OFGuiController * gui = NULL;
 		ofApp->cameraGUIDs[0] = (uint64_t)guidVal[0];
 		ofApp->cameraGUIDs[1] = (uint64_t)guidVal[1];
 		ofApp->cameraGUIDs[2] = (uint64_t)guidVal[2];
-
+		
 		
 		(getPlugin<Cameras*>(ofApp->pluginController))->setGUIDs((uint64_t)guidVal[0],(uint64_t)guidVal[1],(uint64_t)guidVal[2]);
 		
@@ -312,7 +312,7 @@ OFGuiController * gui = NULL;
 	
 	[blobView setDoDraw:false];
 	
-	id view;
+	id view = nil;
 	
 	if(![(NSString*)[p name] compare:@"Cameras"]){
 		view = cameraView;
@@ -389,16 +389,16 @@ OFGuiController * gui = NULL;
 	if(![(NSString*)[p name] compare:@"LED Grid"]){
 		view = LEDGridlView;
 	}
-	
-	[contentArea addSubview:view];
-	NSRect currFrame = [contentArea frame];
-	CGFloat h = currFrame.size.height;
-	
-	NSRect currFrame2 = [view frame];
-	CGFloat h2 = currFrame2.size.height;
-	
-	[view setFrameOrigin:NSMakePoint(0,h-h2)]; 
-	
+	if(view != nil){
+		[contentArea addSubview:view];
+		NSRect currFrame = [contentArea frame];
+		CGFloat h = currFrame.size.height;
+		
+		NSRect currFrame2 = [view frame];
+		CGFloat h2 = currFrame2.size.height;
+		
+		[view setFrameOrigin:NSMakePoint(0,h-h2)]; 
+	}
 }
 
 -(IBAction) setListViewRow:(id)sender {
@@ -463,12 +463,12 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		array = viewItems;
 		i = n;
 	}
-
+	
 	ofPlugin * p = [array objectAtIndex:i];
 	[p setEnabled:[NSNumber numberWithBool:enable]];	
 	[userDefaults setValue:[p enabled] forKey:[NSString stringWithFormat:@"plugins.enable%d",i]];
-	 [self changeView:n];
-
+	[self changeView:n];
+	
 }
 
 
@@ -819,7 +819,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->h = ((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->glDelegate->m_Width/1.5;
 		}
 		[ProjectorFloorAspect setFloatValue:((getPlugin<ProjectionSurfaces*>(ofApp->pluginController)->objects[[sender selectedRow]]->aspect))];
-//		[ProjectorFloorAspect setMinValue:0.5];
+		//		[ProjectorFloorAspect setMinValue:0.5];
 		[ProjectorFloorAspectText setDoubleValue:[ProjectorFloorAspect doubleValue]];
 		
 	}
