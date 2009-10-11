@@ -29,6 +29,10 @@ public:
 	ofxPoint2f position;
 	ofxVec2f dir;
 	float rate;
+	vector<int> close;
+	pthread_mutex_t plock;
+	bool active;
+
 };
 
 
@@ -46,7 +50,7 @@ public:
 	void addBodyPoint(ofPoint p);
 	void addBodyPoints(vector<ofPoint>* v);
 	void addBodyCenter(ofPoint p);
-	void addFreezePoint(ofPoint p, float rate);
+	int addFreezePoint(ofPoint p, float rate);
 
 	vector<IceBlockBackgroundObject> iceblockBackgrounds;
 

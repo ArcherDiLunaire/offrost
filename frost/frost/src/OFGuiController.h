@@ -123,6 +123,16 @@
 	
 	IBOutlet NSView *BlobHistoryView;
 	IBOutlet frostCheckbox *BlobHistoryIsRecording;
+	IBOutlet frostCheckbox *BlobHistoryClearHistory;
+	IBOutlet frostCheckbox *BlobHistoryAddPrint;
+	IBOutlet frostCheckbox *BlobHistoryRemovePrint;
+	IBOutlet frostCheckbox *BlobHistoryRemoveAllPrints;
+	IBOutlet frostCheckbox *BlobHistoryClearIce;
+
+	IBOutlet frostCheckbox *BlobHistoryClearFreeze;
+	
+	IBOutlet frostSlider *BlobHistoryMasterAlpha;
+
 	IBOutlet frostSlider *BlobHistoryPlayDirection;
 	IBOutlet frostSlider *BlobHistoryAlpha;
 	IBOutlet frostSlider *BlobHistoryPrintsAlpha;

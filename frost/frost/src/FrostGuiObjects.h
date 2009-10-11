@@ -21,6 +21,10 @@
 	
 	bool hookedUpToBool;
 	bool * hookedUpBool;
+	
+	IBOutlet NSNumber * isbutton;
+	
+	bool justReceivedMidi;
 }
 
 - (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value;
@@ -50,6 +54,7 @@
 	
 	bool hookedUpToFloat;
 	float * hookedUpFloat;
+		bool justReceivedMidi;
 }
 
 - (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value;

@@ -82,9 +82,13 @@ void BlobHistory::drawOnFloor(){
 }
 
 void BlobHistory::update(){
-	motor.decreaseRate = decreaseValue;
+	motor.decreaseRate = decreaseValue*10.0;
 	motor.expandRate = growthValue;
-	
+	if(clearFreeze){
+		clearFreeze = false;
+		cout<<"Clear freeze"<<endl;
+		freezePoints.clear();
+	}
 	for(int i=0;i<blobSnapshotMatrix.size();i++){
 		for(int u=0;u<blobSnapshotMatrix[i].size();u++){
 			for(int v=0;v<blobSnapshotMatrix[i][u].nPts;v++){
@@ -97,7 +101,7 @@ void BlobHistory::update(){
 		}
 	}
 	for(int i=0;i<freezePoints.size();i++){
-		motor.addFreezePoint(freezePoints[i], freezeSpeed);
+		motor.addFreezePoint(freezePoints[i], freezeSpeed*0.01);
 	}
 
 	motor.update();
@@ -116,7 +120,8 @@ void BlobHistory::update(){
 			}
 			
 			blobHistoryMatrixDisplayList.push_back(index);
-			
+			ofFill();
+
 			glNewList(blobHistoryMatrixDisplayList.back(), GL_COMPILE);
 
 			for (int i=0; i < blob(cam)->numBlobs(); i++) {
@@ -143,9 +148,13 @@ void BlobHistory::update(){
 
 		}
 	}
-	
+	if (bClearIce) {
+		motor.setValueOnAll(1);
+		bClearIce = false;
+	}
+
 	if (bClearHistory) {
-		ofLog(OF_LOG_NOTICE, "HISTORY CLEARING" );
+		ofLog(OF_LOG_WARNING, "HISTORY CLEARING" );
 		blobHistoryMatrix.clear();
 		
 		for (int i=0; i < blobHistoryMatrixDisplayList.size(); i++) {

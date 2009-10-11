@@ -136,18 +136,34 @@ void FrostMotor::addBodyCenter(ofPoint p){
 	bodyCenters.push_back(p);	
 }
 
-void FrostMotor::addFreezePoint(ofPoint p, float rate){
+int FrostMotor::addFreezePoint(ofPoint p, float rate){
 	bool ok = true;
 	for(int i=0;i<freezePoints.size();i++){
-		if(freezePoints[i].position.distance(p) < r)
+		if(freezePoints[i].position.distanceSquared(p) < rSq){
 			ok = false;
+			freezePoints[i].active = true;
+			break;
+		}
 	}
 	if(ok){
 		FreezePoint f;
-		f.position = (ofxPoint2f)p;
+		f.position = p;
 		f.rate = rate;
+		pthread_mutex_init(&f.plock, NULL);
+		
+#pragma omp parallel for
+		for(int i=0;i<iceblockBackgrounds.size();i++){
+			if(((ofxPoint2f)iceblockBackgrounds[i].position).distanceSquared(f.position) < rSq){
+				pthread_mutex_lock(&f.plock);
+				f.close.push_back(i);
+				pthread_mutex_unlock(&f.plock);
+			}
+		}
+		f.active = true;
 		freezePoints.push_back(f);
+		return freezePoints.size()-1;
 	}
+	return -1;
 }
 
 
@@ -196,19 +212,25 @@ void FrostMotor::update(){
 			}
 		}
 		
-		if(obj->upTimer > 10){		
-			for(int i=0;i<freezePoints.size();i++){
-
-				if(freezePoints[i].position.distanceSquared(obj->position) < rSq){
-					
-					obj->a -= 0.08*freezePoints[i].rate*obj->speed;
-					obj->downTimer = 0;
-				}		
-				
-			}
-		}
+		
+		
 	}
 	
+	
+	for(int i=0;i<freezePoints.size();i++){			
+		if(freezePoints[i].active){
+			for(int v=freezePoints[i].close.size()-1;v>=0;v--){				
+				IceBlockBackgroundObject * obj = &iceblockBackgrounds[freezePoints[i].close[v]];
+				if(obj->upTimer > 10){	
+					pthread_mutex_lock(&obj->plock);
+					obj->a -= 0.08*freezePoints[i].rate*obj->speed;
+					obj->downTimer = 0;
+					pthread_mutex_unlock(&obj->plock);
+				}
+				
+			}		
+		}				
+	}
 	
 	for(int u=0;u<numBackgrounds;u++){
 		if(iceblockBackgrounds[u].a > 1.0){
@@ -252,7 +274,10 @@ void FrostMotor::update(){
 	
 	bodyPoints.clear();
 	bodyCenters.clear();
-	freezePoints.clear();
+	
+	for(int i=0;i<freezePoints.size();i++){
+		freezePoints[i].active = false;
+	}
 	
 }
 void FrostMotor::draw(){

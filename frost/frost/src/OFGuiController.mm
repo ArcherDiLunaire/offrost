@@ -123,7 +123,8 @@ OFGuiController * gui = NULL;
 	
 	[SpotlightMasterAlpha hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->masterAlpha];
 	[SpotlightRadiusMultiplier hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->radiusMultiplier];
-	
+
+	[BlobHistoryMasterAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->masterAlpha];
 	[BlobHistoryAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyAlpha];
 	[BlobHistoryPrintsAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->snapshotAlpha];
 	[BlobHistoryPlayDirection hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyPlayStep];
@@ -132,7 +133,14 @@ OFGuiController * gui = NULL;
 	[BlobHistoryDecrease hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->decreaseValue];
 	[BlobHistoryFreezeSpeed hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->freezeSpeed];
 	[BlobHistoryFreezeStrength hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->freezeRate];
-	
+	[BlobHistoryClearFreeze hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->clearFreeze];
+	[BlobHistoryIsRecording hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bIsRecordingHistory];
+	[BlobHistoryClearHistory hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bClearHistory];
+	[BlobHistoryAddPrint hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bTakeSnapshot];
+	[BlobHistoryRemovePrint hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bRemoveOldestSnapshot];
+	[BlobHistoryRemoveAllPrints hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bClearSnapshots];
+	[BlobHistoryClearIce hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bClearIce];
+
 	[MirrorBallMasterAlpha hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->masterAlpha];
 	[MirrorBallReflection1OnFraction hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections1.fractionOfDotsShouldBeTurnedOn];
 	[MirrorBallReflection1AlphaFraction hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections1.alpha];

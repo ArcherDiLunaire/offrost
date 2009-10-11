@@ -44,7 +44,7 @@ public:
 	bool bTakeSnapshot;
 	bool bRemoveOldestSnapshot;
 	bool bClearSnapshots;
-	
+	bool bClearIce;
 	float historyPlayStep;
 	float historyAlpha;
 	
@@ -58,5 +58,5 @@ public:
 	float decreaseValue;
 	float freezeSpeed;
 	float freezeRate;
-
+	bool clearFreeze;
 };

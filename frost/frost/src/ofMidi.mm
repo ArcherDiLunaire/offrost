@@ -32,6 +32,17 @@
 	[self hookupSlider:gui->MoonDustSize onChannel:4 onNumber:5 controlChanges:true noteChanges:false scale:0.1/127.0];
 	[self hookupSlider:gui->MoonDustColumnAlpha onChannel:4 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
+	
+	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	
+	[self hookupSlider:gui->LaLineaFloorSpeed onChannel:6 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorDirSpeed onChannel:6 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorWidth onChannel:6 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaFloorCurl onChannel:6 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaMaskAlpha onChannel:6 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
+	
+	
 	[self hookupSlider:gui->foldingHistoryAddMultiplier onChannel:8 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 	
@@ -47,15 +58,23 @@
 	[self hookupButton:gui->FrostscapeInvert onChannel:9 onNumber:12 controlChanges:true noteChanges:false];
 	[self hookupSlider:gui->FrostscapeWhiteBackground onChannel:9 onNumber:13 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
-	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
-	[self hookupSlider:gui->LaLineaFloorSpeed onChannel:6 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaFloorDirSpeed onChannel:6 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaFloorWidth onChannel:6 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaFloorCurl onChannel:6 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaMaskAlpha onChannel:6 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
-	
+	[self hookupSlider:gui->BlobHistoryMasterAlpha onChannel:11 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->BlobHistoryAlpha onChannel:11 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->BlobHistoryPlayDirection onChannel:11 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupButton:gui->BlobHistoryIsRecording onChannel:11 onNumber:4 controlChanges:true noteChanges:false];
+	[self hookupButton:gui->BlobHistoryClearHistory onChannel:11 onNumber:5 controlChanges:true noteChanges:false];
+	[self hookupSlider:gui->BlobHistoryGrow onChannel:11 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->BlobHistoryDecrease onChannel:11 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->BlobHistoryFreezeSpeed onChannel:11 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];	
+	[self hookupSlider:gui->BlobHistoryFreezeStrength onChannel:11 onNumber:9 controlChanges:true noteChanges:false scale:1.0/127.0];		
+	[self hookupButton:gui->BlobHistoryClearFreeze onChannel:11 onNumber:10 controlChanges:true noteChanges:false];
+	[self hookupSlider:gui->BlobHistoryPrintsAlpha onChannel:11 onNumber:11 controlChanges:true noteChanges:false scale:1.0/127.0];		
+	[self hookupButton:gui->BlobHistoryAddPrint onChannel:11 onNumber:12 controlChanges:true noteChanges:false];
+	[self hookupButton:gui->BlobHistoryRemovePrint onChannel:11 onNumber:13 controlChanges:true noteChanges:false];
+	[self hookupButton:gui->BlobHistoryRemoveAllPrints onChannel:11 onNumber:14 controlChanges:true noteChanges:false];
+	[self hookupButton:gui->BlobHistoryClearIce onChannel:11 onNumber:15 controlChanges:true noteChanges:false];
+
 	// set gui info for booleans
 	
 	[gui->BlobActive1 setMidiChannel:1 number:1 control:true note:false];

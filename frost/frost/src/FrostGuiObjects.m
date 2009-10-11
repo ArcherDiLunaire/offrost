@@ -11,6 +11,8 @@
 @implementation frostCheckbox
 
 - (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value{	
+	justReceivedMidi = false;	
+	[self setNeedsDisplay:TRUE];
 	if(midiChannel == channel && number == midiNumber){
 		BOOL b = TRUE;
 		if(value == 0){
@@ -18,21 +20,23 @@
 		}
 		if(control && midiControlHookup){
 			[self setBool:b];
-		}
-	}
+			justReceivedMidi = true;
+		} 
+	} 
 }
 - (void) setMidiChannel:(int)channel number:(int)number control:(bool)control note:(bool)note{
 	midiChannel = channel;
 	midiNumber = number;
 	midiControlHookup = control;
 	midiNoteHookup = note;
-
+	justReceivedMidi = false;
+	
 }
 
 - (id)initWithFrame:(NSRect)frame {
 	
 	self = [super initWithFrame:frame];
-    return self;
+	return self;
 }
 
 - (void) awakeFromNib{
@@ -44,9 +48,20 @@
 	//[button takeBoolValueFrom:self];
 	[button setTarget:self];
 	[button setAction: @selector(changeValueFromControl:)];
-	[button setButtonType: NSSwitchButton ];
+	//	if([self->isbutton intValue] > 0){
+	if([self bezelStyle] == NSTexturedRoundedBezelStyle){
+		[button setButtonType: NSMomentaryPushInButton ];
+		[button setBezelStyle:NSTexturedRoundedBezelStyle];
+		[button setImage:[self image]];
+		[button setImagePosition:[self imagePosition]];
+		isbutton = TRUE;
+		
+	} else {
+		[button setButtonType: NSSwitchButton ];
+		
+	}
 	[button setTitle:[self title]];
-//	[button setCell:[self cell]];
+	//	[button setCell:[self cell]];
 	
 	[self addSubview:button];
 	
@@ -56,13 +71,21 @@
 }
 
 - (void) changeValueFromControl:(id)sender{
+	printf("changeValueFromControl\n");
 	[self setState:[sender state]];
 	if(hookedUpToBool){
-		*hookedUpBool = [self boolValue];		
+		if(!isbutton)
+			*hookedUpBool = [self boolValue];		
+		else{
+			printf("TRUE\n");
+			*hookedUpBool = true;		
+		}
 	}
 }
 
 - (bool) boolValue{
+	printf("boolValue\n");
+	
 	if([self state] == NSOnState){
 		return true;
 	} else {
@@ -78,8 +101,15 @@
 	
 	if(midiNoteHookup || midiControlHookup){
 		NSDictionary *textAttribs;
+		NSColor * c;
+		if(justReceivedMidi)
+			c = [NSColor redColor];
+		else {
+			c = [NSColor blackColor];
+		}
+		
 		textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:7],
-					   NSFontAttributeName, [NSColor blackColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
+					   NSFontAttributeName, c,NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
 		
 		NSRect frame = NSMakeRect(0, 0, 50, 30); 
 		
@@ -103,32 +133,37 @@
 	*hookedUpBool = [self boolValue];
 }
 /*
-- (float) convertToMidiValue:(float)f {
-	float a = [self maxValue] - [self minValue];
-	f -= [self minValue];
-	f /= a;
-	f *= 127.0;
-	return f;
-}
-- (float) convertFromMidiValue:(float)f{
-	float a = [self maxValue] - [self minValue];
-	f /= 127.0;
-	f *= a;
-	f += [self minValue];
-	return f;
-}
-  */
+ - (float) convertToMidiValue:(float)f {
+ float a = [self maxValue] - [self minValue];
+ f -= [self minValue];
+ f /= a;
+ f *= 127.0;
+ return f;
+ }
+ - (float) convertFromMidiValue:(float)f{
+ float a = [self maxValue] - [self minValue];
+ f /= 127.0;
+ f *= a;
+ f += [self minValue];
+ return f;
+ }
+ */
 
 - (void) setState:(NSInteger)value {
+	printf("setState\n");
 	[valButton setState:value];
 	[super setState:value];
 	[self sendAction:[self action] to:[self target]];
-	if(hookedUpToBool){
-		*hookedUpBool = [self boolValue];		
+	if(!isbutton){		
+		printf("Set state %d\n", [self boolValue]);
+		if(hookedUpToBool){
+			*hookedUpBool = [self boolValue];		
+		}
 	}
 }
 
 - (void) setBool:(BOOL)value {
+	printf("setBool\n");
 	NSInteger * i;
 	if(value){
 		i = NSOnState;
@@ -143,7 +178,7 @@
 		*hookedUpBool = [self boolValue];		
 	}
 }
-  
+
 
 @end
 
@@ -153,12 +188,19 @@
 
 
 - (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value{	
+	justReceivedMidi = false;	
+	[self setNeedsDisplay:TRUE];
 	if(midiChannel == channel && number == midiNumber){
 		if((noteOn || noteOff) && midiNoteHookup){
 			[self setFloatValue:(float)value*midiScaleFactor]		;	
-		} 
+			justReceivedMidi = true;
+			
+		}  
 		if(control && midiControlHookup){
 			[self setFloatValue:(float)value*midiScaleFactor];
+			justReceivedMidi = true;
+			
+		} else {
 		}
 	}
 }
@@ -168,11 +210,12 @@
 	midiControlHookup = control;
 	midiNoteHookup = note;
 	midiScaleFactor = scale;
+	justReceivedMidi = false;
 }
 
 - (id)initWithFrame:(NSRect)frame {
 	self = [super initWithFrame:frame];
-    return self;
+	return self;
 }
 
 - (void) awakeFromNib{
@@ -242,8 +285,16 @@
 	
 	if(midiNoteHookup || midiControlHookup){
 		NSDictionary *textAttribs;
+		NSColor * c;
+		
+		if(justReceivedMidi)
+			c = [NSColor redColor];
+		else {
+			c = [NSColor blackColor];
+		}
+		
 		textAttribs = [NSDictionary dictionaryWithObjectsAndKeys: [NSFont fontWithName:@"Lucida Grande" size:7],
-					   NSFontAttributeName, [NSColor blackColor],NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
+					   NSFontAttributeName, c,NSForegroundColorAttributeName,  paragraphStyle, NSParagraphStyleAttributeName, nil];
 		
 		NSRect frame = NSMakeRect(0, 0, 50, 30); 
 		
