@@ -57,7 +57,7 @@ MirrorBall::MirrorBall(){
 
 void MirrorBall::setup(){
 	mirrorBallImage.loadImage("spotlight.png");
-		
+	
 	reflections1.setup(15, 0.04, 0.15, -0.0003, 0.0003, 0.01, 0.75, 0.0025, 0.003, 0.25);
 	reflections2.setup(15, 0.04, 0.15, 0.0002, -0.0008, 0.01, 0.75, 0.0025, 0.005, 0.10);
 	
@@ -92,6 +92,16 @@ void MirrorBall::drawOnFloor(){
 }
 
 void MirrorBall::update(){
+	if(bAddDot){
+		bAddDot =false;
+		reflections1.turnOnSomeDots(1);
+		reflections2.turnOnSomeDots(0);
+	}
+	if(bClearDots){
+		bClearDots =false;
+		reflections1.clearReflections();
+		reflections2.clearReflections();
+	}
 	
 	rotation += rotationDirection*0.01;
 	
@@ -127,15 +137,16 @@ MirrorBallReflections::MirrorBallReflections(){
 	nDotsTurnedOn = 1;
 	
 	fractionOfDotsTurnedOn = 1.0;
-		
+	
 	alpha = 1.0;
 	
-	allReflections();
+	//	allReflections();
+	clearReflections();
 }
 
 void MirrorBallReflections::setup(int _numberOfCircles, float _circlesSpacing, float _circlesSpacingMultiplier, float _circleOffsetX, float _circleOffsetY,
-						   float _dotSize, float _dotSpacing, float _dotSizeDistanceMultiplier,
-						   float _dotPositionNoise, float _dotAlphaNoise){
+								  float _dotSize, float _dotSpacing, float _dotSizeDistanceMultiplier,
+								  float _dotPositionNoise, float _dotAlphaNoise){
 	numberOfCircles = _numberOfCircles;
 	circlesSpacing = _circlesSpacing;
 	circlesSpacingMultiplier = _circlesSpacingMultiplier;
@@ -149,11 +160,13 @@ void MirrorBallReflections::setup(int _numberOfCircles, float _circlesSpacing, f
 }
 
 void MirrorBallReflections::update(){
+	cout << fractionOfDotsTurnedOn << " " << nDotsTurnedOn << endl;
 	if(fractionOfDotsTurnedOn < fractionOfDotsShouldBeTurnedOn){
-		turnOnSomeDots(ofRandom(1,nDots - nDotsTurnedOn/50));
+		turnOnSomeDots((fractionOfDotsShouldBeTurnedOn - fractionOfDotsTurnedOn) * nDots);
 	} else if(fractionOfDotsTurnedOn > fractionOfDotsShouldBeTurnedOn){
-		turnOffSomeDots(ofRandom(1,nDotsTurnedOn/50));
+		turnOffSomeDots((fractionOfDotsTurnedOn - fractionOfDotsShouldBeTurnedOn) * nDots);
 	}
+	
 }
 
 void MirrorBallReflections::draw(float _angle){
@@ -186,9 +199,9 @@ void MirrorBallReflections::draw(float _angle){
 			
 			ofPushStyle();
 			ofEnableAlphaBlending();
-
+			
 			theColor.a *= alpha;
-
+			
 			ofSetColor(theColor.r, theColor.g, theColor.b, (
 															(
 															 ((theColor.a *1.0)- (dotAlphaNoise * theColor.a))
@@ -228,31 +241,52 @@ int MirrorBallReflections::getNumberOfDots(int _numberOfCircles, float _dotSpaci
 }
 
 void MirrorBallReflections::setDotStates(int amountOfDots, bool isOn){
+	fractionOfDotsTurnedOn = (nDotsTurnedOn * 1.0) / nDots;
 	
-	fractionOfDotsTurnedOn = fmin(1.0,fmax(0.0, nDotsTurnedOn * 1.0 / nDots));
+	cout << "setDotStates" << amountOfDots << " to " << (isOn?"ON":"OFF") << endl;
 	
-	if(isOn && (nDots - nDotsTurnedOn) < amountOfDots) amountOfDots = (nDots - nDotsTurnedOn);
-
-	if(!isOn && (nDotsTurnedOn) > amountOfDots) amountOfDots = nDotsTurnedOn;
+	if(isOn && (nDots - nDotsTurnedOn) < amountOfDots) 
+		amountOfDots = (nDots - nDotsTurnedOn);
+	
+	if(!isOn && (nDotsTurnedOn) > amountOfDots) 
+		amountOfDots = nDotsTurnedOn;
 	
 	if((isOn && fractionOfDotsTurnedOn < 1.0) || (!isOn && fractionOfDotsTurnedOn > 0.0)){
-		for (int i = 0;i<dotStates.size() ; 0) {
-			if(dotStates[i] == isOn){
-				i++; //= ofRandom(0,dotStates.size());
-			} else {
+		/*		for (int i = 0;i<dotStates.size() ; 0) {
+		 if(dotStates[i] == isOn){
+		 i += ofRandom(0,dotStates.size()/3.0);
+		 } else {
+		 dotStates[i] = isOn;
+		 amountOfDots--;
+		 if(isOn){
+		 nDotsTurnedOn++;
+		 } else {
+		 nDotsTurnedOn--;
+		 }
+		 
+		 if (amountOfDots < 0) {
+		 break;
+		 }
+		 }
+		 }*/
+		int i= ofRandom(0,dotStates.size()-1);
+		while(amountOfDots > 0){
+			i++;
+			if(i > dotStates.size()-1){
+				i=0;	
+			}
+			if(dotStates[i] != isOn) {
 				dotStates[i] = isOn;
 				amountOfDots--;
+			//	cout<<i<<endl;
 				if(isOn){
 					nDotsTurnedOn++;
 				} else {
 					nDotsTurnedOn--;
-				}
-
-				if (amountOfDots < 0) {
-					break;
-				}
+				}			
 			}
 		}
+		fractionOfDotsTurnedOn = fmin(1.0,fmax(0.0, nDotsTurnedOn * 1.0 / nDots));
 	}
 }
 

@@ -54,6 +54,8 @@ public:
 	
 	vector<bool> dotStates;
 	
+
+	
 	ofxVec2f center;
 	
 };
@@ -80,5 +82,6 @@ public:
 	float rotation;
 	float rotationDirection;
 	
-	
+	bool bAddDot;
+	bool bClearDots;
 };
