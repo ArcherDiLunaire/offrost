@@ -82,6 +82,8 @@ public:
 	float rotation;
 	float rotationDirection;
 	
+	float mirrorBallTrails;
+	
 	bool bAddDot;
 	bool bClearDots;
 };

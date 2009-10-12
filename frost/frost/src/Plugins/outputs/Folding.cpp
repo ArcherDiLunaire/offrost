@@ -52,6 +52,7 @@ void Folding::update(){
 		
 		cvCopy(blob(cam)->grayDiff.getCvImage(), now[histPos].getCvImage());
 		now[histPos].flagImageChanged();
+		now[histPos].blur(1);
 		
 		histPos ++;
 		if(histPos >= history.size())

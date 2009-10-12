@@ -160,8 +160,8 @@ void LiquidSpace::update(){
 		if(rings[i].height > 0){
 			rings[i].height -= rings[i].speed*60.0/ofGetFrameRate();
 		} else {
-			rings[i].size += rings[i].speed*0.4*30.0/ofGetFrameRate();
-			rings[i].speed *= 0.99;
+			rings[i].size += rings[i].speed*0.8*30.0/ofGetFrameRate();
+			rings[i].speed *= 0.98;
 			
 		}
 	}
@@ -197,13 +197,14 @@ void LiquidSpace::draw(){
 			glTranslated(rings[i].center.x, rings[i].center.y, 0);
 			int n = 200;
 			ringTexture.getTextureReference().bind();
+			glColor4f(1.0, 1.0, 1.0, rings[i].speed * 150.0);
 			glBegin(GL_QUAD_STRIP);
 			for(int u=0;u<n;u++){
 				glTexCoord2f(0.0f, 0.0f);    
 				glVertex2f(cos(TWO_PI*(float)u/n)*rings[i].size, sin(TWO_PI*(float)u/n)*rings[i].size);
 				glTexCoord2f(50, 0.0f);    
 				
-				glVertex2f(cos(TWO_PI*(float)u/n)*(rings[i].size+0.01), sin(TWO_PI*(float)u/n)*(rings[i].size+0.01));
+				glVertex2f(cos(TWO_PI*(float)u/n)*(rings[i].size+0.03), sin(TWO_PI*(float)u/n)*(rings[i].size+0.03));
 			}	
 			glEnd();
 			ringTexture.getTextureReference().unbind();

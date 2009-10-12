@@ -93,7 +93,7 @@ void Frostscape::update(){
 			
 			columnParticlePos[i] += 0.02*60.0/ofGetFrameRate();	
 			if(columnParticlePos[i] > 1){//&& columnParticlePos[i] < 2.0){
-				cout<<"add "<<i<<"  "<<columnFreeze[i]<<endl;
+//				cout<<"add "<<i<<"  "<<columnFreeze[i]<<endl;
 				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]);	
 			}
 		} else {
@@ -144,14 +144,13 @@ void Frostscape::drawOnFloor(){
 		ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	}
 	motor.draw();
-	
 	if(whiteBackground > 0){
 		ofFill();
-		ofSetColor(1.0, 1.0, 1.0,linesAlpha);
+		glColor4f(1.0, 1.0, 1.0,whiteBackground);
 		ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	}
 	
-	for(int u=0;u<2;u++){
+	/*for(int u=0;u<2;u++){
 		glColor4f(255, 255, 255, 255);
 		glBegin(GL_LINE_STRIP);
 		for(int i=0;i<lines[u].size();i++){
@@ -159,7 +158,7 @@ void Frostscape::drawOnFloor(){
 		}
 		glEnd();
 		
-	}
+	}*/
 	glPopMatrix();
 	
 	for(int i=0;i<3;i++){

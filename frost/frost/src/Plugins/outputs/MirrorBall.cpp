@@ -160,11 +160,11 @@ void MirrorBallReflections::setup(int _numberOfCircles, float _circlesSpacing, f
 }
 
 void MirrorBallReflections::update(){
-	cout << fractionOfDotsTurnedOn << " " << nDotsTurnedOn << endl;
-	if(fractionOfDotsTurnedOn < fractionOfDotsShouldBeTurnedOn){
-		turnOnSomeDots((fractionOfDotsShouldBeTurnedOn - fractionOfDotsTurnedOn) * nDots);
-	} else if(fractionOfDotsTurnedOn > fractionOfDotsShouldBeTurnedOn){
-		turnOffSomeDots((fractionOfDotsTurnedOn - fractionOfDotsShouldBeTurnedOn) * nDots);
+	int nDotsThatShouldBeOn = fractionOfDotsShouldBeTurnedOn * nDots;
+	if(nDotsTurnedOn < nDotsThatShouldBeOn){
+		turnOnSomeDots( nDotsThatShouldBeOn - nDotsTurnedOn );
+	} else if(nDotsTurnedOn > nDotsThatShouldBeOn){
+		turnOffSomeDots(nDotsTurnedOn - nDotsThatShouldBeOn);
 	}
 	
 }
@@ -277,6 +277,7 @@ void MirrorBallReflections::setDotStates(int amountOfDots, bool isOn){
 			}
 			if(dotStates[i] != isOn) {
 				dotStates[i] = isOn;
+				i= ofRandom(0,dotStates.size()-1);
 				amountOfDots--;
 			//	cout<<i<<endl;
 				if(isOn){
@@ -286,7 +287,7 @@ void MirrorBallReflections::setDotStates(int amountOfDots, bool isOn){
 				}			
 			}
 		}
-		fractionOfDotsTurnedOn = fmin(1.0,fmax(0.0, nDotsTurnedOn * 1.0 / nDots));
+		fractionOfDotsTurnedOn = (nDotsTurnedOn * 1.0) / nDots;
 	}
 }
 

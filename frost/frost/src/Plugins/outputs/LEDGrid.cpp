@@ -69,10 +69,10 @@ void LEDGrid::setup(){
 	for(int i=0;i<5;i++){
 		lamps[8+i].channel = 181+i*4;	
 	}
-	for(int i=3;i<7;i++){
+	for(int i=0;i<7;i++){
 		lamps[8*2+i].channel = 151+i*4;	
 	}
-	for(int i=3;i<8;i++){
+	for(int i=0;i<8;i++){
 		lamps[8*3+i].channel = 121+i*4;	
 	}
 	for(int i=0;i<8;i++){
@@ -89,7 +89,7 @@ void LEDGrid::draw(){
 }
 
 void LEDGrid::drawOnFloor(){
-	for(int i=0;i<lamps.size();i++){
+	/*for(int i=0;i<lamps.size();i++){
 		
 		ofSetColor(lamps[i].r,lamps[i].g, lamps[i].b);
 //		ofSetColor(255, 0, 0);
@@ -98,9 +98,9 @@ void LEDGrid::drawOnFloor(){
 		a /= 255.0*3.0;
 		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1*a,  0.1*a)	;
 		/*ofNoFill();
-		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1,  0.1)	;*/
+		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1,  0.1)	;
 
-	}
+	}*/
 	
 }
 

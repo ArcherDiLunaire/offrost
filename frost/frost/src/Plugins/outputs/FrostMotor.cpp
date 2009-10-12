@@ -102,7 +102,6 @@ void FrostMotor::generateBackgroundObjects(int resolution, float objectSizes, fl
 	}
 	int t = ofGetElapsedTimeMillis();
 	int num = iceblockBackgrounds.size();
-	cout<<num<<endl;
 	int count = 0;
 #pragma omp parallel for 
 	for(int i=0;i<num;i++){

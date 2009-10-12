@@ -14,7 +14,7 @@
 BlobHistory::BlobHistory(){
 	type = OUTPUT;
 	bIsRecordingHistory = false;
-	cam = 1;
+	cam = 0;
 	masterAlpha = 1.0;
 	historyOffset = 0 ;
 }
@@ -22,7 +22,7 @@ BlobHistory::BlobHistory(){
 #pragma mark Callback methods
 
 void BlobHistory::setup(){
-	float s = 0.3;
+	float s = 0.2;
 	motor.generateBackgroundObjects(35.0/s, 1*s, projection()->getFloor()->aspect, 1.0, 1);
 }
 
@@ -56,11 +56,11 @@ void BlobHistory::drawOnFloor(){
 		glCallList(blobHistoryMatrixDisplayList[(blobHistoryMatrixDisplayList.size()-1)-historyOffset]);
 	}
 	
-	glColor4d(1.0, 1.0, 1.0, snapshotAlpha * masterAlpha);
 																																				  
 	for (int i=0; i < blobSnapshotMatrix.size(); i++) {
 		for (int j=0; j < blobSnapshotMatrix[i].size(); j++) {
-			
+			glColor4d(1.0, 1.0, 1.0, snapshotAlpha * masterAlpha);
+
 			ofxCvBlob b = blobSnapshotMatrix[i][j];
 			if(fill)
 				ofFill();
@@ -77,6 +77,38 @@ void BlobHistory::drawOnFloor(){
 			}
 			
 			ofEndShape();
+			
+			
+			ofBeginShape();
+			
+			ofNoFill();
+			ofSetColor(255, 255, 255, 64 * snapshotAlpha * masterAlpha);
+			ofSetLineWidth(3);
+			
+			for (int p = 0; p < b.nPts; p++) {
+				
+				ofxVec2f v = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b.pts[p].x, b.pts[p].y));
+				ofVertex(v.x, v.y);
+				
+			}
+			
+			ofEndShape();
+			
+			ofBeginShape();
+			
+			ofNoFill();
+			ofSetColor(255, 255, 255, 128 * snapshotAlpha * masterAlpha);
+			ofSetLineWidth(2);
+			
+			for (int p = 0; p < b.nPts; p++) {
+				
+				ofxVec2f v = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b.pts[p].x, b.pts[p].y));
+				ofVertex(v.x, v.y);
+				
+			}
+			
+			ofEndShape();
+			
 			
 		}
 	}
@@ -134,6 +166,10 @@ void BlobHistory::update(){
 				
 				ofxCvBlob b = blobList.back();
 				
+				
+				ofFill();
+				ofSetColor(255, 255, 255);
+
 				ofBeginShape();
 				
 				for (int p = 0; p < b.nPts; p++) {
@@ -143,6 +179,36 @@ void BlobHistory::update(){
 					
 				}
 		
+				ofEndShape();
+				
+				ofBeginShape();
+	
+				ofNoFill();
+				ofSetColor(255, 255, 255, 64);
+				ofSetLineWidth(3);
+				
+				for (int p = 0; p < b.nPts; p++) {
+					
+					ofxVec2f v = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b.pts[p].x, b.pts[p].y));
+					ofVertex(v.x, v.y);
+					
+				}
+				
+				ofEndShape();
+				
+				ofBeginShape();
+				
+				ofNoFill();
+				ofSetColor(255, 255, 255, 128);
+				ofSetLineWidth(2);
+				
+				for (int p = 0; p < b.nPts; p++) {
+					
+					ofxVec2f v = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b.pts[p].x, b.pts[p].y));
+					ofVertex(v.x, v.y);
+					
+				}
+				
 				ofEndShape();
 				
 			}
