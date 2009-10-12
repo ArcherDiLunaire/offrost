@@ -207,6 +207,8 @@
 	IBOutlet frostSlider * FrostscapeFreezeColumns;
 
 	IBOutlet frostSlider * FrostscapeWhiteBackground;
+	IBOutlet frostCheckbox * FrostscapeAddLines;
+	IBOutlet frostSlider * FrostscapeLinesAlpha;
 
 	IBOutlet frostCheckbox * FrostscapeInvert;
 	IBOutlet frostSlider * FrostscapeMasterAlpha;

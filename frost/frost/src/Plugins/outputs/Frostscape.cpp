@@ -2,8 +2,6 @@
 #include "PluginController.h"
 #include "PluginIncludes.h"
 
-
-
 float Frostscape::randomFactor = 5.0;
 float Frostscape::slider1 = 0.0;
 float Frostscape::slider2 = 0;
@@ -29,6 +27,23 @@ void Frostscape::setup(){
 }
 
 void Frostscape::update(){
+	if(addingLines){
+		if(blob(cam)->numPersistentBlobs() >= 1){
+			if(ofRandom(0, 1) < 0.1){
+				lines[0].push_back(blob(cam)->persistentBlobs[0].centroid);
+				
+			}
+		}
+		if(blob(cam)->numPersistentBlobs() >= 2){
+			if(ofRandom(0, 1) < 0.1){
+				lines[1].push_back(blob(cam)->persistentBlobs[1].centroid);
+				
+			}
+		}
+		
+	}
+	
+	
 	invert = false;
 	motor.centerBreakRate =  Frostscape::slider1;
 	motor.bodyBreakRate =  Frostscape::slider2;	
@@ -75,7 +90,7 @@ void Frostscape::update(){
 	for(int i=0;i<3;i++){
 		if(columnFreeze[i] > 0){
 			//	int i=1;
-
+			
 			columnParticlePos[i] += 0.02*60.0/ofGetFrameRate();	
 			if(columnParticlePos[i] > 1){//&& columnParticlePos[i] < 2.0){
 				cout<<"add "<<i<<"  "<<columnFreeze[i]<<endl;
@@ -120,6 +135,7 @@ void Frostscape::draw(){
 }
 
 void Frostscape::drawOnFloor(){
+	
 	invert = false;
 	
 	if(invert){
@@ -131,10 +147,19 @@ void Frostscape::drawOnFloor(){
 	
 	if(whiteBackground > 0){
 		ofFill();
-		ofSetColor(255, 255, 255,255.0*whiteBackground);
+		ofSetColor(1.0, 1.0, 1.0,linesAlpha);
 		ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	}
 	
+	for(int u=0;u<2;u++){
+		glColor4f(255, 255, 255, 255);
+		glBegin(GL_LINE_STRIP);
+		for(int i=0;i<lines[u].size();i++){
+			glVertex2f(lines[u][i].x, lines[u][i].y);
+		}
+		glEnd();
+		
+	}
 	glPopMatrix();
 	
 	for(int i=0;i<3;i++){

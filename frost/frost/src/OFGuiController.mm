@@ -98,7 +98,9 @@ OFGuiController * gui = NULL;
 	[FrostscapeInvert hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->invert];
 	[FrostscapeMasterAlpha hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->masterAlpha];
 	[FrostscapeWhiteBackground hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->whiteBackground];
-	
+	[FrostscapeAddLines hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->addingLines];
+	[FrostscapeLinesAlpha hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->linesAlpha];
+
 	[liquidUpdateMotor hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->updateMotor];
 	
 	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];

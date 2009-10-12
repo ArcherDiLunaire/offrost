@@ -10,6 +10,7 @@
 
 class Frostscape : public Output{
 public:
+	
 	Frostscape();
 	
 	void setup();
@@ -39,9 +40,15 @@ public:
 	float sideFreeze;
 	float columnFreeze[3];
 	float freezeColumns;
-		bool invert;
+	
+	bool invert;
 	
 	float whiteBackground;
 	
 	float columnParticlePos[3];
+	
+	bool addingLines;
+	float linesAlpha;
+	vector<ofxVec2f> lines[2];
+	
 };
