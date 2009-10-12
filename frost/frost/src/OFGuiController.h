@@ -89,7 +89,8 @@
 	IBOutlet frostSlider *LaLineaOffsetY1;
 	IBOutlet frostSlider *LaLineaOffsetX2;
 	IBOutlet frostSlider *LaLineaOffsetY2;
-	
+	IBOutlet frostSlider *LaLineaDancer;
+
 	IBOutlet frostSlider *LaLineaNoise1;
 	IBOutlet frostSlider *LaLineaNoise2;	
 	IBOutlet frostSlider *LaLineaNoise3;
@@ -132,6 +133,7 @@
 	IBOutlet frostCheckbox *BlobHistoryRemovePrint;
 	IBOutlet frostCheckbox *BlobHistoryRemoveAllPrints;
 	IBOutlet frostCheckbox *BlobHistoryClearIce;
+	IBOutlet frostCheckbox *BlobHistoryFill;
 
 	IBOutlet frostCheckbox *BlobHistoryClearFreeze;
 	
@@ -224,7 +226,8 @@
 	IBOutlet NSSlider * liquidSpaceColorMultiplier;
 	IBOutlet NSButton * liquidSpaceAddingForce;
 	IBOutlet NSSlider * liquidSpaceForceMultiplier;
-	
+	IBOutlet frostSlider * liquidSpaceSpeed;
+
 #pragma mark Camera Outlets
 	
 	IBOutlet NSView * cameraSetting;

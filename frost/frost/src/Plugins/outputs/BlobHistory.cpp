@@ -62,7 +62,12 @@ void BlobHistory::drawOnFloor(){
 		for (int j=0; j < blobSnapshotMatrix[i].size(); j++) {
 			
 			ofxCvBlob b = blobSnapshotMatrix[i][j];
-			
+			if(fill)
+				ofFill();
+			else {
+				ofNoFill();
+			}
+
 			ofBeginShape();
 			for (int p = 0; p < b.nPts; p++) {
 				

@@ -77,8 +77,8 @@ void Frostscape::update(){
 			//	int i=1;
 
 			columnParticlePos[i] += 0.02*60.0/ofGetFrameRate();	
-			if(columnParticlePos[i] > 1 && columnParticlePos[i] < 1.1){
-
+			if(columnParticlePos[i] > 1){//&& columnParticlePos[i] < 2.0){
+				cout<<"add "<<i<<"  "<<columnFreeze[i]<<endl;
 				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]);	
 			}
 		} else {
@@ -162,6 +162,7 @@ void Frostscape::fillIce(){
 	motor.setValueOnAll(-3.0);
 }
 void Frostscape::emptyIce(){
+	motor.freezePoints.clear();
 	motor.setValueOnAll(1.0);	
 }
 

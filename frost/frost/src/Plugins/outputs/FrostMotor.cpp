@@ -139,9 +139,10 @@ void FrostMotor::addBodyCenter(ofPoint p){
 int FrostMotor::addFreezePoint(ofPoint p, float rate){
 	bool ok = true;
 	for(int i=0;i<freezePoints.size();i++){
-		if(freezePoints[i].position.distanceSquared(p) < rSq){
+		if(freezePoints[i].position.distanceSquared(p) < rSq*1.5){
 			ok = false;
 			freezePoints[i].active = true;
+			freezePoints[i].rate = rate;
 			break;
 		}
 	}
@@ -154,7 +155,7 @@ int FrostMotor::addFreezePoint(ofPoint p, float rate){
 		
 #pragma omp parallel for
 		for(int i=0;i<iceblockBackgrounds.size();i++){
-			if(((ofxPoint2f)iceblockBackgrounds[i].position).distanceSquared(f.position) < rSq){
+			if(((ofxPoint2f)iceblockBackgrounds[i].position).distanceSquared(f.position) < rSq*2.5){
 				pthread_mutex_lock(&f.plock);
 				f.close.push_back(i);
 				pthread_mutex_unlock(&f.plock);
@@ -222,12 +223,15 @@ void FrostMotor::update(){
 		if(freezePoints[i].active){
 			for(int v=freezePoints[i].close.size()-1;v>=0;v--){				
 				IceBlockBackgroundObject * obj = &iceblockBackgrounds[freezePoints[i].close[v]];
-				if(obj->upTimer > 10){	
+				//if(obj->upTimer > 10){	
 					pthread_mutex_lock(&obj->plock);
 					obj->a -= 0.08*freezePoints[i].rate*obj->speed;
 					obj->downTimer = 0;
+					cout<<obj->a<<endl;
 					pthread_mutex_unlock(&obj->plock);
-				}
+				/*} else {
+					cout<<"uptimer error"<<endl;
+				}*/
 				
 			}		
 		}				
@@ -261,7 +265,7 @@ void FrostMotor::update(){
 				obj2->a += 0.08*expandRate*obj->speed;
 				obj2->upTimer = 0;
 			}
-			if( decreaseRate > 0 && obj2->a < 0.1){
+			if( decreaseRate > 0 && obj2->a < 0.3){
 				collapse = true;
 			}
 			

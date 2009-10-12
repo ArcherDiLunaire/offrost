@@ -66,4 +66,6 @@ public:
 	bool updateMotor;
 	ofImage ringTexture;
 	void addRing(int i);
+	
+	float speed;
 };

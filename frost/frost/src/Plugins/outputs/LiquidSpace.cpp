@@ -73,7 +73,7 @@ LiquidSpace::LiquidSpace(){
 
 void LiquidSpace::setup(){
 	ringTexture.loadImage("waterRingTexture1.png");
-
+	
 	window.width		= projection()->getFloor()->aspect;
 	window.height		= 1.0;
 	
@@ -84,8 +84,8 @@ void LiquidSpace::setup(){
 	
 	
 	// setup fluid stuff
-	fluidSolver.setup(100, 100);
-    fluidSolver.enableRGB(true).setFadeSpeed(0.00000001).setDeltaT(0.5).setVisc(0.0000001).setColorDiffusion(0.00000002);
+	fluidSolver.setup(90, 90);
+    fluidSolver.enableRGB(true).setFadeSpeed(0.00000001).setDeltaT(0.5).setVisc(0.0000001).setColorDiffusion(0.00000002).setSolverIterations(3);
 	fluidDrawer.setup(&fluidSolver);
 	
 	fluidCellsX			= 120;
@@ -105,6 +105,15 @@ void LiquidSpace::update(){
 	
 	//	cout<<updateMotor<<endl;
 	if(updateMotor){
+		if(speed > 0){
+			for(int i=0;i<fluidSolver.getWidth();i++){
+				for(int u=0;u<fluidSolver.getHeight();u++){
+					
+					fluidSolver.addForceAtCell(i,u,0,speed*0.0001);
+				}
+			}
+		}
+		
 		fluidSolver.update();
 		
 		if (blob(0)->numBlobs() > 0) {
@@ -193,7 +202,7 @@ void LiquidSpace::draw(){
 				glTexCoord2f(0.0f, 0.0f);    
 				glVertex2f(cos(TWO_PI*(float)u/n)*rings[i].size, sin(TWO_PI*(float)u/n)*rings[i].size);
 				glTexCoord2f(50, 0.0f);    
-
+				
 				glVertex2f(cos(TWO_PI*(float)u/n)*(rings[i].size+0.01), sin(TWO_PI*(float)u/n)*(rings[i].size+0.01));
 			}	
 			glEnd();

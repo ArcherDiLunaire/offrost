@@ -27,7 +27,11 @@ void LaLinea::update(){
 void LaLinea::useFilm(){
 	bUsingFilm = getPlugin<Cameras*>(controller)->videoPlayerActive(cam);
 	if(!bUsingFilm){
-		getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLineaEdhamMixed.mov");
+		if(dancer < 0.5){
+			getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLineaEdhamMixedShort.mov");
+		} else {
+			getPlugin<Cameras*>(controller)->videoPlayerLoadUrl(cam, "LaLineaNelsonMixedShort.mov");	
+		}
 		getPlugin<Cameras*>(controller)->videoPlayerActivate(cam);
 		getPlugin<Cameras*>(controller)->videoPlayerPlay(cam);
 		bUsingFilm = true;

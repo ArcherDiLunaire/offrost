@@ -119,7 +119,8 @@ OFGuiController * gui = NULL;
 	[LaLineaNoise1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise1];
 	[LaLineaNoise2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise2];
 	[LaLineaNoise3 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise3];
-	
+	[LaLineaDancer hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->dancer];
+
 	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
 	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
 	[LaLineaFloorDirSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->dirSpeed];
@@ -146,6 +147,8 @@ OFGuiController * gui = NULL;
 	[BlobHistoryRemovePrint hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bRemoveOldestSnapshot];
 	[BlobHistoryRemoveAllPrints hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bClearSnapshots];
 	[BlobHistoryClearIce hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bClearIce];
+	[BlobHistoryFill hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->fill];
+
 
 	[MirrorBallMasterAlpha hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->masterAlpha];
 	[MirrorBallReflection1OnFraction hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections1.fractionOfDotsShouldBeTurnedOn];
@@ -153,6 +156,9 @@ OFGuiController * gui = NULL;
 	[MirrorBallReflection2OnFraction hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections2.fractionOfDotsShouldBeTurnedOn];
 	[MirrorBallReflection2AlphaFraction hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections2.alpha];
 	[MirrorBallRotationFactor hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->rotationDirection];
+	
+	[liquidSpaceSpeed hookUpFloat:&getPlugin<LiquidSpace*>(ofApp->pluginController)->speed];
+
 	
 }
 

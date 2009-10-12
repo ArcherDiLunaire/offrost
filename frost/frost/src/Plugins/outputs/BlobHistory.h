@@ -59,4 +59,5 @@ public:
 	float freezeSpeed;
 	float freezeRate;
 	bool clearFreeze;
+	bool fill;
 };

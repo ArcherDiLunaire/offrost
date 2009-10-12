@@ -44,5 +44,6 @@ public:
 	float maskAlpha;
 	
 	float noise1, noise2, noise3;
+	float dancer;
 	
 };
