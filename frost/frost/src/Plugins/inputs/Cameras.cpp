@@ -270,6 +270,9 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		 FEATURE_OPTICAL_FILTER		= 19,
 		 FEATURE_CAPTURE_SIZE		= 20,
 		 FEATURE_CAPTURE_QUALITY	= 21,
+		 
+		 **/
+		
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_SHUTTER);
 		 //((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(0.08, FEATURE_SHUTTER);
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_BRIGHTNESS);
@@ -280,8 +283,7 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		 //((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(250, FEATURE_GAIN);
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_IRIS);
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_EXPOSURE);
-		 **/		 
-		
+
 		ofLog(OF_LOG_NOTICE,"Camera succesfully initialized.");
 		cameraInited[_grabber] = true;
 	} else {
