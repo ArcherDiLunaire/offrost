@@ -65,6 +65,8 @@ public:
 	ofxCvGrayscaleImage 	grayLastImage;
 	ofxCvGrayscaleImage 	grayImageBlured;
 	
+	ofxCvGrayscaleImage 	grayBgMask;
+	
 	ofxCvGrayscaleImage 	grayBg;
 	ofxCvGrayscaleImage 	grayDiff;
 	
@@ -76,13 +78,17 @@ public:
 	bool active;
 	
 	bool				bLearnBakground;
+	bool				bUseBgMask;
 	bool				bVideoPlayerWasActive;
-	
+
 	bool mouseBlob;
 	ofxCvBlob mouseGeneratedBlob;
 	void updateMouseBlob(float x, float y, int button);
 	
-		contourSimplify contourSimp;
+	void setBgMaskFromPixels(unsigned char* _pixels, int width, int height);
+	
+	contourSimplify contourSimp;
+	
 	//Getters
 	int numBlobs();
 	ofxCvBlob getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibrator);
@@ -107,7 +113,6 @@ public:
 	 */
 	ofxCvBlob smoothBlob(ofxCvBlob blob, float smooth);
 	void extrudeBlob(ofxCvBlob * blob, float value);	
-	
 	
 	float postBlur, postThreshold;
 	

@@ -67,7 +67,11 @@ void MoonDust::update(){
 			for(int u=0;u<sections;u++){
 				if(ab.length() < (u+1)*1.0/sections && (ab+p).y > p.y){
 					if(fabs((p+ab).distance(r)) > section[u]){
-						section[u] = fabs((p+ab).distance(r));
+						if(u < 10){
+
+						} else {
+							section[u] = fabs((p+ab).distance(r));
+						}
 					}
 					if(lowestSection < u  ){
 						lowestSection = u;

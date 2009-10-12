@@ -67,11 +67,14 @@ Tracker::Tracker(){
 	grayImage.allocate(cw,ch);
 	grayLastImage.allocate(cw,ch);
 	grayBg.allocate(cw,ch);
+	grayBgMask.allocate(cw,ch);
+	grayBgMask.set(255);
 	grayDiff.allocate(cw,ch);
 	bVideoPlayerWasActive = false;
 	bLearnBakground = false;
 	mouseBlob = false;
 	postBlur = 0;
+	bUseBgMask = false;
 	postThreshold = 0;
 }
 
@@ -105,7 +108,6 @@ void Tracker::update(){
 			if(thread.lock()){
 				
 				grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
-				int nPoints = 4;
 				
 				/*CvPoint _cp1[4]= {{0,0}, {cw,0}, {blackCorners[1].x,blackCorners[1].y}, {blackCorners[0].x,blackCorners[0].y}};
 				 CvPoint _cp2[4]= {{cw,0}, {cw,ch}, {blackCorners[2].x,blackCorners[2].y}, {blackCorners[1].x,blackCorners[1].y}};
@@ -118,6 +120,7 @@ void Tracker::update(){
 				 CvPoint* cp4 = _cp4; cvFillPoly(grayImage.getCvImage(), &cp4, &nPoints, 1, cvScalar(0));
 				 */
 				
+				int nPoints = 4;
 				CvPoint _cp[4]= {{blackCorners[0].x,blackCorners[0].y}, {blackCorners[1].x,blackCorners[1].y},{blackCorners[2].x,blackCorners[2].y},{blackCorners[3].x,blackCorners[3].y}};			
 				CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
 				
@@ -133,7 +136,11 @@ void Tracker::update(){
 				}
 				
 				if (bLearnBakground == true){
-					grayBg = grayImageBlured;
+					if (bUseBgMask) {
+						cvCopy(grayImageBlured.getCvImage(), grayBg.getCvImage(), grayBgMask.getCvImage());
+					} else {
+						grayBg = grayImageBlured;
+					}
 					if (!getPlugin<Cameras*>(controller)->videoPlayerActive(cameraId)) {
 						saveBackground();
 					}
@@ -251,6 +258,10 @@ bool Tracker::loadBackground(int num){
 	}
 }
 
+void Tracker::setBgMaskFromPixels(unsigned char* _pixels, int width, int height){
+	grayBgMask.setFromPixels(_pixels, width, height);
+}
+
 int Tracker::numBlobs(){
 	if(mouseBlob){
 		return 1;
@@ -288,11 +299,7 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 		deBarrelledBlob.pts.push_back(ofPoint(v.x, v.y));
 	}
 	
-	
-	
 	deBarrelledBlob.nPts = blob->nPts;
-	
-	
 	
 	ofxCvBlob b;
 	float m = cw*ch;
@@ -433,8 +440,27 @@ void BlobTracking::setup(){
 		trackers[i]->controller = controller;
 		trackers[i]->bLearnBakground != trackers[i]->loadBackground();
 		trackers[i]->setup();
+		trackers[i]->bUseBgMask = false;
 	}
+	
+	int nPoints = 4;
+	
+	ofxPoint2f wallMaskCorners[4];
+	/**
+	for(int i=0;i<4;i++){
+		wallMaskCorners[i] = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->transform(projection()->getWall()->corners[i]);
+	}
+	
+	CvPoint _cp[4]= {{blackCorners[0].x,blackCorners[0].y}, {blackCorners[1].x,blackCorners[1].y},{blackCorners[2].x,blackCorners[2].y},{blackCorners[3].x,blackCorners[3].y}};			
+	CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+	
+	
+	trackers[i]->setBgMaskFromPixels();
+	**/
+	
 }
+
+
 void BlobTracking::update(){
 	//#pragma omp parallel for
 	for(int i=0;i<trackers.size();i++){
@@ -523,6 +549,7 @@ void BlobTracking::setThreshold(int n, float v){
 		trackers[n]->threshold = v;;
 	
 }
+
 void BlobTracking::setBlur(int n, int v){
 	if(v % 2 == 0){
 		v += 1;
