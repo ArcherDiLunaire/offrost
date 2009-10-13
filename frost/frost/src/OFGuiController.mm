@@ -171,6 +171,11 @@ OFGuiController * gui = NULL;
 	[foldingHistoryPush2 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push2];
 	[foldingHistoryPush3 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push3];
 	
+	[cameraBrightness1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[0]];
+	[cameraBrightness2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[1]];
+	[cameraBrightness3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[2]];
+	
+	
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {

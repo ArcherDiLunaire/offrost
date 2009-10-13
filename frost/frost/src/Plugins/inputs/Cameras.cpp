@@ -124,6 +124,8 @@ void Cameras::update(){
 		} else {
 			if(hasCameras && isReady(i) && ((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->grabbedFirstImage){
 				vidGrabber[i]->update();
+				cout << cameraBrightness[i] << endl;
+				((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureAbsoluteValue(cameraBrightness[i], FEATURE_BRIGHTNESS);
 				frameNew[i] = vidGrabber[i]->isFrameNew();
 				if(frameNew[i]){
 					calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);
