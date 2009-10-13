@@ -50,7 +50,9 @@
 
 	
 	[self hookupSlider:gui->foldingHistoryAddMultiplier onChannel:8 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
-	
+	[self hookupSlider:gui->foldingHistoryPush1 onChannel:8 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingHistoryPush2 onChannel:8 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingHistoryPush3 onChannel:8 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 	[self hookupSlider:gui->FrostscapeMasterAlpha onChannel:9 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider1 onChannel:9 onNumber:2 controlChanges:true noteChanges:false scale:10.0/127.0];
@@ -82,6 +84,8 @@
 	[self hookupButton:gui->BlobHistoryRemoveAllPrints onChannel:11 onNumber:14 controlChanges:true noteChanges:false];
 	[self hookupButton:gui->BlobHistoryClearIce onChannel:11 onNumber:15 controlChanges:true noteChanges:false];
 	[self hookupButton:gui->BlobHistoryFill onChannel:11 onNumber:16 controlChanges:true noteChanges:false];
+
+	[self hookupButton:gui->Blob1OnlyCurtain onChannel:1 onNumber:6 controlChanges:true noteChanges:false];
 
 
 	// set gui info for booleans

@@ -429,6 +429,9 @@ int Tracker::getHeight(){
 BlobTracking::BlobTracking(){
 	type = INPUT;
 	drawDebug = false;
+	for(int i=0;i<3;i++){
+		bUseBgMask[i] = false;
+	}	
 }
 void BlobTracking::setup(){
 	for(int i=0;i<3;i++){
@@ -442,37 +445,44 @@ void BlobTracking::setup(){
 		trackers[i]->setup();
 		trackers[i]->bUseBgMask = false;
 	}
-	
-	int nPoints = 4;
-	
-	ofxPoint2f wallMaskCorners[4];
-	
-	for(int i=0;i<4;i++){
-		wallMaskCorners[i] = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->transform(projection()->getWall()->corners[i]->x, projection()->getWall()->corners[i]->y);
-	}
-	
-	ofxCvGrayscaleImage theWallMask;
-	
-	theWallMask.allocate(trackers[0]->getWidth(),trackers[0]->getHeight());
-	theWallMask.set(0);
-
-	CvPoint _cp[4]= {{wallMaskCorners[0].x,wallMaskCorners[0].y}, {wallMaskCorners[1].x,wallMaskCorners[1].y},{wallMaskCorners[2].x,wallMaskCorners[2].y},{wallMaskCorners[3].x,wallMaskCorners[3].y}};			
-	CvPoint* cp = _cp; cvFillPoly(theWallMask.getCvImage(), &cp, &nPoints, 1, cvScalar(255));
-
-	trackers[0]->setBgMaskFromPixels(theWallMask.getPixels(), theWallMask.getWidth(), theWallMask.getHeight());
-	
 }
 
 
 void BlobTracking::update(){
 	//#pragma omp parallel for
+	
+	if (bUseBgMask[0]) {
+		
+		int nPoints = 4;
+		
+		ofxPoint2f wallMaskCorners[4];
+		
+		for(int i=0;i<4;i++){
+			wallMaskCorners[i] = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(projection()->getWall()->corners[i]->x, projection()->getWall()->corners[i]->y);
+			wallMaskCorners[i].x *= trackers[0]->getWidth();
+			wallMaskCorners[i].y *= trackers[0]->getHeight();
+		}
+		
+		ofxCvGrayscaleImage theWallMask;
+		
+		theWallMask.allocate(trackers[0]->getWidth(),trackers[0]->getHeight());
+		theWallMask.set(0);
+		
+		CvPoint _cp[4]= {{wallMaskCorners[0].x,wallMaskCorners[0].y}, {wallMaskCorners[1].x,wallMaskCorners[1].y},{wallMaskCorners[2].x,wallMaskCorners[2].y},{wallMaskCorners[3].x,wallMaskCorners[3].y}};			
+		CvPoint* cp = _cp; cvFillPoly(theWallMask.getCvImage(), &cp, &nPoints, 1, cvScalar(255));
+		
+		trackers[0]->setBgMaskFromPixels(theWallMask.getPixels(), theWallMask.getWidth(), theWallMask.getHeight());
+		
+	}
+	
 	for(int i=0;i<trackers.size();i++){
+		trackers[i]->bUseBgMask = bUseBgMask[i];
 		trackers[i]->update();
 	}	
+	
 	for(int i=0;i<trackers.size();i++){
 		trackers[i]->findContours();	
 	}
-	trackers[0]->bUseBgMask = bUseBgMask;
 }
 
 void BlobTracking::drawSettings(){
@@ -485,6 +495,7 @@ void BlobTracking::drawSettings(){
 		getPlugin<Cameras*>(controller)->draw(trackers[i]->cameraId,0,w*a*i,w,w*a);
 		trackers[i]->grayImageBlured.draw(w,w*a*i,w,w*a);
 		trackers[i]->grayBg.draw(w*2,w*a*i, w,w*a);
+		//trackers[i]->grayBgMask.draw(w*2,w*a*i, w,w*a);
 		trackers[i]->grayDiff.draw(w*3,w*a*i,w,w*a);
 		if(trackers[i]->thread.lock()){
 			trackers[i]->thread.contourFinder.draw(w*3,w*a*i,w,w*a);
@@ -492,8 +503,7 @@ void BlobTracking::drawSettings(){
 		}
 		
 		// trackers[i]->opticalFlow.draw();
-		
-		//		trackers[i]->simplifiedContourFinder.draw(w*3,w*a*i,w,w*a);
+		// trackers[i]->simplifiedContourFinder.draw(w*3,w*a*i,w,w*a);
 	}
 }
 
