@@ -36,4 +36,6 @@ public:
 	int histPos;
 	
 	float push1, push2, push3;
+	float fishAlpha;
+	ofVideoPlayer fish;
 };

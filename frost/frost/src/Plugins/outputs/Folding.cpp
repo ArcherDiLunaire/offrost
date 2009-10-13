@@ -29,6 +29,9 @@ void Folding::setup(){
 		now.push_back(img2);
 	}
 	
+	fish.loadMovie("goldfishCrop.mov");
+	
+	
 	//	fbo.allocate(640, 480, true);
 	
 }
@@ -124,7 +127,7 @@ void Folding::draw(){
 	}	
 	history[b].draw(0,0,4,4);	
 	now[b].draw(0,0,4,4);	
-
+	
 	glPopMatrix();	
 	
 	
@@ -149,5 +152,21 @@ void Folding::draw(){
 	ofSetColor(0, 0, 0,255);
 	ofRect(projection()->getColumn(0)->aspect, 0, -100, 1);
 	glPopMatrix();	
+	
+	if(fishAlpha > 0){
+		if(!fish.bPlaying){
+			fish.setLoopState(OF_LOOP_NORMAL);
+			fish.play();
+		}
+		ofSetColor(255, 255, 255, 255.0*fishAlpha);
+		projection()->applyProjection(projection()->getCurtain(4));
+		fish.draw(0, 0, 1,1);
+		glPopMatrix();
+		
+	} else {
+		if(fish.bPlaying)
+			fish.stop();
+		
+	}
 }
 

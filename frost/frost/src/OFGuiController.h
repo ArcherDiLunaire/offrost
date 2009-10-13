@@ -192,7 +192,7 @@
 	IBOutlet frostSlider * foldingHistoryPush1;
 	IBOutlet frostSlider * foldingHistoryPush2;
 	IBOutlet frostSlider * foldingHistoryPush3;
-
+	IBOutlet frostSlider * foldingFishAlpha;
 #pragma mark Frostscape outlets
 	
 	IBOutlet NSView *frostscapeView;

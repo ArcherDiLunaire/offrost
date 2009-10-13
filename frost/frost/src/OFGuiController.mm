@@ -170,6 +170,7 @@ OFGuiController * gui = NULL;
 	[foldingHistoryPush1 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push1];
 	[foldingHistoryPush2 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push2];
 	[foldingHistoryPush3 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push3];
+	[foldingFishAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->fishAlpha];
 	
 	[cameraBrightness1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[0]];
 	[cameraBrightness2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[1]];
@@ -269,7 +270,7 @@ OFGuiController * gui = NULL;
 		[self addObject:@"La Linea" isheader:FALSE plugin:getPlugin<LaLinea*>(ofApp->pluginController)];
 		[self addObject:@"La Linea Floor Line" isheader:FALSE plugin:getPlugin<LaLineaFloor*>(ofApp->pluginController)];
 		[self addObject:@"Blob light" isheader:FALSE plugin:getPlugin<BlobLight*>(ofApp->pluginController)];
-		[self addObject:@"Folding" isheader:FALSE plugin:getPlugin<Folding*>(ofApp->pluginController)];
+		[self addObject:@"Folding / Goldfish" isheader:FALSE plugin:getPlugin<Folding*>(ofApp->pluginController)];
 		[self addObject:@"Frostscape" isheader:FALSE plugin:getPlugin<Frostscape*>(ofApp->pluginController)];
 		[self addObject:@"Liquid Space" isheader:FALSE plugin:getPlugin<LiquidSpace*>(ofApp->pluginController)];
 		[self addObject:@"Blob History" isheader:FALSE plugin:getPlugin<BlobHistory*>(ofApp->pluginController)];
@@ -393,7 +394,7 @@ OFGuiController * gui = NULL;
 		view = blobLightView;
 	}	
 	
-	if(![(NSString*)[p name] compare:@"Folding"]){
+	if(![(NSString*)[p name] compare:@"Folding / Goldfish"]){
 		view = foldingView;
 	}	
 	
