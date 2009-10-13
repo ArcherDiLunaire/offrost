@@ -42,7 +42,7 @@ void LaLineaFloor::update(){
 		//dir += v*(itIsClose?0.01:ofRandom(0.001,0.003));
 		dir += v*ofRandom(0.001,0.003)*dirSpeed;
 		float angle = dir.angle(v);
-//		cout<<angle<<endl;
+		//		cout<<angle<<endl;
 		dir.rotate(angle*ofRandom(0.001,0.003)*dirSpeed);
 		
 		dir.normalize();
@@ -53,7 +53,7 @@ void LaLineaFloor::update(){
 		
 		pos += dir*100.0/ofGetFrameRate()*speed;
 		pnts.push_back(pos);
-
+		
 	}
 }
 void LaLineaFloor::draw(){
@@ -63,10 +63,10 @@ void LaLineaFloor::draw(){
 void LaLineaFloor::reset(){
 	pnts.clear();
 	ofxPoint2f p = projection()->getColumnCoordinate(0);
-
+	
 	pos = p;
 	dir = ofxVec2f(-1,0);
-
+	
 }
 
 void LaLineaFloor::drawOnFloor(){
@@ -86,9 +86,9 @@ void LaLineaFloor::drawOnFloor(){
 			hat.y = v.x;
 			hat.normalize();
 			ofxVec2f noise = hat * ofRandom(-noise1, noise1)*0.01;
-
+			
 			hat *= 0.02*width;
-
+			
 			glTexCoord2f(0.0f, 0.0f);    
 			glVertex2f(pnts[i].x-hat.x+noise.x, pnts[i].y-hat.y+noise.y);
 			glTexCoord2f(50, 0.0f);     
@@ -96,12 +96,12 @@ void LaLineaFloor::drawOnFloor(){
 		}
 		glEnd();
 		texture.getTextureReference().unbind();
-
+		
 	}
 	ofPopStyle();
 	
 	glPopMatrix();
-	
+	ofSetColor(0, 0, 0,255);
 	for(int i=0;i<3;i++){
 		projection()->applyProjection(projection()->getColumn(i));
 		ofSetColor(0, 0, 0,255)	;
@@ -109,6 +109,23 @@ void LaLineaFloor::drawOnFloor(){
 		glPopMatrix();
 		
 	}
+	
+	
+	
+	//Mask
+	glPopMatrix();
+	for(int i=0;i<3;i++){
+		projection()->applyColumnProjection(i);		
+		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);		
+		glPopMatrix();		
+	}
+	
+	projection()->applyWallProjection();		
+	ofRect(0, 0, projection()->getWall()->aspect, 1);		
+	glPopMatrix();		
+	
+	
+	
 	
 }
 

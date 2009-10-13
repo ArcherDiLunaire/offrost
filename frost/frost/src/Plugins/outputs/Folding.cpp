@@ -158,9 +158,10 @@ void Folding::draw(){
 			fish.setLoopState(OF_LOOP_NORMAL);
 			fish.play();
 //		}
+		ofEnableAlphaBlending();
 		ofSetColor(255, 255, 255, 255.0*fishAlpha);
 		projection()->applyProjection(projection()->getCurtain(4));
-		fish.draw(0, 0, 1,1);
+		fish.draw(0, 0, 1.37,1);
 		glPopMatrix();
 		
 	} /*else {
