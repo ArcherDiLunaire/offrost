@@ -24,23 +24,40 @@ Frostscape::Frostscape(){
 
 void Frostscape::setup(){
 	motor.generateBackgroundObjects(35, 1, projection()->getFloor()->aspect, 1.0, -3);
+	iceMask.loadImage("iceMask.png");
 }
 
 void Frostscape::update(){
+	if(resetLines){
+		resetLines = false;
+		lines[0].clear();
+		lines[1].clear();
+		linesOffset[0].clear();
+		linesOffset[1].clear();
+		linesFreezePoints.clear();
+	}
 	if(addingLines){
-		if(blob(cam)->numPersistentBlobs() >= 1){
-			if(ofRandom(0, 1) < 0.1){
-				lines[0].push_back(blob(cam)->persistentBlobs[0].centroid);
-				
+		for(int i=0;i<2;i++){
+			if(blob(cam)->numPersistentBlobs() >= i+1){
+				if(lines[i].size() == 0 || blob(cam)->persistentBlobs[i].centroid.distance(lines[i].back()) > ofRandom(0.1, 7)){
+					lines[i].push_back(blob(cam)->persistentBlobs[i].centroid);
+					linesOffset[i].push_back(linesSpeed*ofxVec2f(ofRandom(-0.05, 0.05),ofRandom(-0.05, 0.05)));
+					
+				}
+			}
+		}		
+	}
+	//Freeze lines
+	if(freezeLines > 0){
+		for(int i=0;i<2;i++){
+			if(ofRandom(0, 1) < 0.03*freezeLines && lines[i].size() > 0){
+				linesFreezePoints.push_back(lines[i][floor(ofRandom(0, lines[i].size()-1))]);
 			}
 		}
-		if(blob(cam)->numPersistentBlobs() >= 2){
-			if(ofRandom(0, 1) < 0.1){
-				lines[1].push_back(blob(cam)->persistentBlobs[1].centroid);
-				
-			}
-		}
-		
+	}
+	
+	for(int i=0;i<linesFreezePoints.size();i++){
+		motor.addFreezePoint(linesFreezePoints[i], 0.03);
 	}
 	
 	
@@ -93,7 +110,7 @@ void Frostscape::update(){
 			
 			columnParticlePos[i] += 0.02*60.0/ofGetFrameRate();	
 			if(columnParticlePos[i] > 1){//&& columnParticlePos[i] < 2.0){
-//				cout<<"add "<<i<<"  "<<columnFreeze[i]<<endl;
+				//				cout<<"add "<<i<<"  "<<columnFreeze[i]<<endl;
 				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]);	
 			}
 		} else {
@@ -150,15 +167,17 @@ void Frostscape::drawOnFloor(){
 		ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	}
 	
-	/*for(int u=0;u<2;u++){
-		glColor4f(255, 255, 255, 255);
-		glBegin(GL_LINE_STRIP);
+	for(int u=0;u<2;u++){
+		glColor4f(1.0, 1.0, 1.0, linesAlpha);
+		glBegin(GL_QUAD_STRIP);
 		for(int i=0;i<lines[u].size();i++){
 			glVertex2f(lines[u][i].x, lines[u][i].y);
+			glVertex2f(lines[u][i].x+linesOffset[u][i].x, lines[u][i].y+linesOffset[u][i].y);
+			
 		}
 		glEnd();
 		
-	}*/
+	}
 	glPopMatrix();
 	
 	for(int i=0;i<3;i++){
@@ -180,6 +199,16 @@ void Frostscape::drawOnFloor(){
 		glPopMatrix();
 		
 	}
+	
+	projection()->applyProjection(projection()->getFloor());
+	
+	ofEnableAlphaBlending();
+	ofSetColor(255, 255, 255,255);
+	iceMask.draw(0,0,projection()->getFloor()->aspect,1);
+	
+	glPopMatrix();
+	
+	
 }
 
 void Frostscape::fillIce(){

@@ -14,7 +14,7 @@
 BlobHistory::BlobHistory(){
 	type = OUTPUT;
 	bIsRecordingHistory = false;
-	cam = 0;
+	cam = 1;
 	masterAlpha = 1.0;
 	historyOffset = 0 ;
 }

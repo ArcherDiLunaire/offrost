@@ -49,6 +49,13 @@ public:
 	
 	bool addingLines;
 	float linesAlpha;
+	float linesSpeed;
+	bool resetLines;
+	float freezeLines;
 	vector<ofxVec2f> lines[2];
+	vector<ofxVec2f> linesOffset[2];
+	vector<ofxPoint2f> linesFreezePoints;
+
+	ofImage iceMask;
 	
 };

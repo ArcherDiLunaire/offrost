@@ -165,6 +165,13 @@ void LaLinea::drawOnWall(){
 		}
 	}
 	
+	if(noise3 > 0){
+		ofDisableAlphaBlending();
+		ofSetColor(0, 0, 0, 255);
+		ofRect(noise3*projection()->getWall()->aspect, 0, -100, 100);
+		ofEnableAlphaBlending();
+	}
+	
 	
 	ofFill();
 	

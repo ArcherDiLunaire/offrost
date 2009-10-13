@@ -39,7 +39,8 @@
 	[self hookupSlider:gui->LaLineaNoise2 onChannel:5 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaNoise2 onChannel:5 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaDancer onChannel:5 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
-	
+	[self hookupSlider:gui->LaLineaNoise3 onChannel:5 onNumber:9 controlChanges:true noteChanges:false scale:1.0/127.0];
+
 	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:6 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorSpeed onChannel:6 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorDirSpeed onChannel:6 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];

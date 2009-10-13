@@ -226,7 +226,7 @@ void FrostMotor::update(){
 					pthread_mutex_lock(&obj->plock);
 					obj->a -= 0.08*freezePoints[i].rate*obj->speed;
 					obj->downTimer = 0;
-					cout<<obj->a<<endl;
+
 					pthread_mutex_unlock(&obj->plock);
 				/*} else {
 					cout<<"uptimer error"<<endl;

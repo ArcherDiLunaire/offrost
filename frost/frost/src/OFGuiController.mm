@@ -100,6 +100,9 @@ OFGuiController * gui = NULL;
 	[FrostscapeWhiteBackground hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->whiteBackground];
 	[FrostscapeAddLines hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->addingLines];
 	[FrostscapeLinesAlpha hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->linesAlpha];
+	[FrostscapeLinesAddSpeed hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->linesSpeed];
+	[FrostscapeResetLines hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->resetLines];
+	[FrostscapeFreezeLines hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->freezeLines];
 
 	[liquidUpdateMotor hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->updateMotor];
 	

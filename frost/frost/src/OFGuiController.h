@@ -189,7 +189,10 @@
 	
 	IBOutlet NSView *foldingView;
 	IBOutlet frostSlider * foldingHistoryAddMultiplier;
-	
+	IBOutlet frostSlider * foldingHistoryPush1;
+	IBOutlet frostSlider * foldingHistoryPush2;
+	IBOutlet frostSlider * foldingHistoryPush3;
+
 #pragma mark Frostscape outlets
 	
 	IBOutlet NSView *frostscapeView;
@@ -212,6 +215,9 @@
 
 	IBOutlet frostCheckbox * FrostscapeInvert;
 	IBOutlet frostSlider * FrostscapeMasterAlpha;
+	IBOutlet frostSlider * FrostscapeLinesAddSpeed;
+	IBOutlet frostCheckbox * FrostscapeResetLines;
+	IBOutlet frostSlider * FrostscapeFreezeLines;
 
 
 #pragma mark LiquidSpace outlets

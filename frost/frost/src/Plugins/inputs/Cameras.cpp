@@ -41,6 +41,7 @@ void Cameras::setup(){
 		}
 	}
 	
+	videoPlayer->setSpeed(1.5);
 	
 	
 	// first init the cams that are bound and exist
