@@ -34,4 +34,6 @@ public:
 	vector<ofxCvGrayscaleImage> now;
 	
 	int histPos;
+	
+	float push1, push2, push3;
 };

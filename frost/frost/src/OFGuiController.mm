@@ -165,7 +165,10 @@ OFGuiController * gui = NULL;
 	[MirrorBallReflection1Clear hookUpBool:&getPlugin<MirrorBall*>(ofApp->pluginController)->bClearDots];
 
 	[liquidSpaceSpeed hookUpFloat:&getPlugin<LiquidSpace*>(ofApp->pluginController)->speed];
-
+	
+	[foldingHistoryPush1 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push1];
+	[foldingHistoryPush2 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push2];
+	[foldingHistoryPush3 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push3];
 	
 }
 

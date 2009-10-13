@@ -102,7 +102,7 @@ void Folding::draw(){
 	
 	
 	projection()->applyCurtainProjection(0, 0);
-	glTranslated(-1.4, 0.4, 0);
+	glTranslated(-1.4-push1*projection()->getCurtain(0)->aspect, 0.4, 0);
 	glRotated(-25, 0, 0, 1.0);
 	//historyImg.draw(0,0,4,4);
 	if(histPos > 0){
@@ -114,7 +114,7 @@ void Folding::draw(){
 	
 	
 	projection()->applyCurtainProjection(0, 1);
-	glTranslated(-1.4, 0.4, 0);
+	glTranslated(-1.4-push2*projection()->getCurtain(1)->aspect, 0.4, 0);
 	glRotated(-25, 0, 0, 1.0);
 	//historyImg.draw(0,0,4,4);
 	
@@ -129,7 +129,7 @@ void Folding::draw(){
 	
 	
 	projection()->applyCurtainProjection(0, 2);
-	glTranslated(-1.4, 0.4, 0);
+	glTranslated(-1.4-push3*projection()->getCurtain(2)->aspect, 0.4, 0);
 	glRotated(-25, 0, 0, 1.0);
 	//historyImg.draw(0,0,4,4);
 	
@@ -142,65 +142,12 @@ void Folding::draw(){
 	glPopMatrix();	
 	
 	
-	
-	
-	/*
-	 ofPushStyle();
-	 ofEnableAlphaBlending();
-	 //	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
-	 projection()->applyFloorProjection();
-	 ofSetColor(255, 255,255);
-	 //ofRect(0, 0, 1, 1);
-	 glColor4d(1.0, 1.0, 1.0,  1.0);
-	 ofFill();
-	 if (blobHistoryMatrixDisplayList.size() > 0) {
-	 glCallList(blobHistoryMatrixDisplayList[(blobHistoryMatrixDisplayList.size()-1)]);
-	 //blob(cam)->grayDiff.draw(0,0,4,4);
-	 
-	 float a = 1.0;
-	 for(int i=1;i<historyAddMultiplier*60;i++){
-	 a /= 1.3;
-	 glColor4d(1.0, 1.0, 1.0,  a);
-	 glCallList(blobHistoryMatrixDisplayList[MAX((blobHistoryMatrixDisplayList.size()-i),0)]);
-	 
-	 
-	 }
-	 
-	 }
-	 glPopMatrix();
-	 
-	 ofPopStyle();
-	 
-	 
-	 ofPushStyle();
-	 
-	 ofEnableAlphaBlending();
-	 glBlendFunc (GL_SRC_COLOR, GL_ONE);	
-	 projection()->applyFloorProjection();
-	 ofSetColor(255, 255,255);
-	 //ofRect(0, 0, 1, 1);
-	 glColor4d(1.0, 1.0, 1.0,  1.0);
-	 glTranslated(0, 0.2, 0);
-	 
-	 //	fbo.swapIn();
-	 //fbo.setupScreenForMe();
-	 
-	 if (blobHistoryMatrixDisplayList.size() > 0) {
-	 glCallList(blobHistoryMatrixDisplayList[MAX((blobHistoryMatrixDisplayList.size()-25*3),0)]);
-	 }	//blob(cam)->grayDiff.draw(0,0,4,4);
-	 
-	 
-	 //	fbo.swapOut();
-	 //fbo.setupScreenForThem();
-	 
-	 //	projection()->applyFloorProjection();
-	 
-	 glPopMatrix();
-	 
-	 ofPopStyle();
-	 
-	 glPopMatrix();
-	 
-	 */		
+	//Left mask
+	projection()->applyColumnProjection(0);
+	//historyImg.draw(0,0,4,4);
+	ofDisableAlphaBlending();
+	ofSetColor(0, 0, 0,255);
+	ofRect(projection()->getColumn(0)->aspect, 0, -100, 1);
+	glPopMatrix();	
 }
 
