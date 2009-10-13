@@ -228,18 +228,22 @@
 	
 	IBOutlet NSView *liquidSpaceView;
 	IBOutlet frostCheckbox * liquidUpdateMotor;
-	IBOutlet NSButton * liquidSpaceFIll;
+	IBOutlet frostCheckbox * liquidSpaceFIll;
 	IBOutlet NSColorWell * liquidSpaceFillColor;
-	IBOutlet NSSlider * liquidSpaceFadeSpeed;
-	IBOutlet NSSlider * liquidSpaceViscosity;
-	IBOutlet NSSlider * liquidSpaceDiffusion;
+	IBOutlet frostSlider * liquidSpaceFadeSpeed;
+	IBOutlet frostSlider * liquidSpaceViscosity;
+	IBOutlet frostSlider * liquidSpaceDiffusion;
 	IBOutlet NSColorWell * liquidSpaceDropColor;
-	IBOutlet NSButton * liquidSpaceAddingColor;
-	IBOutlet NSSlider * liquidSpaceColorMultiplier;
-	IBOutlet NSButton * liquidSpaceAddingForce;
-	IBOutlet NSSlider * liquidSpaceForceMultiplier;
+	IBOutlet frostCheckbox * liquidSpaceAddingColor;
+	IBOutlet frostSlider * liquidSpaceColorMultiplier;
+	IBOutlet frostCheckbox * liquidSpaceAddingForce;
+	IBOutlet frostSlider * liquidSpaceForceMultiplier;
 	IBOutlet frostSlider * liquidSpaceSpeed;
 	IBOutlet frostCheckbox * liquidSpaceClear;
+	IBOutlet frostCheckbox * liquidSpaceAddRing1;
+	IBOutlet frostCheckbox * liquidSpaceAddRing2;
+	IBOutlet frostCheckbox * liquidSpaceAddRing3;
+	IBOutlet frostCheckbox * liquidSpaceAddFixedRing2;
 
 #pragma mark Camera Outlets
 	
@@ -382,6 +386,8 @@
 -(IBAction)		liquidAddRing1:(id)sender;
 -(IBAction)		liquidAddRing2:(id)sender;
 -(IBAction)		liquidAddRing3:(id)sender;
+
+-(IBAction)		liquidAddFixedRing2:(id)sender;
 
 -(IBAction)		modifyLiquidSpaceFillColor:(id)sender;
 -(IBAction)		modifylLiquidSpace:(id)sender;

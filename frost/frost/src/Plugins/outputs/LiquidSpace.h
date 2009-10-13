@@ -68,8 +68,7 @@ public:
 	bool updateMotor;
 	ofImage ringTexture;
 	void addRing(int i);
-	
-	
+	void addFixedRing(int i);
 	
 	float speed;
 };

@@ -113,7 +113,9 @@ void LiquidSpace::update(){
 		if(speed > 0){
 			for(int i=0;i<fluidSolver.getWidth();i++){
 				for(int u=0;u<fluidSolver.getHeight();u++){
-					
+					if(i==0){
+						fluidSolver.addColorAtCell(i, u, 0, 0, 0);
+					}
 					fluidSolver.addForceAtCell(i,u,0,speed*0.00001);
 				}
 			}
@@ -219,11 +221,22 @@ void LiquidSpace::draw(){
 		}
 	}
 }
+
 void LiquidSpace::addRing(int i){
 	ring r;
 	r.center = projection()->getColumnCoordinate(i);
 	r.size = 0;
 	r.speed = ofRandom(0.005, 0.02);
+	r.height = 1.0;
+	r.column = i;
+	rings.push_back(r);
+}
+
+void LiquidSpace::addFixedRing(int i){
+	ring r;
+	r.center = projection()->getColumnCoordinate(i);
+	r.size = 0;
+	r.speed = 0.015;
 	r.height = 1.0;
 	r.column = i;
 	rings.push_back(r);

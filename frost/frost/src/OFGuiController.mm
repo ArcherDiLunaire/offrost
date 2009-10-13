@@ -109,9 +109,6 @@ OFGuiController * gui = NULL;
 	
 	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];
 	
-	
-
-
 	[MoonDustMasterAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->masterAlpha];
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
 	
@@ -857,6 +854,31 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
+-(IBAction)		liquidAddRing1:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(0);
+	}
+}
+
+-(IBAction)		liquidAddRing2:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(1);
+	}
+}
+-(IBAction)		liquidAddRing3:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(2);
+	}
+}
+
+-(IBAction)		liquidAddFixedRing2:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addFixedRing(1);
+	}
+}
+
+
+
 #pragma mark Projector calibration
 
 -(IBAction)		modifyProjectorShowDebug:(id)sender{
@@ -1055,22 +1077,6 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 -(IBAction) modifyBlobHistoryClearSnapshots:(id)sender{
 	if(ofApp->setupCalled){
 		((BlobHistory*)getPlugin<BlobHistory*>(ofApp->pluginController))->bClearSnapshots = true;
-	}
-}
-
--(IBAction)		liquidAddRing1:(id)sender{
-	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(0);
-	}
-}
--(IBAction)		liquidAddRing2:(id)sender{
-	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(1);
-	}
-}
--(IBAction)		liquidAddRing3:(id)sender{
-	if(ofApp->setupCalled){
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(2);
 	}
 }
 

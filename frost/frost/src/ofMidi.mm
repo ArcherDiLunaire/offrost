@@ -24,6 +24,14 @@
 	[endpoint addReceiver:self];
 	
 	frostSliderHookups  = [[NSMutableArray alloc] initWithCapacity:10];
+
+#pragma mark Blob Tracking
+	
+	[self hookupButton:gui->Blob1OnlyCurtain onChannel:1 onNumber:6 controlChanges:true noteChanges:false];
+
+#pragma mark Moon Dust
+	
+	// channel 4
 	
 	[self hookupSlider:gui->MoonDustMasterAlpha onChannel:4 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->MoonDustForce onChannel:4 onNumber:2 controlChanges:true noteChanges:false scale:3.0/127.0];
@@ -32,6 +40,9 @@
 	[self hookupSlider:gui->MoonDustSize onChannel:4 onNumber:5 controlChanges:true noteChanges:false scale:0.1/127.0];
 	[self hookupSlider:gui->MoonDustColumnAlpha onChannel:4 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
+#pragma mark La Linea
+	
+	// channel 5
 	
 	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaMaskAlpha onChannel:5 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
@@ -41,6 +52,10 @@
 	[self hookupSlider:gui->LaLineaDancer onChannel:5 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaNoise3 onChannel:5 onNumber:9 controlChanges:true noteChanges:false scale:1.0/127.0];
 
+#pragma mark La Linea Floor
+	
+	// channel 6
+	
 	[self hookupSlider:gui->LaLineaFloorMasterAlpha onChannel:6 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorSpeed onChannel:6 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaFloorDirSpeed onChannel:6 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
@@ -48,11 +63,25 @@
 	[self hookupSlider:gui->LaLineaFloorCurl onChannel:6 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupButton:gui->LaLineaFloorReset onChannel:6 onNumber:6 controlChanges:true noteChanges:false];
 
+#pragma mark Blob Light
+	
+	// channel 7
+	
+#pragma mark Folding Woman
+	
+	// channel 8
 	
 	[self hookupSlider:gui->foldingHistoryAddMultiplier onChannel:8 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->foldingHistoryPush1 onChannel:8 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->foldingHistoryPush2 onChannel:8 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->foldingHistoryPush3 onChannel:8 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingFloorbox onChannel:8 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingFishAlpha onChannel:8 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
+	
+	
+#pragma mark Frostscape
+	
+	// channel 9
 	
 	[self hookupSlider:gui->FrostscapeMasterAlpha onChannel:9 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostScapeSlider1 onChannel:9 onNumber:2 controlChanges:true noteChanges:false scale:10.0/127.0];
@@ -67,6 +96,31 @@
 	[self hookupSlider:gui->FrostscapeColumnFreeze1 onChannel:9 onNumber:13 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostscapeColumnFreeze2 onChannel:9 onNumber:14 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostscapeColumnFreeze3 onChannel:9 onNumber:15 controlChanges:true noteChanges:false scale:1.0/127.0];
+	
+#pragma mark Liquid Space
+	
+	// channel 10
+	[self hookupButton:gui->liquidUpdateMotor			onChannel:10 onNumber:1 controlChanges:true noteChanges:false];
+	[self hookupSlider:gui->liquidSpaceFadeSpeed		onChannel:10 onNumber:2 controlChanges:true noteChanges:false scale:100.0/127.0];
+	[self hookupSlider:gui->liquidSpaceViscosity		onChannel:10 onNumber:3 controlChanges:true noteChanges:false scale:100.0/127.0];
+	[self hookupSlider:gui->liquidSpaceDiffusion		onChannel:10 onNumber:4 controlChanges:true noteChanges:false scale:100.0/127.0];
+	[self hookupSlider:gui->liquidSpaceSpeed			onChannel:10 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupButton:gui->liquidSpaceClear			onChannel:10 onNumber:6 controlChanges:true noteChanges:false];
+	[self hookupButton:gui->liquidSpaceAddingColor		onChannel:10 onNumber:7 controlChanges:true noteChanges:false];
+	[self hookupSlider:gui->liquidSpaceColorMultiplier	onChannel:10 onNumber:8 controlChanges:true noteChanges:false scale:100.0/127.0];
+	[self hookupButton:gui->liquidSpaceAddingForce		onChannel:10 onNumber:9 controlChanges:true noteChanges:false];
+	[self hookupSlider:gui->liquidSpaceForceMultiplier	onChannel:10 onNumber:10 controlChanges:true noteChanges:false scale:100.0/127.0];
+	//add fixed ring 1 reserved
+	[self hookupButton:gui->liquidSpaceAddFixedRing2	onChannel:10 onNumber:12 controlChanges:true noteChanges:false];
+	//add fixed ring 2 reserved
+	[self hookupButton:gui->liquidSpaceAddRing1			onChannel:10 onNumber:14 controlChanges:true noteChanges:false];
+	[self hookupButton:gui->liquidSpaceAddRing2			onChannel:10 onNumber:15 controlChanges:true noteChanges:false];
+	[self hookupButton:gui->liquidSpaceAddRing3			onChannel:10 onNumber:16 controlChanges:true noteChanges:false];
+	
+	
+#pragma mark Blob History
+	
+	// channel 11
 	
 	[self hookupSlider:gui->BlobHistoryMasterAlpha onChannel:11 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->BlobHistoryAlpha onChannel:11 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
@@ -85,9 +139,20 @@
 	[self hookupButton:gui->BlobHistoryClearIce onChannel:11 onNumber:15 controlChanges:true noteChanges:false];
 	[self hookupButton:gui->BlobHistoryFill onChannel:11 onNumber:16 controlChanges:true noteChanges:false];
 
-	[self hookupButton:gui->Blob1OnlyCurtain onChannel:1 onNumber:6 controlChanges:true noteChanges:false];
 
+#pragma mark Spotlight
+	
+	// channel 12
 
+#pragma mark Mirror Ball
+
+	// channel 13
+	
+#pragma mark LED Grid
+
+	// channel 14
+	
+	
 	// set gui info for booleans
 	
 	[gui->BlobActive1 setMidiChannel:1 number:1 control:true note:false];

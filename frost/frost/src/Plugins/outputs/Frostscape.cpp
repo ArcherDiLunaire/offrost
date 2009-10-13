@@ -180,6 +180,14 @@ void Frostscape::drawOnFloor(){
 	}
 	glPopMatrix();
 	
+	projection()->applyProjection(projection()->getFloor());
+	
+	ofEnableAlphaBlending();
+	ofSetColor(255, 255, 255,255);
+	iceMask.draw(0,0,projection()->getFloor()->aspect,1);
+	
+	glPopMatrix();
+
 	for(int i=0;i<3;i++){
 		projection()->applyProjection(projection()->getColumn(i));
 		
@@ -199,14 +207,6 @@ void Frostscape::drawOnFloor(){
 		glPopMatrix();
 		
 	}
-	
-	projection()->applyProjection(projection()->getFloor());
-	
-	ofEnableAlphaBlending();
-	ofSetColor(255, 255, 255,255);
-	iceMask.draw(0,0,projection()->getFloor()->aspect,1);
-	
-	glPopMatrix();
 	
 	
 }
