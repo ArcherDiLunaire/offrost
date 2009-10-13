@@ -41,9 +41,6 @@ void Cameras::setup(){
 		}
 	}
 	
-	videoPlayer->setSpeed(1.5);
-	
-	
 	// first init the cams that are bound and exist
 	for (int i=0; i<3; i++) {
 		if(cameraGUIDexists(cameraGUIDs[i])){
@@ -177,6 +174,8 @@ bool Cameras::videoPlayerActive(int _grabberIndex){
 
 void Cameras::videoPlayerPlay(int _grabberIndex){
 	videoPlayer[_grabberIndex].play();
+	videoPlayer[_grabberIndex].setSpeed(1.5);
+	
 }
 
 void Cameras::videoPlayerStop(int _grabberIndex){
