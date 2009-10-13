@@ -231,8 +231,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -291,7 +289,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>46</integer>
+									<integer>52</integer>
 									<integer>29</integer>
 									<integer>19</integer>
 									<integer>6</integer>
@@ -299,7 +297,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 303}, {315, 854}}</string>
+							<string>{{0, 0}, {315, 854}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -327,12 +325,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>270D5F441063F0B5003347FA</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>LaLinea.h</string>
+								<string>LiquidSpace.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -340,11 +340,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>270D5F451063F0B5003347FA</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>LaLinea.h</string>
+										<string>LiquidSpace.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>27A07BC110850ED1001F8B73</string>
+										<string>27A07BCB10851535001F8B73</string>
 										<key>history</key>
 										<array>
 											<string>27822F571064F1D300B546F1</string>
@@ -512,23 +512,23 @@
 											<string>27A07B9810850814001F8B73</string>
 											<string>27A07B9B10850814001F8B73</string>
 											<string>27A07B9C10850814001F8B73</string>
-											<string>27A07B9D10850814001F8B73</string>
 											<string>27A07B9E10850814001F8B73</string>
 											<string>27A07B9F10850814001F8B73</string>
 											<string>27A07BA010850814001F8B73</string>
 											<string>27A07BA310850814001F8B73</string>
 											<string>27A07BA410850814001F8B73</string>
-											<string>27A07BB010850BC2001F8B73</string>
-											<string>27A07BB110850BC2001F8B73</string>
 											<string>27A07BB210850BC2001F8B73</string>
 											<string>27A07BB910850ED1001F8B73</string>
 											<string>27A07BBA10850ED1001F8B73</string>
 											<string>27A07BBB10850ED1001F8B73</string>
 											<string>27A07BBC10850ED1001F8B73</string>
-											<string>27A07BBD10850ED1001F8B73</string>
 											<string>27A07BBE10850ED1001F8B73</string>
-											<string>27A07BBF10850ED1001F8B73</string>
-											<string>27A07BC010850ED1001F8B73</string>
+											<string>27A07BC510851535001F8B73</string>
+											<string>27A07BC610851535001F8B73</string>
+											<string>27A07BC710851535001F8B73</string>
+											<string>27A07BC810851535001F8B73</string>
+											<string>27A07BC910851535001F8B73</string>
+											<string>27A07BCA10851535001F8B73</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -845,7 +845,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>27A07BC210850ED1001F8B73</string>
 		<string>27A07AD01084A0D8001F8B73</string>
 		<string>27A07AD11084A0D8001F8B73</string>
 		<string>/Developer/Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/openFrameworks.xcodeproj</string>

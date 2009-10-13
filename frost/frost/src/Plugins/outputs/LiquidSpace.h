@@ -69,5 +69,7 @@ public:
 	ofImage ringTexture;
 	void addRing(int i);
 	
+	
+	
 	float speed;
 };
