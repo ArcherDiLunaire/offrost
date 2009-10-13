@@ -164,6 +164,8 @@ OFGuiController * gui = NULL;
 	[MirrorBallRotationFactor hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->rotationDirection];
 	[MirrorBallReflection1DotAdd hookUpBool:&getPlugin<MirrorBall*>(ofApp->pluginController)->bAddDot];
 	[MirrorBallReflection1Clear hookUpBool:&getPlugin<MirrorBall*>(ofApp->pluginController)->bClearDots];
+	[MirrorBallReflection1DotSize hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections1.dotSizeMultiplier];
+	[MirrorBallReflection2DotSize hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections2.dotSizeMultiplier];
 
 	[liquidSpaceSpeed hookUpFloat:&getPlugin<LiquidSpace*>(ofApp->pluginController)->speed];
 	

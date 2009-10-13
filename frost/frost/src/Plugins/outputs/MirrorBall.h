@@ -39,6 +39,7 @@ public:
 	float circleOffsetY;
 	
 	float dotSize;
+	float dotSizeMultiplier;
 	float dotSpacing;
 	float dotSizeDistanceMultiplier;
 	float dotPositionNoise;

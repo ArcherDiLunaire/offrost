@@ -171,10 +171,12 @@
 
 	IBOutlet frostSlider * MirrorBallReflection1OnFraction;
 	IBOutlet frostSlider * MirrorBallReflection1AlphaFraction;
+	IBOutlet frostSlider * MirrorBallReflection1DotSize;
 	
 	IBOutlet frostCheckbox * MirrorBallReflection2DotAdd;
 	IBOutlet frostCheckbox * MirrorBallReflection2DotRemove;
 	IBOutlet frostCheckbox * MirrorBallReflection2Clear;
+	IBOutlet frostSlider * MirrorBallReflection2DotSize;
 	
 	IBOutlet frostSlider * MirrorBallReflection2OnFraction;
 	IBOutlet frostSlider * MirrorBallReflection2AlphaFraction;

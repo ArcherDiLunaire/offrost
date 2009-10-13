@@ -112,7 +112,7 @@ void MirrorBall::update(){
 	
 }
 
-#pragma mark Mirror Ball Ball
+#pragma mark Mirror Ball Reflections
 
 MirrorBallReflections::MirrorBallReflections(){
 	
@@ -129,6 +129,7 @@ MirrorBallReflections::MirrorBallReflections(){
 	dotAlphaNoise = 0.33;
 	
 	dotSize = 0.005;
+	dotSizeMultiplier = 1.0;
 	dotSizeDistanceMultiplier = 0.0025;
 	
 	center = ofxVec2f(0.3,0.5);
@@ -215,7 +216,8 @@ void MirrorBallReflections::draw(float _angle){
 			float yNoised = sin(theDot*10000.6)*dotPositionNoise*((theCircle+2)-(numberOfCircles*1.0/theCircle));
 			
 			if (dotStates[theCircle*(theDot+1)]) {
-				ofRect(xNoised,yNoised , dotSize+(dotSizeDistanceMultiplier*theCircle), dotSize+(dotSizeDistanceMultiplier*theCircle));
+				float dotSizeCalculee = (dotSize+(dotSizeDistanceMultiplier*theCircle))*dotSizeMultiplier;
+				ofRect(xNoised - (dotSizeCalculee/2),yNoised - (dotSizeCalculee/2), dotSizeCalculee, dotSizeCalculee);
 			}
 			
 			//mirrorBallImage.draw(xNoised,yNoised , dotSize+(_dotSizeDistanceMultiplier*theCircle), dotSize+(_dotSizeDistanceMultiplier*theCircle));
