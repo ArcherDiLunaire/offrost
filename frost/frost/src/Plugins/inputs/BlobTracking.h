@@ -145,6 +145,8 @@ public:
 	float initThreshold[3];
 	float initBlur[3];
 	bool initActive[3];
+	bool bUseBgMask[3];
+
 	
 	bool drawDebug;
 	

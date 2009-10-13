@@ -267,6 +267,7 @@
 	IBOutlet NSSlider * BlobThreshold3;
 	IBOutlet NSSlider * BlobBlur3;
 	IBOutlet frostCheckbox * BlobActive3;
+	IBOutlet frostCheckbox * Blob1OnlyCurtain;
 
 #pragma mark OpenGL Views
 	

@@ -446,17 +446,20 @@ void BlobTracking::setup(){
 	int nPoints = 4;
 	
 	ofxPoint2f wallMaskCorners[4];
-	/**
+	
 	for(int i=0;i<4;i++){
-		wallMaskCorners[i] = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->transform(projection()->getWall()->corners[i]);
+		wallMaskCorners[i] = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->transform(projection()->getWall()->corners[i]->x, projection()->getWall()->corners[i]->y);
 	}
 	
-	CvPoint _cp[4]= {{blackCorners[0].x,blackCorners[0].y}, {blackCorners[1].x,blackCorners[1].y},{blackCorners[2].x,blackCorners[2].y},{blackCorners[3].x,blackCorners[3].y}};			
-	CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+	ofxCvGrayscaleImage theWallMask;
 	
-	
-	trackers[i]->setBgMaskFromPixels();
-	**/
+	theWallMask.allocate(trackers[0]->getWidth(),trackers[0]->getHeight());
+	theWallMask.set(0);
+
+	CvPoint _cp[4]= {{wallMaskCorners[0].x,wallMaskCorners[0].y}, {wallMaskCorners[1].x,wallMaskCorners[1].y},{wallMaskCorners[2].x,wallMaskCorners[2].y},{wallMaskCorners[3].x,wallMaskCorners[3].y}};			
+	CvPoint* cp = _cp; cvFillPoly(theWallMask.getCvImage(), &cp, &nPoints, 1, cvScalar(255));
+
+	trackers[0]->setBgMaskFromPixels(theWallMask.getPixels(), theWallMask.getWidth(), theWallMask.getHeight());
 	
 }
 
@@ -464,11 +467,12 @@ void BlobTracking::setup(){
 void BlobTracking::update(){
 	//#pragma omp parallel for
 	for(int i=0;i<trackers.size();i++){
-		trackers[i]->update();		
+		trackers[i]->bUseBgMask = bUseBgMask;
+		trackers[i]->update();
 	}	
 	for(int i=0;i<trackers.size();i++){
 		trackers[i]->findContours();	
-	}	
+	}
 	
 }
 
