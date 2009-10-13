@@ -171,6 +171,7 @@ OFGuiController * gui = NULL;
 	[foldingHistoryPush2 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push2];
 	[foldingHistoryPush3 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push3];
 	[foldingFishAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->fishAlpha];
+	[foldingFloorbox hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->foldingFloorbox];	 
 	
 	[cameraBrightness1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[0]];
 	[cameraBrightness2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[1]];

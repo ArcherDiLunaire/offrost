@@ -144,7 +144,6 @@ void Folding::draw(){
 	now[b].draw(0,0,4,4);	
 	glPopMatrix();	
 	
-	
 	//Left mask
 	projection()->applyColumnProjection(0);
 	//historyImg.draw(0,0,4,4);
@@ -154,20 +153,27 @@ void Folding::draw(){
 	glPopMatrix();	
 	
 	if(fishAlpha > 0){
-//		if(!fish.bPlaying){
-			fish.setLoopState(OF_LOOP_NORMAL);
-			fish.play();
-//		}
+		fish.setLoopState(OF_LOOP_NORMAL);
+		fish.play();
 		ofEnableAlphaBlending();
 		ofSetColor(255, 255, 255, 255.0*fishAlpha);
 		projection()->applyProjection(projection()->getCurtain(4));
 		fish.draw(0, 0, 1.37,1);
 		glPopMatrix();
 		
-	} /*else {
-		if(fish.bPlaying)
-			fish.stop();
+	} 
 		
-	}*/
 }
 
+void Folding::drawOnFloor(){
+	glPushMatrix();
+	ofPushStyle();
+	if(foldingFloorbox > 0){
+		glRotated(25, 0, 0, 1);
+		ofSetColor(255, 255, 255);
+		ofFill();
+		ofRect(0.625, 0.12, 0.28*foldingFloorbox, 0.125);
+	}
+	ofPopStyle();
+	glPopMatrix();
+}

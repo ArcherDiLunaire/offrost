@@ -13,6 +13,7 @@ public:
 	
 	void setup();
 	void draw();
+	void drawOnFloor();
 	void update();
 	
 	
@@ -37,5 +38,7 @@ public:
 	
 	float push1, push2, push3;
 	float fishAlpha;
+	float foldingFloorbox;
+	
 	ofVideoPlayer fish;
 };
