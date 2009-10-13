@@ -154,7 +154,7 @@ OFGuiController * gui = NULL;
 	[BlobHistoryClearIce hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->bClearIce];
 	[BlobHistoryFill hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->fill];
 	
-	[Blob1OnlyCurtain hookUpBool:&getPlugin<BlobTracking*>(ofApp->pluginController)->trackers[0]->bUseBgMask];
+	[Blob1OnlyCurtain hookUpBool:&getPlugin<BlobTracking*>(ofApp->pluginController)->bUseBgMask];
 
 	[MirrorBallMasterAlpha hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->masterAlpha];
 	[MirrorBallReflection1OnFraction hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections1.fractionOfDotsShouldBeTurnedOn];

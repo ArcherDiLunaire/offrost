@@ -467,13 +467,12 @@ void BlobTracking::setup(){
 void BlobTracking::update(){
 	//#pragma omp parallel for
 	for(int i=0;i<trackers.size();i++){
-		trackers[i]->bUseBgMask = bUseBgMask;
 		trackers[i]->update();
 	}	
 	for(int i=0;i<trackers.size();i++){
 		trackers[i]->findContours();	
 	}
-	
+	trackers[0]->bUseBgMask = bUseBgMask;
 }
 
 void BlobTracking::drawSettings(){
