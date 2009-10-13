@@ -124,8 +124,27 @@ void Cameras::update(){
 		} else {
 			if(hasCameras && isReady(i) && ((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->grabbedFirstImage){
 				vidGrabber[i]->update();
-				cout << cameraBrightness[i] << endl;
-				((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureAbsoluteValue(cameraBrightness[i], FEATURE_BRIGHTNESS);
+				
+				if(cameraBrightnessBefore[i] != cameraBrightness[i]){
+					((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureValue(cameraBrightness[i], FEATURE_BRIGHTNESS);
+					cameraBrightnessBefore[i] = cameraBrightness[i];
+				}
+				if(cameraExposureBefore[i] != cameraExposure[i]){
+					//((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureAbsoluteValue(cameraExposure[i], FEATURE_EXPOSURE);
+					cameraExposureBefore[i] = cameraExposure[i];
+				}
+				if(cameraShutterBefore[i] != cameraShutter[i]){
+					((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureValue(cameraShutter[i], FEATURE_SHUTTER);
+					cameraShutterBefore[i] = cameraShutter[i];
+				}
+				if(cameraGammaBefore[i] != cameraGamma[i]){
+					((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureValue(cameraGamma[i], FEATURE_GAMMA);
+					cameraGammaBefore[i] = cameraGamma[i];
+				}
+				if(cameraGainBefore[i] != cameraGain[i]){
+					((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureValue(cameraGain[i], FEATURE_GAIN);
+					cameraGainBefore[i] = cameraGain[i];
+				}								
 				frameNew[i] = vidGrabber[i]->isFrameNew();
 				if(frameNew[i]){
 					calibImage[getGrabberIndexFromGUID(getGUID(i))].setFromPixels(vidGrabber[i]->getPixels(), camWidth,camHeight);

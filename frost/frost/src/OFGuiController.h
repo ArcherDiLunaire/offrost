@@ -248,6 +248,22 @@
 	IBOutlet frostSlider * cameraBrightness2;
 	IBOutlet frostSlider * cameraBrightness3;
 	
+	IBOutlet frostSlider * cameraGain1;
+	IBOutlet frostSlider * cameraGain2;
+	IBOutlet frostSlider * cameraGain3;
+	
+	IBOutlet frostSlider * cameraShutter1;
+	IBOutlet frostSlider * cameraShutter2;
+	IBOutlet frostSlider * cameraShutter3;
+
+	IBOutlet frostSlider * cameraExposure1;
+	IBOutlet frostSlider * cameraExposure2;
+	IBOutlet frostSlider * cameraExposure3;
+
+	IBOutlet frostSlider * cameraGamma1;
+	IBOutlet frostSlider * cameraGamma2;
+	IBOutlet frostSlider * cameraGamma3;
+	
 	IBOutlet NSTextField * CameraGUID1;
 	IBOutlet NSTextField * CameraGUID2;
 	IBOutlet NSTextField * CameraGUID3;

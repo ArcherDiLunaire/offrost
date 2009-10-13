@@ -227,7 +227,7 @@
 	[slider setMinValue:[self minValue]];
 	[slider setMaxValue:[self maxValue]];
 	[slider setTickMarkPosition:NSTickMarkBelow];
-	[slider setNumberOfTickMarks:10];
+	[slider setNumberOfTickMarks:11];
 	[slider setContinuous:true];
 	[slider takeDoubleValueFrom:self];
 	[slider setTarget:self];

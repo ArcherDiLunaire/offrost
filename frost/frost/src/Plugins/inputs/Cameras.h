@@ -65,6 +65,16 @@ public:
 	int getGrabberIndexFromGUID(uint64_t _cameraGUID);
 	
 	float cameraBrightness[3];
+	float cameraExposure[3];
+	float cameraShutter[3];
+	float cameraGamma[3];
+	float cameraGain[3];
+
+	float cameraBrightnessBefore[3];
+	float cameraExposureBefore[3];
+	float cameraShutterBefore[3];
+	float cameraGammaBefore[3];
+	float cameraGainBefore[3];
 	
 	int camWidth;
 	int camHeight;

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>ActivePerspectiveName</key>
-	<string>Project</string>
+	<string>Debug</string>
 	<key>AllowedModules</key>
 	<array>
 		<dict>
@@ -289,7 +289,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>24</integer>
+									<integer>25</integer>
 									<integer>20</integer>
 									<integer>19</integer>
 									<integer>6</integer>
@@ -313,8 +313,6 @@
 							<string>MainColumn</string>
 							<real>315</real>
 						</array>
-						<key>RubberWindowFrame</key>
-						<string>0 113 1680 913 0 0 1680 1028 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -325,14 +323,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>270D5F441063F0B5003347FA</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Libdc1394Grabber.cpp</string>
+								<string>Cameras.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -340,11 +336,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>270D5F451063F0B5003347FA</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Libdc1394Grabber.cpp</string>
+										<string>Cameras.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>27A07AF81084A6AC001F8B73</string>
+										<string>27A07B3B1084B229001F8B73</string>
 										<key>history</key>
 										<array>
 											<string>27822F571064F1D300B546F1</string>
@@ -490,7 +486,6 @@
 											<string>27C4EBF31081EEFE0063F651</string>
 											<string>27C4EC4C10820F480063F651</string>
 											<string>27C4EC5410820FB70063F651</string>
-											<string>27C4EC5D108210280063F651</string>
 											<string>27C4ED2710821F620063F651</string>
 											<string>279461A51083367400D563EE</string>
 											<string>279461AC108336C100D563EE</string>
@@ -524,11 +519,12 @@
 											<string>27A07AB81084A0C6001F8B73</string>
 											<string>27A07AC51084A0D8001F8B73</string>
 											<string>27A07AD81084A21C001F8B73</string>
-											<string>27A07AD91084A21C001F8B73</string>
-											<string>27A07ADA1084A21C001F8B73</string>
-											<string>27A07ADB1084A21C001F8B73</string>
-											<string>27A07AF71084A6AC001F8B73</string>
-											<string>27A07AF61084A6A9001F8B73</string>
+											<string>27A07B181084AB9C001F8B73</string>
+											<string>27A07B271084AEBB001F8B73</string>
+											<string>27A07B281084AEBB001F8B73</string>
+											<string>27A07B291084AEBB001F8B73</string>
+											<string>27A07B301084AFE1001F8B73</string>
+											<string>27A07B311084AFE1001F8B73</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -543,8 +539,6 @@
 							<dict>
 								<key>Frame</key>
 								<string>{{0, 0}, {1343, 368}}</string>
-								<key>RubberWindowFrame</key>
-								<string>0 113 1680 913 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -568,8 +562,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {1343, 472}}</string>
-										<key>RubberWindowFrame</key>
-										<string>0 113 1680 913 0 0 1680 1028 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -707,6 +699,8 @@
 					<dict>
 						<key>Frame</key>
 						<string>{{0, 0}, {1680, 240}}</string>
+						<key>RubberWindowFrame</key>
+						<string>0 113 1680 913 0 0 1680 1028 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugCLIModule</string>
@@ -781,7 +775,11 @@
 							</array>
 							<key>Frame</key>
 							<string>{{813, 0}, {867, 219}}</string>
+							<key>RubberWindowFrame</key>
+							<string>0 113 1680 913 0 0 1680 1028 </string>
 						</dict>
+						<key>RubberWindowFrame</key>
+						<string>0 113 1680 913 0 0 1680 1028 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugSessionModule</string>
@@ -845,7 +843,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>27A07AF21084A669001F8B73</string>
+		<string>27A07B3C1084B229001F8B73</string>
 		<string>27A07AD01084A0D8001F8B73</string>
 		<string>27A07AD11084A0D8001F8B73</string>
 		<string>/Developer/Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/openFrameworks.xcodeproj</string>

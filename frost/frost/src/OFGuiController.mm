@@ -176,7 +176,22 @@ OFGuiController * gui = NULL;
 	[cameraBrightness2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[1]];
 	[cameraBrightness3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[2]];
 	
+	[cameraGain1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGain[0]];
+	[cameraGain2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGain[1]];
+	[cameraGain3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGain[2]];
 	
+	[cameraShutter1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraShutter[0]];
+	[cameraShutter2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraShutter[1]];
+	[cameraShutter3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraShutter[2]];
+	
+	[cameraExposure1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraExposure[0]];
+	[cameraExposure2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraExposure[1]];
+	[cameraExposure3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraExposure[2]];
+
+	[cameraGamma1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGamma[0]];
+	[cameraGamma2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGamma[1]];
+	[cameraGamma3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGamma[2]];
+
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {
