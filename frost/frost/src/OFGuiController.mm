@@ -347,11 +347,6 @@ OFGuiController * gui = NULL;
 	
 	if(![(NSString*)[p name] compare:@"Cameras"]){
 		view = cameraView;
-		
-		NSView * cameraSettingEx1 = cameraSetting;
-		[cameraSettingEx1 setFrameOrigin: NSPointFromString(@"{10, 50}")];
-		[cameraSettings1 addSubview:cameraSettingEx1];
-		
 		[camView setDoDraw:true];
 	}
 	

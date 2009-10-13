@@ -244,6 +244,10 @@
 	IBOutlet NSView * cameraSettings2;
 	IBOutlet NSView * cameraSettings3;
 	
+	IBOutlet frostSlider * cameraBrightness1;
+	IBOutlet frostSlider * cameraBrightness2;
+	IBOutlet frostSlider * cameraBrightness3;
+	
 	IBOutlet NSTextField * CameraGUID1;
 	IBOutlet NSTextField * CameraGUID2;
 	IBOutlet NSTextField * CameraGUID3;
