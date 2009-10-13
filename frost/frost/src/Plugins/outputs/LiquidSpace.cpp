@@ -66,7 +66,7 @@ LiquidSpace::LiquidSpace(){
 	cam = 1;
 	dropColor.set(1.0,1.0,1.0);
 	fillColor.set(0.0,0.0,0.0);
-	
+	clear = false;
 }
 
 #pragma mark Callback methods
@@ -103,13 +103,18 @@ void LiquidSpace::update(){
 		resizeFluid = false;
 	}
 	
+	if(clear){
+		fluidSolver.reset();
+		clear = false;
+	}
+	
 	//	cout<<updateMotor<<endl;
 	if(updateMotor){
 		if(speed > 0){
 			for(int i=0;i<fluidSolver.getWidth();i++){
 				for(int u=0;u<fluidSolver.getHeight();u++){
 					
-					fluidSolver.addForceAtCell(i,u,0,speed*0.0001);
+					fluidSolver.addForceAtCell(i,u,0,speed*0.00001);
 				}
 			}
 		}

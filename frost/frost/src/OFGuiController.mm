@@ -105,6 +105,7 @@ OFGuiController * gui = NULL;
 	[FrostscapeFreezeLines hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->freezeLines];
 
 	[liquidUpdateMotor hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->updateMotor];
+	[liquidSpaceClear hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->clear];
 	
 	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];
 	

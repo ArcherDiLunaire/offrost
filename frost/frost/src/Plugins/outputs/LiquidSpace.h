@@ -57,6 +57,8 @@ public:
 	void fill();
 	
 	bool debug;
+	bool clear;
+	
 	int cam;
 	
 	msaColor dropColor;

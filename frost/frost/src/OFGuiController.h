@@ -239,6 +239,7 @@
 	IBOutlet NSButton * liquidSpaceAddingForce;
 	IBOutlet NSSlider * liquidSpaceForceMultiplier;
 	IBOutlet frostSlider * liquidSpaceSpeed;
+	IBOutlet frostCheckbox * liquidSpaceClear;
 
 #pragma mark Camera Outlets
 	
