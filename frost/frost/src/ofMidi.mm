@@ -67,6 +67,14 @@
 	
 	// channel 7
 	
+	[self hookupSlider:gui->BlobLightBlobAlpha onChannel:7 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->BlobLightBlur onChannel:7 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];	
+	[self hookupSlider:gui->BlobLightThreshold onChannel:7 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];	
+	[self hookupSlider:gui->BlobLightBlur2 onChannel:7 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];	
+	[self hookupSlider:gui->BlobLightHistoryAlpha onChannel:7 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];	
+	[self hookupSlider:gui->BlobLightAlpha onChannel:7 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];		
+		[self hookupSlider:gui->BlobLightBeta onChannel:7 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];		
+		[self hookupSlider:gui->BlobLightAddBackground onChannel:7 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];		
 #pragma mark Folding Woman
 	
 	// channel 8
