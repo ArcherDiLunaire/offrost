@@ -163,11 +163,13 @@
 	[self hookupSlider:gui->MirrorBallReflection2AlphaFraction	onChannel:13 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->MirrorBallReflection2OnFraction		onChannel:13 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->MirrorBallReflection2DotSize		onChannel:13 onNumber:7 controlChanges:true noteChanges:false scale:3.0/127.0];
-	[self hookupSlider:gui->MirrorBallRotationFactor			onChannel:13 onNumber:8 controlChanges:true noteChanges:false scale:2.0/127.0];
+	[self hookupSlider:gui->MirrorBallRotationFactor			onChannel:13 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
 		
 #pragma mark LED Grid
 
 	// channel 14
+	
+	[self hookupSlider:gui->LEDRadius							onChannel:14 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 	// set gui info for booleans
 	

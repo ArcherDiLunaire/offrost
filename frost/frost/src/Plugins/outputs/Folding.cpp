@@ -131,7 +131,7 @@ void Folding::draw(){
 	glRotated(-25, 0, 0, 1.0);
 	//historyImg.draw(0,0,4,4);
 	
-	int b = histPos - 25.0*3;
+	int b = histPos - 25.0*1.5;
 	if(b < 0){
 		b = history.size() + b;
 	}	
@@ -146,7 +146,7 @@ void Folding::draw(){
 	glRotated(-25, 0, 0, 1.0);
 	//historyImg.draw(0,0,4,4);
 	
-	b = histPos - 25.0*6;
+	b = histPos - 25.0*3;
 	if(b < 0){
 		b = history.size() + b;
 	}	

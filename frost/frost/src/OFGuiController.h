@@ -154,11 +154,6 @@
 	IBOutlet frostSlider * SpotlightMasterAlpha;
 	IBOutlet frostSlider * SpotlightRadiusMultiplier;
 
-#pragma mark Spotlight outlets
-	IBOutlet frostSlider * LEDRadius;
-	IBOutlet NSColorWell * LEDblobColor;
-	IBOutlet NSColorWell * LEDbackgroundColor;
-	
 #pragma mark MirrorBall outlets
 	
 	IBOutlet NSView *MirrorBallView;
@@ -186,6 +181,9 @@
 #pragma mark LEDGrid outlets
 	
 	IBOutlet NSView *LEDGridlView;
+	IBOutlet frostSlider * LEDRadius;
+	IBOutlet NSColorWell * LEDblobColor;
+	IBOutlet NSColorWell * LEDbackgroundColor;
 	
 #pragma mark Folding outlets
 	
