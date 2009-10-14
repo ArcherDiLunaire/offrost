@@ -79,14 +79,17 @@
 	
 	// channel 8
 	
-	[self hookupSlider:gui->foldingHistoryAddMultiplier onChannel:8 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->foldingHistoryPush1 onChannel:8 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->foldingHistoryPush2 onChannel:8 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->foldingHistoryPush3 onChannel:8 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->foldingFloorbox onChannel:8 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->foldingFishAlpha onChannel:8 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
-	
-	
+	[self hookupSlider:gui->foldingAlpha					onChannel:8 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingHistoryAddMultiplier		onChannel:8 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingHistoryPush1				onChannel:8 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingHistoryPush2				onChannel:8 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingHistoryPush3				onChannel:8 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingFloorbox					onChannel:8 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->foldingFishAlpha				onChannel:8 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupButton:gui->foldingReset					onChannel:8 onNumber:9 controlChanges:true noteChanges:false];
+	[self hookupButton:gui->foldingUpdateHistoryFromBlob	onChannel:8 onNumber:10 controlChanges:true noteChanges:false];
+	[self hookupSlider:gui->foldingHistoryAlpha				onChannel:8 onNumber:11 controlChanges:true noteChanges:false scale:1.0/127.0];
+
 #pragma mark Frostscape
 	
 	// channel 9

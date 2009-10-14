@@ -167,11 +167,16 @@ OFGuiController * gui = NULL;
 
 	[liquidSpaceSpeed hookUpFloat:&getPlugin<LiquidSpace*>(ofApp->pluginController)->speed];
 	
+	[foldingAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->masterAlpha];
 	[foldingHistoryPush1 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push1];
 	[foldingHistoryPush2 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push2];
 	[foldingHistoryPush3 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push3];
 	[foldingFishAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->fishAlpha];
 	[foldingFloorbox hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->foldingFloorbox];	 
+	[foldingReset hookUpBool:&getPlugin<Folding*>(ofApp->pluginController)->reset];	 
+	[foldingUpdateHistoryFromBlob hookUpBool:&getPlugin<Folding*>(ofApp->pluginController)->updateHistoryFromBlob];	
+	[foldingHistoryAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->historyAlpha];
+	[foldingHistoryAddMultiplier hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->historyAddMultiplier];
 	
 	[cameraBrightness1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[0]];
 	[cameraBrightness2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[1]];

@@ -188,12 +188,16 @@
 #pragma mark Folding outlets
 	
 	IBOutlet NSView *foldingView;
+	IBOutlet frostSlider * foldingAlpha;
 	IBOutlet frostSlider * foldingHistoryAddMultiplier;
+	IBOutlet frostSlider * foldingHistoryAlpha;
 	IBOutlet frostSlider * foldingHistoryPush1;
 	IBOutlet frostSlider * foldingHistoryPush2;
 	IBOutlet frostSlider * foldingHistoryPush3;
 	IBOutlet frostSlider * foldingFishAlpha;
 	IBOutlet frostSlider * foldingFloorbox;
+	IBOutlet frostCheckbox * foldingReset;
+	IBOutlet frostCheckbox * foldingUpdateHistoryFromBlob;
 	
 #pragma mark Frostscape outlets
 	

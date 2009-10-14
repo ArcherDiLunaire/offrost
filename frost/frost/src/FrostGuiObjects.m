@@ -7,6 +7,43 @@
 //
 
 #import "FrostGuiObjects.h"
+/*
+#pragma mark Colorwell
+@implementation ofColorWell
+
+- (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value{
+	justReceivedMidi = false;	
+	[self setNeedsDisplay:TRUE];
+	if(midiChannel == channel && number >= midiNumber && number <= midiNumber+2){
+		if(control && midiControlHookup){
+			NSColor * c = [self color];
+			CGFloat p[4];
+			[c getHue:&p[0] saturation:&p[1] brightness:&p[2] alpha:&p[3]];
+			NSColor * c2 = [NSColor colorWithCalibratedHue:p[0] saturation:p[1] brightness:p[2] alpha:1.0];
+			[self setColor:c2];
+
+			justReceivedMidi = true;
+		} 
+	}
+}
+- (void) setMidiChannel:(int)channel number:(int)number control:(bool)control note:(bool)note{
+	midiChannel = channel;
+	midiNumber = number;
+	midiControlHookup = control;
+	midiNoteHookup = note;
+	justReceivedMidi = false;	
+}
+- (id) initWithFrame:(NSRect)frame;
+- (void) awakeFromNib;
+- (void) changeValueFromControl:(id)sender;
+- (void) hookUpColor:(msaColor*)f;
+- (msaColor) colorValue;
+
+@end
+
+*/
+
+#pragma mark Checkbox
 
 @implementation frostCheckbox
 

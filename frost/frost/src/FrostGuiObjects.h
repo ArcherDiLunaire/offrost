@@ -5,8 +5,42 @@
 //  Created by frost on 06/10/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
+#import "GLee.h"
 
 #import <Cocoa/Cocoa.h>
+/*
+#import "msaColor.h"
+
+
+@interface ofColorWell : NSColorWell
+{
+	NSColorWell * valColor;
+	SEL myAction;
+	NSObject * myTarget;
+	
+	int midiChannel;
+	int midiNumber;
+	bool midiControlHookup;
+	bool midiNoteHookup;
+	
+	bool hookedUpToColor;
+	msaColor * hookedUpColor;
+	
+	bool justReceivedMidi;
+}
+
+- (void) receiveMidiOnChannel:(int)channel number:(int)number control:(bool)control noteOn:(bool)noteOn noteOff:(bool)noteOff value:(int)value;
+- (void) setMidiChannel:(int)channel number:(int)number control:(bool)control note:(bool)note;
+- (id) initWithFrame:(NSRect)frame;
+- (void) awakeFromNib;
+- (void) changeValueFromControl:(id)sender;
+- (void) hookUpColor:(msaColor*)f;
+- (msaColor) colorValue;
+
+@end
+*/
+
+
 
 @interface frostCheckbox : NSButton
 {

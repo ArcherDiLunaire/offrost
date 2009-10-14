@@ -52,7 +52,7 @@ void Folding::update(){
 	//	float historyMultipler = pow(sin(historyAddMultiplier/2*PI), 2);
 	// float historyMultipler = 1.0-exp(-5*pow(historyAddMultiplier,2));
 	// float historyMultipler = 1.0+(-pow(historyAddMultiplier-1.0, 2));
-	if (getPlugin<Cameras*>(controller)->isFrameNew(cam) ) {
+	if (getPlugin<Cameras*>(controller)->isFrameNew(cam) && updateHistoryFromBlob) {
 		float historyMultipler = 1.0+(pow(historyAddMultiplier-1.0, 3));
 		cvAddWeighted( historyImg.getCvImage(),historyMultipler, blob(cam)->grayDiff.getCvImage(),1, -0.25, historyImgTemp.getCvImage());
 		historyImg = historyImgTemp;
@@ -111,7 +111,7 @@ void Folding::draw(){
 	//ofPushStyle();
 	ofEnableAlphaBlending();
 	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
-	ofSetColor(255, 255,255);
+	ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
 	
 	
 	projection()->applyCurtainProjection(0, 0);
@@ -169,7 +169,7 @@ void Folding::draw(){
 		fish.play();
 		ofEnableAlphaBlending();
 		ofFill();
-		ofSetColor(255, 255, 255, 255.0*fishAlpha);
+		ofSetColor(255, 255, 255, 255.0*fishAlpha * masterAlpha);
 		projection()->applyProjection(projection()->getCurtain(4));
 		fish.draw(0, 0, 1.37,1);
 		glPopMatrix();
@@ -183,7 +183,7 @@ void Folding::drawOnFloor(){
 	ofPushStyle();
 	if(foldingFloorbox > 0){
 		glRotated(25, 0, 0, 1);
-		ofSetColor(255, 255, 255);
+		ofSetColor(255 * masterAlpha, 255 * masterAlpha, 255 * masterAlpha);
 		ofFill();
 		ofRect(0.625, 0.12, 0.28*foldingFloorbox, 0.125);
 	}

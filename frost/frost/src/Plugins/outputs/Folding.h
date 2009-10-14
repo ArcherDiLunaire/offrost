@@ -18,6 +18,7 @@ public:
 	
 	
 	bool debug;
+	bool updateHistoryFromBlob;
 	bool reset;
 	int cam;
 	
