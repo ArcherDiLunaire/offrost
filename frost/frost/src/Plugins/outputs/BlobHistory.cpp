@@ -22,7 +22,7 @@ BlobHistory::BlobHistory(){
 #pragma mark Callback methods
 
 void BlobHistory::setup(){
-	float s = 0.2;
+	float s = 1.2;
 	motor.generateBackgroundObjects(35.0/s, 1*s, projection()->getFloor()->aspect, 1.0, 1);
 }
 

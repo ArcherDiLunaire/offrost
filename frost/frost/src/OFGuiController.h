@@ -196,6 +196,7 @@
 	IBOutlet frostSlider * foldingHistoryPush3;
 	IBOutlet frostSlider * foldingFishAlpha;
 	IBOutlet frostSlider * foldingFloorbox;
+	IBOutlet frostCheckbox * foldingHistoryClear;
 	IBOutlet frostCheckbox * foldingReset;
 	IBOutlet frostCheckbox * foldingUpdateHistoryFromBlob;
 	
