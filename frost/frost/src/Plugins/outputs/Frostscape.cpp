@@ -25,6 +25,9 @@ Frostscape::Frostscape(){
 void Frostscape::setup(){
 	motor.generateBackgroundObjects(35, 1, projection()->getFloor()->aspect, 1.0, -3);
 	iceMask.loadImage("iceMask.png");
+	for(int i=0;i<3;i++){
+		columnParticleX[i] = 0;	
+	}
 }
 
 void Frostscape::update(){
@@ -39,10 +42,10 @@ void Frostscape::update(){
 	if(addingLines){
 		for(int i=0;i<2;i++){
 			if(blob(cam)->numPersistentBlobs() >= i+1){
-				if(lines[i].size() == 0 || blob(cam)->persistentBlobs[i].centroid.distance(lines[i].back()) > ofRandom(0.1, 7)){
-					lines[i].push_back(blob(cam)->persistentBlobs[i].centroid);
-					linesOffset[i].push_back(linesSpeed*ofxVec2f(ofRandom(-0.05, 0.05),ofRandom(-0.05, 0.05)));
-					
+				ofxPoint2f p = projection()->convertToFloorCoordinate(blob(cam)->persistentBlobs[i].getLowestPoint());
+				if(lines[i].size() == 0 || p.distance(lines[i].back()) > ofRandom(0.05, 4)){
+					lines[i].push_back(p);
+					linesOffset[i].push_back(0.3*linesSpeed*ofxVec2f(ofRandom(-0.05, 0.05),ofRandom(-0.05, 0.05)));
 				}
 			}
 		}		
@@ -59,7 +62,6 @@ void Frostscape::update(){
 	for(int i=0;i<linesFreezePoints.size();i++){
 		motor.addFreezePoint(linesFreezePoints[i], 0.03);
 	}
-	
 	
 	invert = false;
 	motor.centerBreakRate =  Frostscape::slider1;
@@ -107,14 +109,15 @@ void Frostscape::update(){
 	for(int i=0;i<3;i++){
 		if(columnFreeze[i] > 0){
 			//	int i=1;
-			
-			columnParticlePos[i] += 0.02*60.0/ofGetFrameRate();	
-			if(columnParticlePos[i] > 1){//&& columnParticlePos[i] < 2.0){
+			columnParticleX[i] += 0.003*60.0/ofGetFrameRate();
+			columnParticlePos[i] += (sin(columnParticleX[i]*TWO_PI-HALF_PI)+1)*(0.003*60.0/ofGetFrameRate());	
+			if(columnParticlePos[i] > 0){//&& columnParticlePos[i] < 2.0){
 				//				cout<<"add "<<i<<"  "<<columnFreeze[i]<<endl;
-				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]);	
+				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]*0.01);	
 			}
 		} else {
-			columnParticlePos[i] = -0.1;	
+			columnParticleX[i] = 0;
+			columnParticlePos[i] = 0;	
 		}
 	} 
 	///*

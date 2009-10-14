@@ -46,6 +46,7 @@ public:
 	float whiteBackground;
 	
 	float columnParticlePos[3];
+	float columnParticleX[3];
 	
 	bool addingLines;
 	float linesAlpha;

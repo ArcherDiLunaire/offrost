@@ -68,7 +68,7 @@ void MoonDust::update(){
 				if(ab.length() < (u+1)*1.0/sections && (ab+p).y > p.y){
 					if(fabs((p+ab).distance(r)) > section[u]){
 						if(u < 10){
-
+							
 						} else {
 							section[u] = fabs((p+ab).distance(r));
 						}
@@ -80,12 +80,12 @@ void MoonDust::update(){
 				}	
 			}	
 		}
-
+		
 		//		}
 	}
 	
 	// even out sections
-
+	
 	for(int u=0;u<sections-3;u++){
 		if (section[u] < section[u+1]) {
 			section[u] += (section[u+1] - section[u]) * 0.75;
@@ -97,7 +97,7 @@ void MoonDust::update(){
 			section[u] += (section[u+3] - section[u]) * 0.25;
 		}
 	}	
-		
+	
 	// update particles that are hit by the blob 
 	
 	for(int i=0; i<particles.size();i++){
@@ -105,7 +105,7 @@ void MoonDust::update(){
 		float bMin = -0.6; float bMax = 0.6;
 		if(particles[i].pos().y < 0){
 			particles[i].visible = true;
-			particles[i].alpha = 1.0;
+			particles[i].alpha = 1.0+particles[i].pos().y;
 			bMin = - ofRandom(0.04,0);
 			bMax =  ofRandom(0.04,0);
 		}  else {
@@ -146,7 +146,7 @@ void MoonDust::drawOnFloor(){
 		glTranslated(p.x, p.y, 0);
 		glRotated(rotation, 0, 0, 1.0);
 		
-		
+		ofEnableAlphaBlending();
 		glBlendFunc (GL_SRC_COLOR, GL_ONE);	
 		vector<DustParticle>::iterator it;
 		it = particles.begin();
@@ -156,7 +156,7 @@ void MoonDust::drawOnFloor(){
 				ofSetColor(255*it->alpha*masterAlpha, 255*it->alpha*masterAlpha, 255*it->alpha*masterAlpha,255);
 				
 				if(it->pos().y<0){
-					ofSetColor(255*columnAlpha*masterAlpha, 255*columnAlpha*masterAlpha, 255*columnAlpha*masterAlpha,255);
+					ofSetColor(it->alpha*255*columnAlpha*masterAlpha, it->alpha*255*columnAlpha*masterAlpha, it->alpha*255*columnAlpha*masterAlpha,255);
 				} 
 				
 				particleTrack->draw((*it).x, (*it).y, -(*it).v.x*length*size, size);
@@ -251,14 +251,17 @@ void DustParticle::update(float force, float damp, float _min, float _max){
 	
 	v.x += a ;//(max - x)*0.01*force*60.0/ofGetFrameRate();		
 	x += v.x;//*100.0/ofGetFrameRate();
-	if(!visible){
-		alpha -= 0.01;
-		if(alpha < 0)
-			alpha = 0;
-	} else {
-		alpha += 0.01;
-		if(alpha > 1)
-			alpha = 1;
+	
+	if(pos().y > 0){
+		if(!visible){
+			alpha -= 0.01;
+			if(alpha < 0)
+				alpha = 0;
+		} else {
+			alpha += 0.01;
+			if(alpha > 1)
+				alpha = 1;
+		}
 	}
 }
 

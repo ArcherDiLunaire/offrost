@@ -31,12 +31,24 @@ void Folding::setup(){
 	
 	fish.loadMovie("goldfishCrop.mov");
 	
+	reset = false;
 	
 	//	fbo.allocate(640, 480, true);
 	
 }
 
 void Folding::update(){
+	
+	if(reset){
+		
+		for(int i=0;i<25.0*10;i++){
+			history[i].set(0);
+			now[i].set(0);
+		}
+		
+		reset = false;
+	}
+	
 	//	float historyMultipler = pow(sin(historyAddMultiplier/2*PI), 2);
 	// float historyMultipler = 1.0-exp(-5*pow(historyAddMultiplier,2));
 	// float historyMultipler = 1.0+(-pow(historyAddMultiplier-1.0, 2));
@@ -45,9 +57,7 @@ void Folding::update(){
 		cvAddWeighted( historyImg.getCvImage(),historyMultipler, blob(cam)->grayDiff.getCvImage(),1, -0.25, historyImgTemp.getCvImage());
 		historyImg = historyImgTemp;
 		historyImg.blur(9);
-		
-		
-		
+				
 		//		*img = historyImg;
 		cvCopy(historyImg.getCvImage(), history[histPos].getCvImage());
 		history[histPos] = historyImg;
@@ -145,17 +155,20 @@ void Folding::draw(){
 	glPopMatrix();	
 	
 	//Left mask
+	ofFill();
 	projection()->applyColumnProjection(0);
-	//historyImg.draw(0,0,4,4);
 	ofDisableAlphaBlending();
 	ofSetColor(0, 0, 0,255);
 	ofRect(projection()->getColumn(0)->aspect, 0, -100, 1);
+
+
 	glPopMatrix();	
 	
 	if(fishAlpha > 0){
 		fish.setLoopState(OF_LOOP_NORMAL);
 		fish.play();
 		ofEnableAlphaBlending();
+		ofFill();
 		ofSetColor(255, 255, 255, 255.0*fishAlpha);
 		projection()->applyProjection(projection()->getCurtain(4));
 		fish.draw(0, 0, 1.37,1);

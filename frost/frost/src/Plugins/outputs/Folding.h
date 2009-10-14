@@ -18,6 +18,7 @@ public:
 	
 	
 	bool debug;
+	bool reset;
 	int cam;
 	
 	float historyAlpha;
