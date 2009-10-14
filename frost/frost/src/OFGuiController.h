@@ -111,16 +111,16 @@
 #pragma mark Blob Light Outlets
 
 	IBOutlet NSView *blobLightView;
-	IBOutlet NSButton * BlobLightDebug;
-	IBOutlet NSSlider * BlobLightBlur;
-	IBOutlet NSSlider * BlobLightThreshold;
-	IBOutlet NSSlider * BlobLightBlur2;
-	IBOutlet NSSlider * BlobLightAlpha;
-	IBOutlet NSSlider * BlobLightBeta;
+	IBOutlet frostCheckbox * BlobLightDebug;
+	IBOutlet frostSlider * BlobLightBlur;
+	IBOutlet frostSlider * BlobLightThreshold;
+	IBOutlet frostSlider * BlobLightBlur2;
+	IBOutlet frostSlider * BlobLightAlpha;
+	IBOutlet frostSlider * BlobLightBeta;
 	
-	IBOutlet NSSlider * BlobLightHistoryAlpha;
-	IBOutlet NSSlider * BlobLightBlobAlpha;
-	IBOutlet NSSlider * BlobLightAddBackground;
+	IBOutlet frostSlider * BlobLightHistoryAlpha;
+	IBOutlet frostSlider * BlobLightBlobAlpha;
+	IBOutlet frostSlider * BlobLightAddBackground;
 	
 	IBOutlet NSColorWell * BlobLightColor;
 	

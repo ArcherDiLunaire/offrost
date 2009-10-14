@@ -165,7 +165,7 @@ void LiquidSpace::update(){
 	}
 	for(int i=0;i<rings.size();i++){
 		if(rings[i].height > 0){
-			rings[i].height -= rings[i].speed*60.0/ofGetFrameRate();
+			rings[i].height -= 0.02*60.0/ofGetFrameRate();
 		} else {
 			rings[i].size += rings[i].speed*0.8*30.0/ofGetFrameRate();
 			rings[i].speed *= 0.98;
@@ -187,7 +187,13 @@ void LiquidSpace::drawOnFloor(){
 }
 
 void LiquidSpace::draw(){
-	
+	ofDisableAlphaBlending();
+	ofSetColor(0, 0, 0,255);
+	for(int i=0;i<3;i++){
+		projection()->applyColumnProjection(i);		
+		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);		
+		glPopMatrix();		
+	}
 	
 	for(int i=0;i<rings.size();i++){
 		
