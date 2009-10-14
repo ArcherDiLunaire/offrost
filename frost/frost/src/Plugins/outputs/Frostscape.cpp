@@ -155,7 +155,9 @@ void Frostscape::draw(){
 }
 
 void Frostscape::drawOnFloor(){
-	
+	ofEnableAlphaBlending();
+	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
+
 	invert = false;
 	
 	if(invert){

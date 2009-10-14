@@ -107,6 +107,11 @@
 	[self hookupSlider:gui->FrostscapeColumnFreeze1 onChannel:9 onNumber:13 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostscapeColumnFreeze2 onChannel:9 onNumber:14 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->FrostscapeColumnFreeze3 onChannel:9 onNumber:15 controlChanges:true noteChanges:false scale:1.0/127.0];
+
+	[self hookupSlider:gui->FrostscapeLinesAlpha onChannel:9 onNumber:16 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->FrostscapeLinesAddSpeed onChannel:9 onNumber:17 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupButton:gui->FrostscapeResetLines onChannel:9 onNumber:18 controlChanges:true noteChanges:false];
+
 	
 #pragma mark Liquid Space
 	

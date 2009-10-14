@@ -290,7 +290,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>63</integer>
+									<integer>50</integer>
 									<integer>41</integer>
 									<integer>31</integer>
 									<integer>6</integer>
@@ -298,7 +298,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 542}, {315, 839}}</string>
+							<string>{{0, 365}, {315, 839}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -333,7 +333,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>270D5F441063F0B5003347FA</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>OFGuiController.mm</string>
+								<string>Frostscape.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -341,11 +341,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>270D5F451063F0B5003347FA</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>OFGuiController.mm</string>
+										<string>Frostscape.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>27B8284810861B30001D2311</string>
+										<string>27B8285910863701001D2311</string>
 										<key>history</key>
 										<array>
 											<string>27822F571064F1D300B546F1</string>
@@ -506,11 +506,9 @@
 											<string>27B827271085D304001D2311</string>
 											<string>27B8273D1085DCCF001D2311</string>
 											<string>27B8273E1085DCCF001D2311</string>
-											<string>27B8273F1085DCCF001D2311</string>
 											<string>27B827401085DCCF001D2311</string>
 											<string>27B827411085DCCF001D2311</string>
 											<string>27B827421085DCCF001D2311</string>
-											<string>27B827BC10860E5B001D2311</string>
 											<string>27B827BD10860E5B001D2311</string>
 											<string>27B827BE10860E5B001D2311</string>
 											<string>27B827BF10860E5B001D2311</string>
@@ -527,12 +525,14 @@
 											<string>27B827F3108610AF001D2311</string>
 											<string>27B8280310861634001D2311</string>
 											<string>27B8280410861634001D2311</string>
-											<string>27B8283910861B02001D2311</string>
 											<string>27B8283A10861B02001D2311</string>
 											<string>27B8283B10861B02001D2311</string>
 											<string>27B8283C10861B02001D2311</string>
 											<string>27B8283D10861B02001D2311</string>
-											<string>27B8284710861B2E001D2311</string>
+											<string>27B8285010862ED8001D2311</string>
+											<string>27B8285610863701001D2311</string>
+											<string>27B8285710863701001D2311</string>
+											<string>27B8285810863701001D2311</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -546,18 +546,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1030, 643}}</string>
+								<string>{{0, 0}, {1030, 675}}</string>
 								<key>RubberWindowFrame</key>
 								<string>179 130 1367 898 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>643pt</string>
+							<string>675pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>209pt</string>
+							<string>177pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -625,7 +625,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1030, 182}}</string>
+										<string>{{10, 27}, {1030, 150}}</string>
 										<key>RubberWindowFrame</key>
 										<string>179 130 1367 898 0 0 1680 1028 </string>
 									</dict>
@@ -849,7 +849,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>27B8284510861B27001D2311</string>
+		<string>27B8285A10863701001D2311</string>
 		<string>27B826FC1085C08E001D2311</string>
 		<string>27B826FD1085C08E001D2311</string>
 		<string>/Developer/Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/openFrameworks.xcodeproj</string>

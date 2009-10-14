@@ -138,6 +138,7 @@ void Tracker::update(){
 				if (bLearnBakground == true){
 					if (bUseBgMask) {
 						cvCopy(grayImageBlured.getCvImage(), grayBg.getCvImage(), grayBgMask.getCvImage());
+						grayBg.flagImageChanged();
 					} else {
 						grayBg = grayImageBlured;
 					}
