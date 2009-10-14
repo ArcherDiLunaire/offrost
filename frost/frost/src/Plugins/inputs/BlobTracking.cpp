@@ -462,8 +462,21 @@ void BlobTracking::update(){
 			wallMaskCorners[i] = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(projection()->getWall()->corners[i]->x, projection()->getWall()->corners[i]->y);
 			wallMaskCorners[i].x *= trackers[0]->getWidth();
 			wallMaskCorners[i].y *= trackers[0]->getHeight();
-			cout << i << " " << wallMaskCorners.x << " " << wallMaskCorners.y << endl;
+			cout << i << " " << wallMaskCorners[i].x << " " << wallMaskCorners[i].y << endl;
 		}
+		
+		//padding
+		
+		int padding = 30;
+		
+		wallMaskCorners[0].x += padding;
+		wallMaskCorners[0].y += padding;
+		wallMaskCorners[1].x -= padding;
+		wallMaskCorners[1].y += padding;
+		wallMaskCorners[2].x -= padding;
+		wallMaskCorners[2].y -= padding;
+		wallMaskCorners[3].x += padding;
+		wallMaskCorners[3].y -= padding;
 		
 		ofxCvGrayscaleImage theWallMask;
 		
