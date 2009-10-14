@@ -155,11 +155,19 @@
 #pragma mark Mirror Ball
 
 	// channel 13
-	
+
+	[self hookupSlider:gui->MirrorBallMasterAlpha				onChannel:13 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->MirrorBallReflection1AlphaFraction	onChannel:13 onNumber:2 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->MirrorBallReflection1OnFraction		onChannel:13 onNumber:3 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->MirrorBallReflection1DotSize		onChannel:13 onNumber:4 controlChanges:true noteChanges:false scale:3.0/127.0];
+	[self hookupSlider:gui->MirrorBallReflection2AlphaFraction	onChannel:13 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->MirrorBallReflection2OnFraction		onChannel:13 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->MirrorBallReflection2DotSize		onChannel:13 onNumber:7 controlChanges:true noteChanges:false scale:3.0/127.0];
+	[self hookupSlider:gui->MirrorBallRotationFactor			onChannel:13 onNumber:8 controlChanges:true noteChanges:false scale:2.0/127.0];
+		
 #pragma mark LED Grid
 
 	// channel 14
-	
 	
 	// set gui info for booleans
 	
@@ -170,9 +178,8 @@
 	[gui->LaLineaTrackingActive setMidiChannel:5 number:2 control:true note:false];
 	[gui->LaLineaUseFilm setMidiChannel:5 number:3 control:true note:false];
 	
-	
-	
 }
+
 -(void) hookupSlider:(frostSlider*)slider onChannel:(int)channel onNumber:(int)number controlChanges:(bool)control noteChanges:(bool)note scale:(float)scale{
 	[frostSliderHookups addObject:slider];
 	
@@ -183,8 +190,8 @@
 	[frostSliderHookups addObject:slider];
 	[slider setMidiChannel:channel number:number control:control note:note];
 }
-- (void)processMIDIPacketList:(MIDIPacketList*)packetList sender:(id)sender
-{
+
+- (void)processMIDIPacketList:(MIDIPacketList*)packetList sender:(id)sender {
 	MIDIPacket *packet = &packetList->packet[0];
 	for (int i = 0; i < packetList->numPackets; ++i) {
 		printf("Midi: %i\n",packet->data[0]);

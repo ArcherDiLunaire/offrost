@@ -103,7 +103,7 @@ void MirrorBall::update(){
 		reflections2.clearReflections();
 	}
 	
-	rotation += rotationDirection*0.01;
+	rotation -= rotationDirection*0.01;
 	
 	rotation = fmodf(rotation, 1.0);
 	
