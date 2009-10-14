@@ -228,7 +228,8 @@
 
 
 #pragma mark LiquidSpace outlets
-	
+	IBOutlet frostSlider * liquidSpaceMasterAlpha;
+
 	IBOutlet NSView *liquidSpaceView;
 	IBOutlet frostCheckbox * liquidUpdateMotor;
 	IBOutlet frostCheckbox * liquidSpaceFIll;

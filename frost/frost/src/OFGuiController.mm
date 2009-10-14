@@ -104,6 +104,8 @@ OFGuiController * gui = NULL;
 	[FrostscapeResetLines hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->resetLines];
 	[FrostscapeFreezeLines hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->freezeLines];
 
+	[liquidSpaceMasterAlpha hookUpFloat:&getPlugin<LiquidSpace*>(ofApp->pluginController)->masterAlpha];
+
 	[liquidUpdateMotor hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->updateMotor];
 	[liquidSpaceClear hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->clear];
 	

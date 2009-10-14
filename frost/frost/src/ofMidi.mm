@@ -116,7 +116,8 @@
 #pragma mark Liquid Space
 	
 	// channel 10
-	[self hookupButton:gui->liquidUpdateMotor			onChannel:10 onNumber:1 controlChanges:true noteChanges:false];
+	[self hookupSlider:gui->liquidSpaceMasterAlpha		onChannel:10 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
+
 	[self hookupSlider:gui->liquidSpaceFadeSpeed		onChannel:10 onNumber:2 controlChanges:true noteChanges:false scale:100.0/127.0];
 	[self hookupSlider:gui->liquidSpaceViscosity		onChannel:10 onNumber:3 controlChanges:true noteChanges:false scale:100.0/127.0];
 	[self hookupSlider:gui->liquidSpaceDiffusion		onChannel:10 onNumber:4 controlChanges:true noteChanges:false scale:100.0/127.0];
@@ -132,7 +133,7 @@
 	[self hookupButton:gui->liquidSpaceAddRing1			onChannel:10 onNumber:14 controlChanges:true noteChanges:false];
 	[self hookupButton:gui->liquidSpaceAddRing2			onChannel:10 onNumber:15 controlChanges:true noteChanges:false];
 	[self hookupButton:gui->liquidSpaceAddRing3			onChannel:10 onNumber:16 controlChanges:true noteChanges:false];
-	
+		[self hookupButton:gui->liquidUpdateMotor			onChannel:10 onNumber:17 controlChanges:true noteChanges:false];
 	
 #pragma mark Blob History
 	
