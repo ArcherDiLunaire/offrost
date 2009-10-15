@@ -8,6 +8,10 @@
 
 #import "ofMidi.h"
 
+#include "testApp.h"
+#include "Plugin.h"
+#include "PluginController.h"
+#include "PluginIncludes.h"
 
 @implementation ofMidi
 -(void) awakeFromNib{
@@ -312,6 +316,42 @@
 					
 				}
 			}
+			
+			
+			//Colors som ikke er tjekke - Jonas meget sent
+			if(controlChange && channel == 14){
+				if(number == 1){
+					getPlugin<LEDGrid*>(gui->ofApp->pluginController)->r = value*2.0;
+				}
+				if(number == 2){
+					getPlugin<LEDGrid*>(gui->ofApp->pluginController)->g = value*2.0;
+				}
+				if(number == 3){
+					getPlugin<LEDGrid*>(gui->ofApp->pluginController)->b = value*2.0;
+				}
+				if(number == 4){
+					getPlugin<LEDGrid*>(gui->ofApp->pluginController)->r2 = value*2.0;
+				}
+				if(number == 5){
+					getPlugin<LEDGrid*>(gui->ofApp->pluginController)->g2 = value*2.0;
+				}
+				if(number == 6){
+					getPlugin<LEDGrid*>(gui->ofApp->pluginController)->b2 = value*2.0;
+				}
+			}
+			
+			if(controlChange && channel == 7){
+				if(number == 1){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->r = value*2.0;
+				}
+				if(number == 2){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->g = value*2.0;
+				}
+				if(number == 3){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->b = value*2.0;
+				}
+			}
+			
 			
 			//LaLineaFloor
 			/*if(controlChange && channel == 6){
