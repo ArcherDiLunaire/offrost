@@ -28,6 +28,10 @@ void PluginController::update(float mx, float my){
 }
 void PluginController::draw(){
 
+	glDisable(GL_DEPTH);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE);	
+	
 	
 	for(int i=0;i<plugins.size();i++){
 		FrostPlugin* plugin = plugins[i];

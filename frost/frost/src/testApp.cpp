@@ -15,6 +15,7 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new ProjectionSurfaces);
 	pluginController->addPlugin(new CameraCalibration);
 	
+	pluginController->addPlugin(new BlobHistory);
 	pluginController->addPlugin(new MoonDust);
 	pluginController->addPlugin(new LaLinea);
 	pluginController->addPlugin(new LaLineaFloor);
@@ -23,7 +24,6 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new LiquidSpace);
 	pluginController->addPlugin(new BlobLight);
 	
-	pluginController->addPlugin(new BlobHistory);
 	pluginController->addPlugin(new Spotlight);
 	pluginController->addPlugin(new MirrorBall);
 	pluginController->addPlugin(new LEDGrid);

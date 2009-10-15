@@ -116,8 +116,10 @@ void Frostscape::update(){
 				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]*0.01);	
 			}
 		} else {
-			columnParticleX[i] = 0;
-			columnParticlePos[i] = 0;	
+			if (columnFreeze[i] < -0.5) {
+				columnParticleX[i] = 0;
+				columnParticlePos[i] = 0;	
+			}
 		}
 	} 
 	///*
@@ -156,7 +158,10 @@ void Frostscape::draw(){
 
 void Frostscape::drawOnFloor(){
 	ofEnableAlphaBlending();
-	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
+	
+	glDisable(GL_DEPTH);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE);	
 
 	invert = false;
 	
@@ -165,15 +170,19 @@ void Frostscape::drawOnFloor(){
 		ofSetColor(255, 255, 255,255);
 		ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	}
+	
+	ofSetColor(255, 255, 255,255*masterAlpha);
+
 	motor.draw();
+
 	if(whiteBackground > 0){
 		ofFill();
-		glColor4f(1.0, 1.0, 1.0,whiteBackground);
+		glColor4f(1.0, 1.0, 1.0,whiteBackground * masterAlpha);
 		ofRect(0, 0, projection()->getFloor()->aspect, 1);
 	}
 	
 	for(int u=0;u<2;u++){
-		glColor4f(1.0, 1.0, 1.0, linesAlpha);
+		glColor4f(1.0, 1.0, 1.0, linesAlpha * masterAlpha);
 		glBegin(GL_QUAD_STRIP);
 		for(int i=0;i<lines[u].size();i++){
 			glVertex2f(lines[u][i].x, lines[u][i].y);
@@ -183,37 +192,43 @@ void Frostscape::drawOnFloor(){
 		glEnd();
 		
 	}
+	
 	glPopMatrix();
 	
 	projection()->applyProjection(projection()->getFloor());
 	
 	ofEnableAlphaBlending();
+	
 	ofSetColor(255, 255, 255,255);
 	iceMask.draw(0,0,projection()->getFloor()->aspect,1);
 	
+	ofFill();
+	ofSetColor(0, 0, 0,255);
+	ofRect(projection()->getFloor()->aspect, 0, 1, 1);			// right
+	ofRect(-1, 1, 2 + projection()->getFloor()->aspect, 1);		// bottom
+	ofRect(-1, 0, 1, 1);										// left
+	ofRect(-1, -1, 2 + projection()->getFloor()->aspect, 1);	// top
+		
 	glPopMatrix();
 
 	for(int i=0;i<3;i++){
 		projection()->applyProjection(projection()->getColumn(i));
 		
 		ofFill();
-		ofSetColor(255, 255, 255, 255);
+		ofSetColor(255, 255, 255, 255 * masterAlpha);
 		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);
 		
 		ofFill();
 		ofSetColor(0, 0, 0, 255);
 		ofRect(0, 0, projection()->getColumn(i)->aspect, MIN( columnParticlePos[i],1));
 		
-		/*if(columnParticlePos[i] < 1-projection()->getColumn(i)->aspect/2.0){
-		 ofSetColor(0, 0, 0, 255);
-		 ofEllipse(projection()->getColumn(i)->aspect/2.0, columnParticlePos[i], projection()->getColumn(i)->aspect,projection()->getColumn(i)->aspect);
-		 }*/
+		/**if(columnParticlePos[i] < 1-projection()->getColumn(i)->aspect/2.0){
+			ofSetColor(0, 0, 0, 255);
+			ofEllipse(projection()->getColumn(i)->aspect/2.0, columnParticlePos[i], projection()->getColumn(i)->aspect,projection()->getColumn(i)->aspect);
+		}**/
 		
 		glPopMatrix();
-		
 	}
-	
-	
 }
 
 void Frostscape::fillIce(){
@@ -231,15 +246,19 @@ void Frostscape::setslider1(float val){
 void Frostscape::setslider2(float val){
 	Frostscape::slider2 = val;
 }
+
 void Frostscape::setslider3(float val){
 	Frostscape::slider3 = val;
 }
+
 void Frostscape::setslider4(float val){
 	Frostscape::slider4 = val;
 }
+
 void Frostscape::setslider5(float val){
 	Frostscape::slider5 = val;
 }
+
 void Frostscape::setslider6(float val){
 	Frostscape::slider6 = val;
 }

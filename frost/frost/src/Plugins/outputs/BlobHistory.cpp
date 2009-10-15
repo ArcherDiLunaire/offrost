@@ -31,11 +31,19 @@ void BlobHistory::draw(){
 }
 
 void BlobHistory::drawOnFloor(){
-	motor.draw();
+	//ofEnableAlphaBlending();
 	ofPushStyle();
+	
+	glDisable(GL_DEPTH);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE);	
+
+	glColor4d(1.0, 1.0, 1.0, masterAlpha);
 
 	ofEnableAlphaBlending();
-	glColor4d(1.0, 1.0, 1.0, masterAlpha);
+
+	motor.draw();
+
 	
 	ofFill();
 		
@@ -53,7 +61,24 @@ void BlobHistory::drawOnFloor(){
 	}
 	
 	if (blobHistoryMatrixDisplayList.size() > 0) {
+	
+		ofFill();
+		ofSetColor(255, 255, 255, 255 * historyAlpha * masterAlpha);
+		
 		glCallList(blobHistoryMatrixDisplayList[(blobHistoryMatrixDisplayList.size()-1)-historyOffset]);
+		
+		ofNoFill();
+		ofSetColor(255, 255, 255, 64 * historyAlpha * masterAlpha);
+		ofSetLineWidth(3);
+
+		glCallList(blobHistoryMatrixDisplayList[(blobHistoryMatrixDisplayList.size()-1)-historyOffset]);
+
+		ofNoFill();
+		ofSetColor(255, 255, 255, 128 * historyAlpha * masterAlpha);
+		ofSetLineWidth(2);
+		
+		glCallList(blobHistoryMatrixDisplayList[(blobHistoryMatrixDisplayList.size()-1)-historyOffset]);
+		
 	}
 	
 																																				  
@@ -166,10 +191,6 @@ void BlobHistory::update(){
 				
 				ofxCvBlob b = blobList.back();
 				
-				
-				ofFill();
-				ofSetColor(255, 255, 255);
-
 				ofBeginShape();
 				
 				for (int p = 0; p < b.nPts; p++) {
@@ -181,35 +202,6 @@ void BlobHistory::update(){
 		
 				ofEndShape();
 				
-				ofBeginShape();
-	
-				ofNoFill();
-				ofSetColor(255, 255, 255, 64);
-				ofSetLineWidth(3);
-				
-				for (int p = 0; p < b.nPts; p++) {
-					
-					ofxVec2f v = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b.pts[p].x, b.pts[p].y));
-					ofVertex(v.x, v.y);
-					
-				}
-				
-				ofEndShape();
-				
-				ofBeginShape();
-				
-				ofNoFill();
-				ofSetColor(255, 255, 255, 128);
-				ofSetLineWidth(2);
-				
-				for (int p = 0; p < b.nPts; p++) {
-					
-					ofxVec2f v = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b.pts[p].x, b.pts[p].y));
-					ofVertex(v.x, v.y);
-					
-				}
-				
-				ofEndShape();
 				
 			}
 

@@ -29,14 +29,17 @@ void IceBlockBackgroundObject::generate(){
 	speed = ofRandom(0.6,1.1);
 }
 void IceBlockBackgroundObject::draw(){
-	ofEnableAlphaBlending();
+	//ofEnableAlphaBlending();
 	float drawA = 1.0-MAX(0.0,MIN(1.0,a));
 	if(drawA > 0){
 		glPushMatrix();
 		
+		ofColor theColor = ofGetStyle().color;
+		ofPushStyle();
+		
 		glTranslated(position.x, position.y, 0);
 		//		ofSetColor(255, 255,255,255*drawA*(1.0-FrostMotor::slider4));
-		ofSetColor(color.r,color.g,color.b,255*drawA);
+		ofSetColor(color.r,color.g,color.b,(theColor.a/255.0) * drawA);
 		//	ofSetColor(0, 0, 0, 255);
 		glLineWidth(2);
 		glBegin(GL_POLYGON);
@@ -44,6 +47,7 @@ void IceBlockBackgroundObject::draw(){
 			glVertex2f(points[i].x, points[i].y);
 		}
 		glEnd();
+		ofPopStyle();
 		glPopMatrix();
 	}
 	/*	glPushMatrix();
