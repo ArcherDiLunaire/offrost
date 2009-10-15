@@ -49,17 +49,6 @@ void BlobHistory::drawOnFloor(){
 		
 	glColor4d(1.0, 1.0, 1.0, historyAlpha * masterAlpha);
 
-	if (historyOffset > blobHistoryMatrixDisplayList.size()) {
-		historyOffset = 0;
-		historyPlayStep = 0;
-	}
-	
-	if (historyOffset < 0) {
-		historyOffset = 0;
-		historyOffset = 0;
-		historyPlayStep = 0;
-	}
-	
 	if (blobHistoryMatrixDisplayList.size() > 0) {
 	
 		ofFill();
@@ -144,6 +133,13 @@ void BlobHistory::drawOnFloor(){
 }
 
 void BlobHistory::update(){
+	
+	if(getPlugin<BlobTracking*>(controller)->trackers[0]->active){
+		cam = 0;
+	} else if (getPlugin<BlobTracking*>(controller)->trackers[1]->active){
+		cam = 1;
+	}
+	
 	motor.decreaseRate = decreaseValue*10.0;
 	motor.expandRate = growthValue;
 	if(clearFreeze){
@@ -168,9 +164,17 @@ void BlobHistory::update(){
 
 	motor.update();
 	if (getPlugin<Cameras*>(controller)->isFrameNew(cam) ) {
-
+		
 		historyOffset += round(historyPlayStep);
 	
+		if (historyOffset > blobHistoryMatrixDisplayList.size()) {
+			historyOffset = blobHistoryMatrixDisplayList.size()-1;
+		}
+		
+		if (historyOffset < 0) {
+			historyOffset = 0;
+		}
+		
 		if (bIsRecordingHistory) {
 
 			vector<ofxCvBlob> blobList;

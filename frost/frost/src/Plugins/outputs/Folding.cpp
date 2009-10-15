@@ -53,6 +53,10 @@ void Folding::update(){
 	// float historyMultipler = 1.0-exp(-5*pow(historyAddMultiplier,2));
 	// float historyMultipler = 1.0+(-pow(historyAddMultiplier-1.0, 2));
 	if (getPlugin<Cameras*>(controller)->isFrameNew(cam) && updateHistoryFromBlob) {
+	
+		if(histPos >= history.size())
+			histPos = 0;
+
 		float historyMultipler = 1.0+(pow(historyAddMultiplier-1.0, 3));
 		cvAddWeighted( historyImg.getCvImage(),historyMultipler, blob(cam)->grayDiff.getCvImage(),1, -0.25, historyImgTemp.getCvImage());
 		historyImg = historyImgTemp;
@@ -68,8 +72,6 @@ void Folding::update(){
 		now[histPos].blur(1);
 		
 		histPos ++;
-		if(histPos >= history.size())
-			histPos = 0;
 	}
 	
 	/*if (getPlugin<Cameras*>(controller)->isFrameNew(cam) || blob(cam)->mouseBlob ) {
@@ -109,61 +111,110 @@ void Folding::update(){
 
 void Folding::draw(){
 	//ofPushStyle();
-	ofEnableAlphaBlending();
-	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
-	ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+	ofDisableAlphaBlending();
+	
+	projection()->applyCurtainProjection(0, 0); {
+		glPushMatrix();	{
+			glTranslated(-1.4-push1*projection()->getCurtain(0)->aspect, 0.4, 0);
+			glPushMatrix(); { 
+				glRotated(-25, 0, 0, 1.0);
+				
+				ofEnableAlphaBlending();
+				glBlendFunc(GL_SRC_COLOR, GL_ONE);
+
+				if(histPos > 0){
+					ofSetColor(220 * masterAlpha * historyAlpha, 245 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+					history[histPos-1].draw(0,0,4,4);
+					ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+					now[histPos-1].draw(0,0,4,4);
+				}
+				
+			} glPopMatrix();
+			
+		} glPopMatrix();
+		
+		ofDisableAlphaBlending();
+
+		ofSetColor(0, 0, 0);
+		ofRect((1.0-push1)*projection()->getCurtain(0)->aspect, -1, 2, 2);
+				
+		ofRect(-1, 0, projection()->getCurtain(0)->aspect+1, -1); // top
+		ofRect(-3, 1, projection()->getCurtain(0)->aspect+6, 4); // bottom
+		
+	} glPopMatrix();	
+	
+
+	projection()->applyCurtainProjection(0, 1); {
+		glPushMatrix();	{
+			glTranslated(-1.4-push2*projection()->getCurtain(1)->aspect, 0.4, 0);
+			glPushMatrix(); { 
+				glRotated(-25, 0, 0, 1.0);
+				
+				ofEnableAlphaBlending();
+				glBlendFunc(GL_SRC_COLOR, GL_ONE);
+				
+				int b = histPos - 25.0*1.5;
+				if(b < 0){
+					b = history.size() + b;
+				}
+				ofSetColor(220 * masterAlpha * historyAlpha, 245 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+				history[b].draw(0,0,4,4);
+				ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+				now[b].draw(0,0,4,4);
+				
+			} glPopMatrix();
+			
+		} glPopMatrix();
+		
+		ofDisableAlphaBlending();
+		
+		ofSetColor(0, 0, 0);
+		ofRect((1.0-push2)*projection()->getCurtain(1)->aspect, 0, 2, 1);
+		
+		ofRect(-3, 1, projection()->getCurtain(1)->aspect+6, 4); // bottom
+		
+	} glPopMatrix();	
 	
 	
-	projection()->applyCurtainProjection(0, 0);
-	glTranslated(-1.4-push1*projection()->getCurtain(0)->aspect, 0.4, 0);
-	glRotated(-25, 0, 0, 1.0);
-	//historyImg.draw(0,0,4,4);
-	if(histPos > 0){
-		history[histPos-1].draw(0,0,4,4);
-		now[histPos-1].draw(0,0,4,4);
-	}
-	//blob(cam)->grayDiff.draw(0,0,4,4);
-	glPopMatrix();	
-	
-	
-	projection()->applyCurtainProjection(0, 1);
-	glTranslated(-1.4-push2*projection()->getCurtain(1)->aspect, 0.4, 0);
-	glRotated(-25, 0, 0, 1.0);
-	//historyImg.draw(0,0,4,4);
-	
-	int b = histPos - 25.0*1.5;
-	if(b < 0){
-		b = history.size() + b;
-	}	
-	history[b].draw(0,0,4,4);	
-	now[b].draw(0,0,4,4);	
-	
-	glPopMatrix();	
-	
-	
-	projection()->applyCurtainProjection(0, 2);
-	glTranslated(-1.4-push3*projection()->getCurtain(2)->aspect, 0.4, 0);
-	glRotated(-25, 0, 0, 1.0);
-	//historyImg.draw(0,0,4,4);
-	
-	b = histPos - 25.0*3;
-	if(b < 0){
-		b = history.size() + b;
-	}	
-	history[b].draw(0,0,4,4);	
-	now[b].draw(0,0,4,4);	
-	glPopMatrix();	
-	
+	projection()->applyCurtainProjection(0, 2); {
+		glPushMatrix();	{
+			glTranslated(-1.4-push3*projection()->getCurtain(1)->aspect, 0.4, 0);
+			glPushMatrix(); { 
+				glRotated(-25, 0, 0, 1.0);
+				
+				ofEnableAlphaBlending();
+				glBlendFunc(GL_SRC_COLOR, GL_ONE);
+				
+				int b = histPos - 25.0*3;
+				if(b < 0){
+					b = history.size() + b;
+				}
+				ofSetColor(220 * masterAlpha * historyAlpha, 245 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+				history[b].draw(0,0,4,4);
+				ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+				now[b].draw(0,0,4,4);
+				
+			} glPopMatrix();
+			
+		} glPopMatrix();
+		
+		ofDisableAlphaBlending();
+		
+		ofSetColor(0, 0, 0);
+		ofRect((1.0-push3)*projection()->getCurtain(2)->aspect, 0, 2, 1);
+		
+		ofRect(-3, 1, projection()->getCurtain(2)->aspect+6, 4); // bottom
+		
+	} glPopMatrix();	
+				
 	//Left mask
 	ofFill();
-	projection()->applyColumnProjection(0);
-	ofDisableAlphaBlending();
-	ofSetColor(0, 0, 0,255);
-	ofRect(projection()->getColumn(0)->aspect, 0, -100, 1);
+	projection()->applyColumnProjection(0); {
+		ofDisableAlphaBlending();
+		ofSetColor(0, 0, 0,255);
+		ofRect(projection()->getColumn(0)->aspect, 0, -100, 100);
+	} glPopMatrix();	
 
-
-	glPopMatrix();	
-	
 	if(fishAlpha > 0){
 		fish.setLoopState(OF_LOOP_NORMAL);
 		fish.play();
@@ -173,7 +224,6 @@ void Folding::draw(){
 		projection()->applyProjection(projection()->getCurtain(4));
 		fish.draw(0, 0, 1.37,1);
 		glPopMatrix();
-		
 	} 
 		
 }
