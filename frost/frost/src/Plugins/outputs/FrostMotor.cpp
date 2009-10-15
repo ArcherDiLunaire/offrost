@@ -39,7 +39,7 @@ void IceBlockBackgroundObject::draw(){
 		
 		glTranslated(position.x, position.y, 0);
 		//		ofSetColor(255, 255,255,255*drawA*(1.0-FrostMotor::slider4));
-		ofSetColor(color.r,color.g,color.b,(theColor.a/255.0) * drawA);
+		ofSetColor(color.r,color.g,color.b,theColor.a * drawA);
 		//	ofSetColor(0, 0, 0, 255);
 		glLineWidth(2);
 		glBegin(GL_POLYGON);
