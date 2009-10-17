@@ -95,6 +95,9 @@
 	[self hookupButton:gui->foldingUpdateHistoryFromBlob	onChannel:8 onNumber:10 controlChanges:true noteChanges:false];
 	[self hookupSlider:gui->foldingHistoryAlpha				onChannel:8 onNumber:11 controlChanges:true noteChanges:false scale:1.0/127.0];
 
+	[self hookupSlider:gui->foldingFloorboxAlpha			onChannel:8 onNumber:12 controlChanges:true noteChanges:false scale:1.0/127.0];
+
+	
 #pragma mark Frostscape
 	
 	// channel 9
@@ -316,9 +319,74 @@
 					
 				}
 			}
+
+			if(controlChange && channel == 7){
+				if(number == 10){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->r = value*2.0;
+				}
+				if(number == 11){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->g = value*2.0;
+				}
+				if(number == 12){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->b = value*2.0;
+				}
+				if(number == 13){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->r2 = value*2.0;
+				}
+				if(number == 14){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->g2 = value*2.0;
+				}
+				if(number == 15){
+					getPlugin<BlobLight*>(gui->ofApp->pluginController)->b2 = value*2.0;
+				}
+				
+				CGFloat r = getPlugin<BlobLight*>(gui->ofApp->pluginController)->r / 255.0;
+				CGFloat g = getPlugin<BlobLight*>(gui->ofApp->pluginController)->g / 255.0;
+				CGFloat b = getPlugin<BlobLight*>(gui->ofApp->pluginController)->b / 255.0;
+				
+				[gui->BlobLightColor setColor:[NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0 ]];
+				
+				
+				CGFloat r2 = getPlugin<BlobLight*>(gui->ofApp->pluginController)->r2 / 255.0;
+				CGFloat g2 = getPlugin<BlobLight*>(gui->ofApp->pluginController)->g2 / 255.0;
+				CGFloat b2 = getPlugin<BlobLight*>(gui->ofApp->pluginController)->b2 / 255.0;
+				
+				[gui->BlobLightHistoryColor setColor:[NSColor colorWithCalibratedRed:r2 green:g2 blue:b2 alpha:1.0 ]];
+				
+			}
 			
+			//Frostscape
+			if(controlChange && channel == 9){
+				if(number == 10 && value > 0){
+					[gui frostscapeEmptyIce:self];
+					cout<<"EMPTY ICE"<<endl;
+				}
+				
+				if(number == 11 && value > 0){
+					[gui frostscapeFillIce:self];
+				}
+			}
+						
+			if(controlChange && channel == 10){
+				
+				if(number == 20){
+					getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.r = value/127.0;
+				}
+				if(number == 21){
+					getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.g = value/127.0;
+				}
+				if(number == 22){
+					getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.b = value/127.0;
+				}
+
+				CGFloat r = getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.r;
+				CGFloat g = getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.g;
+				CGFloat b = getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.b;
+				
+				[gui->liquidSpaceDropColor setColor:[NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0 ]];
 			
-			//Colors som ikke er tjekke - Jonas meget sent
+			}				
+			
 			if(controlChange && channel == 14){
 				if(number == 1){
 					getPlugin<LEDGrid*>(gui->ofApp->pluginController)->r = value*2.0;
@@ -338,19 +406,21 @@
 				if(number == 6){
 					getPlugin<LEDGrid*>(gui->ofApp->pluginController)->b2 = value*2.0;
 				}
+
+				CGFloat r = getPlugin<LEDGrid*>(gui->ofApp->pluginController)->r / 255.0;
+				CGFloat g = getPlugin<LEDGrid*>(gui->ofApp->pluginController)->g / 255.0;
+				CGFloat b = getPlugin<LEDGrid*>(gui->ofApp->pluginController)->b / 255.0;
+				
+				[gui->LEDblobColor setColor:[NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0 ]];
+				
+				CGFloat r2 = getPlugin<LEDGrid*>(gui->ofApp->pluginController)->r2 / 255.0;
+				CGFloat g2 = getPlugin<LEDGrid*>(gui->ofApp->pluginController)->g2 / 255.0;
+				CGFloat b2 = getPlugin<LEDGrid*>(gui->ofApp->pluginController)->b2 / 255.0;
+				
+				[gui->LEDbackgroundColor setColor:[NSColor colorWithCalibratedRed:r2 green:g2 blue:b2 alpha:1.0 ]];
+				
 			}
 			
-			if(controlChange && channel == 7){
-				if(number == 1){
-					getPlugin<BlobLight*>(gui->ofApp->pluginController)->r = value*2.0;
-				}
-				if(number == 2){
-					getPlugin<BlobLight*>(gui->ofApp->pluginController)->g = value*2.0;
-				}
-				if(number == 3){
-					getPlugin<BlobLight*>(gui->ofApp->pluginController)->b = value*2.0;
-				}
-			}
 			
 			
 			//LaLineaFloor
@@ -359,18 +429,6 @@
 					[gui modifyLaLineaFloorReset:self];
 				}
 			}*/
-			
-			//Frostscape
-			if(controlChange && channel == 9){
-				if(number == 10 && value > 0){
-					[gui frostscapeEmptyIce:self];
-					cout<<"EMPTY ICE"<<endl;
-				}
-				
-				if(number == 11 && value > 0){
-					[gui frostscapeFillIce:self];
-				}
-			}
 			
 			
 			

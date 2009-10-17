@@ -35,6 +35,10 @@ LEDGrid::LEDGrid(){
 	r2 = 0;
 	g2 = 0;
 	b2 = 0;
+	
+	p.x = 0;
+	p.y = 0;
+	
 }
 
 #pragma mark Callback methods
@@ -45,10 +49,10 @@ void LEDGrid::setup(){
 	float dx = 1.0/8.0;
 	float dy = 1.0/8.0;
 	
-	float sx = 0.28;
+	float sx = 0.28 - dx;
 	float y = 0.25;
 	
-	for(int i=0;i<5;i++){
+	for(int i=0;i<6;i++){
 		float x = sx;
 		
 		for(int u=0;u<8;u++){
@@ -63,22 +67,33 @@ void LEDGrid::setup(){
 		y += dy;
 	}
 	
-	for(int i=0;i<4;i++){
-		lamps[i].channel = 221+i*4;	
-	}
+	// dmx adresses - andrea's grid is fun in the first row, so we override at i=0 for these exceptions
+	// we start from the stage back
+	
 	for(int i=0;i<5;i++){
-		lamps[8+i].channel = 181+i*4;	
+		lamps[i].channel = 217+i*4;
+		if(i==0) lamps[i].channel = 256; 
 	}
-	for(int i=0;i<7;i++){
-		lamps[8*2+i].channel = 151+i*4;	
+	for(int i=0;i<6;i++){
+		lamps[8+i].channel = 177+i*4;
+		if(i==0) lamps[8+i].channel = 1; 
 	}
 	for(int i=0;i<8;i++){
-		lamps[8*3+i].channel = 121+i*4;	
+		lamps[8*2+i].channel = 147+i*4;	
+		if(i==0) lamps[8*2+i].channel = 270; 
 	}
 	for(int i=0;i<8;i++){
-		lamps[8*4+i].channel = 91+i*4;	
+		lamps[8*3+i].channel = 117+i*4;	
+		if(i==0) lamps[8*3+i].channel = 301; 
+	}
+	for(int i=0;i<8;i++){
+		lamps[8*4+i].channel = 87+i*4;	
+	}
+	for(int i=0;i<8;i++){
+		lamps[8*5+i].channel = 37+i*4;	
 	}
 	
+	debug = false;
 	
 	ok = true;
 	
@@ -89,19 +104,21 @@ void LEDGrid::draw(){
 }
 
 void LEDGrid::drawOnFloor(){
-	/*for(int i=0;i<lamps.size();i++){
-		
-		ofSetColor(lamps[i].r,lamps[i].g, lamps[i].b);
-//		ofSetColor(255, 0, 0);
-		ofFill();
-		float a = lamps[i].b + lamps[i].g + lamps[i].r;
-		a /= 255.0*3.0;
-		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1*a,  0.1*a)	;
-		/*ofNoFill();
-		ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1,  0.1)	;
-
-	}*/
-	
+	/**
+	 if (debug) {
+	 for(int i=0;i<lamps.size();i++){
+	 ofSetColor(lamps[i].r,lamps[i].g, lamps[i].b);
+	 ofFill();
+	 float a = lamps[i].b + lamps[i].g + lamps[i].r;
+	 a /= 255.0*3.0;
+	 ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1*a,  0.1*a)	;
+	 ofSetColor(255, 255, 255);
+	 ofNoFill();
+	 ofEllipse(lamps[i].pos.x, lamps[i].pos.y, 0.1,  0.1)	;
+	 //ofDrawBitmapString( ofToString(lamps[i].channel), lamps[i].pos.x, lamps[i].pos.y);
+	 }
+	 }
+	 **/
 }
 
 void LEDGrid::update(){
@@ -115,86 +132,84 @@ void LEDGrid::update(){
 			if(lamps[i].channel > 0){
 				//				ofxPoint2f p = ofxPoint2f(mouseX, mouseY);
 				if(blob(0)->numPersistentBlobs() > 0){
-					ofxPoint2f p = blob(0)->persistentBlobs[0].getLowestPoint();
-					p = projection()->convertToFloorCoordinate(p);
+					ofxPoint2f pDst = blob(0)->persistentBlobs[0].getLowestPoint();
+					pDst = projection()->convertToFloorCoordinate(pDst);
 					
-					float a = 0;
-					
-					float d = p.distance(lamps[i].pos);
-					d = (radius-d)/radius;
-					a = d;
-					if(a > 1){
-						a = 1;
-					}
-					if(a < 0){
-						a = 0;	
-					}
-					
+					p = pDst;
+				}	
+				float a = 0;
+				
+				float d = p.distance(lamps[i].pos);
+				d = (radius-d)/radius;
+				a = d;
+				if(a > 1){
+					a = 1;
+				}
+				if(a < 0){
+					a = 0;	
+				}
+				
 				/*	if(a < 0.1)
-						a = 0;
-					
-					if(a < 0.5)
-						a = 0;
-					else 
-						a = 1;*/
-					lamps[i].a =255;
-					lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.2;		
-					lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.2;		
-					lamps[i].b += ((b-lamps[i].b  )*a + (b2-lamps[i].b  )*(1.0-a) ) * 0.2;		
-
-
-					
-					
-					if(lamps[i].a > 254){
-						lamps[i].a = 254;
-					}
-					if(lamps[i].r > 254){
-						lamps[i].r = 254;
-					}				
-					if(lamps[i].g > 254){
-						lamps[i].g = 254;
-					}
-					if(lamps[i].b > 254){
-						lamps[i].b = 254;
-					}
-					unsigned char *mBuf= new unsigned char[3*4];
-					int n;
-					if(lamps[i].r != lamps[i].sentR){
-						lamps[i].sentR = lamps[i].r;
-						unsigned char *buffer = new unsigned char[3];
-						buffer[0] = (unsigned char)255;
-						buffer[1] = (unsigned char)lamps[i].channel;
-						buffer[2] = (unsigned char)lamps[i].r;
-						serial.writeBytes(buffer, 3);
-						ok = false;
-					}
-					if(lamps[i].g != lamps[i].sentG ){
-						lamps[i].sentG = lamps[i].g;
-						unsigned char *buffer = new unsigned char[3];
-						buffer[0] = (unsigned char)255;
-						buffer[1] = (unsigned char)lamps[i].channel+1;
-						buffer[2] = (unsigned char)lamps[i].g;
-						serial.writeBytes(buffer, 3);
-						ok = false;
-					}
-					if(lamps[i].b != lamps[i].sentB){
-						lamps[i].sentB = lamps[i].b;
-						unsigned char *buffer = new unsigned char[3];
-						buffer[0] = (unsigned char)255;
-						buffer[1] = (unsigned char)lamps[i].channel+2;
-						buffer[2] = (unsigned char)lamps[i].b;
-						serial.writeBytes(buffer, 3);
-						ok = false;
-					}
-					if(lamps[i].a != lamps[i].sentA){
-						lamps[i].sentA = lamps[i].a;
-						unsigned char *buffer = new unsigned char[3];
-						buffer[0] = (unsigned char)255;
-						buffer[1] = (unsigned char)lamps[i].channel+3;
-						buffer[2] = (unsigned char)lamps[i].a;
-						serial.writeBytes(buffer, 3);
-						ok = false;
-					}
+				 a = 0;
+				 
+				 if(a < 0.5)
+				 a = 0;
+				 else 
+				 a = 1;*/
+				lamps[i].a =255;
+				lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.095;		
+				lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.095;		
+				lamps[i].b += ((b-lamps[i].b  )*a + (b2-lamps[i].b  )*(1.0-a) ) * 0.095;		
+				
+				if(lamps[i].a > 254){
+					lamps[i].a = 254;
+				}
+				if(lamps[i].r > 254){
+					lamps[i].r = 254;
+				}				
+				if(lamps[i].g > 254){
+					lamps[i].g = 254;
+				}
+				if(lamps[i].b > 254){
+					lamps[i].b = 254;
+				}
+				unsigned char *mBuf= new unsigned char[3*4];
+				int n;
+				if(lamps[i].r != lamps[i].sentR){
+					lamps[i].sentR = lamps[i].r;
+					unsigned char *buffer = new unsigned char[3];
+					buffer[0] = (unsigned char)255;
+					buffer[1] = (unsigned char)lamps[i].channel;
+					buffer[2] = (unsigned char)lamps[i].r;
+					serial.writeBytes(buffer, 3);
+					ok = false;
+				}
+				if(lamps[i].g != lamps[i].sentG ){
+					lamps[i].sentG = lamps[i].g;
+					unsigned char *buffer = new unsigned char[3];
+					buffer[0] = (unsigned char)255;
+					buffer[1] = (unsigned char)lamps[i].channel+1;
+					buffer[2] = (unsigned char)lamps[i].g;
+					serial.writeBytes(buffer, 3);
+					ok = false;
+				}
+				if(lamps[i].b != lamps[i].sentB){
+					lamps[i].sentB = lamps[i].b;
+					unsigned char *buffer = new unsigned char[3];
+					buffer[0] = (unsigned char)255;
+					buffer[1] = (unsigned char)lamps[i].channel+2;
+					buffer[2] = (unsigned char)lamps[i].b;
+					serial.writeBytes(buffer, 3);
+					ok = false;
+				}
+				if(lamps[i].a != lamps[i].sentA){
+					lamps[i].sentA = lamps[i].a;
+					unsigned char *buffer = new unsigned char[3];
+					buffer[0] = (unsigned char)255;
+					buffer[1] = (unsigned char)lamps[i].channel+3;
+					buffer[2] = (unsigned char)lamps[i].a;
+					serial.writeBytes(buffer, 3);
+					ok = false;
 				}
 				/*	string s;
 				 if(lamps[i].r != lamps[i].sentR){

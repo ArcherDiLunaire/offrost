@@ -13,6 +13,7 @@ public:
 	float speed;
 	float height ;
 	int column;
+	int birthMillis;
 };
 
 

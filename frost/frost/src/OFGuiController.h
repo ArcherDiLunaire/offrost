@@ -123,6 +123,7 @@
 	IBOutlet frostSlider * BlobLightAddBackground;
 	
 	IBOutlet NSColorWell * BlobLightColor;
+	IBOutlet NSColorWell * BlobLightHistoryColor;
 	
 #pragma mark Blob History outlets
 	
@@ -184,6 +185,7 @@
 	IBOutlet frostSlider * LEDRadius;
 	IBOutlet NSColorWell * LEDblobColor;
 	IBOutlet NSColorWell * LEDbackgroundColor;
+	IBOutlet frostCheckbox * LEDdebug;
 	
 #pragma mark Folding outlets
 	
@@ -196,6 +198,7 @@
 	IBOutlet frostSlider * foldingHistoryPush3;
 	IBOutlet frostSlider * foldingFishAlpha;
 	IBOutlet frostSlider * foldingFloorbox;
+	IBOutlet frostSlider * foldingFloorboxAlpha;
 	IBOutlet frostCheckbox * foldingHistoryClear;
 	IBOutlet frostCheckbox * foldingReset;
 	IBOutlet frostCheckbox * foldingUpdateHistoryFromBlob;

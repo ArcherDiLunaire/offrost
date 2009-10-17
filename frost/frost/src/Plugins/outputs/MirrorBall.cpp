@@ -80,6 +80,8 @@ void MirrorBall::drawOnFloor(){
 	
 	glTranslated(0.3*projection()->getFloor()->aspect, 0.5, 0);
 	
+	ofFill();
+	
 	ofSetColor(255,255,255,255*masterAlpha);
 	reflections1.draw(rotation*360);
 	
@@ -116,14 +118,14 @@ void MirrorBall::update(){
 
 MirrorBallReflections::MirrorBallReflections(){
 	
-	numberOfCircles = 17;
-	circlesSpacing = 0.04;
+	numberOfCircles = 12;
+	circlesSpacing = 0.06;
 	circlesSpacingMultiplier = 0.15;
 	
 	circleOffsetX = -0.0003;
 	circleOffsetY = 0.0003;
 	
-	dotSpacing = 0.75;
+	dotSpacing = 0.95;
 	
 	dotPositionNoise = 0.003;
 	dotAlphaNoise = 0.33;
@@ -202,6 +204,8 @@ void MirrorBallReflections::draw(float _angle){
 			ofEnableAlphaBlending();
 			
 			theColor.a *= alpha;
+			theColor.g *= 0.75 + ((1.0-(theCircle*1.0/numberOfCircles)) * 0.25); 
+			theColor.b *= 0.35 + ((1.0-sqrtf(theCircle*1.0/numberOfCircles)) * 0.65); 
 			
 			ofSetColor(theColor.r, theColor.g, theColor.b, (
 															(

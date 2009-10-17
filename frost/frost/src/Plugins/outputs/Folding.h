@@ -41,6 +41,7 @@ public:
 	float push1, push2, push3;
 	float fishAlpha;
 	float foldingFloorbox;
+	float foldingFloorboxAlpha;
 	
 	ofVideoPlayer fish;
 };

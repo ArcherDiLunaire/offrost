@@ -165,7 +165,7 @@ void LiquidSpace::update(){
 	}
 	for(int i=0;i<rings.size();i++){
 		if(rings[i].height > 0){
-			rings[i].height -= 0.02*60.0/ofGetFrameRate();
+			rings[i].height = 1.0 - ((ofGetElapsedTimeMillis() - rings[i].birthMillis) / 750.0); 
 		} else {
 			rings[i].size += rings[i].speed*0.8*30.0/ofGetFrameRate();
 			rings[i].speed *= 0.98;
@@ -235,6 +235,7 @@ void LiquidSpace::addRing(int i){
 	r.speed = ofRandom(0.005, 0.02);
 	r.height = 1.0;
 	r.column = i;
+	r.birthMillis = ofGetElapsedTimeMillis();
 	rings.push_back(r);
 }
 

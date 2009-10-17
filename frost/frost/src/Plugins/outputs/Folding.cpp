@@ -60,7 +60,7 @@ void Folding::update(){
 		float historyMultipler = 1.0+(pow(historyAddMultiplier-1.0, 3));
 		cvAddWeighted( historyImg.getCvImage(),historyMultipler, blob(cam)->grayDiff.getCvImage(),1, -0.25, historyImgTemp.getCvImage());
 		historyImg = historyImgTemp;
-		historyImg.blur(9);
+		historyImg.blur(3);
 				
 		//		*img = historyImg;
 		cvCopy(historyImg.getCvImage(), history[histPos].getCvImage());
@@ -69,7 +69,7 @@ void Folding::update(){
 		
 		cvCopy(blob(cam)->grayDiff.getCvImage(), now[histPos].getCvImage());
 		now[histPos].flagImageChanged();
-		now[histPos].blur(1);
+		now[histPos].blur(2);
 		
 		histPos ++;
 	}
@@ -123,7 +123,7 @@ void Folding::draw(){
 				glBlendFunc(GL_SRC_COLOR, GL_ONE);
 
 				if(histPos > 0){
-					ofSetColor(220 * masterAlpha * historyAlpha, 245 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+					ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
 					history[histPos-1].draw(0,0,4,4);
 					ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
 					now[histPos-1].draw(0,0,4,4);
@@ -157,7 +157,7 @@ void Folding::draw(){
 				if(b < 0){
 					b = history.size() + b;
 				}
-				ofSetColor(220 * masterAlpha * historyAlpha, 245 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+				ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
 				history[b].draw(0,0,4,4);
 				ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
 				now[b].draw(0,0,4,4);
@@ -189,7 +189,7 @@ void Folding::draw(){
 				if(b < 0){
 					b = history.size() + b;
 				}
-				ofSetColor(220 * masterAlpha * historyAlpha, 245 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+				ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
 				history[b].draw(0,0,4,4);
 				ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
 				now[b].draw(0,0,4,4);
@@ -233,8 +233,16 @@ void Folding::drawOnFloor(){
 	ofPushStyle();
 	if(foldingFloorbox > 0){
 		glRotated(25, 0, 0, 1);
-		ofSetColor(255 * masterAlpha, 255 * masterAlpha, 255 * masterAlpha);
+		ofSetColor(255 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha);
 		ofFill();
+		ofRect(0.625, 0.12, 0.28*foldingFloorbox, 0.125);
+		ofNoFill();
+		ofEnableAlphaBlending();
+		ofSetColor(220 * masterAlpha * foldingFloorboxAlpha, 245 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 127 * masterAlpha * foldingFloorboxAlpha);
+		ofSetLineWidth(3);
+		ofRect(0.625, 0.12, 0.28*foldingFloorbox, 0.125);
+		ofSetColor(220 * masterAlpha * foldingFloorboxAlpha, 245 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 200 * masterAlpha * foldingFloorboxAlpha);
+		ofSetLineWidth(2);
 		ofRect(0.625, 0.12, 0.28*foldingFloorbox, 0.125);
 	}
 	ofPopStyle();

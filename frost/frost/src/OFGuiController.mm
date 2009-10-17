@@ -110,6 +110,7 @@ OFGuiController * gui = NULL;
 	[liquidSpaceClear hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->clear];
 	
 	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];
+	[LEDdebug hookUpBool:&getPlugin<LEDGrid*>(ofApp->pluginController)->debug];
 	
 	[MoonDustMasterAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->masterAlpha];
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
@@ -175,6 +176,7 @@ OFGuiController * gui = NULL;
 	[foldingHistoryPush3 hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->push3];
 	[foldingFishAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->fishAlpha];
 	[foldingFloorbox hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->foldingFloorbox];	 
+	[foldingFloorboxAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->foldingFloorboxAlpha];	 
 	[foldingHistoryClear hookUpBool:&getPlugin<Folding*>(ofApp->pluginController)->reset];
 	[foldingReset hookUpBool:&getPlugin<Folding*>(ofApp->pluginController)->reset];	 
 	[foldingUpdateHistoryFromBlob hookUpBool:&getPlugin<Folding*>(ofApp->pluginController)->updateHistoryFromBlob];	
@@ -227,7 +229,7 @@ OFGuiController * gui = NULL;
 		(getPlugin<MoonDust*>(ofApp->pluginController))->length = [userDefaults doubleForKey:@"moondust.length"];
 		(getPlugin<MoonDust*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"moondust.debug"];
 		
-		(getPlugin<LaLinea*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"lalinea.density"];
+		(getPlugin<LaLinea*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"lalinea.debug"];
 		
 		(getPlugin<BlobLight*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"bloblight.density"];
 		(getPlugin<BlobLight*>(ofApp->pluginController))->blur = [userDefaults doubleForKey:@"bloblight.blur"];
@@ -263,7 +265,18 @@ OFGuiController * gui = NULL;
 		
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
 		
-		(getPlugin<LiquidSpace*>(ofApp->pluginController))->fillColor.set(0.0,0.0,0.0);
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->masterAlpha = [userDefaults doubleForKey:@"folding.alpha"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->push1 = [userDefaults doubleForKey:@"folding.push1"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->push2 = [userDefaults doubleForKey:@"folding.push2"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->push3 = [userDefaults doubleForKey:@"folding.push3"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->fishAlpha = [userDefaults doubleForKey:@"folding.fishalpha"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->foldingFloorbox = [userDefaults doubleForKey:@"folding.floorbox"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->foldingFloorboxAlpha = [userDefaults doubleForKey:@"folding.floorboxAlpha"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->updateHistoryFromBlob = [userDefaults boolForKey:@"folding.historyUpdateFromBlob"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->historyAlpha = [userDefaults doubleForKey:@"folding.historyAlpha"];
+		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->historyAddMultiplier = [userDefaults doubleForKey:@"folding.historyAddMultiplier"];
+		
+		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->debug = false;
 		
 		/**
 		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00005 * [userDefaults doubleForKey:@"liquidSpace.fadeSpeed"]);

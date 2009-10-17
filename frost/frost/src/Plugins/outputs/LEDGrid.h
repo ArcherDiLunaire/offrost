@@ -13,7 +13,9 @@
 #include "ofxVectorMath.h"
 
 class lamp{
+	
 public:
+	
 	lamp();
 	int r, g, b, a;
 	ofxPoint2f pos;
@@ -22,6 +24,7 @@ public:
 	int sentR, sentG, sentB, sentA;
 	
 	void update();
+	
 };
 
 class LEDGrid: public Output{
@@ -42,8 +45,13 @@ public:
 	bool ok;
 	ofSerial serial;
 	
+	bool debug;
+	
 	float radius;
 	
 	float r,g,b;
 	float r2,g2,b2;
+	
+	ofxPoint2f p;
+	
 };

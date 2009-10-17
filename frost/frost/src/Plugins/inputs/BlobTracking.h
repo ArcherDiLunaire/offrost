@@ -23,7 +23,7 @@ public:
 	ofxCvContourFinder 	contourFinder;
 	ofxCvOpticalFlowLK	opticalFlow;
 
-	ofxCvGrayscaleImage grayDiff;
+	ofxCvGrayscaleImage		grayDiff;
 	ofxCvGrayscaleImage 	grayImage;
 	ofxCvGrayscaleImage 	grayLastImage;
 
@@ -75,7 +75,7 @@ public:
 	
 	float 				threshold;
 	float				blur;
-	bool active;
+	bool				active;
 	
 	bool				bLearnBakground;
 	bool				bUseBgMask;
