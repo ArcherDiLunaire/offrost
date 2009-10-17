@@ -75,8 +75,6 @@ public:
 	int cameraThreadTimer;
 	unsigned long int cameraLastBlinkCount[3];
 	
-	ofxMidiOut * midiOut;
-	
 	uint64_t cameraGUIDs[3];
 	
 };

@@ -182,6 +182,7 @@
 #pragma mark LEDGrid outlets
 	
 	IBOutlet NSView *LEDGridlView;
+	IBOutlet frostSlider * LEDMasterFader;
 	IBOutlet frostSlider * LEDRadius;
 	IBOutlet NSColorWell * LEDblobColor;
 	IBOutlet NSColorWell * LEDbackgroundColor;

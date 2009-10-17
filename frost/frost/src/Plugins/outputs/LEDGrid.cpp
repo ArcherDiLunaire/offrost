@@ -19,6 +19,8 @@ lamp::lamp(){
 	sentB = -1;
 	sentA = -1;
 	
+	isOldAndSucks = false;
+	
 	channel = 0;
 }
 
@@ -38,6 +40,9 @@ LEDGrid::LEDGrid(){
 	
 	p.x = 0;
 	p.y = 0;
+	
+	master = 1.0;
+	sentMaster = 0.0;
 	
 }
 
@@ -67,35 +72,47 @@ void LEDGrid::setup(){
 		y += dy;
 	}
 	
-	// dmx adresses - andrea's grid is fun in the first row, so we override at i=0 for these exceptions
+	// dmx adresses - andreas' grid is fun in the first row, so we override at i=0 for these exceptions
 	// we start from the stage back
 	
 	for(int i=0;i<5;i++){
 		lamps[i].channel = 217+i*4;
-		if(i==0) lamps[i].channel = 256; 
+		if(i==0) lamps[i].channel = 2;
 	}
 	for(int i=0;i<6;i++){
 		lamps[8+i].channel = 177+i*4;
-		if(i==0) lamps[8+i].channel = 1; 
+		if(i==0) lamps[8+i].channel = 6; 
 	}
 	for(int i=0;i<8;i++){
 		lamps[8*2+i].channel = 147+i*4;	
-		if(i==0) lamps[8*2+i].channel = 270; 
+		if(i==0) lamps[8*2+i].channel = 10; 
+		if(i < 4 && i > 0){
+			lamps[8*2+i].isOldAndSucks = true;
+		}
 	}
 	for(int i=0;i<8;i++){
 		lamps[8*3+i].channel = 117+i*4;	
-		if(i==0) lamps[8*3+i].channel = 301; 
+		if(i==0) lamps[8*3+i].channel = 14; 
+		if(i < 4){
+			lamps[8*3+i].isOldAndSucks = true;
+		}
 	}
 	for(int i=0;i<8;i++){
-		lamps[8*4+i].channel = 87+i*4;	
+		lamps[8*4+i].channel = 87+i*4;
+		if(i < 4){
+			lamps[8*4+i].isOldAndSucks = true;
+		}
 	}
 	for(int i=0;i<8;i++){
-		lamps[8*5+i].channel = 37+i*4;	
+		lamps[8*5+i].channel = 37+i*4;
+		lamps[8*5+i].isOldAndSucks = true;
 	}
 	
 	debug = false;
 	
 	ok = true;
+	
+	alphaSet = false;
 	
 }
 
@@ -126,9 +143,10 @@ void LEDGrid::update(){
 		serial.flush(true, false);
 		ok = true;
 	}
-	
 	if(ok){
+		
 		for(int i=0;i<lamps.size();i++){
+			cout << i << ": " << lamps[i].channel << endl;
 			if(lamps[i].channel > 0){
 				//				ofxPoint2f p = ofxPoint2f(mouseX, mouseY);
 				if(blob(0)->numPersistentBlobs() > 0){
@@ -164,6 +182,11 @@ void LEDGrid::update(){
 				if(lamps[i].a > 254){
 					lamps[i].a = 254;
 				}
+				
+				if(lamps[i].isOldAndSucks){
+					lamps[i].a = (lamps[i].a * (190-6) / 254) + 6;
+				}
+				
 				if(lamps[i].r > 254){
 					lamps[i].r = 254;
 				}				
@@ -175,6 +198,15 @@ void LEDGrid::update(){
 				}
 				unsigned char *mBuf= new unsigned char[3*4];
 				int n;
+				if(master != sentMaster){
+					sentMaster = master;
+					unsigned char *buffer = new unsigned char[3];
+					buffer[0] = (unsigned char)255;
+					buffer[1] = (unsigned char)0;
+					buffer[2] = (unsigned char)round(master*254);
+					serial.writeBytes(buffer, 3);
+					ok = false;
+				}
 				if(lamps[i].r != lamps[i].sentR){
 					lamps[i].sentR = lamps[i].r;
 					unsigned char *buffer = new unsigned char[3];
@@ -210,28 +242,16 @@ void LEDGrid::update(){
 					buffer[2] = (unsigned char)lamps[i].a;
 					serial.writeBytes(buffer, 3);
 					ok = false;
-				}
-				/*	string s;
-				 if(lamps[i].r != lamps[i].sentR){
-				 lamps[i].sentR = lamps[i].r;
-				 s += ofToString(lamps[i].channel, 0) + "c"+ofToString(lamps[i].r, 0)+"w";
-				 }
-				 if(lamps[i].g != lamps[i].sentG ){
-				 lamps[i].sentG = lamps[i].g;
-				 s += ofToString(lamps[i].channel+1, 0) + "c"+ofToString(lamps[i].g, 0)+"w";
-				 }
-				 
-				 if(lamps[i].b != lamps[i].sentB){
-				 lamps[i].sentG = lamps[i].g;
-				 s +=  ofToString(lamps[i].channel+2, 0) + "c"+ofToString(lamps[i].b, 0)+"w";
-				 }
-				 if(lamps[i].a != lamps[i].sentA){
-				 lamps[i].sentG = lamps[i].g;
-				 s +=  ofToString(lamps[i].channel+3, 0) + "c"+ofToString(lamps[i].a, 0)+"w";
-				 }	
-				 serial.writeBytes((unsigned char*)s.c_str(), strlen(s.c_str()));
-				 */
+					if(!alphaSet){
+						unsigned char *buffer = new unsigned char[3];
+						buffer[0] = (unsigned char)255;
+						buffer[1] = (unsigned char)1;
+						buffer[2] = (unsigned char)lamps[i].channel+3;
+						serial.writeBytes(buffer, 3);
+						ok = false;
+					}
 			}
 		}
+		alphaSet = true;
 	}
 }

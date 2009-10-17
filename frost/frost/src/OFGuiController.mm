@@ -109,6 +109,7 @@ OFGuiController * gui = NULL;
 	[liquidUpdateMotor hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->updateMotor];
 	[liquidSpaceClear hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->clear];
 	
+	[LEDMasterFader hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->master];
 	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];
 	[LEDdebug hookUpBool:&getPlugin<LEDGrid*>(ofApp->pluginController)->debug];
 	

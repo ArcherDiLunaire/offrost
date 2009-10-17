@@ -16,7 +16,6 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new CameraCalibration);
 	
 	pluginController->addPlugin(new MoonDust);
-
 	pluginController->addPlugin(new BlobHistory);
 	pluginController->addPlugin(new LaLinea);
 	pluginController->addPlugin(new LaLineaFloor);
@@ -50,10 +49,6 @@ void testApp::setup(){
 	
 	glEnable (GL_MULTISAMPLE_ARB);
     glHint (GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST);
-	
-	midiOut = new ofxMidiOut;
-	midiOut->listPorts();
-	midiOut->openPort(0);
 	
 	cameraThreadTimer = -500;
 	

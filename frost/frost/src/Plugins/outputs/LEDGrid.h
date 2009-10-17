@@ -23,6 +23,8 @@ public:
 	
 	int sentR, sentG, sentB, sentA;
 	
+	bool isOldAndSucks;
+	
 	void update();
 	
 };
@@ -38,6 +40,9 @@ public:
 	void draw();
 	void update();
 	
+	float master;
+	float sentMaster;
+	
 	int cam;
 	
 	vector<lamp> lamps;
@@ -51,6 +56,8 @@ public:
 	
 	float r,g,b;
 	float r2,g2,b2;
+	
+	bool alphaSet;
 	
 	ofxPoint2f p;
 	
