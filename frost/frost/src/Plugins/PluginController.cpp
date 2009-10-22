@@ -72,3 +72,13 @@ void PluginController::drawWall(){
 	glPopMatrix();
 }
 
+void PluginController::drawMasking(){
+		for(int i=0;i<plugins.size();i++){
+		FrostPlugin* plugin = plugins[i];
+		//		if(plugin->type == FrostPlugin::OUTPUT && plugin->enabled){
+		if(plugin->enabled){
+			plugin->drawMasking(); 
+		}
+	}
+
+}

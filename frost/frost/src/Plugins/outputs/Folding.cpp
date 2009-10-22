@@ -238,10 +238,10 @@ void Folding::drawOnFloor(){
 		ofRect(0.625, 0.12, 0.28*foldingFloorbox, 0.125);
 		ofNoFill();
 		ofEnableAlphaBlending();
-		ofSetColor(220 * masterAlpha * foldingFloorboxAlpha, 245 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 127 * masterAlpha * foldingFloorboxAlpha);
+		ofSetColor(220 * masterAlpha * foldingFloorboxAlpha, 220 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 127 * masterAlpha * foldingFloorboxAlpha);
 		ofSetLineWidth(3);
 		ofRect(0.625, 0.12, 0.28*foldingFloorbox, 0.125);
-		ofSetColor(220 * masterAlpha * foldingFloorboxAlpha, 245 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 200 * masterAlpha * foldingFloorboxAlpha);
+		ofSetColor(220 * masterAlpha * foldingFloorboxAlpha, 220 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 200 * masterAlpha * foldingFloorboxAlpha);
 		ofSetLineWidth(2);
 		ofRect(0.625, 0.12, 0.28*foldingFloorbox, 0.125);
 	}

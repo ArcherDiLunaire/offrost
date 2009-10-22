@@ -29,17 +29,21 @@ public:
 	void draw();
 	void update();
 	void drawOnFloor();
+	void drawMasking();
 
 	float force;
 	float size, length, density;
 	bool debug;
 	vector<DustParticle> particles;
 	
+	float columnMaskAlpha;
+	
 	float min, max;
 	
 	ofImage * particleImg;
 	ofImage * particleTrack;
-	
+	ofImage projectorMask;
+
 	float rotation;
 	float columnAlpha;
 

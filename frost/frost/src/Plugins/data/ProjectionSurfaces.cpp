@@ -7,6 +7,12 @@ ProjectionSurfacesObject::ProjectionSurfacesObject(){
 	}
 }
 
+ProjectionSurfacesObject::~ProjectionSurfacesObject(){
+	for(int i=0;i<4;i++){
+		delete corners[i];
+	}
+}
+
 void ProjectionSurfacesObject::recalculate(){
 	for(int i=0;i<4;i++){
 		warp->SetCorner(i, (*corners[i]).x, (*corners[i]).y);

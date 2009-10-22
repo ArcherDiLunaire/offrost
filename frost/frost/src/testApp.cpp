@@ -15,7 +15,6 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new ProjectionSurfaces);
 	pluginController->addPlugin(new CameraCalibration);
 	
-	pluginController->addPlugin(new MoonDust);
 	pluginController->addPlugin(new BlobHistory);
 	pluginController->addPlugin(new LaLinea);
 	pluginController->addPlugin(new LaLineaFloor);
@@ -23,11 +22,10 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 	pluginController->addPlugin(new Frostscape);
 	pluginController->addPlugin(new LiquidSpace);
 	pluginController->addPlugin(new BlobLight);
-	
 	pluginController->addPlugin(new Spotlight);
 	pluginController->addPlugin(new MirrorBall);
 	pluginController->addPlugin(new LEDGrid);
-
+	pluginController->addPlugin(new MoonDust);
 	
 }
 
@@ -153,6 +151,7 @@ void testApp::draw(){
 	pluginController->draw();
 	pluginController->drawFloor();
 	pluginController->drawWall();
+	pluginController->drawMasking();
 	
 	fps = ofGetFrameRate();
 }

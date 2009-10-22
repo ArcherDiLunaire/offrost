@@ -25,6 +25,7 @@ Frostscape::Frostscape(){
 void Frostscape::setup(){
 	motor.generateBackgroundObjects(35, 1, projection()->getFloor()->aspect, 1.0, -3);
 	iceMask.loadImage("iceMask.png");
+	columnTexture.loadImage("columnTexture.png");
 	for(int i=0;i<3;i++){
 		columnParticleX[i] = 0;	
 	}
@@ -111,7 +112,7 @@ void Frostscape::update(){
 			//	int i=1;
 			columnParticleX[i] += 0.003*60.0/ofGetFrameRate();
 			columnParticlePos[i] += (sin(columnParticleX[i]*TWO_PI-HALF_PI)+1)*(0.003*60.0/ofGetFrameRate());	
-			if(columnParticlePos[i] > 0  && columnParticlePos[i] < 3.0){
+			if(columnParticlePos[i] > 0  && columnParticlePos[i] < 5.0){
 				//				cout<<"add "<<i<<"  "<<columnFreeze[i]<<endl;
 				motor.addFreezePoint(projection()->getColumnCoordinate(i), columnFreeze[i]*0.01);	
 			}
@@ -120,7 +121,7 @@ void Frostscape::update(){
 			columnParticlePos[i] = 0;	
 		}
 	} 
-	///*
+
 	for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),6);i++){
 		PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
 		vector<ofxCvBlob> b = blob(cam)->persistentBlobs[i].blobs;
@@ -136,7 +137,7 @@ void Frostscape::update(){
 		}
 		
 	}
-	//*/
+	
 	/*
 	 for(int i=0;i<MIN(blob(cam)->numPersistentBlobs(),2);i++){
 	 PersistentBlob * pb = &blob(cam)->persistentBlobs[i];
@@ -214,19 +215,18 @@ void Frostscape::drawOnFloor(){
 		
 		ofFill();
 		ofSetColor(255, 255, 255, 255 * masterAlpha);
-		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);
+
+		//ofEnableAlphaBlending();
+		
+		columnTexture.draw(0, 0, projection()->getColumn(i)->aspect, 1);
 		
 		ofFill();
 		ofSetColor(0, 0, 0, 255);
 		ofRect(0, 0, projection()->getColumn(i)->aspect, MIN( columnParticlePos[i],1));
 		
-		/**if(columnParticlePos[i] < 1-projection()->getColumn(i)->aspect/2.0){
-			ofSetColor(0, 0, 0, 255);
-			ofEllipse(projection()->getColumn(i)->aspect/2.0, columnParticlePos[i], projection()->getColumn(i)->aspect,projection()->getColumn(i)->aspect);
-		}**/
-		
 		glPopMatrix();
 	}
+	projection()->applyProjection(projection()->getFloor());
 }
 
 void Frostscape::fillIce(){

@@ -82,7 +82,8 @@ void LiquidSpace::setup(){
 	window.aspectRatio	= projection()->getFloor()->aspect;
 	window.aspectRatio2 = window.aspectRatio / window.aspectRatio;
 	
-	
+	projectorMask.loadImage("maskProjectorLiquid.png");
+
 	// setup fluid stuff
 	fluidSolver.setup(90, 90);
     fluidSolver.enableRGB(true).setFadeSpeed(0.00000001).setDeltaT(0.5).setVisc(0.0000001).setColorDiffusion(0.00000002).setSolverIterations(3);
@@ -167,9 +168,10 @@ void LiquidSpace::update(){
 		if(rings[i].height > 0){
 			rings[i].height = 1.0 - ((ofGetElapsedTimeMillis() - rings[i].birthMillis) / 750.0); 
 		} else {
-			rings[i].size += rings[i].speed*0.8*30.0/ofGetFrameRate();
-			rings[i].speed *= 0.98;
-			
+			//rings[i].size += rings[i].speed*0.8*30.0/ofGetFrameRate();
+			float sizeVal = (ofGetElapsedTimeMillis() - (rings[i].birthMillis + 750.0)) / 3000.0*rings[i].speed;
+			rings[i].size = ((sqrtf(sizeVal)*0.8)+(sizeVal*0.2))*rings[i].speed;
+			rings[i].currentSpeed = 1.0 - sqrtf((ofGetElapsedTimeMillis() - (rings[i].birthMillis + 750.0)) / 3000.0*rings[i].speed);
 		}
 	}
 }
@@ -179,44 +181,28 @@ void LiquidSpace::drawOnFloor(){
 	glBlendFunc (GL_SRC_COLOR, GL_ONE);	
 	
 	if(drawFluid && updateMotor) {
-		glColor3f(1, 1, 1);
+		glColor4f(1, 1, 1, masterAlpha);
 		fluidDrawer.draw(0, 0, window.aspectRatio, 1.0);
 	}
 	
-	
-}
-
-void LiquidSpace::draw(){
-	ofDisableAlphaBlending();
-	ofSetColor(0, 0, 0,255);
-	for(int i=0;i<3;i++){
-		projection()->applyColumnProjection(i);		
-		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);		
-		glPopMatrix();		
-	}
-	
+	glPopMatrix();		
+		
 	for(int i=0;i<rings.size();i++){
 		
-		ofSetColor(255, 255, 255);
-		if(rings[i].height > 0){
-			projection()->applyProjection(projection()->getColumn(rings[i].column));
-			ofEllipse(projection()->getColumn(rings[i].column)->aspect/2.0, 1.0-rings[i].height, projection()->getColumn(rings[i].column)->aspect, projection()->getColumn(rings[i].column)->aspect);
-			
-			glPopMatrix();
-		} else {
+		ofSetColor(255, 255, 255, 255);
+		if(!(rings[i].height > 0)){
 			ofEnableAlphaBlending();
 			projection()->applyProjection(projection()->getFloor());
 			ofNoFill();
 			glTranslated(rings[i].center.x, rings[i].center.y, 0);
 			int n = 200;
 			ringTexture.getTextureReference().bind();
-			glColor4f(1.0, 1.0, 1.0, rings[i].speed * 150.0);
+			glColor4f(1.0, 1.0, 1.0, rings[i].currentSpeed * 2.5);
 			glBegin(GL_QUAD_STRIP);
 			for(int u=0;u<n;u++){
 				glTexCoord2f(0.0f, 0.0f);    
 				glVertex2f(cos(TWO_PI*(float)u/n)*rings[i].size, sin(TWO_PI*(float)u/n)*rings[i].size);
-				glTexCoord2f(50, 0.0f);    
-				
+				glTexCoord2f(50, 0.0f);
 				glVertex2f(cos(TWO_PI*(float)u/n)*(rings[i].size+0.03), sin(TWO_PI*(float)u/n)*(rings[i].size+0.03));
 			}	
 			glEnd();
@@ -226,13 +212,49 @@ void LiquidSpace::draw(){
 			
 		}
 	}
+	
+	ofFill();
+	ofSetColor(0, 0, 0,255);
+	
+	for(int i=0;i<3;i++){
+		projection()->applyColumnProjection(i);		
+		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);		
+		glPopMatrix();		
+	}
+	
+	ofSetColor(255, 255, 255, 255);
+	
+	for(int i=0;i<rings.size();i++){
+		
+		if(rings[i].height > 0){
+			projection()->applyProjection(projection()->getColumn(rings[i].column));
+			ofEllipse(projection()->getColumn(rings[i].column)->aspect/2.0, 1.0-rings[i].height, projection()->getColumn(rings[i].column)->aspect, projection()->getColumn(rings[i].column)->aspect);
+			
+			glPopMatrix();
+		}
+		
+	}
+	
+}
+
+void LiquidSpace::draw(){
+	;
+}
+
+void LiquidSpace::drawMasking(){
+	
+	ofEnableAlphaBlending();
+	ofSetColor(255, 255, 255,255);
+	projectorMask.draw(0,0, ofGetWidth(), ofGetHeight());
+
 }
 
 void LiquidSpace::addRing(int i){
 	ring r;
 	r.center = projection()->getColumnCoordinate(i);
 	r.size = 0;
-	r.speed = ofRandom(0.005, 0.02);
+	r.speed = ofRandom(0.2, 0.5);
+	r.currentSpeed = r.speed;
 	r.height = 1.0;
 	r.column = i;
 	r.birthMillis = ofGetElapsedTimeMillis();
@@ -243,8 +265,10 @@ void LiquidSpace::addFixedRing(int i){
 	ring r;
 	r.center = projection()->getColumnCoordinate(i);
 	r.size = 0;
-	r.speed = 0.015;
+	r.speed = 0.6;
 	r.height = 1.0;
+	r.currentSpeed = r.speed;
 	r.column = i;
+	r.birthMillis = ofGetElapsedTimeMillis();
 	rings.push_back(r);
 }

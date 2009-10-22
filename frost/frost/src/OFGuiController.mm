@@ -55,6 +55,8 @@ OFGuiController * gui = NULL;
 		
 		[[p name] drawInRect:bounds withAttributes:textAttribs];
 		
+		[paragraphStyle release];
+		
 	} else {
 		[super drawRow:rowIndex clipRect:clipRect];
 	}
@@ -115,6 +117,7 @@ OFGuiController * gui = NULL;
 	
 	[MoonDustMasterAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->masterAlpha];
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
+	[MoonDustColumnMaskAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnMaskAlpha];
 	
 	[LaLineaMasterAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->masterAlpha];
 	[LaLineaMaskAlpha hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->maskAlpha];
@@ -228,6 +231,7 @@ OFGuiController * gui = NULL;
 		(getPlugin<MoonDust*>(ofApp->pluginController))->force = [userDefaults doubleForKey:@"moondust.force"];
 		(getPlugin<MoonDust*>(ofApp->pluginController))->size = [userDefaults doubleForKey:@"moondust.size"];
 		(getPlugin<MoonDust*>(ofApp->pluginController))->length = [userDefaults doubleForKey:@"moondust.length"];
+		(getPlugin<MoonDust*>(ofApp->pluginController))->columnMaskAlpha = [userDefaults doubleForKey:@"moondust.columnMaskAlpha"];
 		(getPlugin<MoonDust*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"moondust.debug"];
 		
 		(getPlugin<LaLinea*>(ofApp->pluginController))->debug = [userDefaults boolForKey:@"lalinea.debug"];
@@ -547,7 +551,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	[userDefaults setValue:[p enabled] forKey:[NSString stringWithFormat:@"plugins.enable%d",i]];
 	[listView setNeedsDisplay:TRUE];
 
-	[self changeView:i];
+	//[self changeView:i];
 	
 }
 

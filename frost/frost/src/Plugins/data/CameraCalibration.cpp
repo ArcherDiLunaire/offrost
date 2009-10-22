@@ -110,6 +110,7 @@ void CameraCalibration::update(){
 void CameraCalibration::drawOnFloor(){
 }
 void CameraCalibration::draw(){
+	ofDisableAlphaBlending();
 	if(drawDebug){
 		ofSetColor(255, 255, 255, 255);
 		glPushMatrix();
@@ -117,6 +118,7 @@ void CameraCalibration::draw(){
 		getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,1,1);
 		glPopMatrix();
 		
+		ofFill();
 		ofSetColor(255, 0, 255);
 		
 		for(int i=0;i<4;i++){
@@ -159,8 +161,9 @@ void CameraCalibration::drawSettings(){
 	
 	
 	ofNoFill();
+	ofSetLineWidth(2);
 	for(int i=0;i<4;i++){
-		ofSetColor(0, 0, 255, 255);
+		ofSetColor(255, 0, 255, 225);
 		ofEllipse(cameras[selectedKeystoner]->calibHandles[i].x*w, cameras[selectedKeystoner]->calibHandles[i].y*h, 15, 15);
 	}
 	ofFill();

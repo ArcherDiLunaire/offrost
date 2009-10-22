@@ -58,5 +58,6 @@ public:
 	vector<ofxPoint2f> linesFreezePoints;
 
 	ofImage iceMask;
+	ofImage columnTexture;
 	
 };

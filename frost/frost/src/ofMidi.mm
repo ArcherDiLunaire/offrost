@@ -46,6 +46,7 @@
 	[self hookupSlider:gui->MoonDustDensity onChannel:4 onNumber:4 controlChanges:true noteChanges:false scale:10000.0/127.0];
 	[self hookupSlider:gui->MoonDustSize onChannel:4 onNumber:5 controlChanges:true noteChanges:false scale:0.1/127.0];
 	[self hookupSlider:gui->MoonDustColumnAlpha onChannel:4 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->MoonDustColumnMaskAlpha onChannel:4 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
 	
 #pragma mark La Linea
 	
@@ -53,7 +54,7 @@
 	
 	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaMaskAlpha onChannel:5 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaNoise1 onChannel:5 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaNoise1 onChannel:5 onNumber:5 controlChanges:true noteChanges:true scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaNoise2 onChannel:5 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaNoise2 onChannel:5 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaDancer onChannel:5 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
@@ -102,7 +103,7 @@
 	
 	
 	[self hookupSlider:gui->foldingFloorboxAlpha			onChannel:8 onNumber:12 controlChanges:true noteChanges:false scale:1.0/127.0];
-
+	
 	
 #pragma mark Frostscape
 	
@@ -247,7 +248,7 @@ BOOL isRealtimeByte (Byte b)	{ return b >= 0xF8; }
 				noteOff = true;
 				channel = packet->data[0+j] - 127;
 				number = packet->data[1+j];
-				value = packet->data[2+j];
+				value = 0; //packet->data[2+j];
 			}
 			if(packet->data[0+j] >= 176 && packet->data[0+j] <= 191){
 				controlChange = true;
@@ -256,8 +257,11 @@ BOOL isRealtimeByte (Byte b)	{ return b >= 0xF8; }
 				value = packet->data[2+j];
 			}
 			if([midiActive state] ==  NSOnState){
+				
+				[gui->midiStatusText setStringValue:[NSString stringWithFormat:@"Channel: %d,  Number: %d,  Value: %d",channel, number, value]];
+				
 				if (controlChange && number == 7) {
-					printf("Midi: %i\n",value);
+					//printf("Midi: %i\n",value);
 				}
 				
 				for(int i=0;i<[frostSliderHookups count];i++){
@@ -439,10 +443,10 @@ BOOL isRealtimeByte (Byte b)	{ return b >= 0xF8; }
 					[gui->LEDbackgroundColor setColor:[NSColor colorWithCalibratedRed:r2 green:g2 blue:b2 alpha:1.0 ]];
 					
 				}
-		}
-		
+			}
+			
+		}	
 		packet = MIDIPacketNext (packet);
-
-	}	
+	}
 }
-@end
+	@end

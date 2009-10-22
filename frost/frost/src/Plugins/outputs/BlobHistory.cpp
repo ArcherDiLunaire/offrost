@@ -50,20 +50,22 @@ void BlobHistory::drawOnFloor(){
 	glColor4d(1.0, 1.0, 1.0, historyAlpha * masterAlpha);
 
 	if (blobHistoryMatrixDisplayList.size() > 0) {
-	
+		
+		float autoAlpha  = fmin(1.0, ((blobHistoryMatrixDisplayList.size()-1)-historyOffset) / 200.0);
+		
 		ofFill();
-		ofSetColor(255, 255, 255, 255 * historyAlpha * masterAlpha);
+		ofSetColor(255, 255, 255, 255 * historyAlpha * masterAlpha * autoAlpha);
 		
 		glCallList(blobHistoryMatrixDisplayList[(blobHistoryMatrixDisplayList.size()-1)-historyOffset]);
 		
 		ofNoFill();
-		ofSetColor(255, 255, 255, 64 * historyAlpha * masterAlpha);
+		ofSetColor(255, 255, 255, 64 * historyAlpha * masterAlpha * autoAlpha);
 		ofSetLineWidth(3);
 
 		glCallList(blobHistoryMatrixDisplayList[(blobHistoryMatrixDisplayList.size()-1)-historyOffset]);
 
 		ofNoFill();
-		ofSetColor(255, 255, 255, 128 * historyAlpha * masterAlpha);
+		ofSetColor(255, 255, 255, 128 * historyAlpha * masterAlpha * autoAlpha);
 		ofSetLineWidth(2);
 		
 		glCallList(blobHistoryMatrixDisplayList[(blobHistoryMatrixDisplayList.size()-1)-historyOffset]);

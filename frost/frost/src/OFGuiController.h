@@ -59,6 +59,8 @@
 	
 	NSUserDefaults * userDefaults;
 	
+	IBOutlet NSTextField * midiStatusText;
+	
 #pragma mark Plugin View Outlets
 	
 	IBOutlet NSView *cameraView;
@@ -77,6 +79,7 @@
 	IBOutlet NSButton * MoonDustDebug;
 	IBOutlet frostSlider * MoonDustMasterAlpha;
 	IBOutlet frostSlider * MoonDustColumnAlpha;	
+	IBOutlet frostSlider * MoonDustColumnMaskAlpha;	
 
 #pragma mark La Linea Outlets
 	

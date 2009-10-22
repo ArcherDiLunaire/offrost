@@ -72,10 +72,13 @@ public:
 	void setup();
 	void drawOnFloor();
 	void draw();
+	void drawMasking();
 	void update();
 	void addDot(float x, float y);
 	
 	int cam;
+	
+	int lastFrameMillis;
 	
 	MirrorBallReflections reflections1;
 	MirrorBallReflections reflections2;
@@ -84,6 +87,8 @@ public:
 	float rotationDirection;
 	
 	float mirrorBallTrails;
+	
+	ofImage projectorMask;
 	
 	bool bAddDot;
 	bool bClearDots;

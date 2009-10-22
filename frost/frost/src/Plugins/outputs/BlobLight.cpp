@@ -27,6 +27,7 @@ void BlobLight::setup(){
 	history.set(0);
 	historyTmp.set(0);
 	img.allocate(w,h);
+	projectorMask.loadImage("maskProjector.png");
 }
 
 void BlobLight::update(){
@@ -72,5 +73,15 @@ void BlobLight::draw(){
 
 void BlobLight::drawOnFloor(){
 
+}
+
+
+void BlobLight::drawMasking(){
+	
+	ofEnableAlphaBlending();
+	
+	ofSetColor(255, 255, 255, 255);
+	
+	projectorMask.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 

@@ -35,6 +35,8 @@ public:
 	virtual void drawOnFloor(){};
 	virtual void drawOnWall(){};
 	
+	virtual void drawMasking(){};
+	
 	void applyFloorProjection();
 	void applyWallProjection();
 

@@ -83,6 +83,8 @@ void Cameras::setup(){
 		hasCameras = false;
 		
 	}
+	
+	delete libdc1394Grabber;
 }
 
 bool Cameras::isFrameNew(int _grabberIndex){

@@ -23,6 +23,8 @@ MoonDust::MoonDust(){
 	debug = false;
 	
 	cam = 0;
+	
+	columnMaskAlpha = 0;
 }
 
 void MoonDust::setup(){
@@ -30,6 +32,8 @@ void MoonDust::setup(){
 	particleTrack = new ofImage;
 	particleImg->loadImage("MoonDustParticle30.png");
 	particleTrack->loadImage("MoonDustTrack.png");
+	projectorMask.loadImage("maskProjector.png");
+
 }
 
 void MoonDust::update(){
@@ -116,6 +120,11 @@ void MoonDust::update(){
 					}
 					bMin = -section[u];
 					bMax = section[u];
+					if(u  < lowestSection+6 && u > lowestSection && lowestSection > 6){
+						particles[i].visible = true;
+						bMin = -section[u-6];
+						bMax = section[u-6];
+					}
 					break;
 				}
 			}
@@ -147,7 +156,9 @@ void MoonDust::drawOnFloor(){
 		glRotated(rotation, 0, 0, 1.0);
 		
 		ofEnableAlphaBlending();
-		glBlendFunc (GL_SRC_COLOR, GL_ONE);	
+		glEnable(GL_BLEND);
+		glBlendFunc (GL_ONE, GL_ONE);
+		glDisable(GL_DEPTH);
 		vector<DustParticle>::iterator it;
 		it = particles.begin();
 		int n = 0;
@@ -212,8 +223,34 @@ void MoonDust::drawOnFloor(){
 				
 			}
 		}
+		
+		ofEnableAlphaBlending();
+
+		glPopMatrix();		
+
+		ofFill();
+
+		ofSetColor(0, 0, 0,255*columnMaskAlpha);
+		
+		for(int i=0;i<3;i++){
+			projection()->applyColumnProjection(i);		
+			ofRect(0, 0, projection()->getColumn(i)->aspect+0.01, 1.01);		
+			glPopMatrix();		
+		}
+		
 	}
 }
+
+
+void MoonDust::drawMasking(){
+	
+	ofEnableAlphaBlending();
+	
+	ofSetColor(255, 255, 255, 255);
+	
+	projectorMask.draw(0, 0, ofGetWidth(), ofGetHeight());
+}
+
 
 
 DustParticle::DustParticle(float _x, float _y, float _z){
@@ -254,11 +291,11 @@ void DustParticle::update(float force, float damp, float _min, float _max){
 	
 	if(pos().y > 0){
 		if(!visible){
-			alpha -= 0.01;
+			alpha -= 0.025;
 			if(alpha < 0)
 				alpha = 0;
 		} else {
-			alpha += 0.01;
+			alpha += 0.04;
 			if(alpha > 1)
 				alpha = 1;
 		}

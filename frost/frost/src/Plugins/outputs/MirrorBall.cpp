@@ -57,10 +57,12 @@ MirrorBall::MirrorBall(){
 
 void MirrorBall::setup(){
 	mirrorBallImage.loadImage("spotlight.png");
-	
+	projectorMask.loadImage("maskProjector.png");
+
 	reflections1.setup(15, 0.04, 0.15, -0.0003, 0.0003, 0.01, 0.75, 0.0025, 0.003, 0.25);
 	reflections2.setup(15, 0.04, 0.15, 0.0002, -0.0008, 0.01, 0.75, 0.0025, 0.005, 0.10);
 	
+	lastFrameMillis = ofGetElapsedTimeMillis();
 }
 
 void MirrorBall::draw(){
@@ -93,7 +95,17 @@ void MirrorBall::drawOnFloor(){
 	
 }
 
+void MirrorBall::drawMasking(){
+	
+	ofEnableAlphaBlending();
+	
+	ofSetColor(255, 255, 255, 255);
+
+	projectorMask.draw(0, 0, ofGetWidth(), ofGetHeight());
+}
+
 void MirrorBall::update(){
+
 	if(bAddDot){
 		bAddDot =false;
 		reflections1.turnOnSomeDots(1);
@@ -107,10 +119,26 @@ void MirrorBall::update(){
 	
 	rotation += rotationDirection*0.01;
 	
+	//rotation += ((ofGetElapsedTimeMillis()-lastFrameMillis)/25.0);
+	
 	rotation = fmodf(rotation, 1.0);
+
+	/**
+	float rotationPeriod = (1.0-rotationDirection) * 20000;
+	float rotationPosition = rotationPeriod - (fmodf(ofGetElapsedTimeMillis(), rotationPeriod));
+	
+	if (rotationPeriod > 0) {
+		rotation = -1.0 * (rotationPosition / rotationPeriod);
+	} else {
+		rotation = 0;
+	}
+
+	 **/
 	
 	reflections1.update();
 	reflections2.update();
+
+	lastFrameMillis = ofGetElapsedTimeMillis();
 	
 }
 
@@ -249,7 +277,7 @@ int MirrorBallReflections::getNumberOfDots(int _numberOfCircles, float _dotSpaci
 void MirrorBallReflections::setDotStates(int amountOfDots, bool isOn){
 	fractionOfDotsTurnedOn = (nDotsTurnedOn * 1.0) / nDots;
 	
-	cout << "setDotStates" << amountOfDots << " to " << (isOn?"ON":"OFF") << endl;
+	// cout << "setDotStates" << amountOfDots << " to " << (isOn?"ON":"OFF") << endl;
 	
 	if(isOn && (nDots - nDotsTurnedOn) < amountOfDots) 
 		amountOfDots = (nDots - nDotsTurnedOn);

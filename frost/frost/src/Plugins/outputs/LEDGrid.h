@@ -29,6 +29,35 @@ public:
 	
 };
 
+class LEDGridThread : public ofxThread {
+	
+public:
+
+	LEDGridThread();
+	
+	void threadedFunction();
+	void start();
+	void stop();
+	
+	float master;
+	float sentMaster;
+	
+	bool ok;
+	
+	ofSerial serial;
+	vector<lamp> lamps;
+	
+	float radius;
+	
+	float r,g,b;
+	float r2,g2,b2;
+	
+	bool alphaSet;
+	
+	ofxPoint2f p;
+	
+};
+
 class LEDGrid: public Output{
 	
 public:
@@ -39,18 +68,18 @@ public:
 	void drawOnFloor();
 	void draw();
 	void update();
-	
-	float master;
-	float sentMaster;
-	
-	int cam;
-	
-	vector<lamp> lamps;
-
-	bool ok;
-	ofSerial serial;
+	void updateThreadValues();
 	
 	bool debug;
+
+	int cam;
+	
+	float master;
+	
+	bool ok;
+
+	ofSerial serial;
+	vector<lamp> lamps;
 	
 	float radius;
 	
@@ -60,5 +89,7 @@ public:
 	bool alphaSet;
 	
 	ofxPoint2f p;
+	
+	LEDGridThread serialThread;
 	
 };

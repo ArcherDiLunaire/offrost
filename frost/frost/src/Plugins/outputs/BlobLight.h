@@ -12,7 +12,10 @@ public:
 	void draw();
 	void update();
 	void drawOnFloor();
-	
+	void drawMasking();
+
+	ofImage projectorMask;
+
 	bool debug;
 	
 	float r, g, b;

@@ -108,20 +108,20 @@
 }
 
 - (void) changeValueFromControl:(id)sender{
-	printf("changeValueFromControl\n");
+	//printf("changeValueFromControl\n");
 	[self setState:[sender state]];
 	if(hookedUpToBool){
 		if(!isbutton)
 			*hookedUpBool = [self boolValue];		
 		else{
-			printf("TRUE\n");
+			//printf("TRUE\n");
 			*hookedUpBool = true;		
 		}
 	}
 }
 
 - (bool) boolValue{
-	printf("boolValue\n");
+	//printf("boolValue\n");
 	
 	if([self state] == NSOnState){
 		return true;
@@ -162,6 +162,7 @@
 		[@"-" drawInRect:frame withAttributes:textAttribs];
 		
 	}
+	[paragraphStyle release];
 	
 }
 - (void) hookUpBool:(bool*)f{
@@ -187,12 +188,12 @@
  */
 
 - (void) setState:(NSInteger)value {
-	printf("setState\n");
+	//printf("setState\n");
 	[valButton setState:value];
 	[super setState:value];
 	[self sendAction:[self action] to:[self target]];
 	if(!isbutton){		
-		printf("Set state %d\n", [self boolValue]);
+		//printf("Set state %d\n", [self boolValue]);
 		if(hookedUpToBool){
 			*hookedUpBool = [self boolValue];		
 		}
@@ -200,7 +201,7 @@
 }
 
 - (void) setBool:(BOOL)value {
-	printf("setBool\n");
+	//printf("setBool\n");
 	NSInteger * i;
 	if(value){
 		i = NSOnState;
@@ -347,12 +348,15 @@
 		[@"-" drawInRect:frame withAttributes:textAttribs];
 		
 	}
+	[paragraphStyle release];
 }
+
+
 - (void) hookUpFloat:(float*)f{
 	hookedUpFloat = f;
 	hookedUpToFloat = true;
 	*hookedUpFloat = [self floatValue];
-	printf("   %f",*hookedUpFloat);
+	//printf("   %f",*hookedUpFloat);
 }
 
 - (float) convertToMidiValue:(float)f {
@@ -376,7 +380,7 @@
 	[super setFloatValue:aFloat];
 	[self sendAction:[self action] to:[self target]];
 	if(hookedUpToFloat){
-		printf("   %f",*hookedUpFloat);
+		//printf("   %f",*hookedUpFloat);
 		*hookedUpFloat = [self floatValue];
 	}
 }
@@ -389,7 +393,7 @@
 	[self sendAction:[self action] to:[self target]];
 	if(hookedUpToFloat){
 		*hookedUpFloat = [self floatValue];
-		printf("   %f",*hookedUpFloat);
+		//printf("   %f",*hookedUpFloat);
 		
 	}
 }

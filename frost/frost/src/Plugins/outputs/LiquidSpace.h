@@ -14,6 +14,7 @@ public:
 	float height ;
 	int column;
 	int birthMillis;
+	float currentSpeed;
 };
 
 
@@ -24,6 +25,7 @@ public:
 	void setup();
 		void draw();
 	void drawOnFloor();
+	void drawMasking();
 	void update();
 	
 	void addToFluid(float x, float y, float dx, float dy, bool addColor = true, bool addForce = true, msaColor color = msaColor(1.0,1.0,1.0));
@@ -68,6 +70,8 @@ public:
 	vector<ring> rings;
 	bool updateMotor;
 	ofImage ringTexture;
+	ofImage projectorMask;
+
 	void addRing(int i);
 	void addFixedRing(int i);
 	

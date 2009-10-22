@@ -18,6 +18,7 @@ public:
 	void draw();
 	void drawFloor();
 	void drawWall();
+	void drawMasking();
 };
 
 

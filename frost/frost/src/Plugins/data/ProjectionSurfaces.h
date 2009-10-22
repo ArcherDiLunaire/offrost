@@ -16,6 +16,7 @@ public:
 	ofxPoint2f * corners[4];
 	
 	ProjectionSurfacesObject();
+	~ProjectionSurfacesObject();
 	
 	void recalculate();
 	void SetCorner(int n, float x, float y);
