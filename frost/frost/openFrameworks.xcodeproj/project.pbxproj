@@ -27,6 +27,7 @@
 		27B64BFA107211CD002E95C4 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BF4107211CD002E95C4 /* ofxMidiIn.cpp */; };
 		27B64BFB107211CD002E95C4 /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BF6107211CD002E95C4 /* ofxMidiOut.cpp */; };
 		27B7F437106A4A7C00E1E74B /* MoonDust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B7F436106A4A7C00E1E74B /* MoonDust.cpp */; };
+		27C26C2D109ECE8400EF775E /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27C26C2C109ECE8400EF775E /* icon.icns */; };
 		3F1E59AB100B75550091B692 /* SharedContextGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59AA100B75550091B692 /* SharedContextGLView.m */; };
 		3F1E59B1100B77800091B692 /* CustomGLViewDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59B0100B77800091B692 /* CustomGLViewDelegate.cpp */; };
 		DD0C01671066874900BB3F9F /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD0C015B1066874900BB3F9F /* tinyxml.cpp */; };
@@ -137,7 +138,6 @@
 		E4A813171003D25E008E2F31 /* CustomGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4A813161003D25E008E2F31 /* CustomGLView.mm */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */; };
-		E4C9805B0FF2901B0018D340 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4C980570FF2901B0018D340 /* InfoPlist.strings */; };
 		E4C9805C0FF2901B0018D340 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = E4C980590FF2901B0018D340 /* MainMenu.nib */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +186,7 @@
 		27B64BF6107211CD002E95C4 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidiOut.cpp; sourceTree = "<group>"; };
 		27B64BF7107211CD002E95C4 /* ofxMidiOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMidiOut.h; sourceTree = "<group>"; };
 		27B7F436106A4A7C00E1E74B /* MoonDust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoonDust.cpp; path = src/Plugins/outputs/MoonDust.cpp; sourceTree = SOURCE_ROOT; };
+		27C26C2C109ECE8400EF775E /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = bin/data/icon.icns; sourceTree = "<group>"; };
 		27EC4A181073CB3600CCDB99 /* msaColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = msaColor.h; path = example/src/msaColor.h; sourceTree = "<group>"; };
 		3F1E59A9100B75550091B692 /* SharedContextGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedContextGLView.h; path = ../SharedContextGLView.h; sourceTree = "<group>"; };
 		3F1E59AA100B75550091B692 /* SharedContextGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedContextGLView.m; path = ../SharedContextGLView.m; sourceTree = "<group>"; };
@@ -521,7 +522,6 @@
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
-		E4C980580FF2901B0018D340 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		E4C9805A0FF2901B0018D340 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = MainMenu.nib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1481,6 +1481,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				27C26C2C109ECE8400EF775E /* icon.icns */,
 				E4C980560FF2901B0018D340 /* English.lproj */,
 				E4B69B5B0A3A1756003C02F2 /* Frost.app */,
 				27823130109EC1BE00AE0E24 /* Frost-Info.plist */,
@@ -1527,7 +1528,6 @@
 		E4C980560FF2901B0018D340 /* English.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				E4C980570FF2901B0018D340 /* InfoPlist.strings */,
 				E4C980590FF2901B0018D340 /* MainMenu.nib */,
 			);
 			path = English.lproj;
@@ -1577,10 +1577,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C9805B0FF2901B0018D340 /* InfoPlist.strings in Resources */,
 				E4C9805C0FF2901B0018D340 /* MainMenu.nib in Resources */,
 				276D9DB11073B3F00084689D /* changelog.txt in Resources */,
 				278230EA109EA82D00AE0E24 /* Credits.html in Resources */,
+				27C26C2D109ECE8400EF775E /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1713,15 +1713,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E4C980570FF2901B0018D340 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E4C980580FF2901B0018D340 /* English */,
-			);
-			name = InfoPlist.strings;
-			path = English.lproj;
-			sourceTree = SOURCE_ROOT;
-		};
 		E4C980590FF2901B0018D340 /* MainMenu.nib */ = {
 			isa = PBXVariantGroup;
 			children = (

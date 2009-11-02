@@ -6,6 +6,9 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright 2009 the Authors,
+Dansk Danseteater and Recoil Performance Group.</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.recoil.frost</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -16,14 +19,13 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0.5</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Dansk Danseteater and Recoil Performance Group.
-Released as Open Source</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.6</string>
+	<key>CFBundleIconFile</key>
+	<string>icon.icns</string>
 </dict>
 </plist>
