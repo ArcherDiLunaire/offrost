@@ -5,12 +5,9 @@
 
 
 dc1394_t* Libdc1394Grabber::d = NULL;
-int Libdc1394Grabber::useCount = 0;
 
 Libdc1394Grabber::Libdc1394Grabber()
 {
-	
-	useCount++;
 	
 	bChooseDevice = false;
 	cameraIndex = -1;
@@ -56,8 +53,6 @@ Libdc1394Grabber::Libdc1394Grabber()
 
 Libdc1394Grabber::~Libdc1394Grabber()
 {
-	
-	useCount--;
 	
 	dc1394_camera_free_list (list);
 	
@@ -292,9 +287,9 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	//{ fprintf(stderr,"Could not get a valid MONO8 mode\n"); cleanupCamera(); }
 	
 	
-	cout << endl << "**** Chosen Color coding ****" << endl;
+	//	cout << endl << "**** Chosen Color coding ****" << endl;
 	Libdc1394GrabberUtils::print_color_coding( coding );
-	cout << endl << "*****************************" << endl << endl;
+	//	cout << endl << "*****************************" << endl << endl;
 	
 	sourceFormatLibDC = coding;
 	sourceFormat = Libdc1394GrabberVideoFormatHelper::libcd1394ColorFormatToVidFormat(  coding );
@@ -356,8 +351,6 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	if (dc1394_video_set_mode( camera, video_mode )!=DC1394_SUCCESS){
 		ofLog(OF_LOG_ERROR, "failed to set format 7 video mode");
 	}
-	
-	Libdc1394GrabberUtils::print_color_coding( coding );
 	
 	if (dc1394_format7_set_color_coding(camera, video_mode, coding)!=DC1394_SUCCESS){
 		ofLog(OF_LOG_ERROR, "failed to set format 7 color coding");
@@ -432,6 +425,8 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	
 	fprintf(stderr,"capture\n");
 	
+	blinkCounter = 0;
+	
 	return true;
 }
 
@@ -483,31 +478,34 @@ bool Libdc1394Grabber::grabFrame(unsigned char ** _pixels)
 void Libdc1394Grabber::captureFrame()
 {
     lock();
-	if( !bHasNewFrame && (camera != NULL ))
+	if((!bHasNewFrame) && camera != NULL )
 	{
-	    unlock();
+		unlock();
 		
 		//  make sure DMA buffer is fresh, even if we're lagging behind the cam
 		
 		
 		dc1394_video_set_transmission(camera, DC1394_OFF);
 		
-		
 		bool bufferEmpty = false;
 		
 		while (!bufferEmpty){
 			dc1394video_frame_t* frameToDiscard;
-			if (dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_POLL, &frameToDiscard) == DC1394_SUCCESS){
-				if(frameToDiscard != NULL){
-					dc1394_capture_enqueue(camera, frameToDiscard);
-					ofLog(OF_LOG_NOTICE, "discarded a frame");
+			if (camera != NULL) {
+				if (dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_POLL, &frameToDiscard) == DC1394_SUCCESS){
+					if(frameToDiscard != NULL){
+						dc1394_capture_enqueue(camera, frameToDiscard);
+						ofLog(OF_LOG_NOTICE, "discarded a frame");
+					} else {
+						bufferEmpty = true;
+					}
 				} else {
 					bufferEmpty = true;
 				}
-			} else {
-				bufferEmpty = true;
 			}
 		}
+		
+		//		dc1394_video_set_transmission(camera, DC1394_ON);
 		
 		dc1394_video_set_one_shot(camera, DC1394_ON);
 		
@@ -517,6 +515,7 @@ void Libdc1394Grabber::captureFrame()
 			fprintf(stderr, "unable to capture a frame\n");
 			cleanupCamera();
 		}
+		
 		
 		if( !grabbedFirstImage )
 		{
@@ -534,7 +533,10 @@ void Libdc1394Grabber::captureFrame()
 			if(int err = dc1394_capture_enqueue(camera, frame) != DC1394_SUCCESS){
 				fprintf(stderr, "unable to enqueue camera %d\n",err);
 			}
+		} else {
+			ofLog(OF_LOG_ERROR, "there is a null frame");
 		}
+		
 	} else {
 		unlock();
 	}
@@ -688,17 +690,14 @@ void Libdc1394Grabber::cleanupCamera()
 		dc1394_reset_bus(camera);
 		dc1394_camera_free (camera);
 		camera = NULL;
+		
+		if(pixels) {
+			delete [] pixels;
+			pixels = NULL;
+		}
+		
 	}
 	
-	if(d && useCount < 1) {
-		dc1394_free (d);
-		d = NULL;
-	}
-	
-	if(pixels) {
-		delete [] pixels;
-		pixels = NULL;
-	}
 }
 
 
@@ -733,7 +732,7 @@ void Libdc1394Grabber::initFeatures()
 		
 		tmpAvailableFeatures = 0;
 		
-        cout << "Name\t" << "\tAbs." << "\tCurr." << "\tCurr2."  << "\tMin." << "\tMax." << endl;
+		// cout << "Name\t" << "\tAbs." << "\tCurr." << "\tCurr2."  << "\tMin." << "\tMax." << endl;
 		for( int i = 0; i < TOTAL_CAMERA_FEATURES; i++ )
 		{
 			if(tmpFeatureSet.feature[i].available)
@@ -807,21 +806,21 @@ void Libdc1394Grabber::initFeatures()
                     }
 				}
 				
-				cout << setw(13) << featureVals[tmpAvailableFeatures].name
-				<< " :\t" << featureVals[tmpAvailableFeatures].hasAbsoluteMode
-				<< "\t" << featureVals[tmpAvailableFeatures].currVal;
+				//				cout << setw(13) << featureVals[tmpAvailableFeatures].name
+				//				<< " :\t" << featureVals[tmpAvailableFeatures].hasAbsoluteMode
+				//				<< "\t" << featureVals[tmpAvailableFeatures].currVal;
 				
 				if(tmpFeatureSet.feature[i].id == DC1394_FEATURE_WHITE_BALANCE)
 				{
-				    cout << "\t" << featureVals[tmpAvailableFeatures].currVal2;
+					//				    cout << "\t" << featureVals[tmpAvailableFeatures].currVal2;
                 }
                 else
                 {
-                    cout << "\t";
+					//                  cout << "\t";
                 }
 				
-				cout << "\t" << featureVals[tmpAvailableFeatures].minVal
-				<< "\t" << featureVals[tmpAvailableFeatures].maxVal << endl;
+				//				cout << "\t" << featureVals[tmpAvailableFeatures].minVal
+				//				<< "\t" << featureVals[tmpAvailableFeatures].maxVal << endl;
 				
 				tmpAvailableFeatures++;
 			}

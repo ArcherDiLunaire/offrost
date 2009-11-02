@@ -75,9 +75,15 @@ void BlobHistory::drawOnFloor(){
 																																				  
 	for (int i=0; i < blobSnapshotMatrix.size(); i++) {
 		for (int j=0; j < blobSnapshotMatrix[i].size(); j++) {
-			glColor4d(1.0, 1.0, 1.0, snapshotAlpha * masterAlpha);
 
 			ofxCvBlob b = blobSnapshotMatrix[i][j];
+
+			if (b.hole) {
+				glColor4d(0.0, 0.0, 0.0, snapshotAlpha * masterAlpha);
+			} else {
+				glColor4d(1.0, 1.0, 1.0, snapshotAlpha * masterAlpha);
+			}
+
 			if(fill)
 				ofFill();
 			else {
@@ -125,10 +131,8 @@ void BlobHistory::drawOnFloor(){
 			
 			ofEndShape();
 			
-			
 		}
 	}
-	
 	
 	ofPopStyle();
 	
@@ -207,8 +211,7 @@ void BlobHistory::update(){
 				}
 		
 				ofEndShape();
-				
-				
+
 			}
 
 			glEndList();

@@ -35,7 +35,7 @@ void testApp::setup(){
 	ofEnableAlphaBlending();
 	ofBackground(0,0,0);	
 	
-//	ofSetLogLevel(OF_LOG_VERBOSE);
+	//	ofSetLogLevel(OF_LOG_VERBOSE);
 	
 	lucidaGrande.loadFont("LucidaGrande.ttc",22, false, true);
 	
@@ -49,6 +49,8 @@ void testApp::setup(){
     glHint (GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST);
 	
 	cameraThreadTimer = -500;
+	camera_state = camera_state_running;
+	numCameras = 3;
 	
 }
 
@@ -105,42 +107,87 @@ void testApp::update()
 	
 	pluginController->update(mousex, mousey);
 	
-	if(cameraThreadTimer > 100){
-		cout<<endl<<"ERROR: DEAD CAMERA"<<endl;
+	if(camera_state == camera_state_closing){
 		
-		vector<FrostPlugin*>::iterator it;
-		for(it=pluginController->plugins.begin(); it!=pluginController->plugins.end(); it++){
-			if(dynamic_cast<Cameras*> ((*it)) != NULL){
-				delete * it;  
-                pluginController->plugins.erase(it);
-				break;
+		if(cameraTimer == 0){
+			cout<<endl<<"ERROR: DEAD CAMERA"<<endl;
+			
+			for(int i=0;i<3;i++){
+				cameraBrightness[i] = getPlugin<Cameras*>(pluginController)->cameraBrightness[i];
+				cameraExposure[i] = getPlugin<Cameras*>(pluginController)->cameraExposure[i];
+				cameraShutter[i] = getPlugin<Cameras*>(pluginController)->cameraShutter[i];
+				cameraGamma[i] = getPlugin<Cameras*>(pluginController)->cameraGamma[i];
+				cameraGain[i] = getPlugin<Cameras*>(pluginController)->cameraGain[i];
 			}
+			
+			vector<FrostPlugin*>::iterator it;
+			for(it=pluginController->plugins.begin(); it!=pluginController->plugins.end(); it++){
+				if(dynamic_cast<Cameras*> ((*it)) != NULL){
+					delete * it;  
+					pluginController->plugins.erase(it);
+					break;
+				}
+			}
+			cameraTimer = ofGetElapsedTimeMillis();
 		}
 		
-		Cameras * c = new Cameras();
-		c->setGUIDs(cameraGUIDs[0], cameraGUIDs[1], cameraGUIDs[2]);
-		c->setup();
-		//	cout<<"GUIDS: "<<cameraGUIDs[0]<<"  "<<cameraGUIDs[1]<<"  "<<cameraGUIDs[2]<<endl;
-		pluginController->addPlugin(c);
-		ofSleepMillis(3500);
-		cameraThreadTimer = 0;
+		if (ofGetElapsedTimeMillis() - cameraTimer > 500) {
+			camera_state = camera_state_starting;
+			cameraTimer = 0;
+		}
+	}
+	if (camera_state == camera_state_starting) {
+		if(cameraTimer == 0){
+			c = new Cameras();
+			c->setGUIDs(cameraGUIDs[0], cameraGUIDs[1], cameraGUIDs[2]);
+			
+			for(int i=0;i<3;i++){
+				c->cameraBrightness[i] = cameraBrightness[i];
+				c->cameraExposure[i] = cameraExposure[i];
+				c->cameraShutter[i] = cameraShutter[i];
+				c->cameraGamma[i] = cameraGamma[i];
+				c->cameraGain[i] = cameraGain[i];
+			}
+			
+			c->setup();
+			//	cout<<"GUIDS: "<<cameraGUIDs[0]<<"  "<<cameraGUIDs[1]<<"  "<<cameraGUIDs[2]<<endl;
+			cameraTimer = ofGetElapsedTimeMillis();
+		}			
+		if (ofGetElapsedTimeMillis() - cameraTimer > 3000) {
+			c->update();
+			pluginController->addPlugin(c);
+			cameraThreadTimer = 0;
+			camera_state = camera_state_running;
+			cameraTimer = 0;
+		}
 	}
 	
-	for(int i=0;i<3;i++){
-		if(getPlugin<Cameras*>(pluginController)->isRunning(i)){			
-			if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->lock()){
-				if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->blinkCounter != cameraLastBlinkCount[i]){
-					cameraThreadTimer = 0;
-				} else {
+	if (camera_state == camera_state_running) {
+		for(int i=0;i<3;i++){
+			if(getPlugin<Cameras*>(pluginController)->isRunning(i)){
+				ofLog(OF_LOG_NOTICE, "Camera " + ofToString(i, 0) + " is running");
+				if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->lock()){
+					ofLog(OF_LOG_NOTICE, "Got lock on Camera " + ofToString(i, 0));
+					if(((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->blinkCounter != cameraLastBlinkCount[i]){
+						cameraThreadTimer = 0;
+					} else {
+						cameraThreadTimer ++;
+					}
+					cameraLastBlinkCount[i] = ((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->blinkCounter;
+					((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->unlock();
+				}
+			} else {
+				ofLog(OF_LOG_WARNING, "Camera " + ofToString(i, 0) + " is NOT running");
+				if(getPlugin<Cameras*>(pluginController)->hasCameras){
 					cameraThreadTimer ++;
 				}
-				cameraLastBlinkCount[i] = ((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->blinkCounter;
-				((Libdc1394Grabber*) getPlugin<Cameras*>(pluginController)->getVidGrabber(i)->videoGrabber)->unlock();
 			}
-		} else {
-			if(getPlugin<Cameras*>(pluginController)->hasCameras)
-				cameraThreadTimer ++;
 		}
+		if(cameraThreadTimer > 150){
+			camera_state = camera_state_closing;
+			cameraTimer = 0;
+		}
+		ofLog(OF_LOG_NOTICE, "Camera Thread Timer " + ofToString(cameraThreadTimer, 0) );
 	}
 }
 
@@ -187,7 +234,7 @@ void testApp::drawCameraView(){
 			lucidaGrande.drawString("camera offline",(45+((otherWindow->getWidth()/3.0)*i)),(otherWindow->getHeight()/2)+10);
 		}
 	}
-	 
+	
 }
 
 void testApp::drawProjectionSurfaceView(){

@@ -119,7 +119,7 @@ void CameraCalibration::draw(){
 		glPopMatrix();
 		
 		ofFill();
-		ofSetColor(255, 0, 255);
+		ofSetColor(255, 0, 0);
 		
 		for(int i=0;i<4;i++){
 			ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 5, 5);			
@@ -163,7 +163,7 @@ void CameraCalibration::drawSettings(){
 	ofNoFill();
 	ofSetLineWidth(2);
 	for(int i=0;i<4;i++){
-		ofSetColor(255, 0, 255, 225);
+		ofSetColor(255, 0, 0, 225);
 		ofEllipse(cameras[selectedKeystoner]->calibHandles[i].x*w, cameras[selectedKeystoner]->calibHandles[i].y*h, 15, 15);
 	}
 	ofFill();

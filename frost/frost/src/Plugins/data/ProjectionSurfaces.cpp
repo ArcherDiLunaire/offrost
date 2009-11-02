@@ -5,6 +5,7 @@ ProjectionSurfacesObject::ProjectionSurfacesObject(){
 	for(int i=0;i<4;i++){
 		corners[i] = new ofxPoint2f;
 	}
+	warp = new Warp();
 }
 
 ProjectionSurfacesObject::~ProjectionSurfacesObject(){
@@ -36,7 +37,6 @@ ProjectionSurfaces::ProjectionSurfaces(){
 
 	for(int i=0;i<11;i++){
 		objects.push_back(new ProjectionSurfacesObject);
-		objects[i]->warp = new Warp();
 		objects[i]->coordWarp = new coordWarping;
 		objects[i]->aspect = 1.0;
 	}

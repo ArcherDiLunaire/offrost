@@ -20,7 +20,7 @@ ofxVideoGrabber::ofxVideoGrabber()
 //--------------------------------------------------------------------
 ofxVideoGrabber::~ofxVideoGrabber(){
 	close();
-
+	//delete videoGrabber;
 }
 
 //--------------------------------------------------------------------

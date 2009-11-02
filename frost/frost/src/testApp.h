@@ -73,9 +73,27 @@ public:
 	int fps;
 	
 	int cameraThreadTimer;
+	int cameraTimer;
+	int numCameras;
 	unsigned long int cameraLastBlinkCount[3];
 	
 	uint64_t cameraGUIDs[3];
+	
+	enum camera_states {
+		camera_state_running,
+		camera_state_closing,
+		camera_state_starting
+	};
+	
+	int camera_state;
+	
+	float cameraBrightness[3];
+	float cameraExposure[3];
+	float cameraShutter[3];
+	float cameraGamma[3];
+	float cameraGain[3];
+	
+	Cameras * c;
 	
 };
 

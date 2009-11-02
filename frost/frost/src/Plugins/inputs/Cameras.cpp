@@ -16,10 +16,11 @@ Cameras::Cameras(){
 		calib[i].allocate( csize, 7, 7 );
 		videoPlayerActivated[i] = false;
 		frameNew[i] = false;
-		timeSinceLastCameraCheck = 0;
+		vidGrabber[i] = NULL;
 	}
 	hasCameras = true;
-	
+	numCameras = 3;
+	timeSinceLastCameraCheck = 0;
 }
 Cameras::~Cameras(){
 	for(int i=0;i<3;i++){
@@ -77,17 +78,21 @@ void Cameras::setup(){
 	 //**/
 
 	Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
-
+	
+	numCameras = libdc1394Grabber->list->num;
+	
 	if(libdc1394Grabber->list->num == 0){
-		
 		hasCameras = false;
-		
+	} else {
+		hasCameras = true;
 	}
 	
 	delete libdc1394Grabber;
 }
 
 bool Cameras::isFrameNew(int _grabberIndex){
+	if(this == NULL)
+		return false;
 	return frameNew[_grabberIndex];
 }
 
@@ -95,18 +100,16 @@ void Cameras::update(){
 	
 	timeSinceLastCameraCheck++;
 	
-	if(!hasCameras && timeSinceLastCameraCheck > 250){
-		
-		ofLog(OF_LOG_NOTICE, "Cameras looking for newly attached devices");
+	if(timeSinceLastCameraCheck > 250){
 		
 		Libdc1394Grabber * libdc1394Grabber = new Libdc1394Grabber();
+
+		numCameras = libdc1394Grabber->list->num;
 		
 		if(libdc1394Grabber->list->num > 0){
-			
 			hasCameras = true;
-			
 		}
-		
+
 		timeSinceLastCameraCheck = 0;
 		
 	}
@@ -132,7 +135,7 @@ void Cameras::update(){
 					cameraBrightnessBefore[i] = cameraBrightness[i];
 				}
 				if(cameraExposureBefore[i] != cameraExposure[i]){
-					//((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureAbsoluteValue(cameraExposure[i], FEATURE_EXPOSURE);
+					((Libdc1394Grabber*)vidGrabber[i]->videoGrabber)->setFeatureAbsoluteValue(cameraExposure[i], FEATURE_EXPOSURE);
 					cameraExposureBefore[i] = cameraExposure[i];
 				}
 				if(cameraShutterBefore[i] != cameraShutter[i]){
@@ -162,7 +165,11 @@ unsigned char* Cameras::getPixels(int _grabberIndex){
 }
 
 bool Cameras::isRunning(int _cameraIndex){
-	return ((Libdc1394Grabber*)vidGrabber[_cameraIndex])->grabbedFirstImage && isReady(_cameraIndex);
+	if(isReady(_cameraIndex)){
+		return ((Libdc1394Grabber*)vidGrabber[_cameraIndex])->grabbedFirstImage;
+	} else {
+		return false;
+	}
 }
 
 
@@ -236,12 +243,13 @@ ofPoint Cameras::distortPoint(int _grabberIndex, float _PixelX, float _PixelY){
 
 void Cameras::draw(int _grabberIndex, float _x, float _y, float _w, float _h)
 {
-	
-	if(videoPlayerActive(_grabberIndex)){
-		videoPlayer[_grabberIndex].draw(_x, _y, _w, _h);
-	} else {
-		if(isReady(_grabberIndex)){
-			vidGrabber[_grabberIndex]->draw(_x, _y, _w, _h);
+	if (this != NULL) {
+		if(videoPlayerActive(_grabberIndex)){
+			videoPlayer[_grabberIndex].draw(_x, _y, _w, _h);
+		} else {
+			if(isReady(_grabberIndex)){
+				vidGrabber[_grabberIndex]->draw(_x, _y, _w, _h);
+			}
 		}
 	}
 	
@@ -297,14 +305,10 @@ void Cameras::initGrabber(int _grabber, uint64_t _cameraGUID){
 		 **/
 		
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_SHUTTER);
-		 //((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(0.08, FEATURE_SHUTTER);
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_BRIGHTNESS);
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_EXPOSURE);
-		 //((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureValue(2.0, FEATURE_EXPOSURE);
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_GAMMA);
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_GAIN);
-		 //((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureAbsoluteValue(250, FEATURE_GAIN);
-		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_IRIS);
 		 ((Libdc1394Grabber*)vidGrabber[_grabber]->videoGrabber)->setFeatureMode(FEATURE_MODE_MANUAL, FEATURE_EXPOSURE);
 
 		ofLog(OF_LOG_NOTICE,"Camera succesfully initialized.");
@@ -383,6 +387,8 @@ ofxVideoGrabber * Cameras::getVidGrabber(int _cameraIndex){
 }
 
 bool Cameras::isReady(int _cameraIndex){
+	if(this == NULL)
+		return false;
 	if (_cameraIndex < 3 && _cameraIndex > -1) {
 		if (cameraInited[_cameraIndex] && vidGrabber[_cameraIndex] != NULL) {
 			return vidGrabber[_cameraIndex]->isReady();

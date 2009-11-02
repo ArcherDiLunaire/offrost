@@ -303,6 +303,9 @@
 	
 	[slider release];
 	[val release];
+	[numberFormatter release];
+	[maximum release];
+	[minimum release];
 }
 
 - (void) changeValueFromControl:(id)sender{

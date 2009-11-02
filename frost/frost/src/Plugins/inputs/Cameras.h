@@ -86,6 +86,7 @@ public:
 	int getWidth();
 
 	bool hasCameras;
+	int numCameras;
 
 private:
 	

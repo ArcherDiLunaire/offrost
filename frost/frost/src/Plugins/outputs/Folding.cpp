@@ -135,6 +135,8 @@ void Folding::draw(){
 		
 		ofDisableAlphaBlending();
 
+		ofFill();
+		
 		ofSetColor(0, 0, 0);
 		ofRect((1.0-push1)*projection()->getCurtain(0)->aspect, -1, 2, 2);
 				
@@ -167,7 +169,9 @@ void Folding::draw(){
 		} glPopMatrix();
 		
 		ofDisableAlphaBlending();
-		
+
+		ofFill();
+
 		ofSetColor(0, 0, 0);
 		ofRect((1.0-push2)*projection()->getCurtain(1)->aspect, 0, 2, 1);
 		
@@ -200,6 +204,8 @@ void Folding::draw(){
 		
 		ofDisableAlphaBlending();
 		
+		ofFill();
+
 		ofSetColor(0, 0, 0);
 		ofRect((1.0-push3)*projection()->getCurtain(2)->aspect, 0, 2, 1);
 		
@@ -215,6 +221,15 @@ void Folding::draw(){
 		ofRect(projection()->getColumn(0)->aspect, 0, -100, 100);
 	} glPopMatrix();	
 
+	//Right mask
+	
+	ofFill();
+	projection()->applyColumnProjection(1); {
+		ofDisableAlphaBlending();
+		ofSetColor(0, 0, 0,255);
+		ofRect(projection()->getColumn(1)->aspect, 0, 100, 100);
+	} glPopMatrix();	
+	
 	if(fishAlpha > 0){
 		fish.setLoopState(OF_LOOP_NORMAL);
 		fish.play();
