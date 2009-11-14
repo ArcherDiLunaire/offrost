@@ -78,12 +78,8 @@ void BlobHistory::drawOnFloor(){
 
 			ofxCvBlob b = blobSnapshotMatrix[i][j];
 
-			if (b.hole) {
-				glColor4d(0.0, 0.0, 0.0, snapshotAlpha * masterAlpha);
-			} else {
-				glColor4d(1.0, 1.0, 1.0, snapshotAlpha * masterAlpha);
-			}
-
+			glColor4d(1.0, 1.0, 1.0, snapshotAlpha * masterAlpha);
+			
 			if(fill)
 				ofFill();
 			else {

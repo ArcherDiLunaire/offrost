@@ -23,12 +23,19 @@
 	[endpoint retain];
 	
     NSArray* endpointArray = [manager realSources];
-    
     NSEnumerator* enumerator = [endpointArray objectEnumerator];
-	endpoint = [endpointArray objectAtIndex:1];
-	NSLog([endpoint displayName]);
-	printf("Is it in use? %d\n",[endpoint isInUse]);
-	[endpoint addReceiver:self];
+	
+	id anObject;
+	
+	while (anObject = [enumerator nextObject]) {
+		if ([[anObject displayName] isEqualToString:@"IAC-driver Frost Video"]) {
+			endpoint = anObject;
+			NSLog([endpoint displayName]);
+			printf("Is it in use? %d\n",[endpoint isInUse]);
+			[endpoint addReceiver:self];
+		}
+		NSLog([anObject displayName]);
+	}
 	
 	frostSliderHookups  = [[NSMutableArray alloc] initWithCapacity:10];
 	
