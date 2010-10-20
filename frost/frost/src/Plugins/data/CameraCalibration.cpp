@@ -8,21 +8,23 @@
 CameraCalibration::CameraCalibration(){
 	type = DATA;
 	
-	for(int i=0;i<3;i++){
+	for(int i=0;i<4;i++){
 		cameras.push_back(new CameraCalibrationObject);
 		cameras[i]->warp = new Warp();
 		cameras[i]->coordWarp = new coordWarping;
 		cameras[i]->coordWarpCalibration = new coordWarping;
-		cameras[i]->name = "CAMERA "+ofToString(i, 0);
+		if(i<3){
+			cameras[i]->name = "CAMERA "+ofToString(i, 0);
+		} else {
+			cameras[i]->name = "MOVIE FOR CAMERA 2";
+		}
 	}
-	
+		
 	drawDebug = false;
 	selectedCorner = 0;
 	selectedKeystoner = 0;
 	offset = 0;
 	
-	
-
 }
 
 void CameraCalibration::guiWakeup(){
@@ -46,7 +48,7 @@ void CameraCalibration::setup(){
 	} else {
 		
 		keystoneXml->pushTag("cameras", 0);
-		for(int u=0;u<3;u++){
+		for(int u=0;u<4;u++){
 			keystoneXml->pushTag("camera", u);
 			int numCorners = keystoneXml->getNumTags("corner");
 			if(numCorners != 4){
@@ -67,7 +69,6 @@ void CameraCalibration::setup(){
 	cameras[0]->calibPoints[2] = projection()->getFloor()->coordWarp->transform(0.6,0.8);
 	cameras[0]->calibPoints[3] = projection()->getFloor()->coordWarp->transform(0.2,0.8);
 	
-	
 	cameras[1]->calibPoints[0] = projection()->getFloor()->coordWarp->transform(0.35,0.4);
 	cameras[1]->calibPoints[1] = projection()->getFloor()->coordWarp->transform(0.7,0.4);
 	cameras[1]->calibPoints[2] = projection()->getFloor()->coordWarp->transform(0.7,0.7);
@@ -78,12 +79,17 @@ void CameraCalibration::setup(){
 	cameras[2]->calibPoints[2] = projection()->getWall()->coordWarp->transform(1,1);
 	cameras[2]->calibPoints[3] = projection()->getWall()->coordWarp->transform(0,1);
 	
+	cameras[3]->calibPoints[0] = projection()->getWall()->coordWarp->transform(0.0,0.3);
+	cameras[3]->calibPoints[1] = projection()->getWall()->coordWarp->transform(1,0.3);
+	cameras[3]->calibPoints[2] = projection()->getWall()->coordWarp->transform(1,1);
+	cameras[3]->calibPoints[3] = projection()->getWall()->coordWarp->transform(0,1);
+
 	reCalibrate();
 	
 }
 
 void CameraCalibration::reCalibrate(){
-	for(int i=0;i<3;i++){
+	for(int i=0;i<4;i++){
 		ofxPoint2f a[4];
 		a[0] = ofxPoint2f(0,0);
 		a[1] = ofxPoint2f(1,0);
@@ -115,7 +121,10 @@ void CameraCalibration::draw(){
 		ofSetColor(255, 255, 255, 255);
 		glPushMatrix();
 		applyWarp(selectedKeystoner);
-		getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,1,1);
+		if(selectedKeystoner < 3)
+			getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,1,1);
+		else
+			getPlugin<Cameras*>(controller)->draw(selectedKeystoner-1,0,0,1,1);
 		glPopMatrix();
 		
 		ofFill();
@@ -143,7 +152,11 @@ void CameraCalibration::drawSettings(){
 	ofSetColor(255, 255, 255, 255);
 	glPushMatrix();
 	//applyWarp(selectedKeystoner,w,h);
-	getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,w,h);
+			if(selectedKeystoner < 3)
+				getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,w,h);
+	else
+		getPlugin<Cameras*>(controller)->draw(selectedKeystoner-1,0,0,w,h);
+	
 	glPopMatrix();
 	glPopMatrix();
 	
@@ -296,7 +309,7 @@ void CameraCalibration::keyPressed(ofKeyEventArgs & args){
 void CameraCalibration::saveXml(){
 	
 	keystoneXml->pushTag("cameras", 0);
-	for(int u=0;u<3;u++){
+	for(int u=0;u<4;u++){
 		keystoneXml->pushTag("camera", u);
 		
 		int numCorners = keystoneXml->getNumTags("corner");

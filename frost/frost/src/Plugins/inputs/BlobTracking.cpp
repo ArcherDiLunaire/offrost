@@ -278,6 +278,11 @@ int Tracker::numBlobs(){
 ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibrator){
 	ofxCvBlob deBarrelledBlob;
 	
+	int cameraCalibratorId = cameraId;
+	if (bVideoPlayerWasActive && cameraId == 2) {
+		cameraCalibratorId = 3;
+	}
+	
 	//todo: correction of area and height ?
 	deBarrelledBlob.area = blob->area;
 	deBarrelledBlob.length = blob->length;
@@ -308,20 +313,20 @@ ofxCvBlob Tracker::getConvertedBlob(ofxCvBlob * blob, CameraCalibration * calibr
 	b.length = deBarrelledBlob.length/m;
 	
 	
-	ofxVec2f boundingRectPoint = calibrator->convertCoordinate(cameraId, deBarrelledBlob.boundingRect.x/getWidth(), deBarrelledBlob.boundingRect.y/getHeight());
-	ofxVec2f boundingRectDimensions = calibrator->convertCoordinate(cameraId, deBarrelledBlob.boundingRect.width/getWidth(), deBarrelledBlob.boundingRect.height/getHeight());
+	ofxVec2f boundingRectPoint = calibrator->convertCoordinate(cameraCalibratorId, deBarrelledBlob.boundingRect.x/getWidth(), deBarrelledBlob.boundingRect.y/getHeight());
+	ofxVec2f boundingRectDimensions = calibrator->convertCoordinate(cameraCalibratorId, deBarrelledBlob.boundingRect.width/getWidth(), deBarrelledBlob.boundingRect.height/getHeight());
 	
 	b.boundingRect.x = boundingRectPoint.x;
 	b.boundingRect.y = boundingRectPoint.y;
 	b.boundingRect.width = boundingRectDimensions.x;
 	b.boundingRect.height = boundingRectDimensions.y;
 	
-	ofxVec2f v = calibrator->convertCoordinate(cameraId, deBarrelledBlob.centroid.x/getWidth(), deBarrelledBlob.centroid.y/getHeight());
+	ofxVec2f v = calibrator->convertCoordinate(cameraCalibratorId, deBarrelledBlob.centroid.x/getWidth(), deBarrelledBlob.centroid.y/getHeight());
 	
 	b.centroid = ofPoint(v.x, v.y);
 	b.hole = blob->hole;
 	for(int i=0;i<deBarrelledBlob.nPts;i++){
-		ofxVec2f v = calibrator->convertCoordinate(cameraId, deBarrelledBlob.pts[i].x/getWidth(), deBarrelledBlob.pts[i].y/getHeight());
+		ofxVec2f v = calibrator->convertCoordinate(cameraCalibratorId, deBarrelledBlob.pts[i].x/getWidth(), deBarrelledBlob.pts[i].y/getHeight());
 		b.pts.push_back(ofPoint(v.x, v.y));
 	}
 	b.nPts = deBarrelledBlob.nPts;

@@ -277,7 +277,7 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	video_mode = _videoMode;
 	cout << "Video Mode = " << video_mode << endl;
 	
-	coding = DC1394_COLOR_CODING_MONO16;
+	coding = DC1394_COLOR_CODING_MONO8;
 	
 	unsigned int source_bpp;
 	dc1394_get_color_coding_bit_size(coding,&source_bpp);
@@ -333,6 +333,8 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	 if( !foundFramerate ) framerate=framerates.framerates[framerates.num-1];
 	 **/
 	
+	packet_size = DC1394_USE_MAX_AVAIL;
+
 	float bus_period = 0.0000625*3;  // for firewire 800
 	int frame_rate = 25;
 	int depth = 8;

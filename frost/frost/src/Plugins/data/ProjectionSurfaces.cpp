@@ -243,8 +243,11 @@ void ProjectionSurfaces::drawGrid(string text, float aspect, int resolution, boo
 	if(drawBorder){
 		ofNoFill();
 		ofSetLineWidth(1);
-		ofSetColor(255, 0, 255255*alpha);
+		ofSetColor(255, 255, 190,255*alpha);
 		ofRect(0, 0, 1*aspect, 1);
+
+		ofLine(0, 0, 1*aspect, 1);
+		ofLine(0, 1, 1*aspect, 0);
 		
 		ofFill();
 		ofSetColor(255, 255, 255,255*alpha);
@@ -263,6 +266,8 @@ void ProjectionSurfaces::drawGrid(string text, float aspect, int resolution, boo
 	} else {
 		glTranslated( aspect*0.5*1.0/fontSize-verdana.stringWidth(text)/2.0,  0.5*1.0/fontSize+verdana.stringHeight(text)/2.0, 0);	
 	}
+	
+	
 	
 	verdana.drawString(text,0,0);
 }
@@ -454,15 +459,19 @@ void ProjectionSurfaces::applyFloorProjection(float _w, float _h){
 
 	glScaled(_w, _h, 1.0);
 	getFloor()->warp->MatrixMultiply();
-	glScaled(setW, setH, 1.0);
+	//
 	
-	float s = sqrt((getFloor()->aspect*getFloor()->aspect)+(1*1));  
+	float s = sqrt(2);//sqrt((getFloor()->aspect*getFloor()->aspect)+(1*1));  
 	
-	glTranslated(getFloor()->aspect/2.0, 0.5, 0.0);
-	glRotated(45, 0.0, 0.0, 1.0);
+	glTranslated(0.5, 0.5, 0.0);
 	glScaled(s, s, 1.0);
-	glScaled(setW,1.0,1.0);
-	glTranslated(-getFloor()->aspect/2.0, -0.5, 0.0);
+//	glScaled(setW,1.0,1.0);
+	glRotated(45, 0.0, 0.0, 1.0);
+
+	glTranslated(-0.5, -0.5, 0.0);
+
+	glScaled(setW, setH, 1.0);
+//	
 }
 
 void ProjectionSurfaces::applyColumnProjection(int column, float _w, float _h){

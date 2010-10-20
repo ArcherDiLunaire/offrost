@@ -37,7 +37,7 @@ public:
 	float yPosition;
 	ofxVec2f camOffset(ofxVec2f pointIn);
 	
-	ofxVec2f offsetPoint, offsetPoint2;
+	ofxVec2f offsetPoint, offsetPoint2, offsetPointMovie, offsetPoint2Movie;
 	
 	bool tracking;
 	

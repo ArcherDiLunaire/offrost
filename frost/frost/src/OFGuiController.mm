@@ -80,7 +80,7 @@ OFGuiController * gui = NULL;
 -(void) awakeFromNib {
 	
 	NSLog(@"--- wake from nib ---\n");
-
+	
 	cout<<ofToDataPath("bla", true)<<endl;
 	[camView setWindowId:1];
 	[projectorView setWindowId:2];
@@ -106,9 +106,9 @@ OFGuiController * gui = NULL;
 	[FrostscapeLinesAddSpeed hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->linesSpeed];
 	[FrostscapeResetLines hookUpBool:&getPlugin<Frostscape*>(ofApp->pluginController)->resetLines];
 	[FrostscapeFreezeLines hookUpFloat:&getPlugin<Frostscape*>(ofApp->pluginController)->freezeLines];
-
+	
 	[liquidSpaceMasterAlpha hookUpFloat:&getPlugin<LiquidSpace*>(ofApp->pluginController)->masterAlpha];
-
+	
 	[liquidUpdateMotor hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->updateMotor];
 	[liquidSpaceClear hookUpBool:&getPlugin<LiquidSpace*>(ofApp->pluginController)->clear];
 	
@@ -127,11 +127,15 @@ OFGuiController * gui = NULL;
 	[LaLineaOffsetY1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint.y];
 	[LaLineaOffsetX2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.x];
 	[LaLineaOffsetY2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2.y];
+	[LaLineaOffsetX1Movie hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPointMovie.x];
+	[LaLineaOffsetY1Movie hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPointMovie.y];
+	[LaLineaOffsetX2Movie hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2Movie.x];
+	[LaLineaOffsetY2Movie hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->offsetPoint2Movie.y];
 	[LaLineaNoise1 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise1];
 	[LaLineaNoise2 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise2];
 	[LaLineaNoise3 hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->noise3];
 	[LaLineaDancer hookUpFloat:&getPlugin<LaLinea*>(ofApp->pluginController)->dancer];
-
+	
 	[LaLineaFloorWidth hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->width];
 	[LaLineaFloorSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->speed];
 	[LaLineaFloorDirSpeed hookUpFloat:&getPlugin<LaLineaFloor*>(ofApp->pluginController)->dirSpeed];
@@ -141,7 +145,7 @@ OFGuiController * gui = NULL;
 	
 	[SpotlightMasterAlpha hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->masterAlpha];
 	[SpotlightRadiusMultiplier hookUpFloat:&getPlugin<Spotlight*>(ofApp->pluginController)->radiusMultiplier];
-
+	
 	[BlobHistoryMasterAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->masterAlpha];
 	[BlobHistoryAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->historyAlpha];
 	[BlobHistoryPrintsAlpha hookUpFloat:&getPlugin<BlobHistory*>(ofApp->pluginController)->snapshotAlpha];
@@ -161,7 +165,7 @@ OFGuiController * gui = NULL;
 	[BlobHistoryFill hookUpBool:&getPlugin<BlobHistory*>(ofApp->pluginController)->fill];
 	
 	[Blob1OnlyCurtain hookUpBool:&getPlugin<BlobTracking*>(ofApp->pluginController)->bUseBgMask[0]];
-
+	
 	[MirrorBallMasterAlpha hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->masterAlpha];
 	[MirrorBallReflection1OnFraction hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections1.fractionOfDotsShouldBeTurnedOn];
 	[MirrorBallReflection1AlphaFraction hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections1.alpha];
@@ -172,7 +176,7 @@ OFGuiController * gui = NULL;
 	[MirrorBallReflection1Clear hookUpBool:&getPlugin<MirrorBall*>(ofApp->pluginController)->bClearDots];
 	[MirrorBallReflection1DotSize hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections1.dotSizeMultiplier];
 	[MirrorBallReflection2DotSize hookUpFloat:&getPlugin<MirrorBall*>(ofApp->pluginController)->reflections2.dotSizeMultiplier];
-
+	
 	[liquidSpaceSpeed hookUpFloat:&getPlugin<LiquidSpace*>(ofApp->pluginController)->speed];
 	
 	[foldingAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->masterAlpha];
@@ -187,7 +191,7 @@ OFGuiController * gui = NULL;
 	[foldingUpdateHistoryFromBlob hookUpBool:&getPlugin<Folding*>(ofApp->pluginController)->updateHistoryFromBlob];	
 	[foldingHistoryAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->historyAlpha];
 	[foldingHistoryAddMultiplier hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->historyAddMultiplier];
-
+	
 	[cameraBrightness1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[0]];
 	[cameraBrightness2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[1]];
 	[cameraBrightness3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[2]];
@@ -203,11 +207,11 @@ OFGuiController * gui = NULL;
 	[cameraExposure1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraExposure[0]];
 	[cameraExposure2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraExposure[1]];
 	[cameraExposure3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraExposure[2]];
-
+	
 	[cameraGamma1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGamma[0]];
 	[cameraGamma2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGamma[1]];
 	[cameraGamma3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraGamma[2]];
-
+	
 }
 
 - (void)addObject:(NSString*)objname isheader:(bool)header plugin:(FrostPlugin*)p {
@@ -223,7 +227,7 @@ OFGuiController * gui = NULL;
 	NSLog(@"--- init ---\n");	
 	NSBundle *bundle = [NSBundle mainBundle];
 	ofSetDataPathRoot([[[[bundle bundlePath] stringByDeletingLastPathComponent] stringByAppendingString:@"/data/"] cString]);
-
+	
 	if(self = [super init]) {
 		
 		userDefaults = [[NSUserDefaults standardUserDefaults] retain];
@@ -429,6 +433,11 @@ OFGuiController * gui = NULL;
 		[LaLineaOffsetY1 setEnabledWithButton:LaLineaLockOffsetSliders];
 		[LaLineaOffsetX2 setEnabledWithButton:LaLineaLockOffsetSliders];
 		[LaLineaOffsetY2 setEnabledWithButton:LaLineaLockOffsetSliders];
+		[LaLineaLockOffsetSlidersMovie setState:NSOnState];
+		[LaLineaOffsetX1Movie setEnabledWithButton:LaLineaLockOffsetSlidersMovie];
+		[LaLineaOffsetY1Movie setEnabledWithButton:LaLineaLockOffsetSlidersMovie];
+		[LaLineaOffsetX2Movie setEnabledWithButton:LaLineaLockOffsetSlidersMovie];
+		[LaLineaOffsetY2Movie setEnabledWithButton:LaLineaLockOffsetSlidersMovie];
 	}	
 	
 	if(![(NSString*)[p name] compare:@"La Linea Floor Line"]){
@@ -553,7 +562,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	[p setEnabled:[NSNumber numberWithBool:enable]];	
 	[userDefaults setValue:[p enabled] forKey:[NSString stringWithFormat:@"plugins.enable%d",i]];
 	[listView setNeedsDisplay:TRUE];
-
+	
 	//[self changeView:i];
 	
 }
@@ -658,10 +667,18 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 -(IBAction)		modifyLaLineaLockOffsetSliders:(id)sender{
-	[LaLineaOffsetX1 setEnabledWithButton:sender];
-	[LaLineaOffsetY1 setEnabledWithButton:sender];
-	[LaLineaOffsetX2 setEnabledWithButton:sender];
-	[LaLineaOffsetY2 setEnabledWithButton:sender];
+	if([sender tag] == 0){
+		[LaLineaOffsetX1 setEnabledWithButton:sender];
+		[LaLineaOffsetY1 setEnabledWithButton:sender];
+		[LaLineaOffsetX2 setEnabledWithButton:sender];
+		[LaLineaOffsetY2 setEnabledWithButton:sender];
+	}
+	if([sender tag] == 1){
+		[LaLineaOffsetX1Movie setEnabledWithButton:sender];
+		[LaLineaOffsetY1Movie setEnabledWithButton:sender];
+		[LaLineaOffsetX2Movie setEnabledWithButton:sender];
+		[LaLineaOffsetY2Movie setEnabledWithButton:sender];
+	}
 }
 
 -(IBAction)		modifyLaLineaUseFilm:(id)sender{
@@ -1065,11 +1082,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 /*#pragma mark La Linea Floor
--(IBAction)		modifyLaLineaFloorReset:(id)sender{
-	if(ofApp->setupCalled){
-		(getPlugin<LaLineaFloor*>(ofApp->pluginController))->reset();
-	}
-}*/
+ -(IBAction)		modifyLaLineaFloorReset:(id)sender{
+ if(ofApp->setupCalled){
+ (getPlugin<LaLineaFloor*>(ofApp->pluginController))->reset();
+ }
+ }*/
 
 #pragma mark Blob History
 

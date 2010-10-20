@@ -57,22 +57,35 @@ ofxVec2f LaLinea::camOffset(ofxVec2f pointIn){
 	 ofxVec2f ab = b * a.dot(b)/(b.length()*b.length());
 	 ofxVec2f c = a - ab;*/
 	
-	float s1 = (offsetPoint.x / offsetPoint2.x);
-	float s2 = (1.0-offsetPoint.x) /(1.0- offsetPoint2.x);
+	float s1, s2, sy1, sy2;
 	
-	float sy1 = (offsetPoint.y / offsetPoint2.x);
-	float sy2;	
-	sy2 =  (-offsetPoint.y) /(1.0-offsetPoint2.x);	
+	if(bUsingFilm){
 	
-	
-	if(pointIn.x <  offsetPoint2.x ){
-		return ofxVec2f(pointIn.x * s1, pointIn.y + (pointIn.x * sy1) );
+		s1 = (offsetPointMovie.x / offsetPoint2Movie.x);
+		s2 = (1.0-offsetPointMovie.x) /(1.0- offsetPoint2Movie.x);
+		sy1 = (offsetPointMovie.y / offsetPoint2Movie.x);
+		sy2 =  (-offsetPointMovie.y) /(1.0-offsetPoint2Movie.x);	
 		
+		if(pointIn.x <  offsetPoint2Movie.x ){
+			return ofxVec2f(pointIn.x * s1, pointIn.y + (pointIn.x * sy1) );
+		} else {
+			//		return ofxVec2f(pointIn.x - (offsetPoint2.x-offsetPoint2.x) , pointIn.y);
+			return ofxVec2f(offsetPointMovie.x + (s2) * (pointIn.x-offsetPoint2Movie.x)  , offsetPointMovie.y+pointIn.y + ((pointIn.x - offsetPoint2Movie.x) * sy2)   );
+			//		pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2  + offsetPoint.y )
+		}
 	} else {
-		//		return ofxVec2f(pointIn.x - (offsetPoint2.x-offsetPoint2.x) , pointIn.y);
-		return ofxVec2f(offsetPoint.x + (s2) * (pointIn.x-offsetPoint2.x)  , offsetPoint.y+pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2)   );
-		//		pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2  + offsetPoint.y )
-		//
+		s1 = (offsetPoint.x / offsetPoint2.x);
+		s2 = (1.0-offsetPoint.x) /(1.0- offsetPoint2.x);
+		sy1 = (offsetPoint.y / offsetPoint2.x);
+		sy2 =  (-offsetPoint.y) /(1.0-offsetPoint2.x);	
+		
+		if(pointIn.x <  offsetPoint2.x ){
+			return ofxVec2f(pointIn.x * s1, pointIn.y + (pointIn.x * sy1) );
+		} else {
+			//		return ofxVec2f(pointIn.x - (offsetPoint2.x-offsetPoint2.x) , pointIn.y);
+			return ofxVec2f(offsetPoint.x + (s2) * (pointIn.x-offsetPoint2.x)  , offsetPoint.y+pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2)   );
+			//		pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2  + offsetPoint.y )
+		}	
 	}
 }
 
@@ -191,14 +204,11 @@ void LaLinea::drawOnWall(){
 	
 	glPopMatrix();
 	
-	
-	
 	for(int i=0;i<3;i++){
 		projection()->applyProjection(projection()->getColumn(i));
 		ofSetColor(0, 0, 0,255)	;
 		ofRect(0.0, 0, projection()->getColumn(i)->aspect, 1);
 		glPopMatrix();
-		
 	}
 	ofPopStyle();
 	
@@ -216,7 +226,6 @@ void LaLinea::drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _e
 		vector<ofxVec2f> normals;
 		
 		contourSimp.smooth(*_points, p2, 0.6);
-		
 		contourNorm.makeNormals(p2, normals);
 		
 		glBegin(GL_QUAD_STRIP);
