@@ -25,6 +25,7 @@ public:
 	
 	bool isOldAndSucks;
 	
+
 	void update();
 	
 };
@@ -32,6 +33,8 @@ public:
 class LEDGridThread : public ofxThread {
 	
 public:
+	
+		bool connected;
 
 	LEDGridThread();
 	

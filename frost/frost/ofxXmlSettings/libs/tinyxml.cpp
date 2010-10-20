@@ -953,6 +953,8 @@ bool TiXmlDocument::LoadFile( const char* _filename, TiXmlEncoding encoding )
 	// Add an extra string to avoid the crash.
 	TIXML_STRING filename( _filename );
 	value = filename;
+	
+	//cout<<_filename<<endl;
 
 	// reading in binary mode so that tinyxml can normalize the EOL
 	FILE* file = TiXmlFOpen( value.c_str (), "rb" );	

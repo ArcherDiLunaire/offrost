@@ -80,7 +80,10 @@ void ProjectionSurfaces::setup(){
 	verdana.loadFont("verdana.ttf",40);
 	
 	keystoneXml = new ofxXmlSettings;
-	keystoneXml->loadFile("keystoneSettings.xml");
+	bool loadedFile = keystoneXml->loadFile("keystoneSettings.xml");
+	if(!loadedFile){
+		cout<<"====== ERROR: NO keystoneSettings.xml file found at "+ofToDataPath("keystoneSettings.xml", true)+" ======"<<endl;	
+	}
 	int numFloor = keystoneXml->getNumTags("floor");
 	if(numFloor != 1){
 		cout<<"====== ERROR: No floor in keystone xml ======"<<endl;

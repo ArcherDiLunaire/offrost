@@ -31,7 +31,9 @@ testApp::testApp(): otherWindow(), projectionSurfaceWindow(), blobWindow(), floo
 
 void testApp::setup(){	
 	cout<<"--- Testapp setup"<<endl;
-	ofSetDataPathRoot("data/");
+	//ofSetDataPathRoot("data/");
+	
+
 	ofEnableAlphaBlending();
 	ofBackground(0,0,0);	
 	

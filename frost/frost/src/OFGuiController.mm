@@ -80,7 +80,8 @@ OFGuiController * gui = NULL;
 -(void) awakeFromNib {
 	
 	NSLog(@"--- wake from nib ---\n");
-	
+
+	cout<<ofToDataPath("bla", true)<<endl;
 	[camView setWindowId:1];
 	[projectorView setWindowId:2];
 	[cameraKeystoneOpenGlView setWindowId:5];
@@ -220,7 +221,9 @@ OFGuiController * gui = NULL;
 
 - (id)init {
 	NSLog(@"--- init ---\n");	
-	
+	NSBundle *bundle = [NSBundle mainBundle];
+	ofSetDataPathRoot([[[[bundle bundlePath] stringByDeletingLastPathComponent] stringByAppendingString:@"/data/"] cString]);
+
 	if(self = [super init]) {
 		
 		userDefaults = [[NSUserDefaults standardUserDefaults] retain];

@@ -44,7 +44,7 @@ LEDGridThread::LEDGridThread(){
 	master = 1.0;
 	sentMaster = 0.0;
 	
-	serial.setup("/dev/tty.usbserial-A6008iyw", 115200);
+	connected = serial.setup("/dev/tty.usbserial-A6008iyw", 115200);
 	
 	//Grid goes from front stage in reading direction, with  locations 0-1 in both x and y axis
 	
@@ -63,67 +63,67 @@ LEDGridThread::LEDGridThread(){
 			l.channel = channel;
 			channel += 4;
 			l.isOldAndSucks = true;
-		//	cout<<"Lamp pos "<<l.pos.x<<","<<l.pos.y<<" ch. "<<l.channel<<endl;
-
+			//	cout<<"Lamp pos "<<l.pos.x<<","<<l.pos.y<<" ch. "<<l.channel<<endl;
+			
 			lamps.push_back(l);
 		}
-
+		
 	}
 	
 	/*float sx = 0.28 - dx;
-	float y = 0.25;
-	
-	for(int i=0;i<6;i++){
-		float x = sx;
-		
-		for(int u=0;u<8;u++){
-			lamp l;
-			l.pos.x = x;
-			l.pos.y = y;
-			lamps.push_back(l);
-			
-			x += dx;
-			
-		}
-		y += dy;
-	}
-	
-	// dmx adresses - andreas' grid is fun in the first row, so we override at i=0 for these exceptions
-	// we start from the stage back
-	
-	for(int i=0;i<5;i++){
-		lamps[i].channel = 217+i*4;
-		if(i==0) lamps[i].channel = 2;
-	}
-	for(int i=0;i<6;i++){
-		lamps[8+i].channel = 177+i*4;
-		if(i==0) lamps[8+i].channel = 6; 
-	}
-	for(int i=0;i<8;i++){
-		lamps[8*2+i].channel = 147+i*4;	
-		if(i==0) lamps[8*2+i].channel = 10; 
-		if(i < 4 && i > 0){
-			lamps[8*2+i].isOldAndSucks = true;
-		}
-	}
-	for(int i=0;i<8;i++){
-		lamps[8*3+i].channel = 117+i*4;	
-		if(i==0) lamps[8*3+i].channel = 14; 
-		if(i < 4){
-			lamps[8*3+i].isOldAndSucks = true;
-		}
-	}
-	for(int i=0;i<8;i++){
-		lamps[8*4+i].channel = 87+i*4;
-		if(i < 4){
-			lamps[8*4+i].isOldAndSucks = true;
-		}
-	}
-	for(int i=0;i<8;i++){
-		lamps[8*5+i].channel = 37+i*4;
-		lamps[8*5+i].isOldAndSucks = true;
-	}
-	*/
+	 float y = 0.25;
+	 
+	 for(int i=0;i<6;i++){
+	 float x = sx;
+	 
+	 for(int u=0;u<8;u++){
+	 lamp l;
+	 l.pos.x = x;
+	 l.pos.y = y;
+	 lamps.push_back(l);
+	 
+	 x += dx;
+	 
+	 }
+	 y += dy;
+	 }
+	 
+	 // dmx adresses - andreas' grid is fun in the first row, so we override at i=0 for these exceptions
+	 // we start from the stage back
+	 
+	 for(int i=0;i<5;i++){
+	 lamps[i].channel = 217+i*4;
+	 if(i==0) lamps[i].channel = 2;
+	 }
+	 for(int i=0;i<6;i++){
+	 lamps[8+i].channel = 177+i*4;
+	 if(i==0) lamps[8+i].channel = 6; 
+	 }
+	 for(int i=0;i<8;i++){
+	 lamps[8*2+i].channel = 147+i*4;	
+	 if(i==0) lamps[8*2+i].channel = 10; 
+	 if(i < 4 && i > 0){
+	 lamps[8*2+i].isOldAndSucks = true;
+	 }
+	 }
+	 for(int i=0;i<8;i++){
+	 lamps[8*3+i].channel = 117+i*4;	
+	 if(i==0) lamps[8*3+i].channel = 14; 
+	 if(i < 4){
+	 lamps[8*3+i].isOldAndSucks = true;
+	 }
+	 }
+	 for(int i=0;i<8;i++){
+	 lamps[8*4+i].channel = 87+i*4;
+	 if(i < 4){
+	 lamps[8*4+i].isOldAndSucks = true;
+	 }
+	 }
+	 for(int i=0;i<8;i++){
+	 lamps[8*5+i].channel = 37+i*4;
+	 lamps[8*5+i].isOldAndSucks = true;
+	 }
+	 */
 	ok = true;
 	
 	alphaSet = false;
@@ -132,7 +132,9 @@ LEDGridThread::LEDGridThread(){
 
 
 void LEDGridThread::start(){
-	startThread(false, false);   // blocking, verbose
+	if(connected){
+		startThread(false, false);   // blocking, verbose
+	}
 }
 
 void LEDGridThread::stop(){
@@ -269,7 +271,7 @@ void LEDGridThread::threadedFunction(){
 		}
 		
 	}
-
+	
 }
 
 
