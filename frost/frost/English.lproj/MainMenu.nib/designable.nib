@@ -2,21 +2,25 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10B504</string>
-		<string key="IBDocument.InterfaceBuilderVersion">732</string>
-		<string key="IBDocument.AppKitVersion">1038.2</string>
-		<string key="IBDocument.HIToolboxVersion">437.00</string>
+		<string key="IBDocument.SystemVersion">10D578</string>
+		<string key="IBDocument.InterfaceBuilderVersion">804</string>
+		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.HIToolboxVersion">460.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">732</string>
+			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="248"/>
+			<integer value="408"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</array>
-		<dictionary class="NSMutableDictionary" key="IBDocument.Metadata"/>
+		<object class="NSMutableDictionary" key="IBDocument.Metadata">
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
+		</object>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="94160730">
 			<object class="NSCustomObject" id="315826252">
 				<object class="NSMutableString" key="NSClassName">
@@ -531,7 +535,7 @@
 													<int key="NSColorSpace">1</int>
 													<bytes key="NSRGB">MC4wNjk0Nzk3MTg4IDAuNDc2MzEyODQ1OSAwLjk5Nzg2NzUyNDYgMAA</bytes>
 												</object>
-												<object class="NSColor" key="NSTextColor">
+												<object class="NSColor" key="NSTextColor" id="971392563">
 													<int key="NSColorSpace">1</int>
 													<bytes key="NSRGB">MCAwIDAAA</bytes>
 												</object>
@@ -882,7 +886,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="394335292">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSBox" id="948227151">
@@ -916,10 +920,7 @@
 												<reference key="NSSupport" ref="1040055995"/>
 												<reference key="NSControlView" ref="672765858"/>
 												<reference key="NSBackgroundColor" ref="639330244"/>
-												<object class="NSColor" key="NSTextColor" id="971392563">
-													<int key="NSColorSpace">1</int>
-													<bytes key="NSRGB">MCAwIDAAA</bytes>
-												</object>
+												<reference key="NSTextColor" ref="971392563"/>
 											</object>
 										</object>
 										<object class="NSTextField" id="66400269">
@@ -1736,9 +1737,9 @@
 																<int key="NSCellFlags2">0</int>
 																<string key="NSContents"/>
 																<reference key="NSControlView" ref="407042652"/>
-																<double key="NSMaxValue">1280</double>
+																<double key="NSMaxValue">4095</double>
 																<double key="NSMinValue">0.0</double>
-																<double key="NSValue">50</double>
+																<double key="NSValue">2</double>
 																<double key="NSAltIncValue">0.0</double>
 																<int key="NSNumberOfTickMarks">0</int>
 																<int key="NSTickMarkPosition">1</int>
@@ -1890,6 +1891,7 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{1072, 814}</string>
+					<reference key="NSSuperview"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -13267,13 +13269,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<int key="objectID">407</int>
 						<reference key="object" ref="948227151"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="909835679"/>
 							<reference ref="213596459"/>
 							<reference ref="66400269"/>
 							<reference ref="874631551"/>
 							<reference ref="45180770"/>
 							<reference ref="672765858"/>
 							<reference ref="547850538"/>
+							<reference ref="909835679"/>
 						</array>
 						<reference key="parent" ref="394335292"/>
 					</object>
@@ -19039,9 +19041,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="2459.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2460.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2461.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="247.IBEditorWindowLastContentRect">{{353, 60}, {1270, 850}}</string>
+				<string key="247.IBEditorWindowLastContentRect">{{10, 85}, {1270, 804}}</string>
 				<string key="247.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="247.IBWindowTemplateEditedContentRect">{{353, 60}, {1270, 850}}</string>
+				<string key="247.IBWindowTemplateEditedContentRect">{{10, 85}, {1270, 804}}</string>
 				<boolean value="YES" key="247.NSWindowTemplate.visibleAtLaunch"/>
 				<boolean value="YES" key="247.windowTemplate.hasMinSize"/>
 				<string key="247.windowTemplate.minSize">{1270, 850}</string>
@@ -19231,9 +19233,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="2744.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2745.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2746.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="275.IBEditorWindowLastContentRect">{{368, 60}, {1072, 814}}</string>
+				<string key="275.IBEditorWindowLastContentRect">{{318, 139}, {1072, 814}}</string>
 				<string key="275.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="275.IBWindowTemplateEditedContentRect">{{368, 60}, {1072, 814}}</string>
+				<string key="275.IBWindowTemplateEditedContentRect">{{318, 139}, {1072, 814}}</string>
 				<boolean value="NO" key="275.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="2751.CustomClassName">frostCheckbox</string>
 				<string key="2751.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -19483,6 +19485,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="400.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="407.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="408.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="408.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">AUFwAABCkgAAA</bytes>
+				</object>
 				<string key="410.IBEditorWindowLastContentRect">{{348, 309}, {1074, 478}}</string>
 				<string key="410.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="410.IBWindowTemplateEditedContentRect">{{348, 309}, {1074, 478}}</string>
@@ -19638,10 +19643,34 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="animate:">id</string>
 						<string key="info:">id</string>
 					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="animate:">
+							<string key="name">animate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="info:">
+							<string key="name">info:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="animateMenuItem">NSMenuItem</string>
 						<string key="fpsText">NSTextField</string>
 						<string key="infoMenuItem">NSMenuItem</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="animateMenuItem">
+							<string key="name">animateMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="fpsText">
+							<string key="name">fpsText</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="infoMenuItem">
+							<string key="name">infoMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -19655,9 +19684,29 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="animate:">id</string>
 						<string key="info:">id</string>
 					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="animate:">
+							<string key="name">animate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="info:">
+							<string key="name">info:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="animateMenuItem">NSMenuItem</string>
 						<string key="infoMenuItem">NSMenuItem</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="animateMenuItem">
+							<string key="name">animateMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="infoMenuItem">
+							<string key="name">infoMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -19777,6 +19826,348 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="modifylLiquidSpace:">id</string>
 						<string key="setListViewRow:">id</string>
 						<string key="toggleFullscreen:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="blobGrab1:">
+							<string key="name">blobGrab1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="blobGrab2:">
+							<string key="name">blobGrab2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="blobGrab3:">
+							<string key="name">blobGrab3:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cameraBindGuid1:">
+							<string key="name">cameraBindGuid1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cameraBindGuid2:">
+							<string key="name">cameraBindGuid2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cameraBindGuid3:">
+							<string key="name">cameraBindGuid3:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="drawBlobDebug:">
+							<string key="name">drawBlobDebug:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="frostscapeEmptyIce:">
+							<string key="name">frostscapeEmptyIce:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="frostscapeFillIce:">
+							<string key="name">frostscapeFillIce:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="ledSetBackgroundColor:">
+							<string key="name">ledSetBackgroundColor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="ledSetBlobColor:">
+							<string key="name">ledSetBlobColor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="liquidAddFixedRing2:">
+							<string key="name">liquidAddFixedRing2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="liquidAddRing1:">
+							<string key="name">liquidAddRing1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="liquidAddRing2:">
+							<string key="name">liquidAddRing2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="liquidAddRing3:">
+							<string key="name">liquidAddRing3:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobActive1:">
+							<string key="name">modifyBlobActive1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobActive2:">
+							<string key="name">modifyBlobActive2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobActive3:">
+							<string key="name">modifyBlobActive3:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobBlur1:">
+							<string key="name">modifyBlobBlur1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobBlur2:">
+							<string key="name">modifyBlobBlur2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobBlur3:">
+							<string key="name">modifyBlobBlur3:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobHistoryAddSnapshot:">
+							<string key="name">modifyBlobHistoryAddSnapshot:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobHistoryClearHistory:">
+							<string key="name">modifyBlobHistoryClearHistory:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobHistoryClearSnapshots:">
+							<string key="name">modifyBlobHistoryClearSnapshots:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobHistoryIsRecording:">
+							<string key="name">modifyBlobHistoryIsRecording:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobHistoryRemoveSnapshot:">
+							<string key="name">modifyBlobHistoryRemoveSnapshot:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightAlpha:">
+							<string key="name">modifyBlobLightAlpha:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightBackgroundAdd:">
+							<string key="name">modifyBlobLightBackgroundAdd:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightBackgroundClear:">
+							<string key="name">modifyBlobLightBackgroundClear:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightBeta:">
+							<string key="name">modifyBlobLightBeta:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightBlobAlpha:">
+							<string key="name">modifyBlobLightBlobAlpha:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightBlur2:">
+							<string key="name">modifyBlobLightBlur2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightBlur:">
+							<string key="name">modifyBlobLightBlur:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightColor2:">
+							<string key="name">modifyBlobLightColor2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightColor:">
+							<string key="name">modifyBlobLightColor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightDebug:">
+							<string key="name">modifyBlobLightDebug:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightHistoryAlpha:">
+							<string key="name">modifyBlobLightHistoryAlpha:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobLightThreshold:">
+							<string key="name">modifyBlobLightThreshold:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobThreshold1:">
+							<string key="name">modifyBlobThreshold1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobThreshold2:">
+							<string key="name">modifyBlobThreshold2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyBlobThreshold3:">
+							<string key="name">modifyBlobThreshold3:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyCameraKeystoneMatrix:">
+							<string key="name">modifyCameraKeystoneMatrix:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyCameraKeystoneShowDebug:">
+							<string key="name">modifyCameraKeystoneShowDebug:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyFoldingHistoryAddMultiplier:">
+							<string key="name">modifyFoldingHistoryAddMultiplier:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyFrostscapeSlider1:">
+							<string key="name">modifyFrostscapeSlider1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyFrostscapeSlider2:">
+							<string key="name">modifyFrostscapeSlider2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyFrostscapeSlider3:">
+							<string key="name">modifyFrostscapeSlider3:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyFrostscapeSlider4:">
+							<string key="name">modifyFrostscapeSlider4:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyFrostscapeSlider5:">
+							<string key="name">modifyFrostscapeSlider5:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyFrostscapeSlider6:">
+							<string key="name">modifyFrostscapeSlider6:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLaLineaDebug:">
+							<string key="name">modifyLaLineaDebug:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLaLineaFloorDirSpeed:">
+							<string key="name">modifyLaLineaFloorDirSpeed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLaLineaFloorReset:">
+							<string key="name">modifyLaLineaFloorReset:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLaLineaFloorSpeed:">
+							<string key="name">modifyLaLineaFloorSpeed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLaLineaFloorWidth:">
+							<string key="name">modifyLaLineaFloorWidth:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLaLineaLockOffsetSliders:">
+							<string key="name">modifyLaLineaLockOffsetSliders:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLaLineaTrackingActive:">
+							<string key="name">modifyLaLineaTrackingActive:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLaLineaUseFilm:">
+							<string key="name">modifyLaLineaUseFilm:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceAddingColor:">
+							<string key="name">modifyLiquidSpaceAddingColor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceAddingForce:">
+							<string key="name">modifyLiquidSpaceAddingForce:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceColorMultiplier:">
+							<string key="name">modifyLiquidSpaceColorMultiplier:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceDiffusion:">
+							<string key="name">modifyLiquidSpaceDiffusion:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceDropColor:">
+							<string key="name">modifyLiquidSpaceDropColor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceFadeSpeed:">
+							<string key="name">modifyLiquidSpaceFadeSpeed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceFillColor:">
+							<string key="name">modifyLiquidSpaceFillColor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceForceMultiplier:">
+							<string key="name">modifyLiquidSpaceForceMultiplier:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyLiquidSpaceViscosity:">
+							<string key="name">modifyLiquidSpaceViscosity:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMirrorBall1AddReflection:">
+							<string key="name">modifyMirrorBall1AddReflection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMirrorBall1ClearReflections:">
+							<string key="name">modifyMirrorBall1ClearReflections:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMirrorBall1RemoveReflection:">
+							<string key="name">modifyMirrorBall1RemoveReflection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMirrorBall2AddReflection:">
+							<string key="name">modifyMirrorBall2AddReflection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMirrorBall2ClearReflections:">
+							<string key="name">modifyMirrorBall2ClearReflections:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMirrorBall2RemoveReflection:">
+							<string key="name">modifyMirrorBall2RemoveReflection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMoonDustDebug:">
+							<string key="name">modifyMoonDustDebug:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMoonDustDensity:">
+							<string key="name">modifyMoonDustDensity:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMoonDustForce:">
+							<string key="name">modifyMoonDustForce:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMoonDustLength:">
+							<string key="name">modifyMoonDustLength:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyMoonDustSize:">
+							<string key="name">modifyMoonDustSize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyProjectorFloorAspect:">
+							<string key="name">modifyProjectorFloorAspect:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyProjectorLockFloorAspect:">
+							<string key="name">modifyProjectorLockFloorAspect:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyProjectorMatrix:">
+							<string key="name">modifyProjectorMatrix:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifyProjectorShowDebug:">
+							<string key="name">modifyProjectorShowDebug:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifylLiquidSpace:">
+							<string key="name">modifylLiquidSpace:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setListViewRow:">
+							<string key="name">setListViewRow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleFullscreen:">
+							<string key="name">toggleFullscreen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="Blob1OnlyCurtain">frostCheckbox</string>
@@ -19966,6 +20357,752 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="projectionSurfacesView">NSView</string>
 						<string key="projectorView">CustomGLView</string>
 					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="Blob1OnlyCurtain">
+							<string key="name">Blob1OnlyCurtain</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobActive1">
+							<string key="name">BlobActive1</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobActive2">
+							<string key="name">BlobActive2</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobActive3">
+							<string key="name">BlobActive3</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobBlur1">
+							<string key="name">BlobBlur1</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobBlur2">
+							<string key="name">BlobBlur2</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobBlur3">
+							<string key="name">BlobBlur3</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryAddPrint">
+							<string key="name">BlobHistoryAddPrint</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryAlpha">
+							<string key="name">BlobHistoryAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryClearFreeze">
+							<string key="name">BlobHistoryClearFreeze</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryClearHistory">
+							<string key="name">BlobHistoryClearHistory</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryClearIce">
+							<string key="name">BlobHistoryClearIce</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryDecrease">
+							<string key="name">BlobHistoryDecrease</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryFill">
+							<string key="name">BlobHistoryFill</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryFreezeSpeed">
+							<string key="name">BlobHistoryFreezeSpeed</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryFreezeStrength">
+							<string key="name">BlobHistoryFreezeStrength</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryGrow">
+							<string key="name">BlobHistoryGrow</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryIsRecording">
+							<string key="name">BlobHistoryIsRecording</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryMasterAlpha">
+							<string key="name">BlobHistoryMasterAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryPlayDirection">
+							<string key="name">BlobHistoryPlayDirection</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryPrintsAlpha">
+							<string key="name">BlobHistoryPrintsAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryRemoveAllPrints">
+							<string key="name">BlobHistoryRemoveAllPrints</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryRemovePrint">
+							<string key="name">BlobHistoryRemovePrint</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobHistoryView">
+							<string key="name">BlobHistoryView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightAddBackground">
+							<string key="name">BlobLightAddBackground</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightAlpha">
+							<string key="name">BlobLightAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightBeta">
+							<string key="name">BlobLightBeta</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightBlobAlpha">
+							<string key="name">BlobLightBlobAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightBlur">
+							<string key="name">BlobLightBlur</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightBlur2">
+							<string key="name">BlobLightBlur2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightColor">
+							<string key="name">BlobLightColor</string>
+							<string key="candidateClassName">NSColorWell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightDebug">
+							<string key="name">BlobLightDebug</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightHistoryAlpha">
+							<string key="name">BlobLightHistoryAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightHistoryColor">
+							<string key="name">BlobLightHistoryColor</string>
+							<string key="candidateClassName">NSColorWell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobLightThreshold">
+							<string key="name">BlobLightThreshold</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobThreshold1">
+							<string key="name">BlobThreshold1</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobThreshold2">
+							<string key="name">BlobThreshold2</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="BlobThreshold3">
+							<string key="name">BlobThreshold3</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="CameraGUID1">
+							<string key="name">CameraGUID1</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="CameraGUID2">
+							<string key="name">CameraGUID2</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="CameraGUID3">
+							<string key="name">CameraGUID3</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostScapeSlider1">
+							<string key="name">FrostScapeSlider1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostScapeSlider2">
+							<string key="name">FrostScapeSlider2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostScapeSlider3">
+							<string key="name">FrostScapeSlider3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostScapeSlider4">
+							<string key="name">FrostScapeSlider4</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostScapeSlider5">
+							<string key="name">FrostScapeSlider5</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostScapeSlider6">
+							<string key="name">FrostScapeSlider6</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeAddLines">
+							<string key="name">FrostscapeAddLines</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeColumnFreeze1">
+							<string key="name">FrostscapeColumnFreeze1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeColumnFreeze2">
+							<string key="name">FrostscapeColumnFreeze2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeColumnFreeze3">
+							<string key="name">FrostscapeColumnFreeze3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeFreezeColumns">
+							<string key="name">FrostscapeFreezeColumns</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeFreezeLines">
+							<string key="name">FrostscapeFreezeLines</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeInvert">
+							<string key="name">FrostscapeInvert</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeLinesAddSpeed">
+							<string key="name">FrostscapeLinesAddSpeed</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeLinesAlpha">
+							<string key="name">FrostscapeLinesAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeMasterAlpha">
+							<string key="name">FrostscapeMasterAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeResetLines">
+							<string key="name">FrostscapeResetLines</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeSideFreeze">
+							<string key="name">FrostscapeSideFreeze</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="FrostscapeWhiteBackground">
+							<string key="name">FrostscapeWhiteBackground</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LEDGridlView">
+							<string key="name">LEDGridlView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LEDMasterFader">
+							<string key="name">LEDMasterFader</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LEDRadius">
+							<string key="name">LEDRadius</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LEDbackgroundColor">
+							<string key="name">LEDbackgroundColor</string>
+							<string key="candidateClassName">NSColorWell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LEDblobColor">
+							<string key="name">LEDblobColor</string>
+							<string key="candidateClassName">NSColorWell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LEDdebug">
+							<string key="name">LEDdebug</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaDancer">
+							<string key="name">LaLineaDancer</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaDebug">
+							<string key="name">LaLineaDebug</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaFloorCurl">
+							<string key="name">LaLineaFloorCurl</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaFloorDirSpeed">
+							<string key="name">LaLineaFloorDirSpeed</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaFloorMasterAlpha">
+							<string key="name">LaLineaFloorMasterAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaFloorReset">
+							<string key="name">LaLineaFloorReset</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaFloorSpeed">
+							<string key="name">LaLineaFloorSpeed</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaFloorWidth">
+							<string key="name">LaLineaFloorWidth</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaLockOffsetSliders">
+							<string key="name">LaLineaLockOffsetSliders</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaMaskAlpha">
+							<string key="name">LaLineaMaskAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaMasterAlpha">
+							<string key="name">LaLineaMasterAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaNoise1">
+							<string key="name">LaLineaNoise1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaNoise2">
+							<string key="name">LaLineaNoise2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaNoise3">
+							<string key="name">LaLineaNoise3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaOffsetX1">
+							<string key="name">LaLineaOffsetX1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaOffsetX2">
+							<string key="name">LaLineaOffsetX2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaOffsetY1">
+							<string key="name">LaLineaOffsetY1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaOffsetY2">
+							<string key="name">LaLineaOffsetY2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaTrackingActive">
+							<string key="name">LaLineaTrackingActive</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="LaLineaUseFilm">
+							<string key="name">LaLineaUseFilm</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallMasterAlpha">
+							<string key="name">MirrorBallMasterAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection1AlphaFraction">
+							<string key="name">MirrorBallReflection1AlphaFraction</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection1Clear">
+							<string key="name">MirrorBallReflection1Clear</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection1DotAdd">
+							<string key="name">MirrorBallReflection1DotAdd</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection1DotRemove">
+							<string key="name">MirrorBallReflection1DotRemove</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection1DotSize">
+							<string key="name">MirrorBallReflection1DotSize</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection1OnFraction">
+							<string key="name">MirrorBallReflection1OnFraction</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection2AlphaFraction">
+							<string key="name">MirrorBallReflection2AlphaFraction</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection2Clear">
+							<string key="name">MirrorBallReflection2Clear</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection2DotAdd">
+							<string key="name">MirrorBallReflection2DotAdd</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection2DotRemove">
+							<string key="name">MirrorBallReflection2DotRemove</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection2DotSize">
+							<string key="name">MirrorBallReflection2DotSize</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallReflection2OnFraction">
+							<string key="name">MirrorBallReflection2OnFraction</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallRotationFactor">
+							<string key="name">MirrorBallRotationFactor</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MirrorBallView">
+							<string key="name">MirrorBallView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MoonDustColumnAlpha">
+							<string key="name">MoonDustColumnAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MoonDustColumnMaskAlpha">
+							<string key="name">MoonDustColumnMaskAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MoonDustDebug">
+							<string key="name">MoonDustDebug</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MoonDustDensity">
+							<string key="name">MoonDustDensity</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MoonDustForce">
+							<string key="name">MoonDustForce</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MoonDustLength">
+							<string key="name">MoonDustLength</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MoonDustMasterAlpha">
+							<string key="name">MoonDustMasterAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="MoonDustSize">
+							<string key="name">MoonDustSize</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ProjectorFloorAspect">
+							<string key="name">ProjectorFloorAspect</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ProjectorFloorAspectText">
+							<string key="name">ProjectorFloorAspectText</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ProjectorLockFloorAspect">
+							<string key="name">ProjectorLockFloorAspect</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ProjectorMatrix">
+							<string key="name">ProjectorMatrix</string>
+							<string key="candidateClassName">NSMatrix</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ProjectorShowDebug">
+							<string key="name">ProjectorShowDebug</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="SpotlightMasterAlpha">
+							<string key="name">SpotlightMasterAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="SpotlightRadiusMultiplier">
+							<string key="name">SpotlightRadiusMultiplier</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="SpotlightView">
+							<string key="name">SpotlightView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="blobLightView">
+							<string key="name">blobLightView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="blobTrackingView">
+							<string key="name">blobTrackingView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="blobView">
+							<string key="name">blobView</string>
+							<string key="candidateClassName">CustomGLView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="camView">
+							<string key="name">camView</string>
+							<string key="candidateClassName">CustomGLView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraBrightness1">
+							<string key="name">cameraBrightness1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraBrightness2">
+							<string key="name">cameraBrightness2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraBrightness3">
+							<string key="name">cameraBrightness3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraExposure1">
+							<string key="name">cameraExposure1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraExposure2">
+							<string key="name">cameraExposure2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraExposure3">
+							<string key="name">cameraExposure3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraGain1">
+							<string key="name">cameraGain1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraGain2">
+							<string key="name">cameraGain2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraGain3">
+							<string key="name">cameraGain3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraGamma1">
+							<string key="name">cameraGamma1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraGamma2">
+							<string key="name">cameraGamma2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraGamma3">
+							<string key="name">cameraGamma3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraKeystoneOpenGlView">
+							<string key="name">cameraKeystoneOpenGlView</string>
+							<string key="candidateClassName">CustomGLView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraKeystoneView">
+							<string key="name">cameraKeystoneView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraSetting">
+							<string key="name">cameraSetting</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraSettings1">
+							<string key="name">cameraSettings1</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraSettings2">
+							<string key="name">cameraSettings2</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraSettings3">
+							<string key="name">cameraSettings3</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraShutter1">
+							<string key="name">cameraShutter1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraShutter2">
+							<string key="name">cameraShutter2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraShutter3">
+							<string key="name">cameraShutter3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cameraView">
+							<string key="name">cameraView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="contentArea">
+							<string key="name">contentArea</string>
+							<string key="candidateClassName">contentView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="floorPreview">
+							<string key="name">floorPreview</string>
+							<string key="candidateClassName">CustomGLView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingAlpha">
+							<string key="name">foldingAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingFishAlpha">
+							<string key="name">foldingFishAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingFloorbox">
+							<string key="name">foldingFloorbox</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingFloorboxAlpha">
+							<string key="name">foldingFloorboxAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingHistoryAddMultiplier">
+							<string key="name">foldingHistoryAddMultiplier</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingHistoryAlpha">
+							<string key="name">foldingHistoryAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingHistoryClear">
+							<string key="name">foldingHistoryClear</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingHistoryPush1">
+							<string key="name">foldingHistoryPush1</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingHistoryPush2">
+							<string key="name">foldingHistoryPush2</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingHistoryPush3">
+							<string key="name">foldingHistoryPush3</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingReset">
+							<string key="name">foldingReset</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingUpdateHistoryFromBlob">
+							<string key="name">foldingUpdateHistoryFromBlob</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="foldingView">
+							<string key="name">foldingView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="frostscapeView">
+							<string key="name">frostscapeView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="laLineaFloorView">
+							<string key="name">laLineaFloorView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="laLineaView">
+							<string key="name">laLineaView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceAddFixedRing2">
+							<string key="name">liquidSpaceAddFixedRing2</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceAddRing1">
+							<string key="name">liquidSpaceAddRing1</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceAddRing2">
+							<string key="name">liquidSpaceAddRing2</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceAddRing3">
+							<string key="name">liquidSpaceAddRing3</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceAddingColor">
+							<string key="name">liquidSpaceAddingColor</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceAddingForce">
+							<string key="name">liquidSpaceAddingForce</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceClear">
+							<string key="name">liquidSpaceClear</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceColorMultiplier">
+							<string key="name">liquidSpaceColorMultiplier</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceDiffusion">
+							<string key="name">liquidSpaceDiffusion</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceDropColor">
+							<string key="name">liquidSpaceDropColor</string>
+							<string key="candidateClassName">NSColorWell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceFIll">
+							<string key="name">liquidSpaceFIll</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceFadeSpeed">
+							<string key="name">liquidSpaceFadeSpeed</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceFillColor">
+							<string key="name">liquidSpaceFillColor</string>
+							<string key="candidateClassName">NSColorWell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceForceMultiplier">
+							<string key="name">liquidSpaceForceMultiplier</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceMasterAlpha">
+							<string key="name">liquidSpaceMasterAlpha</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceSpeed">
+							<string key="name">liquidSpaceSpeed</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceView">
+							<string key="name">liquidSpaceView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidSpaceViscosity">
+							<string key="name">liquidSpaceViscosity</string>
+							<string key="candidateClassName">frostSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="liquidUpdateMotor">
+							<string key="name">liquidUpdateMotor</string>
+							<string key="candidateClassName">frostCheckbox</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="listView">
+							<string key="name">listView</string>
+							<string key="candidateClassName">ListView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainView">
+							<string key="name">mainView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="midiStatusText">
+							<string key="name">midiStatusText</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="moonDustView">
+							<string key="name">moonDustView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="projectionSurfacesView">
+							<string key="name">projectionSurfacesView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="projectorView">
+							<string key="name">projectorView</string>
+							<string key="candidateClassName">CustomGLView</string>
+						</object>
+					</dictionary>
 					<reference key="sourceIdentifier" ref="980880297"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -19996,9 +21133,23 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="NS.key.0">changeValueFromControl:</string>
 						<string key="NS.object.0">id</string>
 					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">changeValueFromControl:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">changeValueFromControl:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">isbutton</string>
 						<string key="NS.object.0">NSNumber</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">isbutton</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">isbutton</string>
+							<string key="candidateClassName">NSNumber</string>
+						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="495895055">
 						<string key="majorKey">IBProjectSource</string>
@@ -20012,6 +21163,16 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="changeValueFromControl:">id</string>
 						<string key="changeValueFromControlMidi:">id</string>
 					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="changeValueFromControl:">
+							<string key="name">changeValueFromControl:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeValueFromControlMidi:">
+							<string key="name">changeValueFromControlMidi:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<reference key="sourceIdentifier" ref="495895055"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -20020,6 +21181,16 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="gui">OFGuiController</string>
 						<string key="midiActive">NSButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="gui">
+							<string key="name">gui</string>
+							<string key="candidateClassName">OFGuiController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="midiActive">
+							<string key="name">midiActive</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -20543,6 +21714,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="NS.key.0">view</string>
 						<string key="NS.object.0">NSView</string>
 					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">view</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">view</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSViewController.h</string>
@@ -20594,11 +21772,90 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="stepForward:">id</string>
 						<string key="trim:">id</string>
 					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="add:">
+							<string key="name">add:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addScaled:">
+							<string key="name">addScaled:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="copy:">
+							<string key="name">copy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cut:">
+							<string key="name">cut:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="gotoBeginning:">
+							<string key="name">gotoBeginning:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="gotoEnd:">
+							<string key="name">gotoEnd:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="gotoNextSelectionPoint:">
+							<string key="name">gotoNextSelectionPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="gotoPosterFrame:">
+							<string key="name">gotoPosterFrame:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="gotoPreviousSelectionPoint:">
+							<string key="name">gotoPreviousSelectionPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="paste:">
+							<string key="name">paste:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pause:">
+							<string key="name">pause:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="play:">
+							<string key="name">play:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="replace:">
+							<string key="name">replace:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectAll:">
+							<string key="name">selectAll:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectNone:">
+							<string key="name">selectNone:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="stepBackward:">
+							<string key="name">stepBackward:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="stepForward:">
+							<string key="name">stepForward:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="trim:">
+							<string key="name">trim:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<reference key="sourceIdentifier" ref="598479310"/>
 				</object>
 			</array>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
+		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<integer value="1060" key="NS.object.0"/>
@@ -20610,5 +21867,17 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../openFrameworks.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NSAddTemplate">{8, 8}</string>
+			<string key="NSEnterFullScreenTemplate">{16, 15}</string>
+			<string key="NSLockLockedTemplate">{9, 12}</string>
+			<string key="NSMenuCheckmark">{9, 8}</string>
+			<string key="NSMenuMixedState">{7, 2}</string>
+			<string key="NSRefreshTemplate">{10, 12}</string>
+			<string key="NSRemoveTemplate">{8, 8}</string>
+			<string key="NSSmartBadgeTemplate">{15, 15}</string>
+			<string key="NSStopProgressTemplate">{11, 11}</string>
+			<string key="NSSwitch">{15, 15}</string>
+		</dictionary>
 	</data>
 </archive>

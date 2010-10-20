@@ -73,8 +73,8 @@ void CameraCalibration::setup(){
 	cameras[1]->calibPoints[2] = projection()->getFloor()->coordWarp->transform(0.7,0.7);
 	cameras[1]->calibPoints[3] = projection()->getFloor()->coordWarp->transform(0.35,0.7);
 	
-	cameras[2]->calibPoints[0] = projection()->getWall()->coordWarp->transform(0.0,0.0);
-	cameras[2]->calibPoints[1] = projection()->getWall()->coordWarp->transform(1,0);
+	cameras[2]->calibPoints[0] = projection()->getWall()->coordWarp->transform(0.0,0.3);
+	cameras[2]->calibPoints[1] = projection()->getWall()->coordWarp->transform(1,0.3);
 	cameras[2]->calibPoints[2] = projection()->getWall()->coordWarp->transform(1,1);
 	cameras[2]->calibPoints[3] = projection()->getWall()->coordWarp->transform(0,1);
 	

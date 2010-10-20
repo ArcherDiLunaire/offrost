@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2737239B126D920A006D36BF /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2737239A126D920A006D36BF /* icon.icns */; };
 		2739E54F1070BEBE0078206D /* contourNormals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2739E54D1070BEBE0078206D /* contourNormals.cpp */; };
 		276D9D831073AE5A0084689D /* LiquidSpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 276D9D821073AE5A0084689D /* LiquidSpace.cpp */; };
 		276D9DB11073B3F00084689D /* changelog.txt in Resources */ = {isa = PBXBuildFile; fileRef = 276D9D9B1073B3F00084689D /* changelog.txt */; };
@@ -27,7 +28,6 @@
 		27B64BFA107211CD002E95C4 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BF4107211CD002E95C4 /* ofxMidiIn.cpp */; };
 		27B64BFB107211CD002E95C4 /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BF6107211CD002E95C4 /* ofxMidiOut.cpp */; };
 		27B7F437106A4A7C00E1E74B /* MoonDust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B7F436106A4A7C00E1E74B /* MoonDust.cpp */; };
-		27C26C2D109ECE8400EF775E /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 27C26C2C109ECE8400EF775E /* icon.icns */; };
 		3F1E59AB100B75550091B692 /* SharedContextGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59AA100B75550091B692 /* SharedContextGLView.m */; };
 		3F1E59B1100B77800091B692 /* CustomGLViewDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E59B0100B77800091B692 /* CustomGLViewDelegate.cpp */; };
 		DD0C01671066874900BB3F9F /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD0C015B1066874900BB3F9F /* tinyxml.cpp */; };
@@ -142,6 +142,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2737239A126D920A006D36BF /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/icon.icns; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		2739E54D1070BEBE0078206D /* contourNormals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contourNormals.cpp; sourceTree = "<group>"; };
 		2739E54E1070BEBE0078206D /* contourNormals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contourNormals.h; sourceTree = "<group>"; };
 		276D9D811073AE5A0084689D /* LiquidSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiquidSpace.h; sourceTree = "<group>"; };
@@ -186,7 +187,6 @@
 		27B64BF6107211CD002E95C4 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMidiOut.cpp; sourceTree = "<group>"; };
 		27B64BF7107211CD002E95C4 /* ofxMidiOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMidiOut.h; sourceTree = "<group>"; };
 		27B7F436106A4A7C00E1E74B /* MoonDust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MoonDust.cpp; path = src/Plugins/outputs/MoonDust.cpp; sourceTree = SOURCE_ROOT; };
-		27C26C2C109ECE8400EF775E /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = bin/data/icon.icns; sourceTree = "<group>"; };
 		27EC4A181073CB3600CCDB99 /* msaColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = msaColor.h; path = example/src/msaColor.h; sourceTree = "<group>"; };
 		3F1E59A9100B75550091B692 /* SharedContextGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedContextGLView.h; path = ../SharedContextGLView.h; sourceTree = "<group>"; };
 		3F1E59AA100B75550091B692 /* SharedContextGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedContextGLView.m; path = ../SharedContextGLView.m; sourceTree = "<group>"; };
@@ -1481,7 +1481,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
-				27C26C2C109ECE8400EF775E /* icon.icns */,
+				2737239A126D920A006D36BF /* icon.icns */,
 				E4C980560FF2901B0018D340 /* English.lproj */,
 				E4B69B5B0A3A1756003C02F2 /* Frost.app */,
 				27823130109EC1BE00AE0E24 /* Frost-Info.plist */,
@@ -1561,7 +1561,14 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "openFrameworks" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = E4B69B4A0A3A1720003C02F2;
 			productRefGroup = E4B69B4A0A3A1720003C02F2;
 			projectDirPath = "";
@@ -1580,7 +1587,7 @@
 				E4C9805C0FF2901B0018D340 /* MainMenu.nib in Resources */,
 				276D9DB11073B3F00084689D /* changelog.txt in Resources */,
 				278230EA109EA82D00AE0E24 /* Credits.html in Resources */,
-				27C26C2D109ECE8400EF775E /* icon.icns in Resources */,
+				2737239B126D920A006D36BF /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

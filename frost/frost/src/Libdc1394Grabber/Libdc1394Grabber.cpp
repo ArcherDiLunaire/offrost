@@ -277,7 +277,7 @@ bool Libdc1394Grabber::initCam( dc1394video_mode_t _videoMode, dc1394framerate_t
 	video_mode = _videoMode;
 	cout << "Video Mode = " << video_mode << endl;
 	
-	coding = DC1394_COLOR_CODING_MONO8;
+	coding = DC1394_COLOR_CODING_MONO16;
 	
 	unsigned int source_bpp;
 	dc1394_get_color_coding_bit_size(coding,&source_bpp);

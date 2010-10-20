@@ -46,10 +46,31 @@ LEDGridThread::LEDGridThread(){
 	
 	serial.setup("/dev/tty.usbserial-A6008iyw", 115200);
 	
-	float dx = 1.0/8.0;
-	float dy = 1.0/8.0;
+	//Grid goes from front stage in reading direction, with  locations 0-1 in both x and y axis
 	
-	float sx = 0.28 - dx;
+	int channel = 1;
+	for(int y=5; y>=0; y--){
+		float xCount = 8;
+		if(y == 0)
+			xCount = 5;
+		if(y == 1)
+			xCount = 6;
+		
+		for(int x=0;x<xCount; x++){
+			lamp l;
+			l.pos.x = x/7.0;
+			l.pos.y = y/5.0;
+			l.channel = channel;
+			channel += 4;
+			l.isOldAndSucks = true;
+		//	cout<<"Lamp pos "<<l.pos.x<<","<<l.pos.y<<" ch. "<<l.channel<<endl;
+
+			lamps.push_back(l);
+		}
+
+	}
+	
+	/*float sx = 0.28 - dx;
 	float y = 0.25;
 	
 	for(int i=0;i<6;i++){
@@ -102,7 +123,7 @@ LEDGridThread::LEDGridThread(){
 		lamps[8*5+i].channel = 37+i*4;
 		lamps[8*5+i].isOldAndSucks = true;
 	}
-	
+	*/
 	ok = true;
 	
 	alphaSet = false;
@@ -235,7 +256,7 @@ void LEDGridThread::threadedFunction(){
 						if(!alphaSet){
 							unsigned char *buffer = new unsigned char[3];
 							buffer[0] = (unsigned char)255;
-							buffer[1] = (unsigned char)1;
+							buffer[1] = (unsigned char)254;
 							buffer[2] = (unsigned char)lamps[i].channel+3;
 							serial.writeBytes(buffer, 3);
 							delete buffer;
