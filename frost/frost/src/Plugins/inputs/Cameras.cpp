@@ -116,14 +116,14 @@ void Cameras::update(){
 	
 	for (int i=0; i<3; i++) {
 		if (videoPlayerActivated[i]) {
-			videoPlayer[i].update();
+			videoPlayer[i].idleMovie();
 			frameNew[i] = videoPlayer[i].isFrameNew();
 			if(frameNew[i]){
 				ofImage img;
 				img.setUseTexture(false);
-				img.setFromPixels(videoPlayer[i].getPixels(), videoPlayer[i].getWidth(),videoPlayer[i].getHeight(), OF_IMAGE_COLOR);
+				img.setFromPixels(videoPlayer[i].getPixels(), videoPlayer[i].width,videoPlayer[i].height, OF_IMAGE_COLOR);
 				img.setImageType(OF_IMAGE_GRAYSCALE);
-				calibImage[i].setFromPixels(img.getPixels(),videoPlayer[i].getWidth(),videoPlayer[i].getHeight());
+				calibImage[i].setFromPixels(img.getPixels(),videoPlayer[i].width,videoPlayer[i].height);
 				img.clear();
 			}
 		} else {
