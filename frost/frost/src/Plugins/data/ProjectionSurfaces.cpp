@@ -153,6 +153,15 @@ void ProjectionSurfaces::drawOnFloor(){
 }
 void ProjectionSurfaces::draw(){
 	if(drawDebug){
+		if(selectedKeystoner==0){
+			applyFloorProjection();
+			ofFill();
+			ofEnableAlphaBlending();
+			ofSetColor(255, 255, 255,80);
+			ofRect(0, 0, objects[0]->aspect, 1);
+			glPopMatrix();
+		}
+		
 		for(int i=0;i<objects.size();i++){
 			float a = 0.3;
 			
@@ -233,8 +242,7 @@ void ProjectionSurfaces::drawGrid(string text, float aspect, int resolution, boo
 	}
 	if(drawBorder){
 		ofNoFill();
-		ofSetLineWidth(5);
-		
+		ofSetLineWidth(1);
 		ofSetColor(255, 0, 255255*alpha);
 		ofRect(0, 0, 1*aspect, 1);
 		
@@ -273,6 +281,27 @@ void ProjectionSurfaces::mouseDragged(ofMouseEventArgs & args){
 	for(int i=0;i<objects.size();i++){
 		objects[i]->recalculate();
 	}	
+	
+	/*//Floor is different
+	if(selectedKeystoner == 0){
+		ofxPoint2f p0 = convertToProjectionCoordinate(objects[0], ofxVec2f(0.1,0.1));
+
+		//objects[0]->SetCorner(0, p0.x, p0.y);
+		
+		for(int i=0;i<4;i++){
+			objects[0]->warp->SetCorner(i, (*objects[0]->corners[i]).x, (*objects[0]->corners[i]).y);
+		}
+		objects[0]->warp->SetCorner(0, p0.x, p0.y);
+		
+		objects[0]->warp->MatrixCalculate();
+		ofxPoint2f a[4];
+		a[0] = ofxPoint2f(0,0);
+		a[1] = ofxPoint2f(1,0);
+		a[2] = ofxPoint2f(1,1);
+		a[3] = ofxPoint2f(0,1);
+		objects[0]->coordWarp->calculateMatrix(a, objects[0]->warp->corners);
+		
+	}*/
 	saveXml();
 }
 
@@ -426,6 +455,14 @@ void ProjectionSurfaces::applyFloorProjection(float _w, float _h){
 	glScaled(_w, _h, 1.0);
 	getFloor()->warp->MatrixMultiply();
 	glScaled(setW, setH, 1.0);
+	
+	float s = sqrt((getFloor()->aspect*getFloor()->aspect)+(1*1));  
+	
+	glTranslated(getFloor()->aspect/2.0, 0.5, 0.0);
+	glRotated(45, 0.0, 0.0, 1.0);
+	glScaled(s, s, 1.0);
+	glScaled(setW,1.0,1.0);
+	glTranslated(-getFloor()->aspect/2.0, -0.5, 0.0);
 }
 
 void ProjectionSurfaces::applyColumnProjection(int column, float _w, float _h){
