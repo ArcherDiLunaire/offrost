@@ -34,17 +34,30 @@ void ProjectionSurfacesObject::SetCorner(int n, float x, float y){
 
 ProjectionSurfaces::ProjectionSurfaces(){
 	type = DATA;
-
-	for(int i=0;i<11;i++){
+	
+	for(int i=0;i<13;i++){
 		objects.push_back(new ProjectionSurfacesObject);
 		objects[i]->coordWarp = new coordWarping;
 		objects[i]->aspect = 1.0;
 	}
 	
+	//WALL
 	objects[10]->corners[0] = getCurtain(0)->corners[0];
 	objects[10]->corners[1] = getCurtain(3)->corners[1];	
 	objects[10]->corners[2] = getCurtain(5)->corners[2];		
 	objects[10]->corners[3] = getCurtain(2)->corners[3];				
+	
+	//WALL LEFT
+	objects[11]->corners[0] = getCurtain(0)->corners[0];
+	objects[11]->corners[1] = getCurtain(0)->corners[1];	
+	objects[11]->corners[2] = getCurtain(2)->corners[2];		
+	objects[11]->corners[3] = getCurtain(2)->corners[3];				
+	
+	//WALL RIGHT
+	objects[12]->corners[0] = getCurtain(3)->corners[0];
+	objects[12]->corners[1] = getCurtain(3)->corners[1];	
+	objects[12]->corners[2] = getCurtain(5)->corners[2];		
+	objects[12]->corners[3] = getCurtain(5)->corners[3];				
 	
 	objects[0]->name = "FLOOR";
 	objects[1]->name = "COLUMN 0";
@@ -57,7 +70,8 @@ ProjectionSurfaces::ProjectionSurfaces(){
 	objects[8]->name = "CURTAIN 4";
 	objects[9]->name = "CURTAIN 5";
 	objects[10]->name = "WALL";
-
+	objects[11]->name = "WALL LEFT";
+	objects[12]->name = "WALL RIGHT";
 	
 	drawDebug = false;
 	selectedCorner = 0;
@@ -161,10 +175,11 @@ void ProjectionSurfaces::draw(){
 			}
 			applyProjection(objects[i]);					
 			if(i>0&&i<4){
-				drawGrid(objects[i]->name, (objects[i]->aspect), 1.0/ (objects[i]->aspect), false, a, 0.02);	
-				
-			} else {
+				drawGrid(objects[i]->name, (objects[i]->aspect), 1.0/ (objects[i]->aspect), false, a, 0.02);
+			} else if (i<10) {
 				drawGrid(objects[i]->name, (objects[i]->aspect), 10, (i==0)?true : false, a, 1.0);	
+			} else {
+				drawGrid(objects[i]->name, (objects[i]->aspect), 0, true, a, 1.0);	
 			}
 			
 			glPopMatrix();
@@ -172,7 +187,7 @@ void ProjectionSurfaces::draw(){
 		}
 	}
 	ofSetColor(255, 255, 0);
-
+	
 }
 
 void ProjectionSurfaces::drawSettings(){
@@ -206,9 +221,12 @@ void ProjectionSurfaces::drawSettings(){
 		if(i>0&&i<4){
 			drawGrid(objects[i]->name, (objects[i]->aspect), 1.0/ (objects[i]->aspect), false, a, 0.02);	
 			
-		} else {
+		} else if (i<10) {
 			drawGrid(objects[i]->name, (objects[i]->aspect), 10, (i==0)?true : false, a, 1.0);	
+		} else {
+			drawGrid(objects[i]->name, (objects[i]->aspect), 0, true, a, 1.0);	
 		}
+		
 		
 		glPopMatrix();
 		
@@ -231,6 +249,7 @@ void ProjectionSurfaces::drawGrid(string text, float aspect, int resolution, boo
 	for(int i=0;i<=xNumber;i++){
 		ofLine(i*1.0/resolution, 0, i*1.0/resolution, 1.0);
 	}
+	
 	if(drawBorder){
 		ofNoFill();
 		ofSetLineWidth(1);
@@ -409,7 +428,7 @@ ofxVec2f  ProjectionSurfaces::convertToProjectionCoordinate(ProjectionSurfacesOb
 ofxPoint2f ProjectionSurfaces::getColumnCoordinate(int column){
 	ofxVec2f p1 = getColumn(column)->warp->corners[3]; 
 	ofxVec2f p2 = getColumn(column)->warp->corners[2];
-
+	
 	ofxVec2f p = (p1-p2)/2.0+p2;
 	ofxPoint2f r = getFloor()->coordWarp->inversetransform(p.x, p.y);
 	r.x *= getFloor()->aspect;
@@ -422,7 +441,7 @@ void ProjectionSurfaces::applyFloorProjection(float _w, float _h){
 	glPushMatrix();
 	float setW = 1.0/getFloor()->aspect;
 	float setH = 1.0;
-
+	
 	glScaled(_w, _h, 1.0);
 	getFloor()->warp->MatrixMultiply();
 	glScaled(setW, setH, 1.0);
@@ -443,7 +462,7 @@ void ProjectionSurfaces::applyCurtainProjection(int column, int row, float _w, f
 	glPushMatrix();
 	float setW = 1.0/getCurtain(n)->aspect;
 	float setH = 1.0;
-
+	
 	glScaled(_w, _h, 1.0);
 	getCurtain(n)->warp->MatrixMultiply();
 	glScaled(setW, setH, 1.0);

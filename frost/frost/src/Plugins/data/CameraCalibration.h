@@ -11,12 +11,20 @@ public:
 	Warp * warp;
 	coordWarping * coordWarp;
 	coordWarping * coordWarpCalibration;
+	
+	Warp * warpLeftHalf;
+	coordWarping * coordWarpLeftHalf;
+	coordWarping * coordWarpCalibrationLeftHalf;
+
+	Warp * warpRightHalf;
+	coordWarping * coordWarpRightHalf;
+	coordWarping * coordWarpCalibrationRightHalf;
+
 	ofxPoint2f calibHandles[4];
 	ofxPoint2f calibPoints[4];
 
 	string name;
 };
-
 
 class CameraCalibration : public Data{
 public:
@@ -54,6 +62,5 @@ public:
 	void applyWarp(int cam, float _w=ofGetWidth(), float _h=ofGetHeight());
 	ofxVec2f convertCoordinate(int cam, float x, float y);
 	
-
 	void reCalibrate();
 };

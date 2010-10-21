@@ -6,18 +6,30 @@
 
 #include "LaLinea.h"
 
+
+int pnpoly(int nvert, float *vertx, float *verty, float testx, float testy)
+{
+	int i, j, c = 0;
+	for (i = 0, j = nvert-1; i < nvert; j = i++) {
+		if ( ((verty[i]>testy) != (verty[j]>testy)) &&
+			(testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
+			c = !c;
+	}
+	return c;
+}
+
 CameraCalibration::CameraCalibration(){
 	type = DATA;
 	
-	for(int i=0;i<4;i++){
+	for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
 		cameras.push_back(new CameraCalibrationObject);
-		cameras[i]->warp = new Warp();
-		cameras[i]->coordWarp = new coordWarping;
-		cameras[i]->coordWarpCalibration = new coordWarping;
-		if(i<3){
-			cameras[i]->name = "CAMERA "+ofToString(i, 0);
+		cameras[cameraIterator]->warp = new Warp();
+		cameras[cameraIterator]->coordWarp = new coordWarping;
+		cameras[cameraIterator]->coordWarpCalibration = new coordWarping;
+		if(cameraIterator<3){
+			cameras[cameraIterator]->name = "CAMERA "+ofToString(cameraIterator, 0);
 		} else {
-			cameras[i]->name = "MOVIE FOR CAMERA 2";
+			cameras[cameraIterator]->name = "MOVIE FOR CAMERA 2";
 		}
 	}
 	
@@ -54,9 +66,9 @@ void CameraCalibration::setup(){
 			int numCorners = keystoneXml->getNumTags("corner");
 			if(numCorners != 4){
 			} else {
-				for(int i=0;i<4;i++){
+				for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
 					//cameras[u]->warp->SetCorner( keystoneXml->getAttribute("corner", "number", 0, i) ,  keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
-					cameras[u]->calibHandles[i] = ofxPoint2f(keystoneXml->getAttribute("corner", "x", 0.0, i),  keystoneXml->getAttribute("corner", "y", 0.0, i));
+					cameras[u]->calibHandles[cameraIterator] = ofxPoint2f(keystoneXml->getAttribute("corner", "x", 0.0, cameraIterator),  keystoneXml->getAttribute("corner", "y", 0.0, cameraIterator));
 				}
 			}
 			keystoneXml->popTag();			
@@ -90,23 +102,96 @@ void CameraCalibration::setup(){
 }
 
 void CameraCalibration::reCalibrate(){
-	for(int i=0;i<4;i++){
+	for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
+		
+		// normal cams
+		
 		ofxPoint2f a[4];
 		a[0] = ofxPoint2f(0,0);
 		a[1] = ofxPoint2f(1,0);
 		a[2] = ofxPoint2f(1,1);
 		a[3] = ofxPoint2f(0,1);
 		
-		cameras[i]->coordWarpCalibration->calculateMatrix(cameras[i]->calibHandles, cameras[i]->calibPoints);	
+		cameras[cameraIterator]->coordWarpCalibration->calculateMatrix(cameras[cameraIterator]->calibHandles, cameras[cameraIterator]->calibPoints);	
 		
 		ofxPoint2f corners[4];
-		for(int u=0;u<4;u++){
-			corners[u] = cameras[i]->coordWarpCalibration->transform(a[u].x, a[u].y);
-			cameras[i]->warp->SetCorner(u,corners[u].x,corners[u].y);
+		for(int cornerIterator=0;cornerIterator<4;cornerIterator++){
+			corners[cornerIterator] = cameras[cameraIterator]->coordWarpCalibration->transform(a[cornerIterator].x, a[cornerIterator].y);
+			cameras[cameraIterator]->warp->SetCorner(cornerIterator,corners[cornerIterator].x,corners[cornerIterator].y);
 		}
 		
-		cameras[i]->warp->MatrixCalculate();
-		cameras[i]->coordWarp->calculateMatrix(a, cameras[i]->warp->corners);		
+		cameras[cameraIterator]->warp->MatrixCalculate();
+		cameras[cameraIterator]->coordWarp->calculateMatrix(a, cameras[cameraIterator]->warp->corners);		
+		
+		if(cameraIterator >= 2){
+			
+			{// folding wall left
+				
+				a[0] = ofxPoint2f(0,0);
+				a[1] = ofxPoint2f(1,0);
+				a[2] = ofxPoint2f(1,1);
+				a[3] = ofxPoint2f(0,1);
+				
+				ofxPoint2f calibHandlesLeftHalf[4];
+				ofxPoint2f calibPointsLeftHalf[4];
+				
+				calibHandlesLeftHalf[0] = cameras[cameraIterator]->calibHandles[0];
+				calibHandlesLeftHalf[1] = cameras[cameraIterator]->calibHandles[4];
+				calibHandlesLeftHalf[2] = cameras[cameraIterator]->calibHandles[5];
+				calibHandlesLeftHalf[3] = cameras[cameraIterator]->calibHandles[3];
+				
+				calibPointsLeftHalf[0] = cameras[cameraIterator]->calibPoints[0];
+				calibPointsLeftHalf[1] = cameras[cameraIterator]->calibPoints[4];
+				calibPointsLeftHalf[2] = cameras[cameraIterator]->calibPoints[5];
+				calibPointsLeftHalf[3] = cameras[cameraIterator]->calibPoints[3];
+				
+				cameras[cameraIterator]->coordWarpCalibrationLeftHalf->calculateMatrix(calibHandlesLeftHalf, calibPointsLeftHalf);	
+				
+				ofxPoint2f corners[4];
+				for(int cornerIterator=0;cornerIterator<4;cornerIterator++){
+					corners[cornerIterator] = cameras[cameraIterator]->coordWarpCalibrationLeftHalf->transform(a[cornerIterator].x, a[cornerIterator].y);
+					cameras[cameraIterator]->warpLeftHalf->SetCorner(cornerIterator,corners[cornerIterator].x,corners[cornerIterator].y);
+				}
+				
+				cameras[cameraIterator]->warpLeftHalf->MatrixCalculate();
+				cameras[cameraIterator]->coordWarpLeftHalf->calculateMatrix(a, cameras[cameraIterator]->warpLeftHalf->corners);		
+			}
+			
+			{// folding wall right
+				
+				a[0] = ofxPoint2f(0,0);
+				a[1] = ofxPoint2f(1,0);
+				a[2] = ofxPoint2f(1,1);
+				a[3] = ofxPoint2f(0,1);
+				
+				ofxPoint2f calibHandlesRightHalf[4];
+				ofxPoint2f calibPointsRightHalf[4];
+				
+				calibHandlesRightHalf[0] = cameras[cameraIterator]->calibHandles[4];
+				calibHandlesRightHalf[1] = cameras[cameraIterator]->calibHandles[1];
+				calibHandlesRightHalf[2] = cameras[cameraIterator]->calibHandles[2];
+				calibHandlesRightHalf[3] = cameras[cameraIterator]->calibHandles[5];
+				
+				calibPointsRightHalf[0] = cameras[cameraIterator]->calibPoints[4];
+				calibPointsRightHalf[1] = cameras[cameraIterator]->calibPoints[1];
+				calibPointsRightHalf[2] = cameras[cameraIterator]->calibPoints[2];
+				calibPointsRightHalf[3] = cameras[cameraIterator]->calibPoints[5];
+				
+				cameras[cameraIterator]->coordWarpCalibrationRightHalf->calculateMatrix(calibHandlesRightHalf, calibPointsRightHalf);	
+				
+				ofxPoint2f corners[4];
+				for(int cornerIterator=0;cornerIterator<4;cornerIterator++){
+					corners[cornerIterator] = cameras[cameraIterator]->coordWarpCalibrationRightHalf->transform(a[cornerIterator].x, a[cornerIterator].y);
+					cameras[cameraIterator]->warpRightHalf->SetCorner(cornerIterator,corners[cornerIterator].x,corners[cornerIterator].y);
+				}
+				
+				cameras[cameraIterator]->warpRightHalf->MatrixCalculate();
+				cameras[cameraIterator]->coordWarpRightHalf->calculateMatrix(a, cameras[cameraIterator]->warpRightHalf->corners);		
+				
+			}
+		}
+		
+		
 	}
 	
 }
@@ -130,8 +215,8 @@ void CameraCalibration::draw(){
 				float yOffsetTexture = getPlugin<LaLinea*>(controller)->offsetPoint.y;
 				
 				ofxVec2f calibHandlesInSpace[4];
-				for(int i=0;i<4;i++){
-					calibHandlesInSpace[i] = cameras[selectedKeystoner]->calibHandles[i];
+				for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
+					calibHandlesInSpace[cameraIterator] = cameras[selectedKeystoner]->calibHandles[cameraIterator];
 				}
 				
 				
@@ -141,13 +226,13 @@ void CameraCalibration::draw(){
 				//ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y
 				
 				
-			/*	ofFill();
-				ofSetColor(255, 255, 255);
-				
-				for(int i=0;i<4;i++){
-					ofEllipse(calibHandlesInSpace[i].x, calibHandlesInSpace[i].y, 0.01, 0.01);			
-				}
-				ofRect(0, 0, 1, 1);*/
+				/*	ofFill();
+				 ofSetColor(255, 255, 255);
+				 
+				 for(int i=0;i<4;i++){
+				 ofEllipse(calibHandlesInSpace[i].x, calibHandlesInSpace[i].y, 0.01, 0.01);			
+				 }
+				 ofRect(0, 0, 1, 1);*/
 				
 				
 				getPlugin<Cameras*>(controller)->getVidGrabber(2)->getTextureReference().bind();
@@ -162,12 +247,12 @@ void CameraCalibration::draw(){
 				
 				ofxPoint2f p1 = calibHandlesInSpace[0] + v1 * xOffset;
 				ofxPoint2f p2 = calibHandlesInSpace[3] + v2 * xOffset;
-
+				
 				ofxPoint2f p1t = calibHandlesInSpace[0] + v1 * xOffsetTexture + v1Hat * yOffsetTexture;
 				ofxPoint2f p2t = calibHandlesInSpace[3] + v2 * xOffsetTexture + v2Hat * yOffsetTexture;
 				
 				
-
+				
 				
 				glBegin(GL_QUAD_STRIP);{					
 					//top left
@@ -183,7 +268,7 @@ void CameraCalibration::draw(){
 					glVertex2f(p1.x , p1.y);
 					
 					//bottom middle
-				//	glTexCoord2f(xOffsetTexture*640.0, 480*yOffsetTexture+480); 
+					//	glTexCoord2f(xOffsetTexture*640.0, 480*yOffsetTexture+480); 
 					glTexCoord2f(p2t.x*w , p2t.y*h); 
 					glVertex2f(p2.x , p2.y);					
 					
@@ -212,8 +297,8 @@ void CameraCalibration::draw(){
 		ofFill();
 		ofSetColor(255, 0, 0);
 		
-		for(int i=0;i<4;i++){
-					ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 5, 5);			
+		for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
+			ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[cameraIterator].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[cameraIterator].y, 5, 5);			
 		}
 		
 		/*		if(selectedKeystoner == 2){
@@ -246,21 +331,21 @@ void CameraCalibration::drawSettings(){
 	glPopMatrix();
 	glPopMatrix();
 	
-	for(int i=0;i<4;i++){
+	for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
 		ofSetColor(255,0, 0,255);
-		if(selectedCorner == i){
+		if(selectedCorner == cameraIterator){
 			ofSetColor(255,255, 0,255);
 		}
-		ofxPoint2f p = cameras[selectedKeystoner]->calibHandles[i];
+		ofxPoint2f p = cameras[selectedKeystoner]->calibHandles[cameraIterator];
 		
 	}		
 	
 	
 	ofNoFill();
 	ofSetLineWidth(2);
-	for(int i=0;i<4;i++){
+	for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
 		ofSetColor(255, 0, 0, 225);
-		ofEllipse(cameras[selectedKeystoner]->calibHandles[i].x*w, cameras[selectedKeystoner]->calibHandles[i].y*h, 15, 15);
+		ofEllipse(cameras[selectedKeystoner]->calibHandles[cameraIterator].x*w, cameras[selectedKeystoner]->calibHandles[cameraIterator].y*h, 15, 15);
 	}
 	ofFill();
 	
@@ -285,10 +370,10 @@ void CameraCalibration::mousePressed(ofMouseEventArgs & args){
 	ofxPoint2f m = ofxPoint2f(curMouse.x, curMouse.y);
 	//selectedCorner = cameras[selectedKeystoner]->warp->GetClosestCorner(curMouse.x, curMouse.y);'
 	float closestDist = -1;
-	for(int i=0;i<4;i++){
-		if(cameras[selectedKeystoner]->calibHandles[i].distance(m) < closestDist || closestDist == -1){
-			closestDist = cameras[selectedKeystoner]->calibHandles[i].distance(m);
-			selectedCorner = i;
+	for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
+		if(cameras[selectedKeystoner]->calibHandles[cameraIterator].distance(m) < closestDist || closestDist == -1){
+			closestDist = cameras[selectedKeystoner]->calibHandles[cameraIterator].distance(m);
+			selectedCorner = cameraIterator;
 		}
 	}
 	lastMousePos = curMouse;
@@ -334,10 +419,10 @@ void CameraCalibration::saveXml(){
 		if(numCorners != 4){
 			cout<<"====== ERROR: Wrong number of corners ======"<<endl; 
 		} else {
-			for(int i=0;i<4;i++){
-				keystoneXml->setAttribute("corner", "number", i, i);
-				keystoneXml->setAttribute("corner", "x", cameras[u]->calibHandles[i].x, i);
-				keystoneXml->setAttribute("corner", "y", cameras[u]->calibHandles[i].y, i);
+			for(int cameraIterator=0;cameraIterator<4;cameraIterator++){
+				keystoneXml->setAttribute("corner", "number", cameraIterator, cameraIterator);
+				keystoneXml->setAttribute("corner", "x", cameras[u]->calibHandles[cameraIterator].x, cameraIterator);
+				keystoneXml->setAttribute("corner", "y", cameras[u]->calibHandles[cameraIterator].y, cameraIterator);
 				
 			}
 		}
@@ -363,8 +448,49 @@ void CameraCalibration::applyWarp(int cam, float _w, float _h){
 
 ofxVec2f CameraCalibration::convertCoordinate(int cam, float x, float y){
 	ofxVec2f v;
-	ofxPoint2f p = cameras[cam]->coordWarp->transform(x,y);
+	ofxPoint2f p;
+	if(cam < 2){
+		p = cameras[cam]->coordWarp->transform(x,y);
+	} else {
+		
+		float vertx[4];
+		float verty[4];
+		
+		//test if in left
+		
+		vertx[0] = cameras[cam]->calibHandles[0].x;
+		vertx[1] = cameras[cam]->calibHandles[4].x;
+		vertx[2] = cameras[cam]->calibHandles[5].x;
+		vertx[3] = cameras[cam]->calibHandles[3].x;
+
+		verty[0] = cameras[cam]->calibHandles[0].y;
+		verty[1] = cameras[cam]->calibHandles[4].y;
+		verty[2] = cameras[cam]->calibHandles[5].y;
+		verty[3] = cameras[cam]->calibHandles[3].y;
+		
+		if (pnpoly(4, vertx, verty, x, y) > 0) {
+			p = cameras[cam]->coordWarpLeftHalf->transform(x,y);
+		}
+
+		//test if in right
+		
+		vertx[0] = cameras[cam]->calibHandles[4].x;
+		vertx[1] = cameras[cam]->calibHandles[1].x;
+		vertx[2] = cameras[cam]->calibHandles[2].x;
+		vertx[3] = cameras[cam]->calibHandles[5].x;
+		
+		verty[0] = cameras[cam]->calibHandles[4].y;
+		verty[1] = cameras[cam]->calibHandles[1].y;
+		verty[2] = cameras[cam]->calibHandles[2].y;
+		verty[3] = cameras[cam]->calibHandles[5].y;
+		
+		if (pnpoly(4, vertx, verty, x, y) > 0) {
+			p = cameras[cam]->coordWarpRightHalf->transform(x,y);
+		}
+		
+	}
 	v.x = p.x;
 	v.y = p.y;
 	return v;
+	
 }
