@@ -155,7 +155,20 @@ void LaLinea::drawOnWall(){
 			points.push_back(points[1]);
 			points.push_back(points[2]);
 			
-			drawContour(&points, lineWidth, lineWidth);
+			bool reverse = false;
+			if(bUsingFilm){
+				ofxPoint2f * points = getPlugin<CameraCalibration*>(controller)->cameras[3]->calibHandles;
+				float cross = (points[1].x-points[0].x)*(points[2].y-points[1].y) - (points[1].y-points[0].y)*(points[2].x-points[1].x);
+				//(xi - xi-1) * (yi+1 - yi) - (yi - yi-1) * (xi+1 - xi)
+				if(cross < 0) reverse = true;				
+			} else {
+				ofxPoint2f * points = getPlugin<CameraCalibration*>(controller)->cameras[2]->calibHandles;
+				float cross = (points[1].x-points[0].x)*(points[2].y-points[1].y) - (points[1].y-points[0].y)*(points[2].x-points[1].x);
+				 //(xi - xi-1) * (yi+1 - yi) - (yi - yi-1) * (xi+1 - xi)
+				if(cross < 0) reverse = true;
+			}
+
+			drawContour(&points, lineWidth, lineWidth, reverse);
 		}
 		
 		
@@ -214,18 +227,23 @@ void LaLinea::drawOnWall(){
 	
 }
 
-void LaLinea::drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _extrusion){
+void LaLinea::drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _extrusion, bool _reverse){
 	if (_points->size()>0) {
 		
+		vector<ofxVec2f>  points = *_points;
+		if(_reverse){
+			std::reverse(points.begin(), points.end());
+		}
+				
 		ofSetColor(255, 255, 255);
 		
 		vector<ofxVec2f> p2;
 		
-		p2.assign(_points->size(), ofxVec2f());
+		p2.assign(points.size(), ofxVec2f());
 		
 		vector<ofxVec2f> normals;
 		
-		contourSimp.smooth(*_points, p2, 0.6);
+		contourSimp.smooth(points, p2, 0.6);
 		contourNorm.makeNormals(p2, normals);
 		
 		glBegin(GL_QUAD_STRIP);

@@ -26,7 +26,7 @@ public:
 	contourSimplify contourSimp;
 	contourNormals contourNorm;
 	
-	void drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _extrusion);
+	void drawContour(vector<ofxVec2f> * _points, float _lineWidth, float _extrusion, bool _reverse);
 
 	float extrude;
 	float lineWidth;
