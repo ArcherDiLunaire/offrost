@@ -152,7 +152,7 @@ void LaLinea::drawOnWall(){
 			ofxCvBlob b = blob(cam)->getBlob(i);
 			for(int j=b.nPts-1;j>=0;j--){
 				points.push_back(projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[j].x, b.pts[j].y)));
-				points[n] = camOffset(points[n]);
+				//points[n] = camOffset(points[n]);
 				n++;
 			}
 			points.push_back(points[0]);
@@ -187,7 +187,7 @@ void LaLinea::drawOnWall(){
 			ofxCvBlob b = blob(cam)->getBlob(i);
 			for(int j=0;j<b.nPts;j++){
 				ofxVec2f p = projection()->convertToCoordinate(projection()->getWall(), ofxVec2f(b.pts[j].x, b.pts[j].y));
-				p = camOffset(p);
+				//p = camOffset(p);
 				
 				ofVertex(p.x, p.y);
 			}

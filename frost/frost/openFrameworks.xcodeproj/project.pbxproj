@@ -515,7 +515,7 @@
 		E45BEE7A0E8CC911009D7055 /* libPocoXML.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPocoXML.a; path = ../../../libs/poco/lib/libPocoXML.a; sourceTree = SOURCE_ROOT; };
 		E4A813151003D25E008E2F31 /* CustomGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomGLView.h; path = ../CustomGLView.h; sourceTree = "<group>"; };
 		E4A813161003D25E008E2F31 /* CustomGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CustomGLView.mm; path = ../CustomGLView.mm; sourceTree = "<group>"; };
-		E4B69B5B0A3A1756003C02F2 /* Frost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Frost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* FrostDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrostDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
@@ -1478,7 +1478,7 @@
 			children = (
 				2737239A126D920A006D36BF /* icon.icns */,
 				E4C980560FF2901B0018D340 /* English.lproj */,
-				E4B69B5B0A3A1756003C02F2 /* Frost.app */,
+				E4B69B5B0A3A1756003C02F2 /* FrostDebug.app */,
 				27823130109EC1BE00AE0E24 /* Frost-Info.plist */,
 				278230E9109EA82D00AE0E24 /* Credits.html */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -1546,7 +1546,7 @@
 			);
 			name = openFrameworks;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* Frost.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* FrostDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

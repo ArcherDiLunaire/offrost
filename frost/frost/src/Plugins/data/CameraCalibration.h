@@ -11,7 +11,10 @@ public:
 	Warp * warp;
 	coordWarping * coordWarp;
 	coordWarping * coordWarpCalibration;
-	
+
+	ofxPoint2f calibHandles[6];
+	ofxPoint2f calibPoints[6];
+
 	Warp * warpLeftHalf;
 	coordWarping * coordWarpLeftHalf;
 	coordWarping * coordWarpCalibrationLeftHalf;
@@ -19,9 +22,6 @@ public:
 	Warp * warpRightHalf;
 	coordWarping * coordWarpRightHalf;
 	coordWarping * coordWarpCalibrationRightHalf;
-
-	ofxPoint2f calibHandles[4];
-	ofxPoint2f calibPoints[4];
 
 	string name;
 };
