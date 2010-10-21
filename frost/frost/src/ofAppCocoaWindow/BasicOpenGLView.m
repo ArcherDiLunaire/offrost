@@ -315,10 +315,12 @@ extern ofAppCocoaWindow * ofWindowPtr;
 	   if([self isInFullScreenMode])
 	   {
 		   [self exitFullScreenModeWithOptions:nil];
+		   [[self window] setIsVisible:YES];
 	   }
 	   else
 	   {
 		   [self enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
+		   [[self window] setIsVisible:NO];
 	   }
    }
 }

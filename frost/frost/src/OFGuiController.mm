@@ -492,6 +492,7 @@ OFGuiController * gui = NULL;
 }
 
 -(IBAction)		toggleFullscreen:(id)sender{
+	
 	ofToggleFullscreen();
 }
 

@@ -78,8 +78,8 @@ void testApp::setReferenceToOtherWindow( CustomGLViewDelegate* delegate, int i )
 	}
 	
 	if(i == 4){
-		floorPreview = delegate;
-		floorPreview->setup(&testApp::drawFloorPreview);
+//		floorPreview = delegate;
+//		floorPreview->setup(&testApp::drawFloorPreview);
 	}
 	
 	if(i == 5){

@@ -509,7 +509,7 @@ void BlobTracking::drawSettings(){
 	for(int i=0;i<trackers.size();i++){
 		ofSetColor(255, 255, 255);
 		
-		int w = 250;
+		int w = 210;
 		float a = 480.0/640.0;
 		getPlugin<Cameras*>(controller)->draw(trackers[i]->cameraId,0,w*a*i,w,w*a);
 		trackers[i]->grayImageBlured.draw(w,w*a*i,w,w*a);
