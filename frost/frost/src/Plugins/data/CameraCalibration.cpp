@@ -125,8 +125,8 @@ void CameraCalibration::draw(){
 			if(selectedKeystoner == 2){
 				//
 				
-				float xOffset = getPlugin<LaLinea*>(controller)->offsetPoint2.x;
-				float xOffsetTexture = getPlugin<LaLinea*>(controller)->offsetPoint.x;
+				float xOffset = 1-getPlugin<LaLinea*>(controller)->offsetPoint2.x;
+				float xOffsetTexture = 1-getPlugin<LaLinea*>(controller)->offsetPoint.x;
 				float yOffsetTexture = getPlugin<LaLinea*>(controller)->offsetPoint.y;
 				
 				ofxVec2f calibHandlesInSpace[4];
@@ -147,36 +147,57 @@ void CameraCalibration::draw(){
 				for(int i=0;i<4;i++){
 					ofEllipse(calibHandlesInSpace[i].x, calibHandlesInSpace[i].y, 0.01, 0.01);			
 				}
-			*/	
+				ofRect(0, 0, 1, 1);*/
 				
-				//getPlugin<Cameras*>(controller)->getVidGrabber(2)->getTextureReference().bind();
+				
+				getPlugin<Cameras*>(controller)->getVidGrabber(2)->getTextureReference().bind();
+				
+				float w = 640;
+				float h = 480;
+				ofxVec2f v1 = calibHandlesInSpace[1] - calibHandlesInSpace[0];
+				ofxVec2f v2 = calibHandlesInSpace[2] - calibHandlesInSpace[3];
+				
+				ofxVec2f v1Hat = ofxVec2f(-v1.y,v1.x);
+				ofxVec2f v2Hat = ofxVec2f(-v2.y,v2.x);
+				
+				ofxPoint2f p1 = calibHandlesInSpace[0] + v1 * xOffset;
+				ofxPoint2f p2 = calibHandlesInSpace[3] + v2 * xOffset;
+
+				ofxPoint2f p1t = calibHandlesInSpace[0] + v1 * xOffsetTexture + v1Hat * yOffsetTexture;
+				ofxPoint2f p2t = calibHandlesInSpace[3] + v2 * xOffsetTexture + v2Hat * yOffsetTexture;
+				
+				
+
+				
 				glBegin(GL_QUAD_STRIP);{					
 					//top left
-					glTexCoord2f(0.0, 0.0); 
+					glTexCoord2f(calibHandlesInSpace[0].x*w, calibHandlesInSpace[0].y*h); 
 					glVertex2f(calibHandlesInSpace[0].x, calibHandlesInSpace[0].y);
 					
 					//bottom left
-					glTexCoord2f(0, 480); 
+					glTexCoord2f(calibHandlesInSpace[3].x*w, calibHandlesInSpace[3].y*h); 
 					glVertex2f(calibHandlesInSpace[3].x, calibHandlesInSpace[3].y);
 					
-					/*//top middle
-					glTexCoord2f(xOffsetTexture*640.0, 480*yOffsetTexture); 
-					glVertex2f(xOffset, 0.0);
+					//top middle
+					glTexCoord2f(p1t.x*w , p1t.y*h); 
+					glVertex2f(p1.x , p1.y);
 					
 					//bottom middle
-					glTexCoord2f(xOffsetTexture*640.0, 480*yOffsetTexture+480); 
-					glVertex2f(xOffset,  1.0);*/
+				//	glTexCoord2f(xOffsetTexture*640.0, 480*yOffsetTexture+480); 
+					glTexCoord2f(p2t.x*w , p2t.y*h); 
+					glVertex2f(p2.x , p2.y);					
+					
 					
 					//top right
-					glTexCoord2f(640, 0); 
+					glTexCoord2f(calibHandlesInSpace[1].x*w, calibHandlesInSpace[1].y*h); 
 					glVertex2f(calibHandlesInSpace[1].x, calibHandlesInSpace[1].y);
 					
 					//bottom right
-					glTexCoord2f(640, 480); 
+					glTexCoord2f(calibHandlesInSpace[2].x*w, calibHandlesInSpace[2].y*h); 
 					glVertex2f(calibHandlesInSpace[2].x, calibHandlesInSpace[2].y);
 					
 				}glEnd();
-			//	getPlugin<Cameras*>(controller)->getVidGrabber(2)->getTextureReference().unbind();
+				getPlugin<Cameras*>(controller)->getVidGrabber(2)->getTextureReference().unbind();
 				
 				
 				
@@ -192,7 +213,7 @@ void CameraCalibration::draw(){
 		ofSetColor(255, 0, 0);
 		
 		for(int i=0;i<4;i++){
-			//		ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 5, 5);			
+					ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 5, 5);			
 		}
 		
 		/*		if(selectedKeystoner == 2){

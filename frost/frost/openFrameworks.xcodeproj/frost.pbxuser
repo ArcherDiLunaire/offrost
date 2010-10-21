@@ -2286,6 +2286,56 @@
 		path = /Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/gl.h;
 		sourceTree = "<absolute>";
 	};
+	27DA9EA51270B28B006B2FCA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DDF383971067B3E800E8A20A /* CameraCalibration.cpp */;
+		name = "CameraCalibration.cpp: 140";
+		rLen = 0;
+		rLoc = 4559;
+		rType = 0;
+		vrLen = 3354;
+		vrLoc = 4132;
+	};
+	27DA9EAD1270C037006B2FCA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DD45B62F106BA2F600B4B19C /* LaLinea.cpp */;
+		name = "LaLinea.cpp: 246";
+		rLen = 0;
+		rLoc = 7478;
+		rType = 0;
+		vrLen = 4364;
+		vrLoc = 320;
+	};
+	27DA9EAE1270C037006B2FCA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DD7CC2721063979800D3736A /* BlobTracking.cpp */;
+		name = "BlobTracking.cpp: 281";
+		rLen = 10;
+		rLoc = 8440;
+		rType = 0;
+		vrLen = 4222;
+		vrLoc = 1402;
+	};
+	27DA9EAF1270C037006B2FCA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DDF383971067B3E800E8A20A /* CameraCalibration.cpp */;
+		name = "CameraCalibration.cpp: 140";
+		rLen = 0;
+		rLoc = 4559;
+		rType = 0;
+		vrLen = 3411;
+		vrLoc = 3888;
+	};
+	27DA9EB01270C037006B2FCA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DDF383971067B3E800E8A20A /* CameraCalibration.cpp */;
+		name = "CameraCalibration.cpp: 125";
+		rLen = 0;
+		rLoc = 4097;
+		rType = 0;
+		vrLen = 3443;
+		vrLoc = 3854;
+	};
 	27DEB124126DE6DA00D2E96D /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = 2737239A126D920A006D36BF /* icon.icns */;
@@ -2647,9 +2697,9 @@
 	};
 	DD45B62F106BA2F600B4B19C /* LaLinea.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1342, 3536}}";
-			sepNavSelRange = "{308, 0}";
-			sepNavVisRange = "{422, 853}";
+			sepNavIntBoundsRect = "{{0, 0}, {1342, 3484}}";
+			sepNavSelRange = "{7478, 0}";
+			sepNavVisRange = "{320, 4364}";
 		};
 	};
 	DD45B630106BA2F600B4B19C /* LaLinea.h */ = {
@@ -2703,9 +2753,9 @@
 	};
 	DD7CC2721063979800D3736A /* BlobTracking.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1412, 7618}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1412, 7631}}";
 			sepNavSelRange = "{8440, 10}";
-			sepNavVisRange = "{2992, 1458}";
+			sepNavVisRange = "{1402, 4222}";
 			sepNavWindowFrame = "{{15, 465}, {750, 558}}";
 		};
 	};
@@ -3157,9 +3207,9 @@
 	};
 	DDF383971067B3E800E8A20A /* CameraCalibration.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1146, 4147}}";
-			sepNavSelRange = "{4559, 0}";
-			sepNavVisRange = "{4431, 1032}";
+			sepNavIntBoundsRect = "{{0, 0}, {1461, 4589}}";
+			sepNavSelRange = "{4097, 0}";
+			sepNavVisRange = "{3854, 3443}";
 		};
 	};
 	DDF383981067B3E800E8A20A /* CameraCalibration.h */ = {
@@ -3533,7 +3583,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					706,
+					504,
 					20,
 					48,
 					43,
@@ -3572,8 +3622,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 309362475;
-			PBXWorkspaceStateSaveDate = 309362475;
+			PBXPerProjectTemplateStateSaveDate = 309375613;
+			PBXWorkspaceStateSaveDate = 309375613;
 		};
 		perUserProjectItems = {
 			2707335110691F6200900013 = 2707335110691F6200900013 /* PBXTextBookmark */;
@@ -3749,6 +3799,11 @@
 			27D98A85107378A50049913B = 27D98A85107378A50049913B /* PBXTextBookmark */;
 			27D98A88107378A50049913B = 27D98A88107378A50049913B /* PBXTextBookmark */;
 			27D98AB610738A1C0049913B = 27D98AB610738A1C0049913B /* PBXTextBookmark */;
+			27DA9EA51270B28B006B2FCA /* PBXTextBookmark */ = 27DA9EA51270B28B006B2FCA /* PBXTextBookmark */;
+			27DA9EAD1270C037006B2FCA /* PBXTextBookmark */ = 27DA9EAD1270C037006B2FCA /* PBXTextBookmark */;
+			27DA9EAE1270C037006B2FCA /* PBXTextBookmark */ = 27DA9EAE1270C037006B2FCA /* PBXTextBookmark */;
+			27DA9EAF1270C037006B2FCA /* PBXTextBookmark */ = 27DA9EAF1270C037006B2FCA /* PBXTextBookmark */;
+			27DA9EB01270C037006B2FCA /* PBXTextBookmark */ = 27DA9EB01270C037006B2FCA /* PBXTextBookmark */;
 			27DEB124126DE6DA00D2E96D = 27DEB124126DE6DA00D2E96D /* PBXBookmark */;
 			27DEB176126E14DF00D2E96D = 27DEB176126E14DF00D2E96D /* PBXTextBookmark */;
 			27DEB179126E14DF00D2E96D = 27DEB179126E14DF00D2E96D /* PBXTextBookmark */;

@@ -153,15 +153,6 @@ void ProjectionSurfaces::drawOnFloor(){
 }
 void ProjectionSurfaces::draw(){
 	if(drawDebug){
-		if(selectedKeystoner==0){
-			applyFloorProjection();
-			ofFill();
-			ofEnableAlphaBlending();
-			ofSetColor(255, 255, 255,80);
-			ofRect(0, 0, objects[0]->aspect, 1);
-			glPopMatrix();
-		}
-		
 		for(int i=0;i<objects.size();i++){
 			float a = 0.3;
 			
@@ -243,11 +234,9 @@ void ProjectionSurfaces::drawGrid(string text, float aspect, int resolution, boo
 	if(drawBorder){
 		ofNoFill();
 		ofSetLineWidth(1);
-		ofSetColor(255, 255, 190,255*alpha);
+		
+		ofSetColor(255, 255, 100, 255*alpha);
 		ofRect(0, 0, 1*aspect, 1);
-
-		ofLine(0, 0, 1*aspect, 1);
-		ofLine(0, 1, 1*aspect, 0);
 		
 		ofFill();
 		ofSetColor(255, 255, 255,255*alpha);
@@ -267,8 +256,6 @@ void ProjectionSurfaces::drawGrid(string text, float aspect, int resolution, boo
 		glTranslated( aspect*0.5*1.0/fontSize-verdana.stringWidth(text)/2.0,  0.5*1.0/fontSize+verdana.stringHeight(text)/2.0, 0);	
 	}
 	
-	
-	
 	verdana.drawString(text,0,0);
 }
 
@@ -286,27 +273,6 @@ void ProjectionSurfaces::mouseDragged(ofMouseEventArgs & args){
 	for(int i=0;i<objects.size();i++){
 		objects[i]->recalculate();
 	}	
-	
-	/*//Floor is different
-	if(selectedKeystoner == 0){
-		ofxPoint2f p0 = convertToProjectionCoordinate(objects[0], ofxVec2f(0.1,0.1));
-
-		//objects[0]->SetCorner(0, p0.x, p0.y);
-		
-		for(int i=0;i<4;i++){
-			objects[0]->warp->SetCorner(i, (*objects[0]->corners[i]).x, (*objects[0]->corners[i]).y);
-		}
-		objects[0]->warp->SetCorner(0, p0.x, p0.y);
-		
-		objects[0]->warp->MatrixCalculate();
-		ofxPoint2f a[4];
-		a[0] = ofxPoint2f(0,0);
-		a[1] = ofxPoint2f(1,0);
-		a[2] = ofxPoint2f(1,1);
-		a[3] = ofxPoint2f(0,1);
-		objects[0]->coordWarp->calculateMatrix(a, objects[0]->warp->corners);
-		
-	}*/
 	saveXml();
 }
 
@@ -418,15 +384,6 @@ ofxVec2f  ProjectionSurfaces::convertToFloorCoordinate(ofxVec2f v){
 	return r;
 }
 
-ofxVec2f  ProjectionSurfaces::convertToWallCoordinate(ofxVec2f v){
-	ofxVec2f r;
-	ofxPoint2f p = getWall()->coordWarp->inversetransform(v.x, v.y);
-	r.x = p.x*getWall()->aspect;
-	r.y = p.y;
-	return r;
-}
-
-
 
 ofxVec2f  ProjectionSurfaces::convertToCoordinate(ProjectionSurfacesObject * obj,  ofxVec2f v){
 	ofxVec2f r;
@@ -468,19 +425,7 @@ void ProjectionSurfaces::applyFloorProjection(float _w, float _h){
 
 	glScaled(_w, _h, 1.0);
 	getFloor()->warp->MatrixMultiply();
-	//
-	
-	float s = sqrt(2);//sqrt((getFloor()->aspect*getFloor()->aspect)+(1*1));  
-	
-	glTranslated(0.5, 0.5, 0.0);
-	glScaled(s, s, 1.0);
-//	glScaled(setW,1.0,1.0);
-	glRotated(45, 0.0, 0.0, 1.0);
-
-	glTranslated(-0.5, -0.5, 0.0);
-
 	glScaled(setW, setH, 1.0);
-//	
 }
 
 void ProjectionSurfaces::applyColumnProjection(int column, float _w, float _h){
