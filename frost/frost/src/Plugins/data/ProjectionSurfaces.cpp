@@ -418,6 +418,15 @@ ofxVec2f  ProjectionSurfaces::convertToFloorCoordinate(ofxVec2f v){
 	return r;
 }
 
+ofxVec2f  ProjectionSurfaces::convertToWallCoordinate(ofxVec2f v){
+	ofxVec2f r;
+	ofxPoint2f p = getWall()->coordWarp->inversetransform(v.x, v.y);
+	r.x = p.x*getWall()->aspect;
+	r.y = p.y;
+	return r;
+}
+
+
 
 ofxVec2f  ProjectionSurfaces::convertToCoordinate(ProjectionSurfacesObject * obj,  ofxVec2f v){
 	ofxVec2f r;

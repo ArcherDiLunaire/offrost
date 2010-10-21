@@ -89,16 +89,7 @@
 	IBOutlet NSButton * LaLineaLockOffsetSlidersMovie;
 	IBOutlet frostSlider * LaLineaMasterAlpha;
 	IBOutlet frostCheckbox *LaLineaUseFilm;
-	IBOutlet frostSlider *LaLineaOffsetX1;
-	IBOutlet frostSlider *LaLineaOffsetY1;
-	IBOutlet frostSlider *LaLineaOffsetX2;
-	IBOutlet frostSlider *LaLineaOffsetY2;
-	IBOutlet frostSlider *LaLineaOffsetX1Movie;
-	IBOutlet frostSlider *LaLineaOffsetY1Movie;
-	IBOutlet frostSlider *LaLineaOffsetX2Movie;
-	IBOutlet frostSlider *LaLineaOffsetY2Movie;
 	IBOutlet frostSlider *LaLineaDancer;
-
 	IBOutlet frostSlider *LaLineaNoise1;
 	IBOutlet frostSlider *LaLineaNoise2;	
 	IBOutlet frostSlider *LaLineaNoise3;
@@ -300,6 +291,18 @@
 	IBOutlet NSSlider * ProjectorFloorAspect;
 	IBOutlet NSButton * ProjectorLockFloorAspect;
 	IBOutlet NSTextField * ProjectorFloorAspectText;
+	
+#pragma mark Camera Keystone Outlets
+	
+	IBOutlet frostSlider *LaLineaOffsetX1;
+	IBOutlet frostSlider *LaLineaOffsetY1;
+	IBOutlet frostSlider *LaLineaOffsetX2;
+	IBOutlet frostSlider *LaLineaOffsetY2;
+	IBOutlet frostSlider *LaLineaOffsetX1Movie;
+	IBOutlet frostSlider *LaLineaOffsetY1Movie;
+	IBOutlet frostSlider *LaLineaOffsetX2Movie;
+	IBOutlet frostSlider *LaLineaOffsetY2Movie;
+	
 	
 #pragma mark Blob Tracking Outlets
 	

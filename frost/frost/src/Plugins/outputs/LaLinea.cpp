@@ -67,8 +67,10 @@ ofxVec2f LaLinea::camOffset(ofxVec2f pointIn){
 		sy2 =  (-offsetPointMovie.y) /(1.0-offsetPoint2Movie.x);	
 		
 		if(pointIn.x <  offsetPoint2Movie.x ){
+			// vi er mellem de to første søjler
 			return ofxVec2f(pointIn.x * s1, pointIn.y + (pointIn.x * sy1) );
 		} else {
+			// vi er mellem de to sidste søjler
 			//		return ofxVec2f(pointIn.x - (offsetPoint2.x-offsetPoint2.x) , pointIn.y);
 			return ofxVec2f(offsetPointMovie.x + (s2) * (pointIn.x-offsetPoint2Movie.x)  , offsetPointMovie.y+pointIn.y + ((pointIn.x - offsetPoint2Movie.x) * sy2)   );
 			//		pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2  + offsetPoint.y )
@@ -80,8 +82,10 @@ ofxVec2f LaLinea::camOffset(ofxVec2f pointIn){
 		sy2 =  (-offsetPoint.y) /(1.0-offsetPoint2.x);	
 		
 		if(pointIn.x <  offsetPoint2.x ){
+			// vi er mellem de to første søjler
 			return ofxVec2f(pointIn.x * s1, pointIn.y + (pointIn.x * sy1) );
 		} else {
+			// vi er mellem de to sidste søjler
 			//		return ofxVec2f(pointIn.x - (offsetPoint2.x-offsetPoint2.x) , pointIn.y);
 			return ofxVec2f(offsetPoint.x + (s2) * (pointIn.x-offsetPoint2.x)  , offsetPoint.y+pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2)   );
 			//		pointIn.y + ((pointIn.x - offsetPoint2.x) * sy2  + offsetPoint.y )

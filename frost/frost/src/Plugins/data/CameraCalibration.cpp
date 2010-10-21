@@ -4,6 +4,7 @@
 #include "Cameras.h"
 #include "PluginController.h"
 
+#include "LaLinea.h"
 
 CameraCalibration::CameraCalibration(){
 	type = DATA;
@@ -19,7 +20,7 @@ CameraCalibration::CameraCalibration(){
 			cameras[i]->name = "MOVIE FOR CAMERA 2";
 		}
 	}
-		
+	
 	drawDebug = false;
 	selectedCorner = 0;
 	selectedKeystoner = 0;
@@ -83,7 +84,7 @@ void CameraCalibration::setup(){
 	cameras[3]->calibPoints[1] = projection()->getWall()->coordWarp->transform(1,0.3);
 	cameras[3]->calibPoints[2] = projection()->getWall()->coordWarp->transform(1,1);
 	cameras[3]->calibPoints[3] = projection()->getWall()->coordWarp->transform(0,1);
-
+	
 	reCalibrate();
 	
 }
@@ -110,7 +111,7 @@ void CameraCalibration::reCalibrate(){
 	
 }
 void CameraCalibration::update(){
-
+	
 }
 
 void CameraCalibration::drawOnFloor(){
@@ -120,20 +121,86 @@ void CameraCalibration::draw(){
 	if(drawDebug){
 		ofSetColor(255, 255, 255, 255);
 		glPushMatrix();
-		applyWarp(selectedKeystoner);
-		if(selectedKeystoner < 3)
-			getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,1,1);
-		else
-			getPlugin<Cameras*>(controller)->draw(selectedKeystoner-1,0,0,1,1);
-		glPopMatrix();
+		applyWarp(selectedKeystoner);{
+			if(selectedKeystoner == 2){
+				//
+				
+				float xOffset = getPlugin<LaLinea*>(controller)->offsetPoint2.x;
+				float xOffsetTexture = getPlugin<LaLinea*>(controller)->offsetPoint.x;
+				float yOffsetTexture = getPlugin<LaLinea*>(controller)->offsetPoint.y;
+				
+				ofxVec2f calibHandlesInSpace[4];
+				for(int i=0;i<4;i++){
+					calibHandlesInSpace[i] = cameras[selectedKeystoner]->calibHandles[i];
+				}
+				
+				
+				
+				
+				//ofGetWidth()*cameras[selectedKeystoner]->calibHandles[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibHandles[i].y
+				//ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y
+				
+				
+			/*	ofFill();
+				ofSetColor(255, 255, 255);
+				
+				for(int i=0;i<4;i++){
+					ofEllipse(calibHandlesInSpace[i].x, calibHandlesInSpace[i].y, 0.01, 0.01);			
+				}
+			*/	
+				
+				//getPlugin<Cameras*>(controller)->getVidGrabber(2)->getTextureReference().bind();
+				glBegin(GL_QUAD_STRIP);{					
+					//top left
+					glTexCoord2f(0.0, 0.0); 
+					glVertex2f(calibHandlesInSpace[0].x, calibHandlesInSpace[0].y);
+					
+					//bottom left
+					glTexCoord2f(0, 480); 
+					glVertex2f(calibHandlesInSpace[3].x, calibHandlesInSpace[3].y);
+					
+					/*//top middle
+					glTexCoord2f(xOffsetTexture*640.0, 480*yOffsetTexture); 
+					glVertex2f(xOffset, 0.0);
+					
+					//bottom middle
+					glTexCoord2f(xOffsetTexture*640.0, 480*yOffsetTexture+480); 
+					glVertex2f(xOffset,  1.0);*/
+					
+					//top right
+					glTexCoord2f(640, 0); 
+					glVertex2f(calibHandlesInSpace[1].x, calibHandlesInSpace[1].y);
+					
+					//bottom right
+					glTexCoord2f(640, 480); 
+					glVertex2f(calibHandlesInSpace[2].x, calibHandlesInSpace[2].y);
+					
+				}glEnd();
+			//	getPlugin<Cameras*>(controller)->getVidGrabber(2)->getTextureReference().unbind();
+				
+				
+				
+				
+				//
+			} else if(selectedKeystoner < 3)
+				getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,1,1);
+			else
+				getPlugin<Cameras*>(controller)->draw(selectedKeystoner-1,0,0,1,1);
+		}glPopMatrix();
 		
 		ofFill();
 		ofSetColor(255, 0, 0);
 		
 		for(int i=0;i<4;i++){
-			ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 5, 5);			
+			//		ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 5, 5);			
 		}
-
+		
+		/*		if(selectedKeystoner == 2){
+		 applyWallProjection();
+		 
+		 glPopMatrix();
+		 }
+		 */
 	}
 	
 	
@@ -146,14 +213,12 @@ void CameraCalibration::drawSettings(){
 	ofFill();
 	
 	glPushMatrix();
-	//	glTranslated(offset, offset, 0);
 	glPushMatrix();
 	
 	ofSetColor(255, 255, 255, 255);
 	glPushMatrix();
-	//applyWarp(selectedKeystoner,w,h);
-			if(selectedKeystoner < 3)
-				getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,w,h);
+	if(selectedKeystoner < 3)
+		getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,w,h);
 	else
 		getPlugin<Cameras*>(controller)->draw(selectedKeystoner-1,0,0,w,h);
 	
@@ -165,11 +230,8 @@ void CameraCalibration::drawSettings(){
 		if(selectedCorner == i){
 			ofSetColor(255,255, 0,255);
 		}
-	//	ofxVec2f v = cameras[selectedKeystoner]->warp->corners[i];
-//
 		ofxPoint2f p = cameras[selectedKeystoner]->calibHandles[i];
 		
-		//ofEllipse(p.x*w, p.y*h, 10, 10);
 	}		
 	
 	
@@ -180,83 +242,18 @@ void CameraCalibration::drawSettings(){
 		ofEllipse(cameras[selectedKeystoner]->calibHandles[i].x*w, cameras[selectedKeystoner]->calibHandles[i].y*h, 15, 15);
 	}
 	ofFill();
-	/*
-	 
-	 ofEnableAlphaBlending();
-	 ofSetColor(255, 255, 255,40);
-	 ofRect(0, 0, w, h);
-	 
-	 ofSetColor(255, 255, 255, 255);
-	 
-	 ofEllipse(w*0.5, h*0.4, 10, 10);
-	 ofEllipse(w*0.9, h*0.4, 10, 10);
-	 ofEllipse(w*0.8, h*0.6, 10, 10);
-	 ofEllipse(w*0.5, h*0.7, 10, 10);
-	 
-	 
-	 if(selectedKeystoner == 0){
-	 //Cam 0
-	 glPushMatrix();
-	 glScaled(0.3, 0.3, 1.0);
-	 verdana.drawString("PROJECTION", 0, 40);
-	 glPopMatrix();
-	 
-	 
-	 projection()->applyFloorProjection(w, h);
-	 ofSetColor(255, 255, 255, 40);
-	 ofRect(0, 0, 1*projection()->getFloor()->aspect, 1);
-	 glPopMatrix();
-	 
-	 
-	 
-	 
-	 
-	 
-	 }
-	 
-	 glPopMatrix();
-	 glPopMatrix();
-	 */
-	/*	glPushMatrix();
-	 glTranslated(offset, offset, 0);
-	 glPushMatrix();
-	 ofEnableAlphaBlending();
-	 ofSetColor(255, 255, 255,70);
-	 ofRect(0, 0, w, h);
-	 
-	 glScaled(w, h, 1.0);
-	 for(int i=0;i<4;i++){
-	 ofSetColor(255,0, 0);
-	 if(selectedCorner == i){
-	 ofSetColor(255,255, 0);
-	 }
-	 ofxVec2f v = objects[selectedKeystoner]->warp->corners[i];
-	 ofEllipse(v.x, v.y, 0.05, 0.05);
-	 }	
-	 glPopMatrix();
-	 
-	 //	drawDebugGrids(w,h);
-	 
-	 for(int i=0;i<10;i++){
-	 float a = 0.3;
-	 if(selectedKeystoner == i){
-	 a = 1.0;
-	 }		
-	 applyProjection(objects[i], w, h);	
-	 
-	 if(i>0&&i<4){
-	 drawGrid(objects[i]->name, (objects[i]->aspect), 1.0/ (objects[i]->aspect), false, a, 0.02);	
-	 
-	 } else {
-	 drawGrid(objects[i]->name, (objects[i]->aspect), 10, (i==0)?true : false, a, 1.0);	
-	 }
-	 
-	 glPopMatrix();
-	 
-	 }
-	 
-	 
-	 glPopMatrix();*/
+	
+	if(selectedKeystoner == 2){
+		ofxVec2f v1 = cameras[2]->calibHandles[1] - cameras[2]->calibHandles[0];
+		ofxVec2f v2 = cameras[2]->calibHandles[2] - cameras[2]->calibHandles[3];
+		
+		ofxPoint2f p1 = cameras[2]->calibHandles[0] + v1*getPlugin<LaLinea*>(controller)->offsetPoint2.x;
+		ofxPoint2f p2 = cameras[2]->calibHandles[3] + v2*getPlugin<LaLinea*>(controller)->offsetPoint2.x;
+		
+		ofSetColor(255, 255, 0);
+		ofLine(p1.x*w, p1.y*h, p2.x*w, p2.y*h);
+	}
+	
 	
 	ofPopStyle();
 	
@@ -302,7 +299,7 @@ void CameraCalibration::keyPressed(ofKeyEventArgs & args){
 	}
 	
 	reCalibrate();
-
+	
 	saveXml();
 }
 
