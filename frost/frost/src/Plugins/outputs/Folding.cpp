@@ -95,42 +95,9 @@ void Folding::update(){
 		histPos ++;
 	}
 	
-	/*if (getPlugin<Cameras*>(controller)->isFrameNew(cam) || blob(cam)->mouseBlob ) {
-	 GLuint index = glGenLists(1);
-	 blobHistoryMatrixDisplayList.push_back(index);
-	 vector<ofxCvBlob> blobList;
-	 
-	 glNewList(blobHistoryMatrixDisplayList.back(), GL_COMPILE);
-	 
-	 for (int i=0; i < blob(cam)->numBlobs(); i++) {
-	 blobList.push_back(blob(cam)->getBlob(i));
-	 
-	 ofxCvBlob b = blobList.back();
-	 
-	 ofBeginShape();
-	 
-	 
-	 for (int p = 0; p < b.nPts; p++) {
-	 
-	 ofxVec2f v = projection()->convertToCoordinate(projection()->getFloor(), ofxVec2f(b.pts[p].x, b.pts[p].y));
-	 ofVertex(v.x, v.y);
-	 
-	 }
-	 
-	 ofEndShape();
-	 
-	 }
-	 
-	 glEndList();
-	 }
-	 
-	 while(blobHistoryMatrixDisplayList.size() > 10*50){
-	 glDeleteLists(blobHistoryMatrixDisplayList.front(), 1);
-	 blobHistoryMatrixDisplayList.erase(blobHistoryMatrixDisplayList.begin());
-	 }*/
 }
 
-void Folding::drawImage(ofxCvGrayscaleImage img){
+void Folding::drawImage(ofxCvGrayscaleImage img, float pushFactor){
 	float w = img.width;
 	float h = img.height;
 	
@@ -140,10 +107,10 @@ void Folding::drawImage(ofxCvGrayscaleImage img){
 	ofxPoint2f cameraCorners[4];
 	
 	for(int i=0;i<4;i++){
-
+		
 		cameraCorners[i] = getPlugin<CameraCalibration*>(controller)->cameras[1]->coordWarp->inversetransform(corners[i].x, corners[i].y);
 	}
-		
+	
 	
 	img.draw(0, 0,0,0); //Hack for at lave nogle interne kald for at generere texture
 	
@@ -163,141 +130,95 @@ void Folding::draw(){
 	//ofPushStyle();
 	ofDisableAlphaBlending();
 	
+	//UPPER CURTAIN
+	
 	projection()->applyCurtainProjection(0, 0); {
 		glPushMatrix();	{
 			ofEnableAlphaBlending();
 			glBlendFunc(GL_SRC_COLOR, GL_ONE);
 			
 			if(histPos > 0){
-				/*	ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
-				 history[histPos-1].draw(0,0,1.0/aspect,1);
-				
-				*/
-				ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);				
-				drawImage(now[histPos-1]);
+				ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+				drawImage(history[histPos-1], push1);
+				ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+				drawImage(now[histPos-1], push1);
 			}
 			
-			
 		} glPopMatrix();
-		
 		ofDisableAlphaBlending();
-		
-		
 	} glPopMatrix();	
 	
+	//MIDDLE CURTAIN
 	
-	/*	projection()->applyCurtainProjection(0, 1); {
-	 glPushMatrix();	{
-	 glTranslated(-1.4-push2*projection()->getCurtain(1)->aspect, 0.4, 0);
-	 glPushMatrix(); { 
-	 glRotated(-25, 0, 0, 1.0);
-	 
-	 ofEnableAlphaBlending();
-	 glBlendFunc(GL_SRC_COLOR, GL_ONE);
-	 
-	 int b = histPos - 25.0*1.5;
-	 if(b < 0){
-	 b = history.size() + b;
-	 }
-	 ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
-	 history[b].draw(0,0,4,4);
-	 ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
-	 now[b].draw(0,0,4,4);
-	 
-	 } glPopMatrix();
-	 
-	 } glPopMatrix();
-	 
-	 ofDisableAlphaBlending();
-	 
-	 ofFill();
-	 
-	 ofSetColor(0, 0, 0);
-	 ofRect((1.0-push2)*projection()->getCurtain(1)->aspect, 0, 2, 1);
-	 
-	 ofRect(-3, 1, projection()->getCurtain(1)->aspect+6, 4); // bottom
-	 
-	 } glPopMatrix();	
-	 
-	 
-	 projection()->applyCurtainProjection(0, 2); {
-	 glPushMatrix();	{
-	 glTranslated(-1.4-push3*projection()->getCurtain(1)->aspect, 0.4, 0);
-	 glPushMatrix(); { 
-	 glRotated(-25, 0, 0, 1.0);
-	 
-	 ofEnableAlphaBlending();
-	 glBlendFunc(GL_SRC_COLOR, GL_ONE);
-	 
-	 int b = histPos - 25.0*3;
-	 if(b < 0){
-	 b = history.size() + b;
-	 }
-	 ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
-	 history[b].draw(0,0,4,4);
-	 ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
-	 now[b].draw(0,0,4,4);
-	 
-	 } glPopMatrix();
-	 
-	 } glPopMatrix();
-	 
-	 ofDisableAlphaBlending();
-	 
-	 ofFill();
-	 
-	 ofSetColor(0, 0, 0);
-	 ofRect((1.0-push3)*projection()->getCurtain(2)->aspect, 0, 2, 1);
-	 
-	 ofRect(-3, 1, projection()->getCurtain(2)->aspect+6, 4); // bottom
-	 
-	 } glPopMatrix();	
-	 
-	 //Left mask
-	 ofFill();
-	 projection()->applyColumnProjection(0); {
-	 ofDisableAlphaBlending();
-	 ofSetColor(0, 0, 0,255);
-	 ofRect(projection()->getColumn(0)->aspect, 0, -100, 100);
-	 } glPopMatrix();	
-	 
-	 //Right mask
-	 
-	 ofFill();
-	 projection()->applyColumnProjection(1); {
-	 ofDisableAlphaBlending();
-	 ofSetColor(0, 0, 0,255);
-	 ofRect(projection()->getColumn(1)->aspect, 0, 100, 100);
-	 } glPopMatrix();	
-	 
-	 if(fishAlpha > 0){
-	 fish.setLoopState(OF_LOOP_NORMAL);
-	 fish.play();
-	 ofEnableAlphaBlending();
-	 ofFill();
-	 ofSetColor(255, 255, 255, 255.0*fishAlpha * masterAlpha);
-	 projection()->applyProjection(projection()->getCurtain(4));
-	 fish.draw(0, 0, 1.37,1);
-	 glPopMatrix();
-	 } 
-	 */
+	projection()->applyCurtainProjection(0, 1); {
+		glPushMatrix();	{
+			ofEnableAlphaBlending();
+			glBlendFunc(GL_SRC_COLOR, GL_ONE);
+			
+			int b = histPos - 25.0*1.5;
+			if(b < 0){
+				b = history.size() + b;
+			}
+			ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+			drawImage(history[b], push2);
+			ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+			drawImage(now[b], push2);
+			
+		} glPopMatrix();
+		ofDisableAlphaBlending();
+	} glPopMatrix();	
+	
+	//LOWER CURTAIN
+	
+	projection()->applyCurtainProjection(0, 2); {
+		glPushMatrix();	{
+			ofEnableAlphaBlending();
+			glBlendFunc(GL_SRC_COLOR, GL_ONE);
+			
+			int b = histPos - 25.0*3;
+			if(b < 0){
+				b = history.size() + b;
+			}
+			ofSetColor(250 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+			drawImage(history[b], push3);
+			ofSetColor(255 * masterAlpha * historyAlpha, 255 * masterAlpha * historyAlpha,255 * masterAlpha * historyAlpha);
+			drawImage(now[b], push3);
+			
+		} glPopMatrix();
+		ofDisableAlphaBlending();
+	} glPopMatrix();	
+	
+	//FISH
+	
+	if(fishAlpha > 0){
+		fish.setLoopState(OF_LOOP_NORMAL);
+		fish.play();
+		ofEnableAlphaBlending();
+		ofFill();
+		ofSetColor(255, 255, 255, 255.0*fishAlpha * masterAlpha);
+		projection()->applyProjection(projection()->getCurtain(4));
+		fish.draw(0, 0, 1.37,1);
+		glPopMatrix();
+	} 
 }
 
 void Folding::drawOnFloor(){
 	glPushMatrix();
 	ofPushStyle();
 	if(foldingFloorbox > 0){
-		ofSetColor(255 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha);
-		ofFill();
 		ofxPoint2f points[4];
 		getTrackingRect(points);
+		
+		//RECTANGLE
+		ofSetColor(255 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha, 255 * masterAlpha * foldingFloorboxAlpha);
+		ofFill();
 		
 		glBegin(GL_QUADS);
 		for(int i=0;i<4;i++){
 			points[i] = projection()->convertToFloorCoordinate(points[i]);
 			glVertex2f(points[i].x, points[i].y);
 		}
-		glEnd();
+		glEnd();		
 	}
 	ofPopStyle();
 	glPopMatrix();

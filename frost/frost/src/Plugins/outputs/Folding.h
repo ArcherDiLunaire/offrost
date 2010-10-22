@@ -17,7 +17,7 @@ public:
 	void update();
 	
 	void getTrackingRect(ofxPoint2f * corners);
-	void drawImage(ofxCvGrayscaleImage img);
+	void drawImage(ofxCvGrayscaleImage img, float pushFactor);
 	
 	float aspect;
 	float scale;
