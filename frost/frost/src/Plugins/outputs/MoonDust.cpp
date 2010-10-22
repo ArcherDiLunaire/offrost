@@ -15,8 +15,6 @@ MoonDust::MoonDust(){
 	
 	min = 0.2;
 	max = 0.5;
-	
-	rotation = 47;
 	size = 0.007;
 	length=3000.0;
 	density = 1.0;
@@ -39,9 +37,23 @@ void MoonDust::setup(){
 void MoonDust::update(){
     vector<DustParticle>::iterator it;
     it = particles.begin();
+		
+	ofxPoint2f pColumnTop = projection()->convertToProjectionCoordinate(projection()->getFloor(), projection()->getColumnCoordinateTop(1));
+	ofxPoint2f pColumnBottom = projection()->convertToProjectionCoordinate(projection()->getFloor(), projection()->getColumnCoordinate(1));
 	
-	ofxPoint2f p = projection()->getColumnCoordinate(1);
-	ofxVec2f dir = ofxVec2f(-1,0).rotated(-rotation);
+	dir = ofxVec2f(pColumnTop-pColumnBottom);
+	dir.rotate(180);
+
+	// moving to floor space
+	
+	ofxPoint2f pColumnOnFloor = projection()->convertToFloorCoordinate(pColumnBottom); 
+	ofxPoint2f pDirOnFloor = projection()->convertToFloorCoordinate(pColumnBottom+dir); 
+
+	dir = pDirOnFloor-pColumnOnFloor;
+	dir.normalize();
+	
+	rotation = -dir.angle(ofxVec2f(0,1));
+	
 	int sections = 90;
 	float section[sections];
 	for(int i=0;i<sections;i++){
@@ -49,7 +61,6 @@ void MoonDust::update(){
 	}
 	
 	int lowestSection = 0;
-	
 	
 	for(int i=0;i<blob(cam)->numBlobs();i++){
 		ofxCvBlob b = blob(cam)->getBlob(i);
@@ -66,15 +77,15 @@ void MoonDust::update(){
 		//		if(blob(cam)->numBlobs() > 0){
 		for(int i=0;i<b.nPts-5;i+=5){
 			ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
-			ofxVec2f a = ofxVec2f(r.x-p.x, r.y-p.y);
+			ofxVec2f a = r - projection()->convertToFloorCoordinate(pColumnBottom);// ofxVec2f(r.x-pColumnBottom.x, r.y-pColumnBottom.y);
 			ofxVec2f ab = ((a.dot(dir)) * dir);
 			for(int u=0;u<sections;u++){
-				if(ab.length() < (u+1)*1.0/sections && (ab+p).y > p.y){
-					if(fabs((p+ab).distance(r)) > section[u]){
+				if(ab.length() < (u+1)*1.0/sections && (ab+pColumnBottom).y > pColumnBottom.y){
+					if(fabs((pColumnBottom+ab).distance(r)) > section[u]){
 						if(u < 10){
-							
+
 						} else {
-							section[u] = fabs((p+ab).distance(r));
+							section[u] = fabs((pColumnBottom+ab).distance(r));
 						}
 					}
 					if(lowestSection < u  ){
@@ -194,7 +205,7 @@ void MoonDust::drawOnFloor(){
 			
 			ofxCvBlob b = blob(cam)->getLargestBlob();
 			if(blob(cam)->numBlobs() > 0){
-				ofxVec2f dir = ofxVec2f(-1,0).rotated(-rotation);
+				//dir = ofxVec2f(-1,0).rotated(-rotation);
 				
 				glColor4f(255, 255, 255,255);
 				

@@ -48,6 +48,7 @@ public:
 	ProjectionSurfacesObject * getWall();
 
 	ofxPoint2f getColumnCoordinate(int column);
+	ofxPoint2f getColumnCoordinateTop(int column);
 	
 	ofxVec2f  convertToFloorCoordinate(ofxVec2f v);
 	ofxVec2f  convertToWallCoordinate(ofxVec2f v);

@@ -46,5 +46,7 @@ public:
 
 	float rotation;
 	float columnAlpha;
+	
+	ofxVec2f dir;
 
 };

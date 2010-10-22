@@ -435,7 +435,15 @@ ofxPoint2f ProjectionSurfaces::getColumnCoordinate(int column){
 	return r;
 }
 
-
+ofxPoint2f ProjectionSurfaces::getColumnCoordinateTop(int column){
+	ofxVec2f p1 = getColumn(column)->warp->corners[0]; 
+	ofxVec2f p2 = getColumn(column)->warp->corners[1];
+	
+	ofxVec2f p = (p1-p2)/2.0+p2;
+	ofxPoint2f r = getFloor()->coordWarp->inversetransform(p.x, p.y);
+	r.x *= getFloor()->aspect;
+	return r;
+}
 
 void ProjectionSurfaces::applyFloorProjection(float _w, float _h){
 	glPushMatrix();
