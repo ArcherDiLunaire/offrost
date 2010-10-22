@@ -109,10 +109,10 @@ void Tracker::update(){
 					ofxPoint2f frontEdgeLeftBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1.3));
 					ofxPoint2f frontEdgeRightBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,1.3));
 					
-					ofxPoint2f frontEdgeLeftCam = getPlugin<CameraCalibration*>(controller)->convertCoordinate(0,frontEdgeLeft.x, frontEdgeLeft.y);
-					ofxPoint2f frontEdgeRightCam = getPlugin<CameraCalibration*>(controller)->convertCoordinate(0,frontEdgeRight.x, frontEdgeRight.y);
-					ofxPoint2f frontEdgeLeftBackCam = getPlugin<CameraCalibration*>(controller)->convertCoordinate(0,frontEdgeLeftBack.x, frontEdgeLeftBack.y);
-					ofxPoint2f frontEdgeRightBackCam = getPlugin<CameraCalibration*>(controller)->convertCoordinate(0,frontEdgeRightBack.x, frontEdgeRightBack.y);
+					ofxPoint2f frontEdgeLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeft.x, frontEdgeLeft.y);
+					ofxPoint2f frontEdgeRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRight.x, frontEdgeRight.y);
+					ofxPoint2f frontEdgeLeftBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeftBack.x, frontEdgeLeftBack.y);
+					ofxPoint2f frontEdgeRightBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRightBack.x, frontEdgeRightBack.y);
 										
 					int nPoints = 4;
 					CvPoint _cp[4]= {{frontEdgeLeftCam.x*cw,frontEdgeLeftCam.y*ch}, 
