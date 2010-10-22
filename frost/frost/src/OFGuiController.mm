@@ -191,7 +191,10 @@ OFGuiController * gui = NULL;
 	[foldingUpdateHistoryFromBlob hookUpBool:&getPlugin<Folding*>(ofApp->pluginController)->updateHistoryFromBlob];	
 	[foldingHistoryAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->historyAlpha];
 	[foldingHistoryAddMultiplier hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->historyAddMultiplier];
-	
+	[foldingOffsetX hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->offsetX];
+		[foldingOffsetY hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->offsetY];
+		[foldingScale hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->scale];
+
 	[cameraBrightness1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[0]];
 	[cameraBrightness2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[1]];
 	[cameraBrightness3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[2]];

@@ -16,6 +16,12 @@ public:
 	void drawOnFloor();
 	void update();
 	
+	void getTrackingRect(ofxPoint2f * corners);
+	void drawImage(ofxCvGrayscaleImage img);
+	
+	float aspect;
+	float scale;
+	float offsetX, offsetY;
 	
 	bool debug;
 	bool updateHistoryFromBlob;

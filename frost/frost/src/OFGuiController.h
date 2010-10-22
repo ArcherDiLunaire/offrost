@@ -69,7 +69,7 @@
 	IBOutlet NSView *cameraKeystoneView;
 	
 #pragma mark Moon Dust Outlets
-
+	
 	IBOutlet NSView *moonDustView;
 	
 	IBOutlet frostSlider * MoonDustForce;
@@ -80,7 +80,7 @@
 	IBOutlet frostSlider * MoonDustMasterAlpha;
 	IBOutlet frostSlider * MoonDustColumnAlpha;	
 	IBOutlet frostSlider * MoonDustColumnMaskAlpha;	
-
+	
 #pragma mark La Linea Outlets
 	
 	IBOutlet NSView *laLineaView;
@@ -94,9 +94,9 @@
 	IBOutlet frostSlider *LaLineaNoise2;	
 	IBOutlet frostSlider *LaLineaNoise3;
 	IBOutlet frostCheckbox * LaLineaTrackingActive;
-
+	
 #pragma mark La Linea Floor Outlets
-
+	
 	IBOutlet frostSlider * LaLineaFloorMasterAlpha;
 	IBOutlet NSView *laLineaFloorView;
 	IBOutlet frostSlider * LaLineaFloorSpeed;
@@ -104,11 +104,11 @@
 	IBOutlet frostSlider * LaLineaFloorDirSpeed;
 	IBOutlet frostSlider * LaLineaFloorCurl;
 	IBOutlet frostSlider * LaLineaMaskAlpha;
-
+	
 	IBOutlet NSButton * LaLineaFloorReset;
-
+	
 #pragma mark Blob Light Outlets
-
+	
 	IBOutlet NSView *blobLightView;
 	IBOutlet frostCheckbox * BlobLightDebug;
 	IBOutlet frostSlider * BlobLightBlur;
@@ -134,11 +134,11 @@
 	IBOutlet frostCheckbox *BlobHistoryRemoveAllPrints;
 	IBOutlet frostCheckbox *BlobHistoryClearIce;
 	IBOutlet frostCheckbox *BlobHistoryFill;
-
+	
 	IBOutlet frostCheckbox *BlobHistoryClearFreeze;
 	
 	IBOutlet frostSlider *BlobHistoryMasterAlpha;
-
+	
 	IBOutlet frostSlider *BlobHistoryPlayDirection;
 	IBOutlet frostSlider *BlobHistoryAlpha;
 	IBOutlet frostSlider *BlobHistoryPrintsAlpha;
@@ -147,13 +147,13 @@
 	IBOutlet frostSlider * BlobHistoryDecrease;
 	IBOutlet frostSlider * BlobHistoryFreezeSpeed;
 	IBOutlet frostSlider * BlobHistoryFreezeStrength;
-		
+	
 #pragma mark Spotlight outlets
 	
 	IBOutlet NSView *SpotlightView;
 	IBOutlet frostSlider * SpotlightMasterAlpha;
 	IBOutlet frostSlider * SpotlightRadiusMultiplier;
-
+	
 #pragma mark MirrorBall outlets
 	
 	IBOutlet NSView *MirrorBallView;
@@ -163,7 +163,7 @@
 	IBOutlet frostCheckbox * MirrorBallReflection1DotAdd;
 	IBOutlet frostCheckbox * MirrorBallReflection1DotRemove;
 	IBOutlet frostCheckbox * MirrorBallReflection1Clear;
-
+	
 	IBOutlet frostSlider * MirrorBallReflection1OnFraction;
 	IBOutlet frostSlider * MirrorBallReflection1AlphaFraction;
 	IBOutlet frostSlider * MirrorBallReflection1DotSize;
@@ -199,6 +199,9 @@
 	IBOutlet frostSlider * foldingFishAlpha;
 	IBOutlet frostSlider * foldingFloorbox;
 	IBOutlet frostSlider * foldingFloorboxAlpha;
+	IBOutlet frostSlider * foldingOffsetX;
+	IBOutlet frostSlider * foldingOffsetY;
+	IBOutlet frostSlider * foldingScale;
 	IBOutlet frostCheckbox * foldingHistoryClear;
 	IBOutlet frostCheckbox * foldingReset;
 	IBOutlet frostCheckbox * foldingUpdateHistoryFromBlob;
@@ -218,21 +221,21 @@
 	IBOutlet frostSlider * FrostscapeColumnFreeze2;
 	IBOutlet frostSlider * FrostscapeColumnFreeze3;
 	IBOutlet frostSlider * FrostscapeFreezeColumns;
-
+	
 	IBOutlet frostSlider * FrostscapeWhiteBackground;
 	IBOutlet frostCheckbox * FrostscapeAddLines;
 	IBOutlet frostSlider * FrostscapeLinesAlpha;
-
+	
 	IBOutlet frostCheckbox * FrostscapeInvert;
 	IBOutlet frostSlider * FrostscapeMasterAlpha;
 	IBOutlet frostSlider * FrostscapeLinesAddSpeed;
 	IBOutlet frostCheckbox * FrostscapeResetLines;
 	IBOutlet frostSlider * FrostscapeFreezeLines;
-
-
+	
+	
 #pragma mark LiquidSpace outlets
 	IBOutlet frostSlider * liquidSpaceMasterAlpha;
-
+	
 	IBOutlet NSView *liquidSpaceView;
 	IBOutlet frostCheckbox * liquidUpdateMotor;
 	IBOutlet frostCheckbox * liquidSpaceFIll;
@@ -251,7 +254,7 @@
 	IBOutlet frostCheckbox * liquidSpaceAddRing2;
 	IBOutlet frostCheckbox * liquidSpaceAddRing3;
 	IBOutlet frostCheckbox * liquidSpaceAddFixedRing2;
-
+	
 #pragma mark Camera Outlets
 	
 	IBOutlet NSView * cameraSetting;
@@ -271,11 +274,11 @@
 	IBOutlet frostSlider * cameraShutter1;
 	IBOutlet frostSlider * cameraShutter2;
 	IBOutlet frostSlider * cameraShutter3;
-
+	
 	IBOutlet frostSlider * cameraExposure1;
 	IBOutlet frostSlider * cameraExposure2;
 	IBOutlet frostSlider * cameraExposure3;
-
+	
 	IBOutlet frostSlider * cameraGamma1;
 	IBOutlet frostSlider * cameraGamma2;
 	IBOutlet frostSlider * cameraGamma3;
@@ -316,7 +319,7 @@
 	IBOutlet NSSlider * BlobBlur3;
 	IBOutlet frostCheckbox * BlobActive3;
 	IBOutlet frostCheckbox * Blob1OnlyCurtain;
-
+	
 #pragma mark OpenGL Views
 	
 	IBOutlet CustomGLView * camView;
