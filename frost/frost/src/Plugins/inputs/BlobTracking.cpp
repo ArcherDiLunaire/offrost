@@ -79,13 +79,6 @@ Tracker::Tracker(){
 }
 
 void Tracker::setup(){
-	xml = new ofxXmlSettings;
-	xml->loadFile("keystoneSettings.xml");
-	xml->pushTag("blobblack", 0);
-	xml->pushTag("camera", cameraId);
-	for(int i=0;i<4;i++){
-		blackCorners[i] = ofxPoint2f(xml->getAttribute("corner", "x", 0.0, i), xml->getAttribute("corner", "y", 0.0, i));
-	}
 	
 	thread.w = getPlugin<Cameras*>(controller)->getWidth();
 	thread.h = getPlugin<Cameras*>(controller)->getHeight();	
@@ -109,21 +102,27 @@ void Tracker::update(){
 				
 				grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
 				
-				/*CvPoint _cp1[4]= {{0,0}, {cw,0}, {blackCorners[1].x,blackCorners[1].y}, {blackCorners[0].x,blackCorners[0].y}};
-				 CvPoint _cp2[4]= {{cw,0}, {cw,ch}, {blackCorners[2].x,blackCorners[2].y}, {blackCorners[1].x,blackCorners[1].y}};
-				 CvPoint _cp3[4]= {{cw,ch},{0,ch}, {blackCorners[3].x,blackCorners[3].y}, {blackCorners[2].x,blackCorners[2].y}};			
-				 CvPoint _cp4[4]= {{0,ch},{0,0}, {blackCorners[0].x,blackCorners[0].y}, {blackCorners[3].x,blackCorners[3].y}};			
-				 
-				 CvPoint* cp1 = _cp1; cvFillPoly(grayImage.getCvImage(), &cp1, &nPoints, 1, cvScalar(0));
-				 CvPoint* cp2 = _cp2; cvFillPoly(grayImage.getCvImage(), &cp2, &nPoints, 1, cvScalar(0));
-				 CvPoint* cp3 = _cp3; cvFillPoly(grayImage.getCvImage(), &cp3, &nPoints, 1, cvScalar(0));
-				 CvPoint* cp4 = _cp4; cvFillPoly(grayImage.getCvImage(), &cp4, &nPoints, 1, cvScalar(0));
-				 */
+				if(cameraId == 0){
 				
-				int nPoints = 4;
-				CvPoint _cp[4]= {{blackCorners[0].x,blackCorners[0].y}, {blackCorners[1].x,blackCorners[1].y},{blackCorners[2].x,blackCorners[2].y},{blackCorners[3].x,blackCorners[3].y}};			
-				CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-				
+					ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.9));
+					ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.9));
+					ofxPoint2f frontEdgeLeftBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1.3));
+					ofxPoint2f frontEdgeRightBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,1.3));
+					
+					ofxPoint2f frontEdgeLeftCam = getPlugin<CameraCalibration*>(controller)->convertCoordinate(0,frontEdgeLeft.x, frontEdgeLeft.y);
+					ofxPoint2f frontEdgeRightCam = getPlugin<CameraCalibration*>(controller)->convertCoordinate(0,frontEdgeRight.x, frontEdgeRight.y);
+					ofxPoint2f frontEdgeLeftBackCam = getPlugin<CameraCalibration*>(controller)->convertCoordinate(0,frontEdgeLeftBack.x, frontEdgeLeftBack.y);
+					ofxPoint2f frontEdgeRightBackCam = getPlugin<CameraCalibration*>(controller)->convertCoordinate(0,frontEdgeRightBack.x, frontEdgeRightBack.y);
+										
+					int nPoints = 4;
+					CvPoint _cp[4]= {{frontEdgeLeftCam.x*cw,frontEdgeLeftCam.y*ch}, 
+						{frontEdgeRightCam.x*cw,frontEdgeRightCam.y*ch},
+						{frontEdgeRightBackCam.x*cw,frontEdgeRightBackCam.y*ch},
+						{frontEdgeLeftBackCam.x*cw,frontEdgeLeftBackCam.y*ch}};			
+					CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+
+				}
+								
 				grayImageBlured = grayImage;
 				grayImageBlured.blur(blur);
 				

@@ -21,6 +21,7 @@ Cameras::Cameras(){
 	hasCameras = true;
 	numCameras = 3;
 	timeSinceLastCameraCheck = 0;
+	ofSetLogLevel(OF_LOG_SILENT);
 }
 Cameras::~Cameras(){
 	for(int i=0;i<3;i++){
