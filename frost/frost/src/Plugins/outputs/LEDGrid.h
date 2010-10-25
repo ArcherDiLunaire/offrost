@@ -30,6 +30,8 @@ public:
 	
 };
 
+class LEDGrid;
+
 class LEDGridThread : public ofxThread {
 	
 public:
@@ -58,6 +60,8 @@ public:
 	bool alphaSet;
 	
 	ofxPoint2f p;
+	
+	LEDGrid * ledGridObject;
 	
 };
 

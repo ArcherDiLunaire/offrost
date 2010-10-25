@@ -200,6 +200,13 @@ void LEDGridThread::threadedFunction(){
 							lamps[i].b = 254;
 						}
 						
+						if(!ledGridObject->enabled){
+							lamps[i].r = 0;
+							lamps[i].g = 0;
+							lamps[i].b = 0;
+							lamps[i].a = 0;
+						}
+						
 						unlock();
 						
 					}
@@ -300,7 +307,7 @@ LEDGrid::LEDGrid(){
 void LEDGrid::setup(){
 	
 	updateThreadValues();
-	
+	serialThread.ledGridObject = this; 
 	serialThread.start();
 }
 

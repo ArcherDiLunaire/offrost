@@ -104,10 +104,15 @@ void Folding::drawImage(ofxCvGrayscaleImage img, float pushFactor){
 	ofxPoint2f corners[4];
 	getTrackingRect(corners);
 	
+	ofxVec2f v1 = corners[0] - corners[1];
+	ofxVec2f v2 = corners[3] - corners[2];	
+	
+	corners[0] = corners[0] - v1*(pushFactor);
+	corners[3] = corners[3] - v2*(pushFactor);
+	
 	ofxPoint2f cameraCorners[4];
 	
-	for(int i=0;i<4;i++){
-		
+	for(int i=0;i<4;i++){		
 		cameraCorners[i] = getPlugin<CameraCalibration*>(controller)->cameras[1]->coordWarp->inversetransform(corners[i].x, corners[i].y);
 	}
 	
@@ -118,8 +123,8 @@ void Folding::drawImage(ofxCvGrayscaleImage img, float pushFactor){
 	glBegin(GL_QUADS);
 	
 	glTexCoord2f(cameraCorners[0].x*w, cameraCorners[0].y*h);	glVertex2f(0.0, 0.0);
-	glTexCoord2f(cameraCorners[1].x*w, cameraCorners[1].y*h);	glVertex2f(1.0/aspect, 0.0);
-	glTexCoord2f(cameraCorners[2].x*w, cameraCorners[2].y*h);	glVertex2f(1.0/aspect, 1.0);
+	glTexCoord2f(cameraCorners[1].x*w, cameraCorners[1].y*h);	glVertex2f((1-pushFactor)*1.0/aspect, 0.0);
+	glTexCoord2f(cameraCorners[2].x*w, cameraCorners[2].y*h);	glVertex2f((1-pushFactor)*1.0/aspect, 1.0);
 	glTexCoord2f(cameraCorners[3].x*w, cameraCorners[3].y*h);	glVertex2f(0.0, 1.0);
 	
 	glEnd();
