@@ -126,7 +126,7 @@ void Tracker::update(){
 				}
 				
 				if(cameraId == 2){
-					CameraCalibrationObject * cam = getPlugin<CameraCalibration*>(controller)->cameras[2];
+					/*CameraCalibrationObject * cam = getPlugin<CameraCalibration*>(controller)->cameras[2];
 					int nPoints = 4;
 					
 					float h = 10.0/(float)ch;
@@ -170,8 +170,8 @@ void Tracker::update(){
 						
 						points[0] = ofxPoint2f(p1.x, p1.y);
 						points[1] = ofxPoint2f(p2.x, p2.y);
-						points[2] = ofxPoint2f(p2.x, p2.y+h);
-						points[3] = ofxPoint2f(p1.x, p1.y+h);
+						points[2] = ofxPoint2f(p2.x, p2.y-h);
+						points[3] = ofxPoint2f(p1.x, p1.y-h);
 						
 						CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
 							{points[1].x*cw,points[1].y*ch},
@@ -191,8 +191,8 @@ void Tracker::update(){
 						
 						points[0] = ofxPoint2f(p1.x, p1.y);
 						points[1] = ofxPoint2f(p2.x, p2.y);
-						points[2] = ofxPoint2f(p2.x, p2.y+h);
-						points[3] = ofxPoint2f(p1.x, p1.y+h);
+						points[2] = ofxPoint2f(p2.x, p2.y-h);
+						points[3] = ofxPoint2f(p1.x, p1.y-h);
 						
 						CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
 							{points[1].x*cw,points[1].y*ch},
@@ -201,7 +201,7 @@ void Tracker::update(){
 						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
 						
 					}
-					
+					*/
 					
 					
 					/*					//COLUMN MASK

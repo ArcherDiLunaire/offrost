@@ -295,7 +295,7 @@ OFGuiController * gui = NULL;
 		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->historyAlpha = [userDefaults doubleForKey:@"folding.historyAlpha"];
 		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->historyAddMultiplier = [userDefaults doubleForKey:@"folding.historyAddMultiplier"];
 		
-		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->debug = false;
+		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->debug = [userDefaults doubleForKey:@"led.debug"];
 		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->pt1x = [userDefaults doubleForKey:@"led.pt1x"];
 		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->pt1y = [userDefaults doubleForKey:@"led.pt1y"];
 		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->pt2x = [userDefaults doubleForKey:@"led.pt2x"];

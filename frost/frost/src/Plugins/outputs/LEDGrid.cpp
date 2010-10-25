@@ -160,8 +160,8 @@ void LEDGridThread::threadedFunction(){
 						
 						float a = 0;
 						
-						ofxPoint2f calibratedLampPosition = lamps[i].pos * ofxPoint2f(ledGridObject->pt2x-ledGridObject->pt1x, ledGridObject->pt2y-ledGridObject->pt1y) + ofxPoint2f(ledGridObject->pt1x, ledGridObject->pt1y);
-						
+						//ofxPoint2f calibratedLampPosition = lamps[i].pos * ofxPoint2f(ledGridObject->pt2x-ledGridObject->pt1x, ledGridObject->pt2y-ledGridObject->pt1y) + ofxPoint2f(ledGridObject->pt1x, ledGridObject->pt1y);
+						ofxPoint2f calibratedLampPosition = lamps[i].pos;
 						float d = p.distance(calibratedLampPosition);
 						d = (radius-d)/radius;
 						a = d;
@@ -183,9 +183,9 @@ void LEDGridThread::threadedFunction(){
 						lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.092;		
 						lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.092;		
 						lamps[i].b += ((b-lamps[i].b  )*a + (b2-lamps[i].b  )*(1.0-a) ) * 0.092;		
-						
-						if(ledGridObject->debug){
-							lamps[i].a = 0;
+					//cout<<ledGridObject->debug<<endl;
+					/*	if(ledGridObject->debug){
+ 							lamps[i].a = 0;
 							lamps[i].r = 0;
 							lamps[i].g = 0;
 							lamps[i].b = 0;
@@ -199,7 +199,7 @@ void LEDGridThread::threadedFunction(){
 							lamps[38].r = 255;
 							lamps[38].g = 255;
 							lamps[38].b = 255;
-						}
+						}*/
 						
 						if(lamps[i].a > 254){
 							lamps[i].a = 254;
@@ -297,7 +297,7 @@ void LEDGridThread::threadedFunction(){
 		}
 		
 	}
-	
+	//ofSleepMillis(1);
 }
 
 
