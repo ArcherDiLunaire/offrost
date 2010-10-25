@@ -216,6 +216,17 @@ void LiquidSpace::drawOnFloor(){
 	ofFill();
 	ofSetColor(0, 0, 0,255);
 	
+	// ingen ringe på velouren !!
+	
+	projection()->applyProjection(projection()->getFloor());{
+
+		ofRect(-projection()->getFloor()->aspect, 0, 3.0*projection()->getFloor()->aspect, -1);	// top
+		ofRect(0, 0, -projection()->getFloor()->aspect, 1);										// left
+		ofRect(projection()->getFloor()->aspect, 0, projection()->getFloor()->aspect, 1);		// right
+		ofRect(1*projection()->getFloor()->aspect, 0, 3*projection()->getFloor()->aspect, 1);	// bottom
+	
+	} glPopMatrix();
+		
 	for(int i=0;i<3;i++){
 		projection()->applyColumnProjection(i);		
 		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);		
