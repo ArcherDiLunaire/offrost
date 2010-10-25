@@ -25,6 +25,8 @@ public:
 	
 	bool isOldAndSucks;
 	
+	
+	
 
 	void update();
 	
@@ -63,6 +65,7 @@ public:
 	
 	LEDGrid * ledGridObject;
 	
+	
 };
 
 class LEDGrid: public Output{
@@ -98,5 +101,8 @@ public:
 	ofxPoint2f p;
 	
 	LEDGridThread serialThread;
+	
+	float pt1x, pt1y, pt2x, pt2y;
+
 	
 };

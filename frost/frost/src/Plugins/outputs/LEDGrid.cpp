@@ -160,7 +160,9 @@ void LEDGridThread::threadedFunction(){
 						
 						float a = 0;
 						
-						float d = p.distance(lamps[i].pos);
+						ofxPoint2f calibratedLampPosition = lamps[i].pos * ofxPoint2f(ledGridObject->pt2x-ledGridObject->pt1x, ledGridObject->pt2y-ledGridObject->pt1y) + ofxPoint2f(ledGridObject->pt1x, ledGridObject->pt1y);
+						
+						float d = p.distance(calibratedLampPosition);
 						d = (radius-d)/radius;
 						a = d;
 						if(a > 1){
@@ -181,6 +183,23 @@ void LEDGridThread::threadedFunction(){
 						lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.092;		
 						lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.092;		
 						lamps[i].b += ((b-lamps[i].b  )*a + (b2-lamps[i].b  )*(1.0-a) ) * 0.092;		
+						
+						if(ledGridObject->debug){
+							lamps[i].a = 0;
+							lamps[i].r = 0;
+							lamps[i].g = 0;
+							lamps[i].b = 0;
+							
+							lamps[7].a = 255;
+							lamps[7].r = 255;
+							lamps[7].g = 255;
+							lamps[7].b = 255;							
+							
+							lamps[38].a = 255;
+							lamps[38].r = 255;
+							lamps[38].g = 255;
+							lamps[38].b = 255;
+						}
 						
 						if(lamps[i].a > 254){
 							lamps[i].a = 254;
@@ -316,6 +335,13 @@ void LEDGrid::draw(){
 }
 
 void LEDGrid::drawOnFloor(){
+	if(debug){
+		ofSetColor(255, 255, 255);
+		ofFill();
+		ofCircle(pt1x*projection()->getFloor()->aspect, pt1y, 0.02);
+		ofCircle(pt2x*projection()->getFloor()->aspect, pt2y, 0.02);
+		
+	}
 	/**
 	 if (debug) {
 	 for(int i=0;i<lamps.size();i++){

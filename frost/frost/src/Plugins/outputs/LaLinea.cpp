@@ -1,4 +1,3 @@
-
 #include "PluginController.h"
 #include "PluginIncludes.h"
 

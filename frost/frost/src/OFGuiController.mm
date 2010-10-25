@@ -115,6 +115,10 @@ OFGuiController * gui = NULL;
 	[LEDMasterFader hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->master];
 	[LEDRadius hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->radius];
 	[LEDdebug hookUpBool:&getPlugin<LEDGrid*>(ofApp->pluginController)->debug];
+	[LEDPT1X hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->pt1x];
+	[LEDPT1Y hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->pt1y];
+	[LEDPT2X hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->pt2x];
+	[LEDPT2Y hookUpFloat:&getPlugin<LEDGrid*>(ofApp->pluginController)->pt2y];
 	
 	[MoonDustMasterAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->masterAlpha];
 	[MoonDustColumnAlpha hookUpFloat:&getPlugin<MoonDust*>(ofApp->pluginController)->columnAlpha];
@@ -192,9 +196,9 @@ OFGuiController * gui = NULL;
 	[foldingHistoryAlpha hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->historyAlpha];
 	[foldingHistoryAddMultiplier hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->historyAddMultiplier];
 	[foldingOffsetX hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->offsetX];
-		[foldingOffsetY hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->offsetY];
-		[foldingScale hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->scale];
-
+	[foldingOffsetY hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->offsetY];
+	[foldingScale hookUpFloat:&getPlugin<Folding*>(ofApp->pluginController)->scale];
+	
 	[cameraBrightness1 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[0]];
 	[cameraBrightness2 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[1]];
 	[cameraBrightness3 hookUpFloat:&getPlugin<Cameras*>(ofApp->pluginController)->cameraBrightness[2]];
@@ -292,7 +296,10 @@ OFGuiController * gui = NULL;
 		((Folding*)getPlugin<Folding*>(ofApp->pluginController))->historyAddMultiplier = [userDefaults doubleForKey:@"folding.historyAddMultiplier"];
 		
 		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->debug = false;
-		
+		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->pt1x = [userDefaults doubleForKey:@"led.pt1x"];
+		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->pt1y = [userDefaults doubleForKey:@"led.pt1y"];
+		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->pt2x = [userDefaults doubleForKey:@"led.pt2x"];
+		((LEDGrid*)getPlugin<LEDGrid*>(ofApp->pluginController))->pt2y = [userDefaults doubleForKey:@"led.pt2y"];
 		/**
 		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setFadeSpeed(0.00005 * [userDefaults doubleForKey:@"liquidSpace.fadeSpeed"]);
 		 (getPlugin<LiquidSpace*>(ofApp->pluginController))->fluidDrawer.getFluidSolver()->setVisc(0.0000001 * [userDefaults doubleForKey:@"liquidSpace.viscosity"]);

@@ -199,7 +199,7 @@ void LiquidSpace::drawOnFloor(){
 			ringTexture.getTextureReference().bind();
 			glColor4f(1.0, 1.0, 1.0, rings[i].currentSpeed * 2.5);
 			glBegin(GL_QUAD_STRIP);
-			for(int u=0;u<n;u++){
+			for(int u=0;u<=n;u++){
 				glTexCoord2f(0.0f, 0.0f);    
 				glVertex2f(cos(TWO_PI*(float)u/n)*rings[i].size, sin(TWO_PI*(float)u/n)*rings[i].size);
 				glTexCoord2f(50, 0.0f);

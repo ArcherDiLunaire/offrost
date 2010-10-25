@@ -186,7 +186,10 @@
 	IBOutlet NSColorWell * LEDblobColor;
 	IBOutlet NSColorWell * LEDbackgroundColor;
 	IBOutlet frostCheckbox * LEDdebug;
-	
+	IBOutlet frostSlider * LEDPT1X;
+	IBOutlet frostSlider * LEDPT1Y;
+	IBOutlet frostSlider * LEDPT2X;
+	IBOutlet frostSlider * LEDPT2Y;
 #pragma mark Folding outlets
 	
 	IBOutlet NSView *foldingView;
