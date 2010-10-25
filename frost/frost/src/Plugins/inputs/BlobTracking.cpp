@@ -104,6 +104,8 @@ void Tracker::update(){
 				
 				if(cameraId == 0){
 				
+					// STAGE FRONT MASK
+					
 					ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.9));
 					ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.9));
 					ofxPoint2f frontEdgeLeftBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1.3));
@@ -122,7 +124,35 @@ void Tracker::update(){
 					CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
 
 				}
-								
+				
+				if(cameraId == 2){
+					
+/*					//COLUMN MASK
+					
+					for (int i=0; i < 3; i++) {
+						
+						ofxPoint2f columnCorner0 = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i),ofxVec2f(0,0));
+						ofxPoint2f columnCorner1 = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i)->aspect,0));
+						ofxPoint2f columnCorner2 = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i)->aspect,1));
+						ofxPoint2f columnCorner3 = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i),ofxVec2f(0,1));
+					
+						columnCorner0 = getPlugin<CameraCalibration*>(controller)->cameras[2]->coordWarp->inversetransform(columnCorner0.x, columnCorner0.y);
+						columnCorner1 = getPlugin<CameraCalibration*>(controller)->cameras[2]->coordWarp->inversetransform(columnCorner1.x, columnCorner1.y);
+						columnCorner2 = getPlugin<CameraCalibration*>(controller)->cameras[2]->coordWarp->inversetransform(columnCorner2.x, columnCorner2.y);
+						columnCorner3 = getPlugin<CameraCalibration*>(controller)->cameras[2]->coordWarp->inversetransform(columnCorner3.x, columnCorner3.y);
+						
+						int nPoints = 4;
+						CvPoint _cp[4]= {{columnCorner0.x*cw,columnCorner0.y*ch}, 
+							{columnCorner1.x*cw,columnCorner1.y*ch},
+							{columnCorner2.x*cw,columnCorner2.y*ch},
+							{columnCorner3.x*cw,columnCorner3.y*ch}};			
+						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+
+					}
+ */
+					
+				}
+				
 				grayImageBlured = grayImage;
 				grayImageBlured.blur(blur);
 				
@@ -382,7 +412,6 @@ void Tracker::deletePersistentBlobById(unsigned long int id){
 		}
 	}
 }
-
 
 void Tracker::updateMouseBlob(float x, float y, int button){
 	if(button != -1){
