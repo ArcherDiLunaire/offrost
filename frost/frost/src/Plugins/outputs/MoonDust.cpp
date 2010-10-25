@@ -38,6 +38,8 @@ void MoonDust::update(){
     vector<DustParticle>::iterator it;
     it = particles.begin();
 		
+	ofxPoint2f p = projection()->getColumnCoordinate(1);
+
 	ofxPoint2f pColumnTop = projection()->convertToProjectionCoordinate(projection()->getFloor(), projection()->getColumnCoordinateTop(1));
 	ofxPoint2f pColumnBottom = projection()->convertToProjectionCoordinate(projection()->getFloor(), projection()->getColumnCoordinate(1));
 	
@@ -76,16 +78,17 @@ void MoonDust::update(){
 		
 		//		if(blob(cam)->numBlobs() > 0){
 		for(int i=0;i<b.nPts-5;i+=5){
+			
 			ofxVec2f r = projection()->convertToFloorCoordinate(ofxVec2f(b.pts[i].x, b.pts[i].y));			
-			ofxVec2f a = r - projection()->convertToFloorCoordinate(pColumnBottom);// ofxVec2f(r.x-pColumnBottom.x, r.y-pColumnBottom.y);
+			ofxVec2f a = ofxVec2f(r.x-p.x, r.y-p.y);
 			ofxVec2f ab = ((a.dot(dir)) * dir);
 			for(int u=0;u<sections;u++){
-				if(ab.length() < (u+1)*1.0/sections && (ab+pColumnBottom).y > pColumnBottom.y){
-					if(fabs((pColumnBottom+ab).distance(r)) > section[u]){
+				if(ab.length() < (u+1)*1.0/sections && (ab+p).y > p.y){
+					if(fabs((p+ab).distance(r)) > section[u]){
 						if(u < 10){
 
 						} else {
-							section[u] = fabs((pColumnBottom+ab).distance(r));
+							section[u] = fabs((p+ab).distance(r));
 						}
 					}
 					if(lowestSection < u  ){
