@@ -106,103 +106,140 @@ void Tracker::update(){
 				if(cameraId == 0 && !getPlugin<Frostscape*>(controller)->enabled){
 					
 					// STAGE FRONT MASK (aber nicht ins frostscape)
+					{
+						ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.85));
+						ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.85));
+						ofxPoint2f frontEdgeLeftBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1.3));
+						ofxPoint2f frontEdgeRightBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,1.3));
+						
+						ofxPoint2f frontEdgeLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeft.x, frontEdgeLeft.y);
+						ofxPoint2f frontEdgeRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRight.x, frontEdgeRight.y);
+						ofxPoint2f frontEdgeLeftBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeftBack.x, frontEdgeLeftBack.y);
+						ofxPoint2f frontEdgeRightBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRightBack.x, frontEdgeRightBack.y);
+						
+						int nPoints = 4;
+						CvPoint _cp[4]= {{frontEdgeLeftCam.x*cw,frontEdgeLeftCam.y*ch}, 
+							{frontEdgeRightCam.x*cw,frontEdgeRightCam.y*ch},
+							{frontEdgeRightBackCam.x*cw,frontEdgeRightBackCam.y*ch},
+							{frontEdgeLeftBackCam.x*cw,frontEdgeLeftBackCam.y*ch}};			
+						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+					}
 					
-					ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.85));
-					ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.85));
-					ofxPoint2f frontEdgeLeftBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1.3));
-					ofxPoint2f frontEdgeRightBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,1.3));
+					//Backwall mask
+					{
+						ofxPoint2f wallLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0));
+						ofxPoint2f wallRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(1,0));
+						
+						ofxPoint2f wallLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallLeft.x, wallLeft.y);
+						ofxPoint2f wallRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallRight.x, wallRight.y);
+						
+						ofxVec2f v = wallRightCam - wallLeftCam;
+						ofxVec2f h = -ofxVec2f(-v.y, v.x)*0.3;
+						
+						int nPoints = 4;
+						CvPoint _cp[4]= {{wallLeftCam.x*cw,wallLeftCam.y*ch}, 
+							{(wallLeftCam+h).x*cw,(wallLeftCam+h).y*ch},
+							{(wallRightCam+h).x*cw,(wallRightCam+h).y*ch},
+							{wallRightCam.x*cw,wallRightCam.y*ch}};			
+						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+					}
 					
-					ofxPoint2f frontEdgeLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeft.x, frontEdgeLeft.y);
-					ofxPoint2f frontEdgeRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRight.x, frontEdgeRight.y);
-					ofxPoint2f frontEdgeLeftBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeftBack.x, frontEdgeLeftBack.y);
-					ofxPoint2f frontEdgeRightBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRightBack.x, frontEdgeRightBack.y);
-					
-					int nPoints = 4;
-					CvPoint _cp[4]= {{frontEdgeLeftCam.x*cw,frontEdgeLeftCam.y*ch}, 
-						{frontEdgeRightCam.x*cw,frontEdgeRightCam.y*ch},
-						{frontEdgeRightBackCam.x*cw,frontEdgeRightBackCam.y*ch},
-						{frontEdgeLeftBackCam.x*cw,frontEdgeLeftBackCam.y*ch}};			
-					CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-					
+					//Column mask
+					{
+						for(int c=0;c<3;c++){
+							ofxPoint2f p[4];
+							for(int i=0;i<4;i++){
+								ofxPoint2f point = *getPlugin<ProjectionSurfaces*>(controller)->getColumn(c)->corners[i];
+								p[i] =  getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(point.x, point.y); 
+							}
+							
+							int nPoints = 4;
+							CvPoint _cp[4]= {{p[0].x*cw,p[0].y*ch}, 
+								{(p[1]).x*cw,(p[1]).y*ch},
+								{(p[2]).x*cw,(p[2]).y*ch},
+								{p[3].x*cw,p[3].y*ch}};			
+							CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+						}
+					}
 				}
 				
 				if(cameraId == 2){
 					/*CameraCalibrationObject * cam = getPlugin<CameraCalibration*>(controller)->cameras[2];
-					int nPoints = 4;
-					
-					float h = 10.0/(float)ch;
-					
-					ofxPoint2f points[4];
-					{ //Top Left
-						points[0] = ofxPoint2f(cam->calibHandles[0].x, cam->calibHandles[0].y);
-						points[1] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y);
-						points[2] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y+h);
-						points[3] = ofxPoint2f(cam->calibHandles[0].x, cam->calibHandles[0].y+h);
-						
-						CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
-							{points[1].x*cw,points[1].y*ch},
-							{points[2].x*cw,points[2].y*ch},
-							{points[3].x*cw,points[3].y*ch}};			
-						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-						
-					}
-					
-					{ // Top Right
-						points[0] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y);
-						points[1] = ofxPoint2f(cam->calibHandles[1].x, cam->calibHandles[1].y);
-						points[2] = ofxPoint2f(cam->calibHandles[1].x, cam->calibHandles[1].y+h);
-						points[3] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y+h);
-						
-						CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
-							{points[1].x*cw,points[1].y*ch},
-							{points[2].x*cw,points[2].y*ch},
-							{points[3].x*cw,points[3].y*ch}};			
-						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-						
-					}
-					
-					
-					{ //Middle left
-						ofxVec2f vec1 = cam->calibHandles[3] - cam->calibHandles[0];
-						ofxVec2f vec2 = cam->calibHandles[5] - cam->calibHandles[4];
-
-						ofxPoint2f p1 =  cam->calibHandles[0] + vec1 * 0.5;
-						ofxPoint2f p2 =  cam->calibHandles[4] + vec2 * 0.5;
-						
-						points[0] = ofxPoint2f(p1.x, p1.y);
-						points[1] = ofxPoint2f(p2.x, p2.y);
-						points[2] = ofxPoint2f(p2.x, p2.y-h);
-						points[3] = ofxPoint2f(p1.x, p1.y-h);
-						
-						CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
-							{points[1].x*cw,points[1].y*ch},
-							{points[2].x*cw,points[2].y*ch},
-							{points[3].x*cw,points[3].y*ch}};			
-						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-						
-					}
-					
-					{ //Middle right
-						ofxVec2f vec1 = cam->calibHandles[5] - cam->calibHandles[4];
-						ofxVec2f vec2 = cam->calibHandles[2] - cam->calibHandles[1];
-
-						
-						ofxPoint2f p1 =  cam->calibHandles[4] + vec1 * 0.5;
-						ofxPoint2f p2 =  cam->calibHandles[1] + vec2 * 0.5;
-						
-						points[0] = ofxPoint2f(p1.x, p1.y);
-						points[1] = ofxPoint2f(p2.x, p2.y);
-						points[2] = ofxPoint2f(p2.x, p2.y-h);
-						points[3] = ofxPoint2f(p1.x, p1.y-h);
-						
-						CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
-							{points[1].x*cw,points[1].y*ch},
-							{points[2].x*cw,points[2].y*ch},
-							{points[3].x*cw,points[3].y*ch}};			
-						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-						
-					}
-					*/
+					 int nPoints = 4;
+					 
+					 float h = 10.0/(float)ch;
+					 
+					 ofxPoint2f points[4];
+					 { //Top Left
+					 points[0] = ofxPoint2f(cam->calibHandles[0].x, cam->calibHandles[0].y);
+					 points[1] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y);
+					 points[2] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y+h);
+					 points[3] = ofxPoint2f(cam->calibHandles[0].x, cam->calibHandles[0].y+h);
+					 
+					 CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
+					 {points[1].x*cw,points[1].y*ch},
+					 {points[2].x*cw,points[2].y*ch},
+					 {points[3].x*cw,points[3].y*ch}};			
+					 CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+					 
+					 }
+					 
+					 { // Top Right
+					 points[0] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y);
+					 points[1] = ofxPoint2f(cam->calibHandles[1].x, cam->calibHandles[1].y);
+					 points[2] = ofxPoint2f(cam->calibHandles[1].x, cam->calibHandles[1].y+h);
+					 points[3] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y+h);
+					 
+					 CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
+					 {points[1].x*cw,points[1].y*ch},
+					 {points[2].x*cw,points[2].y*ch},
+					 {points[3].x*cw,points[3].y*ch}};			
+					 CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+					 
+					 }
+					 
+					 
+					 { //Middle left
+					 ofxVec2f vec1 = cam->calibHandles[3] - cam->calibHandles[0];
+					 ofxVec2f vec2 = cam->calibHandles[5] - cam->calibHandles[4];
+					 
+					 ofxPoint2f p1 =  cam->calibHandles[0] + vec1 * 0.5;
+					 ofxPoint2f p2 =  cam->calibHandles[4] + vec2 * 0.5;
+					 
+					 points[0] = ofxPoint2f(p1.x, p1.y);
+					 points[1] = ofxPoint2f(p2.x, p2.y);
+					 points[2] = ofxPoint2f(p2.x, p2.y-h);
+					 points[3] = ofxPoint2f(p1.x, p1.y-h);
+					 
+					 CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
+					 {points[1].x*cw,points[1].y*ch},
+					 {points[2].x*cw,points[2].y*ch},
+					 {points[3].x*cw,points[3].y*ch}};			
+					 CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+					 
+					 }
+					 
+					 { //Middle right
+					 ofxVec2f vec1 = cam->calibHandles[5] - cam->calibHandles[4];
+					 ofxVec2f vec2 = cam->calibHandles[2] - cam->calibHandles[1];
+					 
+					 
+					 ofxPoint2f p1 =  cam->calibHandles[4] + vec1 * 0.5;
+					 ofxPoint2f p2 =  cam->calibHandles[1] + vec2 * 0.5;
+					 
+					 points[0] = ofxPoint2f(p1.x, p1.y);
+					 points[1] = ofxPoint2f(p2.x, p2.y);
+					 points[2] = ofxPoint2f(p2.x, p2.y-h);
+					 points[3] = ofxPoint2f(p1.x, p1.y-h);
+					 
+					 CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
+					 {points[1].x*cw,points[1].y*ch},
+					 {points[2].x*cw,points[2].y*ch},
+					 {points[3].x*cw,points[3].y*ch}};			
+					 CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+					 
+					 }
+					 */
 					
 					
 					/*					//COLUMN MASK
