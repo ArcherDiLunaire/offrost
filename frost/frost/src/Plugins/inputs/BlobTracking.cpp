@@ -3,6 +3,7 @@
 #include "BlobTracking.h"
 #include "Cameras.h"
 #include "CameraCalibration.h"
+#include "Frostscape.h"
 
 TrackerThread::TrackerThread(){
 	updateContour = false;
@@ -102,9 +103,9 @@ void Tracker::update(){
 				
 				grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
 				
-				if(cameraId == 0){
+				if(cameraId == 0 && !getPlugin<Frostscape*>(controller)->enabled){
 					
-					// STAGE FRONT MASK
+					// STAGE FRONT MASK (aber nicht ins frostscape)
 					
 					ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.85));
 					ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.85));
