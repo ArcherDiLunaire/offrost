@@ -106,8 +106,8 @@ void Tracker::update(){
 					
 					// STAGE FRONT MASK
 					
-					ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.9));
-					ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.9));
+					ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.85));
+					ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.85));
 					ofxPoint2f frontEdgeLeftBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1.3));
 					ofxPoint2f frontEdgeRightBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,1.3));
 					
