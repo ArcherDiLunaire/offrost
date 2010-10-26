@@ -272,7 +272,9 @@ BOOL isRealtimeByte (Byte b)	{ return b >= 0xF8; }
 				}
 				
 				for(int i=0;i<[frostSliderHookups count];i++){
-					[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
+					if (!(channel==5 && number==5 && noteOff==true)){
+						[[frostSliderHookups objectAtIndex:i] receiveMidiOnChannel:channel number:number control:controlChange noteOn:noteOn noteOff:noteOff value:value];
+					}
 				}
 				
 				//packet = MIDIPacketNext(packet);
