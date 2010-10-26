@@ -7,11 +7,14 @@
 
 class PluginController {
 public:
-	//PluginController();
+	//Plugincontroller;
 	
 	vector<FrostPlugin*> plugins;
 	
+	float projectorMaskAlpha;
 	
+	ofImage projectorMask;
+
 	void addPlugin(FrostPlugin* plugin);
 	void setup();
 	void update(float mx, float my);

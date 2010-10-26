@@ -111,7 +111,6 @@ void LaLineaFloor::drawOnFloor(){
 	}
 	
 	
-	
 	//Mask
 	glPopMatrix();
 	for(int i=0;i<3;i++){

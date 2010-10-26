@@ -82,8 +82,6 @@ void LiquidSpace::setup(){
 	window.aspectRatio	= projection()->getFloor()->aspect;
 	window.aspectRatio2 = window.aspectRatio / window.aspectRatio;
 	
-	projectorMask.loadImage("maskProjectorLiquid.png");
-
 	// setup fluid stuff
 	fluidSolver.setup(90, 90);
     fluidSolver.enableRGB(true).setFadeSpeed(0.00000001).setDeltaT(0.5).setVisc(0.0000001).setColorDiffusion(0.00000002).setSolverIterations(3);
@@ -98,7 +96,10 @@ void LiquidSpace::setup(){
 }
 
 void LiquidSpace::update(){
-	if(resizeFluid) 	{
+	
+	controller->projectorMaskAlpha = 1.0;
+
+	if(resizeFluid) {
 		fluidSolver.setSize(fluidCellsX, fluidCellsX * projection()->getFloor()->aspect);
 		fluidDrawer.setup(&fluidSolver);
 		resizeFluid = false;
@@ -250,14 +251,6 @@ void LiquidSpace::drawOnFloor(){
 
 void LiquidSpace::draw(){
 	;
-}
-
-void LiquidSpace::drawMasking(){
-	
-	ofEnableAlphaBlending();
-	ofSetColor(255, 255, 255,255);
-	projectorMask.draw(0,0, ofGetWidth(), ofGetHeight());
-
 }
 
 void LiquidSpace::addRing(int i){

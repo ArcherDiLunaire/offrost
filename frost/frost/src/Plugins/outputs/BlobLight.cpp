@@ -27,13 +27,14 @@ void BlobLight::setup(){
 	history.set(0);
 	historyTmp.set(0);
 	img.allocate(w,h);
-	projectorMask.loadImage("maskProjector.png");
 }
 
 void BlobLight::update(){
-	
+	controller->projectorMaskAlpha = 1.0;
 }
+
 void BlobLight::draw(){
+	
 	ofPushStyle();
 	ofxCvGrayscaleImage Largeimg = blob(0)->grayDiff;
 	img.scaleIntoMe(Largeimg);
@@ -74,14 +75,3 @@ void BlobLight::draw(){
 void BlobLight::drawOnFloor(){
 
 }
-
-
-void BlobLight::drawMasking(){
-	
-	ofEnableAlphaBlending();
-	
-	ofSetColor(255, 255, 255, 255);
-	
-	projectorMask.draw(0, 0, ofGetWidth(), ofGetHeight());
-}
-

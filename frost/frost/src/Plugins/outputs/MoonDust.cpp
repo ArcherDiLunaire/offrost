@@ -30,11 +30,12 @@ void MoonDust::setup(){
 	particleTrack = new ofImage;
 	particleImg->loadImage("MoonDustParticle30.png");
 	particleTrack->loadImage("MoonDustTrack.png");
-	projectorMask.loadImage("maskProjector.png");
-
 }
 
 void MoonDust::update(){
+
+	controller->projectorMaskAlpha = 1.0;
+
     vector<DustParticle>::iterator it;
     it = particles.begin();
 		
@@ -163,7 +164,6 @@ void MoonDust::drawOnFloor(){
 		ofxPoint2f p = projection()->getColumnCoordinate(1);
 		//float size = 0.007;
 		
-		
 		//applyFloorProjection();
 		glPushMatrix();
 		glTranslated(p.x, p.y, 0);
@@ -254,18 +254,6 @@ void MoonDust::drawOnFloor(){
 		
 	}
 }
-
-
-void MoonDust::drawMasking(){
-	
-	ofEnableAlphaBlending();
-	
-	ofSetColor(255, 255, 255, 255);
-	
-	projectorMask.draw(0, 0, ofGetWidth(), ofGetHeight());
-}
-
-
 
 DustParticle::DustParticle(float _x, float _y, float _z){
 	x = _x;

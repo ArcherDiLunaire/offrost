@@ -29,7 +29,6 @@ public:
 	void draw();
 	void update();
 	void drawOnFloor();
-	void drawMasking();
 
 	float force;
 	float size, length, density;
@@ -42,7 +41,6 @@ public:
 	
 	ofImage * particleImg;
 	ofImage * particleTrack;
-	ofImage projectorMask;
 
 	float rotation;
 	float columnAlpha;

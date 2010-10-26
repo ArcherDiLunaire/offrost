@@ -54,9 +54,7 @@ public:
 	int nDotsTurnedOn;
 	
 	vector<bool> dotStates;
-	
-
-	
+		
 	ofxVec2f center;
 	
 };
@@ -72,7 +70,6 @@ public:
 	void setup();
 	void drawOnFloor();
 	void draw();
-	void drawMasking();
 	void update();
 	void addDot(float x, float y);
 	
@@ -87,8 +84,6 @@ public:
 	float rotationDirection;
 	
 	float mirrorBallTrails;
-	
-	ofImage projectorMask;
 	
 	bool bAddDot;
 	bool bClearDots;

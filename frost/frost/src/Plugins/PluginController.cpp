@@ -9,6 +9,8 @@ void PluginController::addPlugin(FrostPlugin* plugin){
 
 
 void PluginController::setup(){
+	projectorMaskAlpha = 0;
+	projectorMask.loadImage("maskProjectorLiquid.png");
 	for(int i=0;i<plugins.size();i++){
 		FrostPlugin* plugin = plugins[i];
 		plugin->setup(); 
@@ -16,13 +18,13 @@ void PluginController::setup(){
 }
 
 void PluginController::update(float mx, float my){
+	projectorMaskAlpha = 0;
 	for(int i=0;i<plugins.size();i++){
 		FrostPlugin* plugin = plugins[i];
 		if(plugin->enabled){
 			plugin->mouseX = mx;
 			plugin->mouseY = my;
 			plugin->update(); 
-			
 		}
 	}
 }
@@ -75,10 +77,12 @@ void PluginController::drawWall(){
 void PluginController::drawMasking(){
 		for(int i=0;i<plugins.size();i++){
 		FrostPlugin* plugin = plugins[i];
-		//		if(plugin->type == FrostPlugin::OUTPUT && plugin->enabled){
+		// if(plugin->type == FrostPlugin::OUTPUT && plugin->enabled){
 		if(plugin->enabled){
 			plugin->drawMasking(); 
 		}
 	}
-
+	ofEnableAlphaBlending();
+	ofSetColor(255, 255, 255,255*projectorMaskAlpha);
+	projectorMask.draw(0,0, ofGetWidth(), ofGetHeight());
 }

@@ -1,4 +1,3 @@
-
 #include "Plugin.h"
 #include "PluginController.h"
 #include "ProjectionSurfaces.h"

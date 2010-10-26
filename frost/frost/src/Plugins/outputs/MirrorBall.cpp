@@ -57,7 +57,6 @@ MirrorBall::MirrorBall(){
 
 void MirrorBall::setup(){
 	mirrorBallImage.loadImage("spotlight.png");
-	projectorMask.loadImage("maskProjector.png");
 
 	reflections1.setup(15, 0.04, 0.15, -0.0003, 0.0003, 0.01, 0.75, 0.0025, 0.003, 0.25);
 	reflections2.setup(15, 0.04, 0.15, 0.0002, -0.0008, 0.01, 0.75, 0.0025, 0.005, 0.10);
@@ -95,16 +94,9 @@ void MirrorBall::drawOnFloor(){
 	
 }
 
-void MirrorBall::drawMasking(){
-	
-	ofEnableAlphaBlending();
-	
-	ofSetColor(255, 255, 255, 255);
-
-	projectorMask.draw(0, 0, ofGetWidth(), ofGetHeight());
-}
-
 void MirrorBall::update(){
+
+	controller->projectorMaskAlpha = 1.0;
 
 	if(bAddDot){
 		bAddDot =false;
