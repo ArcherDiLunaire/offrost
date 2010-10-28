@@ -45,6 +45,7 @@ public:
 	
 	int timeoutCounter;
 	vector<ofxCvBlob> blobs;
+	
 };
 
 class Tracker {

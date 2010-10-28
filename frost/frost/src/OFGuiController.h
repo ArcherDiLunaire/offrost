@@ -322,6 +322,9 @@
 	IBOutlet NSSlider * BlobBlur3;
 	IBOutlet frostCheckbox * BlobActive3;
 	IBOutlet frostCheckbox * Blob1OnlyCurtain;
+	IBOutlet NSTextField * TrackingActive1;
+	IBOutlet NSTextField * TrackingActive2;
+	IBOutlet NSTextField * TrackingActive3;
 	
 #pragma mark OpenGL Views
 	

@@ -1033,6 +1033,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			b = true;	
 		}
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(0,b);
+		if (b) {
+			[TrackingActive1 setBackgroundColor:[NSColor colorWithCalibratedRed:1.0 green:0 blue:0 alpha:1.0]];
+			[TrackingActive1 setTextColor:[NSColor whiteColor]];
+		} else {
+			[TrackingActive1 setBackgroundColor:[NSColor colorWithCalibratedRed:0.0 green:0.1 blue:0.1 alpha:0.0]];
+			[TrackingActive1 setTextColor:[NSColor disabledControlTextColor]];
+		}
 	}
 }
 
@@ -1061,6 +1068,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			b = true;	
 		}
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(1,b);
+		if (b) {
+			[TrackingActive2 setBackgroundColor:[NSColor colorWithCalibratedRed:1.0 green:0 blue:0 alpha:1.0]];
+			[TrackingActive2 setTextColor:[NSColor whiteColor]];
+		} else {
+			[TrackingActive2 setBackgroundColor:[NSColor colorWithCalibratedRed:0.0 green:0.1 blue:0.1 alpha:0.0]];
+			[TrackingActive2 setTextColor:[NSColor disabledControlTextColor]];
+		}		
 	}	
 }
 
@@ -1089,6 +1103,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			b = true;	
 		}
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(2,b);
+		if (b) {
+			[TrackingActive3 setBackgroundColor:[NSColor colorWithCalibratedRed:1.0 green:0 blue:0 alpha:1.0]];
+			[TrackingActive3 setTextColor:[NSColor whiteColor]];
+		} else {
+			[TrackingActive3 setBackgroundColor:[NSColor colorWithCalibratedRed:0.0 green:0.1 blue:0.1 alpha:0.0]];
+			[TrackingActive3 setTextColor:[NSColor disabledControlTextColor]];
+		}		
 	}
 }
 
