@@ -222,8 +222,8 @@ void Frostscape::drawOnFloor(){
 		
 		ofFill();
 		ofSetColor(0, 0, 0, 255);
-		ofRect(0, 0, projection()->getColumn(i)->aspect, MIN( columnParticlePos[i],1));
-		
+		ofRect(-0.01, 0, projection()->getColumn(i)->aspect+0.02, MIN( columnParticlePos[i],1));		
+
 		glPopMatrix();
 	}
 	projection()->applyProjection(projection()->getFloor());
