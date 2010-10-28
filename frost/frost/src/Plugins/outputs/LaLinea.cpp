@@ -113,7 +113,7 @@ void LaLinea::drawOnWall(){
 	float lineWidthScaled = lineWidthPoint.y-lineWidthPoint2.y;
 	int n= 30;
 	glBegin(GL_QUAD_STRIP);
-	for(int i=0;i<n;i++){
+	for(int i=0;i<=n;i++){
 		ofxVec2f noise = ofxVec2f(0,ofRandom(0, noise1*0.3));
 		glVertex2f((float)projection()->getCurtain(2)->aspect*i/n, yPosition-lineWidthScaled-noise.y);
 		glVertex2f((float)projection()->getCurtain(2)->aspect*i/n, yPosition-noise.y);
@@ -130,7 +130,7 @@ void LaLinea::drawOnWall(){
 	
 	lineWidthScaled = lineWidthPoint.y-lineWidthPoint2.y;
 	glBegin(GL_QUAD_STRIP);
-	for(int i=0;i<n;i++){
+	for(int i=0;i<=n;i++){
 		ofxVec2f noise = ofxVec2f(0,ofRandom(0, noise1*0.3));
 		glVertex2f((float)projection()->getCurtain(5)->aspect*i/n, yPosition-lineWidthScaled-noise.y);
 		glVertex2f((float)projection()->getCurtain(5)->aspect*i/n, yPosition-noise.y);
