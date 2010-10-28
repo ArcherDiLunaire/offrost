@@ -4,6 +4,9 @@
 #include "Cameras.h"
 #include "CameraCalibration.h"
 #include "Frostscape.h"
+#include "BlobLight.h"
+#include "Frostscape.h"
+#include "LaLineaFloor.h"
 
 TrackerThread::TrackerThread(){
 	updateContour = false;
@@ -103,38 +106,22 @@ void Tracker::update(){
 				
 				grayImage.setFromPixels(getPlugin<Cameras*>(controller)->getPixels(cameraId), getPlugin<Cameras*>(controller)->getWidth(cameraId),getPlugin<Cameras*>(controller)->getHeight(cameraId));
 				
-				if(cameraId == 0 && !getPlugin<Frostscape*>(controller)->enabled){
+				if(cameraId == 0){
 					
-					// STAGE FRONT MASK (aber nicht ins frostscape)
-					{
-						ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.85));
-						ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.85));
-						ofxPoint2f frontEdgeLeftBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1.3));
-						ofxPoint2f frontEdgeRightBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,1.3));
-						
-						ofxPoint2f frontEdgeLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeft.x, frontEdgeLeft.y);
-						ofxPoint2f frontEdgeRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRight.x, frontEdgeRight.y);
-						ofxPoint2f frontEdgeLeftBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeftBack.x, frontEdgeLeftBack.y);
-						ofxPoint2f frontEdgeRightBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRightBack.x, frontEdgeRightBack.y);
-						
-						int nPoints = 4;
-						CvPoint _cp[4]= {{frontEdgeLeftCam.x*cw,frontEdgeLeftCam.y*ch}, 
-							{frontEdgeRightCam.x*cw,frontEdgeRightCam.y*ch},
-							{frontEdgeRightBackCam.x*cw,frontEdgeRightBackCam.y*ch},
-							{frontEdgeLeftBackCam.x*cw,frontEdgeLeftBackCam.y*ch}};			
-						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-					}
 					
-					//Backwall mask
+					//Left Wall mask
 					{
-						ofxPoint2f wallLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0));
-						ofxPoint2f wallRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(1,0));
+						ofxPoint2f wallLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1));
+						ofxPoint2f wallRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0));
 						
 						ofxPoint2f wallLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallLeft.x, wallLeft.y);
 						ofxPoint2f wallRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallRight.x, wallRight.y);
 						
 						ofxVec2f v = wallRightCam - wallLeftCam;
 						ofxVec2f h = -ofxVec2f(-v.y, v.x)*0.3;
+						
+						wallLeftCam -= h * 0.15;
+						wallRightCam -= h * 0.15;
 						
 						int nPoints = 4;
 						CvPoint _cp[4]= {{wallLeftCam.x*cw,wallLeftCam.y*ch}, 
@@ -148,8 +135,15 @@ void Tracker::update(){
 					{
 						for(int c=0;c<3;c++){
 							ofxPoint2f p[4];
+							ofxVec2f v1 = *getPlugin<ProjectionSurfaces*>(controller)->getColumn(c)->corners[0] - *getPlugin<ProjectionSurfaces*>(controller)->getColumn(c)->corners[3];
+							v1 = ofxVec2f(-v1.y,v1.x) * 0.05;
 							for(int i=0;i<4;i++){
 								ofxPoint2f point = *getPlugin<ProjectionSurfaces*>(controller)->getColumn(c)->corners[i];
+								if(i == 0 || i == 3){
+									point += v1;
+								} else {
+									point -= v1;
+								}
 								p[i] =  getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(point.x, point.y); 
 							}
 							
@@ -302,6 +296,95 @@ void Tracker::update(){
 					}
 					
 				}
+				
+				
+				if(cameraId == 0){
+					//Mask
+					if(!getPlugin<BlobLight*>(controller)->enabled){
+						//Backwall mask
+						{
+							ofxPoint2f wallLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0));
+							ofxPoint2f wallRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(1,0));
+							
+							ofxPoint2f wallLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallLeft.x, wallLeft.y);
+							ofxPoint2f wallRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallRight.x, wallRight.y);
+							
+							ofxVec2f v = wallRightCam - wallLeftCam;
+							ofxVec2f h = -ofxVec2f(-v.y, v.x)*0.7;
+							
+							int nPoints = 4;
+							CvPoint _cp[4]= {{wallLeftCam.x*cw,wallLeftCam.y*ch}, 
+								{(wallLeftCam+h).x*cw,(wallLeftCam+h).y*ch},
+								{(wallRightCam+h).x*cw,(wallRightCam+h).y*ch},
+								{wallRightCam.x*cw,wallRightCam.y*ch}};			
+							CvPoint* cp = _cp; cvFillPoly(grayDiff.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+						}
+						
+						//Right mask
+						{
+							ofxPoint2f wallLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(1,0));
+							ofxPoint2f wallRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(1,1));
+							
+							ofxPoint2f wallLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallLeft.x, wallLeft.y);
+							ofxPoint2f wallRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallRight.x, wallRight.y);
+							
+							ofxVec2f v = wallRightCam - wallLeftCam;
+							ofxVec2f h = -ofxVec2f(-v.y, v.x)*0.7;
+							
+							int nPoints = 4;
+							CvPoint _cp[4]= {{wallLeftCam.x*cw,wallLeftCam.y*ch}, 
+								{(wallLeftCam+h).x*cw,(wallLeftCam+h).y*ch},
+								{(wallRightCam+h).x*cw,(wallRightCam+h).y*ch},
+								{wallRightCam.x*cw,wallRightCam.y*ch}};			
+							CvPoint* cp = _cp; cvFillPoly(grayDiff.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+						}
+						
+					}
+					
+					// STAGE FRONT MASK (aber nicht ins frostscape)
+					
+					if(!getPlugin<Frostscape*>(controller)->enabled){
+						ofxPoint2f frontEdgeLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,0.85));
+						ofxPoint2f frontEdgeRight = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,0.85));
+						ofxPoint2f frontEdgeLeftBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1.3));
+						ofxPoint2f frontEdgeRightBack = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getFloor()->aspect,1.3));
+						
+						ofxPoint2f frontEdgeLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeft.x, frontEdgeLeft.y);
+						ofxPoint2f frontEdgeRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRight.x, frontEdgeRight.y);
+						ofxPoint2f frontEdgeLeftBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeLeftBack.x, frontEdgeLeftBack.y);
+						ofxPoint2f frontEdgeRightBackCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(frontEdgeRightBack.x, frontEdgeRightBack.y);
+						
+						int nPoints = 4;
+						CvPoint _cp[4]= {{frontEdgeLeftCam.x*cw,frontEdgeLeftCam.y*ch}, 
+							{frontEdgeRightCam.x*cw,frontEdgeRightCam.y*ch},
+							{frontEdgeRightBackCam.x*cw,frontEdgeRightBackCam.y*ch},
+							{frontEdgeLeftBackCam.x*cw,frontEdgeLeftBackCam.y*ch}};			
+						CvPoint* cp = _cp; cvFillPoly(grayDiff.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+					}
+					
+					//Wall mask
+					if(getPlugin<LaLineaFloor*>(controller)->enabled){
+						ofxPoint2f wallLeft = *getPlugin<ProjectionSurfaces*>(controller)->getColumn(0)->corners[3];
+						ofxPoint2f wallRight = *getPlugin<ProjectionSurfaces*>(controller)->getColumn(2)->corners[2];
+						
+						ofxPoint2f wallLeftCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallLeft.x, wallLeft.y);
+						ofxPoint2f wallRightCam = getPlugin<CameraCalibration*>(controller)->cameras[0]->coordWarp->inversetransform(wallRight.x, wallRight.y);
+						
+						ofxVec2f v = wallRightCam - wallLeftCam;
+						ofxVec2f h = -ofxVec2f(-v.y, v.x)*2;
+						
+						int nPoints = 4;
+						CvPoint _cp[4]= {{wallLeftCam.x*cw,wallLeftCam.y*ch}, 
+							{(wallLeftCam+h).x*cw,(wallLeftCam+h).y*ch},
+							{(wallRightCam+h).x*cw,(wallRightCam+h).y*ch},
+							{wallRightCam.x*cw,wallRightCam.y*ch}};			
+						CvPoint* cp = _cp; cvFillPoly(grayDiff.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+					}
+				}
+				
+				
+				
+				
 				// cout<<ofGetElapsedTimeMillis()-t<<endl;
 				
 				thread.grayDiff = grayDiff;
