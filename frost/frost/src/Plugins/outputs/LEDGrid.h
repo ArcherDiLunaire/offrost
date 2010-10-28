@@ -11,6 +11,7 @@
 #include "ofMain.h"
 #include "Output.h"
 #include "ofxVectorMath.h"
+#include "Filter.h"
 
 class lamp{
 	
@@ -65,6 +66,10 @@ public:
 	
 	LEDGrid * ledGridObject;
 	
+	bool debugFlag;
+	
+	int byteCounter;
+	
 	
 };
 
@@ -103,6 +108,7 @@ public:
 	LEDGridThread serialThread;
 	
 	float pt1x, pt1y, pt2x, pt2y;
-
+	Filter * filterx;
+		Filter * filtery;
 	
 };
