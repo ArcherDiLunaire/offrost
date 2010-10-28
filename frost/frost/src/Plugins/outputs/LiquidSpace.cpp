@@ -230,7 +230,7 @@ void LiquidSpace::drawOnFloor(){
 		
 	for(int i=0;i<3;i++){
 		projection()->applyColumnProjection(i);		
-		ofRect(0, 0, projection()->getColumn(i)->aspect, 1);		
+		ofRect(-0.01, 0, projection()->getColumn(i)->aspect+0.02, 1);		
 		glPopMatrix();		
 	}
 	
