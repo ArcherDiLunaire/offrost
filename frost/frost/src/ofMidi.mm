@@ -61,7 +61,7 @@
 	
 	[self hookupSlider:gui->LaLineaMasterAlpha onChannel:5 onNumber:1 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaMaskAlpha onChannel:5 onNumber:4 controlChanges:true noteChanges:false scale:1.0/127.0];
-	[self hookupSlider:gui->LaLineaNoise1 onChannel:5 onNumber:5 controlChanges:true noteChanges:true scale:1.0/127.0];
+	[self hookupSlider:gui->LaLineaNoise1 onChannel:5 onNumber:5 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaNoise2 onChannel:5 onNumber:6 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaNoise2 onChannel:5 onNumber:7 controlChanges:true noteChanges:false scale:1.0/127.0];
 	[self hookupSlider:gui->LaLineaDancer onChannel:5 onNumber:8 controlChanges:true noteChanges:false scale:1.0/127.0];
