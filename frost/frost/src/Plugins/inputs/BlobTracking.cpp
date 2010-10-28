@@ -108,7 +108,6 @@ void Tracker::update(){
 				
 				if(cameraId == 0){
 					
-					
 					//Left Wall mask
 					{
 						ofxPoint2f wallLeft = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getFloor(),ofxVec2f(0,1));
@@ -285,6 +284,9 @@ void Tracker::update(){
 					}
 					bLearnBakground = false;
 				}
+				
+				
+				
 				
 				grayDiff.absDiff(grayBg, grayImageBlured);
 				grayDiff.threshold(threshold);
