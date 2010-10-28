@@ -30,7 +30,7 @@ CameraCalibration::CameraCalibration(){
 		cameras[cameraIterator]->warpLeftHalf = new Warp();
 		cameras[cameraIterator]->coordWarpLeftHalf = new coordWarping;
 		cameras[cameraIterator]->coordWarpCalibrationLeftHalf = new coordWarping;
-
+		
 		
 		cameras[cameraIterator]->warpRightHalf = new Warp();
 		cameras[cameraIterator]->coordWarpRightHalf = new coordWarping;
@@ -116,7 +116,7 @@ void CameraCalibration::setup(){
 	cameras[3]->calibPoints[1] = projection()->getWall()->coordWarp->transform(1,0.3);
 	cameras[3]->calibPoints[2] = projection()->getWall()->coordWarp->transform(1,1);
 	cameras[3]->calibPoints[3] = projection()->getWall()->coordWarp->transform(0,1);
-
+	
 	cameras[3]->calibPoints[4] = projection()->getCurtain(0)->coordWarp->transform(1,1) + v1*0.5;
 	cameras[3]->calibPoints[5] = projection()->getCurtain(2)->coordWarp->transform(1,1) + v2*0.5;
 	
@@ -243,9 +243,9 @@ void CameraCalibration::draw(){
 				
 				float w = 640;
 				float h = 480;
-	
+				
 				getPlugin<Cameras*>(controller)->getVidGrabber(2)->getTextureReference().bind();				
-
+				
 				glBegin(GL_QUADS);{					
 					//top left
 					
@@ -257,16 +257,16 @@ void CameraCalibration::draw(){
 					glTexCoord2f(calibHandlesInSpace[4].x*w, calibHandlesInSpace[4].y*h); 
 					glVertex2f(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[4].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[4].y);
 					
-				
+					
 					glTexCoord2f(calibHandlesInSpace[5].x*w, calibHandlesInSpace[5].y*h); 
 					glVertex2f(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[5].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[5].y);
 					
-
+					
 					glTexCoord2f(calibHandlesInSpace[3].x*w, calibHandlesInSpace[3].y*h); 
 					glVertex2f(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[3].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[3].y);
-			
-				}glEnd();
 					
+				}glEnd();
+				
 				glBegin(GL_QUADS);{					
 					glTexCoord2f(calibHandlesInSpace[4].x*w, calibHandlesInSpace[4].y*h); 
 					glVertex2f(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[4].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[4].y);
@@ -278,7 +278,7 @@ void CameraCalibration::draw(){
 					//bottom right
 					glTexCoord2f(calibHandlesInSpace[2].x*w, calibHandlesInSpace[2].y*h); 
 					glVertex2f(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[2].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[2].y);
-
+					
 					glTexCoord2f(calibHandlesInSpace[5].x*w, calibHandlesInSpace[5].y*h); 
 					glVertex2f(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[5].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[5].y);
 					
@@ -290,16 +290,26 @@ void CameraCalibration::draw(){
 				glPushMatrix();
 				
 				//
-			} else if(selectedKeystoner < 3)
-				getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,1,1);
-			else
-				getPlugin<Cameras*>(controller)->draw(selectedKeystoner-1,0,0,1,1);
+			} else if(selectedKeystoner < 3){
+				applyWarp(selectedKeystoner);{
+					getPlugin<Cameras*>(controller)->draw(selectedKeystoner,0,0,1,1);
+					glPopMatrix();
+				}
+			}
+			else {
+				applyWarp(selectedKeystoner);{
+					
+					getPlugin<Cameras*>(controller)->draw(selectedKeystoner-1,0,0,1,1);
+					glPopMatrix();
+				}
+				
+			}
 		}glPopMatrix();
 		
 		ofFill();
 		ofSetColor(255, 0, 0);
 		
-
+		
 		for(int i=0;i<4;i++){
 			ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 5, 5);			
 		}
@@ -339,7 +349,7 @@ void CameraCalibration::drawSettings(){
 	glPopMatrix();
 	glPopMatrix();
 	
-
+	
 	
 	ofNoFill();
 	ofSetLineWidth(2);
@@ -482,37 +492,37 @@ ofxVec2f CameraCalibration::convertCoordinate(int cam, float x, float y){
 			p = cameras[cam]->coordWarpRightHalf->transform(x,y);
 		}
 		
-	/*	//test if in left
-		
-		vertx[0] = cameras[cam]->calibHandles[0].x;
-		vertx[1] = cameras[cam]->calibHandles[4].x;
-		vertx[2] = cameras[cam]->calibHandles[5].x;
-		vertx[3] = cameras[cam]->calibHandles[3].x;
-
-		verty[0] = cameras[cam]->calibHandles[0].y;
-		verty[1] = cameras[cam]->calibHandles[4].y;
-		verty[2] = cameras[cam]->calibHandles[5].y;
-		verty[3] = cameras[cam]->calibHandles[3].y;
-		
-		if (pnpoly(4, vertx, verty, x, y) > 0) {
-			p = cameras[cam]->coordWarpLeftHalf->transform(x,y);
-		}
-
-		//test if in right
-		
-		vertx[0] = cameras[cam]->calibHandles[4].x;
-		vertx[1] = cameras[cam]->calibHandles[1].x;
-		vertx[2] = cameras[cam]->calibHandles[2].x;
-		vertx[3] = cameras[cam]->calibHandles[5].x;
-		
-		verty[0] = cameras[cam]->calibHandles[4].y;
-		verty[1] = cameras[cam]->calibHandles[1].y;
-		verty[2] = cameras[cam]->calibHandles[2].y;
-		verty[3] = cameras[cam]->calibHandles[5].y;
-		
-		if (pnpoly(4, vertx, verty, x, y) > 0) {
-			p = cameras[cam]->coordWarpRightHalf->transform(x,y);
-		}*/
+		/*	//test if in left
+		 
+		 vertx[0] = cameras[cam]->calibHandles[0].x;
+		 vertx[1] = cameras[cam]->calibHandles[4].x;
+		 vertx[2] = cameras[cam]->calibHandles[5].x;
+		 vertx[3] = cameras[cam]->calibHandles[3].x;
+		 
+		 verty[0] = cameras[cam]->calibHandles[0].y;
+		 verty[1] = cameras[cam]->calibHandles[4].y;
+		 verty[2] = cameras[cam]->calibHandles[5].y;
+		 verty[3] = cameras[cam]->calibHandles[3].y;
+		 
+		 if (pnpoly(4, vertx, verty, x, y) > 0) {
+		 p = cameras[cam]->coordWarpLeftHalf->transform(x,y);
+		 }
+		 
+		 //test if in right
+		 
+		 vertx[0] = cameras[cam]->calibHandles[4].x;
+		 vertx[1] = cameras[cam]->calibHandles[1].x;
+		 vertx[2] = cameras[cam]->calibHandles[2].x;
+		 vertx[3] = cameras[cam]->calibHandles[5].x;
+		 
+		 verty[0] = cameras[cam]->calibHandles[4].y;
+		 verty[1] = cameras[cam]->calibHandles[1].y;
+		 verty[2] = cameras[cam]->calibHandles[2].y;
+		 verty[3] = cameras[cam]->calibHandles[5].y;
+		 
+		 if (pnpoly(4, vertx, verty, x, y) > 0) {
+		 p = cameras[cam]->coordWarpRightHalf->transform(x,y);
+		 }*/
 		
 		
 		
