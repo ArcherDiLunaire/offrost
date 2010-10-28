@@ -141,6 +141,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2705B2701276D3890023A558 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Filter.h; path = Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/src/Plugins/outputs/Filter.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		2737239A126D920A006D36BF /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2739E54D1070BEBE0078206D /* contourNormals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contourNormals.cpp; sourceTree = "<group>"; };
 		2739E54E1070BEBE0078206D /* contourNormals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contourNormals.h; sourceTree = "<group>"; };
@@ -850,8 +851,8 @@
 			children = (
 				DD45B9B6106FE04500B4B19C /* computerVisionUtils */,
 				DD45B6D8106BB31C00B4B19C /* ofCvCameraCalibration.cpp */,
-				DD45B6D9106BB31C00B4B19C /* ofCvCameraCalibration.h */,
 				DD7CC2741063979800D3736A /* Cameras.cpp */,
+				DD45B6D9106BB31C00B4B19C /* ofCvCameraCalibration.h */,
 				DD7CC2751063979800D3736A /* Cameras.h */,
 				DD7CC2721063979800D3736A /* BlobTracking.cpp */,
 				DD7CC2731063979800D3736A /* BlobTracking.h */,
@@ -862,6 +863,7 @@
 		DDB85125105E7CC800D1ED92 /* outputs */ = {
 			isa = PBXGroup;
 			children = (
+				2705B2701276D3890023A558 /* Filter.h */,
 				27A84E38107CB018008926F1 /* LEDGrid.cpp */,
 				27A84E39107CB018008926F1 /* LEDGrid.h */,
 				27A84E3A107CB018008926F1 /* MirrorBall.cpp */,
