@@ -257,6 +257,7 @@
 	IBOutlet frostCheckbox * liquidSpaceAddRing2;
 	IBOutlet frostCheckbox * liquidSpaceAddRing3;
 	IBOutlet frostCheckbox * liquidSpaceAddFixedRing2;
+	IBOutlet frostSlider * liquidSpaceWhiteBlue;
 	
 #pragma mark Camera Outlets
 	
@@ -427,6 +428,7 @@
 -(IBAction)		modifyLiquidSpaceColorMultiplier:(id)sender;
 -(IBAction)		modifyLiquidSpaceAddingForce:(id)sender;
 -(IBAction)		modifyLiquidSpaceForceMultiplier:(id)sender;
+-(IBAction)		modifyLiquidSpaceWhiteBlue:(id)sender;
 
 #pragma mark Projector Surfaces Actions
 

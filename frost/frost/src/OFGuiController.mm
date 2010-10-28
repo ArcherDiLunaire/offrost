@@ -911,6 +911,21 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
 }
 
+-(IBAction)		modifyLiquidSpaceWhiteBlue:(id)sender{
+	if(ofApp->setupCalled){
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->dropColor.r = 1.0-[sender doubleValue];
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->dropColor.g = 1.0-[sender doubleValue];
+		(getPlugin<LiquidSpace*>(ofApp->pluginController))->dropColor.b = 127.0;
+		
+		CGFloat r = getPlugin<LiquidSpace*>(ofApp->pluginController)->dropColor.r;
+		CGFloat g = getPlugin<LiquidSpace*>(ofApp->pluginController)->dropColor.g;
+		CGFloat b = getPlugin<LiquidSpace*>(ofApp->pluginController)->dropColor.b;
+		
+		[liquidSpaceDropColor setColor:[NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0 ]];
+		
+	}
+}
+
 -(IBAction)		liquidAddRing1:(id)sender{
 	if(ofApp->setupCalled){
 		(getPlugin<LiquidSpace*>(ofApp->pluginController))->addRing(0);

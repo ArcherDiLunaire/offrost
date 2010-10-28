@@ -156,6 +156,8 @@
 	[self hookupButton:gui->liquidSpaceAddRing2			onChannel:10 onNumber:15 controlChanges:true noteChanges:false];
 	[self hookupButton:gui->liquidSpaceAddRing3			onChannel:10 onNumber:16 controlChanges:true noteChanges:false];
 	[self hookupButton:gui->liquidUpdateMotor			onChannel:10 onNumber:17 controlChanges:true noteChanges:false];
+	[self hookupSlider:gui->liquidSpaceWhiteBlue		onChannel:10 onNumber:30 controlChanges:true noteChanges:false scale:1.0/127.0];
+
 	
 #pragma mark Blob History
 	
@@ -407,6 +409,12 @@ BOOL isRealtimeByte (Byte b)	{ return b >= 0xF8; }
 					}
 					if(number == 22){
 						getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.b = value/127.0;
+					}
+					
+					if(number == 30){
+						getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.r = 1.0-(value/127.0);
+						getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.g = 1.0-(value/127.0);
+						getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.b = 127.0;
 					}
 					
 					CGFloat r = getPlugin<LiquidSpace*>(gui->ofApp->pluginController)->dropColor.r;
