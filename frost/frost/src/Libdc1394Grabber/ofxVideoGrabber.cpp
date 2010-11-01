@@ -166,7 +166,7 @@ void ofxVideoGrabber::grabFrame()
 //--------------------------------------------------------------------
 void ofxVideoGrabber::draw(float _x, float _y, float _w, float _h)
 {
-	if(((Libdc1394Grabber*)videoGrabber)->lock()){
+	//if(((Libdc1394Grabber*)videoGrabber)->lock()){
 		if (bUseTexture){
 			tex.draw(_x, _y, _w, _h);
 		}
@@ -174,8 +174,8 @@ void ofxVideoGrabber::draw(float _x, float _y, float _w, float _h)
 			settings->draw();
 		}
 		
-		((Libdc1394Grabber*)videoGrabber)->unlock();
-	}	
+		//((Libdc1394Grabber*)videoGrabber)->unlock();
+	//}	
 }
 
 //--------------------------------------------------------------------
@@ -187,6 +187,7 @@ void ofxVideoGrabber::draw(float _x, float _y)
 //--------------------------------------------------------------------
 void ofxVideoGrabber::close()
 {
+	tex.clear();
     if(bGrabberInited){
         bGrabberInited 		= false;
         bIsFrameNew 		= false;

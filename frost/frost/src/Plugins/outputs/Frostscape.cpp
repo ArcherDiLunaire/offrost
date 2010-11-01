@@ -218,11 +218,11 @@ void Frostscape::drawOnFloor(){
 
 		//ofEnableAlphaBlending();
 		
-		columnTexture.draw(0, 0, projection()->getColumn(i)->aspect, 1);
+		columnTexture.draw(-0.005, 0, projection()->getColumn(i)->aspect+0.01, 1);
 		
 		ofFill();
 		ofSetColor(0, 0, 0, 255);
-		ofRect(-0.01, 0, projection()->getColumn(i)->aspect+0.02, MIN( columnParticlePos[i],1));		
+		ofRect(-0.005, 0, projection()->getColumn(i)->aspect+0.01, MIN( columnParticlePos[i],1));		
 
 		glPopMatrix();
 	}

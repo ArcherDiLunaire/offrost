@@ -113,6 +113,8 @@ void Cameras::update(){
 
 		timeSinceLastCameraCheck = 0;
 		
+		delete libdc1394Grabber;
+		
 	}
 	
 	for (int i=0; i<3; i++) {
@@ -380,11 +382,11 @@ void Cameras::initCameraCalibration(uint64_t _cameraGUID){
 }
 
 ofxVideoGrabber * Cameras::getVidGrabber(int _cameraIndex){
-	if (cameraInited[_cameraIndex] && vidGrabber[_cameraIndex] != NULL){
-		return vidGrabber[_cameraIndex];
-	} else {
-		return NULL;
-	}
+		if (this != NULL && cameraInited[_cameraIndex] && vidGrabber[_cameraIndex] != NULL){
+			return vidGrabber[_cameraIndex];
+		} else {
+			return NULL;
+		}	
 }
 
 bool Cameras::isReady(int _cameraIndex){

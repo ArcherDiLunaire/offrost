@@ -109,10 +109,12 @@ void testApp::update()
 	
 	pluginController->update(mousex, mousey);
 	
+	//ofSetLogLevel(OF_LOG_NOTICE);
+
 	if(camera_state == camera_state_closing){
 		
 		if(cameraTimer == 0){
-			cout<<endl<<"ERROR: DEAD CAMERA"<<endl;
+			ofLog(OF_LOG_ERROR,"ERROR: DEAD CAMERA, CLOSING AND DELETING");
 			
 			for(int i=0;i<3;i++){
 				cameraBrightness[i] = getPlugin<Cameras*>(pluginController)->cameraBrightness[i];
@@ -134,12 +136,15 @@ void testApp::update()
 		}
 		
 		if (ofGetElapsedTimeMillis() - cameraTimer > 500) {
+			ofLog(OF_LOG_NOTICE, "CAMERAS CLOSED AND DELETED");
 			camera_state = camera_state_starting;
 			cameraTimer = 0;
 		}
 	}
 	if (camera_state == camera_state_starting) {
 		if(cameraTimer == 0){
+			ofLog(OF_LOG_WARNING,"RESTARTING CAMERAS");
+
 			c = new Cameras();
 			c->setGUIDs(cameraGUIDs[0], cameraGUIDs[1], cameraGUIDs[2]);
 			
@@ -156,6 +161,7 @@ void testApp::update()
 			cameraTimer = ofGetElapsedTimeMillis();
 		}			
 		if (ofGetElapsedTimeMillis() - cameraTimer > 3000) {
+			ofLog(OF_LOG_WARNING,"ADDING RESTARTED CAMERAS TO PLUGINS");
 			c->update();
 			pluginController->addPlugin(c);
 			cameraThreadTimer = 0;

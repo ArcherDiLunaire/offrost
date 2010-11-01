@@ -182,13 +182,15 @@ void LEDGridThread::threadedFunction(){
 						 else 
 						 a = 1;*/
 						
-						lamps[i].a += (master*254*a - lamps[i].a) *0.052;
+						lamps[i].a += (master*254*a - lamps[i].a) *0.032;
 						//lamps[i].a = 255*a;
 						
 						/*lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.092;		
 						 lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.092;		
 						 lamps[i].b += ((b-lamps[i].b  )*a + (b2-lamps[i].b  )*(1.0-a) ) * 0.092;		
 						 */
+						
+						//Sender kun alpha kanal, for så styrer MA farven
 						lamps[i].r = 0;
 						lamps[i].g = 0;
 						lamps[i].b = 0;

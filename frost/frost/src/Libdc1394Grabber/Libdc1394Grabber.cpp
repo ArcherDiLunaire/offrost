@@ -8,6 +8,7 @@ dc1394_t* Libdc1394Grabber::d = NULL;
 
 Libdc1394Grabber::Libdc1394Grabber()
 {
+	verbose = false;
 	
 	bChooseDevice = false;
 	cameraIndex = -1;
@@ -450,7 +451,9 @@ void Libdc1394Grabber::threadedFunction()
 {
 	while( 1 )
 	{
-		captureFrame();
+		if(camera != NULL){
+			captureFrame();
+		}
 		ofSleepMillis(2);
 	}
 	return;
@@ -511,8 +514,8 @@ void Libdc1394Grabber::captureFrame()
 		
 		dc1394_video_set_one_shot(camera, DC1394_ON);
 		
-		// capture one frame
-		if (dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame) != DC1394_SUCCESS)
+		// capture one fram
+		if ( camera == NULL || dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame) != DC1394_SUCCESS)
 		{
 			fprintf(stderr, "unable to capture a frame\n");
 			cleanupCamera();
@@ -526,7 +529,7 @@ void Libdc1394Grabber::captureFrame()
 			
 		}
 		
-		if(frame != NULL){
+		if(frame != NULL && camera !=NULL){
 			lock();
 			blinkCounter++;
 			processCameraImageData( frame->image );
@@ -670,10 +673,12 @@ void Libdc1394Grabber::setBayerPatternIfNeeded()
 
 void Libdc1394Grabber::cleanupCamera()
 {
+	cout << "stopping cam " << cameraGUID <<endl;
 	stopThread();
 	while(isThreadRunning()) 1;
 	//this sleep seems necessary, at least on OSX, to avoid an occasional hang on exit
-	ofSleepMillis(300);
+	ofSleepMillis(500);
+	cout << "cam stopped " << cameraGUID <<endl;
 	
 	dc1394switch_t is_iso_on = DC1394_OFF;
 	if(camera) {

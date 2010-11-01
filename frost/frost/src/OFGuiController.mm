@@ -81,7 +81,6 @@ OFGuiController * gui = NULL;
 	
 	NSLog(@"--- wake from nib ---\n");
 	
-	cout<<ofToDataPath("bla", true)<<endl;
 	[camView setWindowId:1];
 	[projectorView setWindowId:2];
 	[cameraKeystoneOpenGlView setWindowId:5];
@@ -274,13 +273,37 @@ OFGuiController * gui = NULL;
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(0,[userDefaults doubleForKey:@"blob.blur1"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(0,[userDefaults boolForKey:@"blob.active1"]);
 		
+		if ([userDefaults boolForKey:@"blob.active1"]) {
+			[TrackingActive1 setBackgroundColor:[NSColor colorWithCalibratedRed:1.0 green:0 blue:0 alpha:1.0]];
+			[TrackingActive1 setTextColor:[NSColor whiteColor]];
+		} else {
+			[TrackingActive1 setBackgroundColor:[NSColor colorWithCalibratedRed:0.0 green:0.1 blue:0.1 alpha:0.0]];
+			[TrackingActive1 setTextColor:[NSColor disabledControlTextColor]];
+		}
+		
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(1,[userDefaults doubleForKey:@"blob.threshold2"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(1,[userDefaults doubleForKey:@"blob.blur2"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(1,[userDefaults boolForKey:@"blob.active2"]);
+
+		if ([userDefaults boolForKey:@"blob.active2"]) {
+			[TrackingActive2 setBackgroundColor:[NSColor colorWithCalibratedRed:1.0 green:0 blue:0 alpha:1.0]];
+			[TrackingActive2 setTextColor:[NSColor whiteColor]];
+		} else {
+			[TrackingActive2 setBackgroundColor:[NSColor colorWithCalibratedRed:0.0 green:0.1 blue:0.1 alpha:0.0]];
+			[TrackingActive2 setTextColor:[NSColor disabledControlTextColor]];
+		}
 		
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setThreshold(2,[userDefaults doubleForKey:@"blob.threshold3"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setBlur(2,[userDefaults doubleForKey:@"blob.blur3"]);
 		((BlobTracking*)getPlugin<BlobTracking*>(ofApp->pluginController))->setActive(2,[userDefaults boolForKey:@"blob.active3"]);
+		
+		if ([userDefaults boolForKey:@"blob.active3"]) {
+			[TrackingActive3 setBackgroundColor:[NSColor colorWithCalibratedRed:1.0 green:0 blue:0 alpha:1.0]];
+			[TrackingActive3 setTextColor:[NSColor whiteColor]];
+		} else {
+			[TrackingActive3 setBackgroundColor:[NSColor colorWithCalibratedRed:0.0 green:0.1 blue:0.1 alpha:0.0]];
+			[TrackingActive3 setTextColor:[NSColor disabledControlTextColor]];
+		}
 		
 		((ProjectionSurfaces*)getPlugin<ProjectionSurfaces*>(ofApp->pluginController))->drawDebug = [userDefaults doubleForKey:@"projectionsurfaces.drawdebug"];		
 		
