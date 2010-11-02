@@ -15,6 +15,9 @@
 		276D9DB91073B3F00084689D /* ofxMSAFluidSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 276D9DAF1073B3F00084689D /* ofxMSAFluidSolver.cpp */; };
 		278230EA109EA82D00AE0E24 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 278230E9109EA82D00AE0E24 /* Credits.html */; };
 		278AB5D4108E4EF70014CCD2 /* libdc1394.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 278AB5D3108E4EF70014CCD2 /* libdc1394.a */; };
+		2797348D127EC81D00CAB5FF /* libprotobuf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2797348C127EC81D00CAB5FF /* libprotobuf.dylib */; };
+		2797348F127EC82800CAB5FF /* libola.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2797348E127EC82800CAB5FF /* libola.dylib */; };
+		27973491127EC83300CAB5FF /* libolacommon.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 27973490127EC83300CAB5FF /* libolacommon.dylib */; };
 		2797C7D91070DCDF00555A42 /* Folding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2797C7D71070DCDF00555A42 /* Folding.cpp */; };
 		279AEC3C10668C0100FBEE17 /* coordWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279AEC3A10668C0100FBEE17 /* coordWarp.cpp */; };
 		27A84E10107CAC0D008926F1 /* FrostMotor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A84E0E107CAC0D008926F1 /* FrostMotor.cpp */; };
@@ -158,6 +161,9 @@
 		278230E9109EA82D00AE0E24 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		27823130109EC1BE00AE0E24 /* Frost-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Frost-Info.plist"; sourceTree = "<group>"; };
 		278AB5D3108E4EF70014CCD2 /* libdc1394.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdc1394.a; path = libs/osx/lib/libdc1394.a; sourceTree = "<group>"; };
+		2797348C127EC81D00CAB5FF /* libprotobuf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libprotobuf.dylib; path = usr/local/lib/libprotobuf.dylib; sourceTree = SDKROOT; };
+		2797348E127EC82800CAB5FF /* libola.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libola.dylib; path = usr/local/lib/libola.dylib; sourceTree = SDKROOT; };
+		27973490127EC83300CAB5FF /* libolacommon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libolacommon.dylib; path = usr/local/lib/libolacommon.dylib; sourceTree = SDKROOT; };
 		2797C7D71070DCDF00555A42 /* Folding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Folding.cpp; sourceTree = "<group>"; };
 		2797C7D81070DCDF00555A42 /* Folding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Folding.h; sourceTree = "<group>"; };
 		279AEC3A10668C0100FBEE17 /* coordWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coordWarp.cpp; path = src/coordWarp.cpp; sourceTree = SOURCE_ROOT; };
@@ -556,6 +562,9 @@
 				DDFEC8871063FA200068D31A /* IOKit.framework in Frameworks */,
 				DDD48938107636A80083759A /* CoreMIDI.framework in Frameworks */,
 				278AB5D4108E4EF70014CCD2 /* libdc1394.a in Frameworks */,
+				2797348D127EC81D00CAB5FF /* libprotobuf.dylib in Frameworks */,
+				2797348F127EC82800CAB5FF /* libola.dylib in Frameworks */,
+				27973491127EC83300CAB5FF /* libolacommon.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1495,6 +1504,9 @@
 				DDFEC8861063FA200068D31A /* IOKit.framework */,
 				278AB5D3108E4EF70014CCD2 /* libdc1394.a */,
 				DDD48937107636A80083759A /* CoreMIDI.framework */,
+				2797348C127EC81D00CAB5FF /* libprotobuf.dylib */,
+				2797348E127EC82800CAB5FF /* libola.dylib */,
+				27973490127EC83300CAB5FF /* libolacommon.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1750,6 +1762,7 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
 					"./libs/osx/include/**",
 					../../../libs/poco/include,
 				);
@@ -1789,6 +1802,7 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
 					"./libs/osx/include/**",
 					../../../libs/poco/include,
 				);
@@ -1820,10 +1834,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				HEADER_SEARCH_PATHS = (
-					"./libs/osx/include/**",
-					../../../libs/poco/include,
-				);
 				INFOPLIST_FILE = "Frost-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
@@ -1894,10 +1904,6 @@
 				GCC_MODEL_TUNING = G4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				HEADER_SEARCH_PATHS = (
-					"./libs/osx/include/**",
-					../../../libs/poco/include,
-				);
 				INFOPLIST_FILE = "Frost-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (

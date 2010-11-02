@@ -126,14 +126,30 @@ LEDGridThread::LEDGridThread(){
 	 lamps[8*5+i].isOldAndSucks = true;
 	 }
 	 */
+	
 	ok = true;
 	
 	alphaSet = false;
+	
+	
+	connected = simpleClient.Setup();
+	if (!connected) {
+		cout<<"Failed getting OLA server"<<endl;
+	}
+	
+	client = simpleClient.GetClient();
+	
+	
+	
+	
 	
 }
 
 
 void LEDGridThread::start(){
+	
+	
+	
 	if(connected){
 		startThread(false, false);   // blocking, verbose
 	}
@@ -144,178 +160,186 @@ void LEDGridThread::stop(){
 }
 
 void LEDGridThread::threadedFunction(){
+	ola::DmxBuffer buffer;
 	
 	while( isThreadRunning() != 0 ){
+		buffer.Blackout();
 		
-		if(serial.available()){
-			serial.flush(true, false);
-			ok = true;
-			byteCounter = 0;
-		}
-		if(ok){
-			for(int i=0;i<lamps.size();i++){
-				//				cout << i << ": " << lamps[i].r << endl;
-				if(lamps[i].channel > 0){
-					//				ofxPoint2f p = ofxPoint2f(mouseX, mouseY);
+		
+		
+		
+		
+		/*if(serial.available()){
+		 serial.flush(true, false);
+		 ok = true;
+		 byteCounter = 0;
+		 }
+		 if(ok){*/
+		for(int i=0;i<lamps.size();i++){
+			//				cout << i << ": " << lamps[i].r << endl;
+			if(lamps[i].channel > 0){
+				//				ofxPoint2f p = ofxPoint2f(mouseX, mouseY);
+				
+				if( lock() ){
 					
-					if( lock() ){
+					float a = 0;
+					
+					ofxPoint2f calibratedLampPosition = lamps[i].pos * ofxPoint2f(ledGridObject->pt2x*2-ledGridObject->pt1x, ledGridObject->pt2y-ledGridObject->pt1y) + ofxPoint2f(ledGridObject->pt1x, ledGridObject->pt1y);
+					//ofxPoint2f calibratedLampPosition = lamps[i].pos;
+					float d = p.distance(calibratedLampPosition);
+					d = (radius-d)/radius;
+					a = d;
+					if(a > 1){
+						a = 1;
+					}
+					if(a < 0){
+						a = 0;	
+					}
+					
+					/*	if(a < 0.1)
+					 a = 0;
+					 
+					 if(a < 0.5)
+					 a = 0;
+					 else 
+					 a = 1;*/
+					
+					lamps[i].a += (master*254*a - lamps[i].a) *0.032;
+					//lamps[i].a = 255*a;
+					
+					/*lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.092;		
+					 lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.092;		
+					 lamps[i].b += ((b-lamps[i].b  )*a + (b2-lamps[i].b  )*(1.0-a) ) * 0.092;		
+					 */
+					
+					//Sender kun alpha kanal, for så styrer MA farven
+					lamps[i].r = 0;
+					lamps[i].g = 0;
+					lamps[i].b = 0;
+					
+					//cout<<ledGridObject->debug<<endl;
+					if(debugFlag){
+						lamps[i].a = 0;
+						/*							lamps[i].r = 0;
+						 lamps[i].g = 0;
+						 lamps[i].b = 0;*/
 						
-						float a = 0;
+						//(	cout<<"debug"<<endl;
+						lamps[3].a = 255;
 						
-						ofxPoint2f calibratedLampPosition = lamps[i].pos * ofxPoint2f(ledGridObject->pt2x*2-ledGridObject->pt1x, ledGridObject->pt2y-ledGridObject->pt1y) + ofxPoint2f(ledGridObject->pt1x, ledGridObject->pt1y);
-						//ofxPoint2f calibratedLampPosition = lamps[i].pos;
-						float d = p.distance(calibratedLampPosition);
-						d = (radius-d)/radius;
-						a = d;
-						if(a > 1){
-							a = 1;
-						}
-						if(a < 0){
-							a = 0;	
-						}
-						
-						/*	if(a < 0.1)
-						 a = 0;
-						 
-						 if(a < 0.5)
-						 a = 0;
-						 else 
-						 a = 1;*/
-						
-						lamps[i].a += (master*254*a - lamps[i].a) *0.032;
-						//lamps[i].a = 255*a;
-						
-						/*lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.092;		
-						 lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.092;		
-						 lamps[i].b += ((b-lamps[i].b  )*a + (b2-lamps[i].b  )*(1.0-a) ) * 0.092;		
-						 */
-						
-						//Sender kun alpha kanal, for så styrer MA farven
+						lamps[45].a = 255;
+					}
+					
+					if(lamps[i].a > 254){
+						lamps[i].a = 254;
+					}
+					
+					/*	if(lamps[i].isOldAndSucks){
+					xx lamps[i].a = (lamps[i].a * (190.0) / 255.0) ;
+					 }
+					 */
+					if(lamps[i].r > 254){
+						lamps[i].r = 254;
+					}				
+					if(lamps[i].g > 254){
+						lamps[i].g = 254;
+					}
+					if(lamps[i].b > 254){
+						lamps[i].b = 254;
+					}
+					
+					if(!ledGridObject->enabled){
 						lamps[i].r = 0;
 						lamps[i].g = 0;
 						lamps[i].b = 0;
-						
-						//cout<<ledGridObject->debug<<endl;
-						if(debugFlag){
- 							lamps[i].a = 0;
-							/*							lamps[i].r = 0;
-							 lamps[i].g = 0;
-							 lamps[i].b = 0;*/
-							
-							//(	cout<<"debug"<<endl;
-							lamps[3].a = 255;
-							
-							lamps[45].a = 255;
-						}
-						
-						if(lamps[i].a > 254){
-							lamps[i].a = 254;
-						}
-						
-						/*	if(lamps[i].isOldAndSucks){
-						 lamps[i].a = (lamps[i].a * (190.0) / 255.0) ;
-						 }
-						 */
-						if(lamps[i].r > 254){
-							lamps[i].r = 254;
-						}				
-						if(lamps[i].g > 254){
-							lamps[i].g = 254;
-						}
-						if(lamps[i].b > 254){
-							lamps[i].b = 254;
-						}
-						
-						if(!ledGridObject->enabled){
-							lamps[i].r = 0;
-							lamps[i].g = 0;
-							lamps[i].b = 0;
-							lamps[i].a = 0;
-						}
-						
-						unlock();
-						
+						lamps[i].a = 0;
 					}
 					
-					//unsigned char *mBuf= new unsigned char[3*4];
-					if(byteCounter < 115){
-						int n;
-						if(master != sentMaster){
-							sentMaster = master;
-							unsigned char *buffer = new unsigned char[3];
-							buffer[0] = (unsigned char)255;
-							buffer[1] = (unsigned char)0;
-							buffer[2] = (unsigned char)round(master*254);
-							serial.writeBytes(buffer, 3);
-							delete buffer;
-							ok = false;
-							
-							byteCounter+=3;
-						}
-						if(lamps[i].r != lamps[i].sentR){
-							lamps[i].sentR = lamps[i].r;
-							unsigned char *buffer = new unsigned char[3];
-							buffer[0] = (unsigned char)255;
-							buffer[1] = (unsigned char)lamps[i].channel;
-							buffer[2] = (unsigned char)lamps[i].r;
-							serial.writeBytes(buffer, 3);
-							delete buffer;
-							ok = false;
-							
-							byteCounter+=3;
-						}
-						if(lamps[i].g != lamps[i].sentG ){
-							lamps[i].sentG = lamps[i].g;
-							unsigned char *buffer = new unsigned char[3];
-							buffer[0] = (unsigned char)255;
-							buffer[1] = (unsigned char)lamps[i].channel+1;
-							buffer[2] = (unsigned char)lamps[i].g;
-							serial.writeBytes(buffer, 3);
-							delete buffer;
-							ok = false;
-							
-							byteCounter+=3;
-						}
-						if(lamps[i].b != lamps[i].sentB){
-							lamps[i].sentB = lamps[i].b;
-							unsigned char *buffer = new unsigned char[3];
-							buffer[0] = (unsigned char)255;
-							buffer[1] = (unsigned char)lamps[i].channel+2;
-							buffer[2] = (unsigned char)lamps[i].b;
-							serial.writeBytes(buffer, 3);
-							delete buffer;
-							ok = false;
-							
-							byteCounter+=3;
-						}
-						if(lamps[i].a != lamps[i].sentA){
-							lamps[i].sentA = lamps[i].a;
-							unsigned char *buffer = new unsigned char[3];
-							buffer[0] = (unsigned char)255;
-							buffer[1] = (unsigned char)lamps[i].channel+3;
-							buffer[2] = (unsigned char)lamps[i].a;
-							serial.writeBytes(buffer, 3);
-							delete buffer;
-							ok = false;
-							
-							byteCounter+=3;
-							
-							/*if(!alphaSet){
-							 alphaSet = true;
-							 unsigned char *buffer = new unsigned char[3];
-							 buffer[0] = (unsigned char)255;
-							 buffer[1] = (unsigned char)254;
-							 buffer[2] = (unsigned char)lamps[i].channel+3;
-							 serial.writeBytes(buffer, 3);
-							 delete buffer;
-							 ok = false;
-							 
-							 byteCounter+=3;
-							 }*/
-						}
-					}
+					unlock();
+					
 				}
+				
+				buffer.SetChannel(lamps[i].channel-1, lamps[i].r);
+				buffer.SetChannel(lamps[i].channel+1-1, lamps[i].g);
+				buffer.SetChannel(lamps[i].channel+2-1, lamps[i].b);
+				buffer.SetChannel(lamps[i].channel+3-1, lamps[i].a);
+				
+				
+				//unsigned char *mBuf= new unsigned char[3*4];
+				/*if(byteCounter < 115){
+				 int n;
+				 if(master != sentMaster){
+				 sentMaster = master;
+				 unsigned char *buffer = new unsigned char[3];
+				 buffer[0] = (unsigned char)255;
+				 buffer[1] = (unsigned char)0;
+				 buffer[2] = (unsigned char)round(master*254);
+				 serial.writeBytes(buffer, 3);
+				 delete buffer;
+				 ok = false;
+				 
+				 byteCounter+=3;
+				 }
+				 if(lamps[i].r != lamps[i].sentR){
+				 lamps[i].sentR = lamps[i].r;
+				 unsigned char *buffer = new unsigned char[3];
+				 buffer[0] = (unsigned char)255;
+				 buffer[1] = (unsigned char)lamps[i].channel;
+				 buffer[2] = (unsigned char)lamps[i].r;
+				 serial.writeBytes(buffer, 3);
+				 delete buffer;
+				 ok = false;
+				 
+				 byteCounter+=3;
+				 }
+				 if(lamps[i].g != lamps[i].sentG ){
+				 lamps[i].sentG = lamps[i].g;
+				 unsigned char *buffer = new unsigned char[3];
+				 buffer[0] = (unsigned char)255;
+				 buffer[1] = (unsigned char)lamps[i].channel+1;
+				 buffer[2] = (unsigned char)lamps[i].g;
+				 serial.writeBytes(buffer, 3);
+				 delete buffer;
+				 ok = false;
+				 
+				 byteCounter+=3;
+				 }
+				 if(lamps[i].b != lamps[i].sentB){
+				 lamps[i].sentB = lamps[i].b;
+				 unsigned char *buffer = new unsigned char[3];
+				 buffer[0] = (unsigned char)255;
+				 buffer[1] = (unsigned char)lamps[i].channel+2;
+				 buffer[2] = (unsigned char)lamps[i].b;
+				 serial.writeBytes(buffer, 3);
+				 delete buffer;
+				 ok = false;
+				 
+				 byteCounter+=3;
+				 }
+				 if(lamps[i].a != lamps[i].sentA){
+				 lamps[i].sentA = lamps[i].a;
+				 unsigned char *buffer = new unsigned char[3];
+				 buffer[0] = (unsigned char)255;
+				 buffer[1] = (unsigned char)lamps[i].channel+3;
+				 buffer[2] = (unsigned char)lamps[i].a;
+				 serial.writeBytes(buffer, 3);
+				 delete buffer;
+				 ok = false;
+				 
+				 byteCounter+=3;
+				 
+				 
+				 }
+				 */
+				//					}
+				//		}
 			}
+			
+			
+		}
+		unsigned int universe = 0;
+		if (!client->SendDmx(universe, buffer)) {
+			
 		}
 		ofSleepMillis(1);	
 	}	

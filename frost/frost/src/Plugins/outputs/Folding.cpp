@@ -80,6 +80,8 @@ void Folding::update(){
 		
 		float historyMultipler = 1.0+(pow(historyAddMultiplier-1.0, 3));
 		cvAddWeighted( historyImg.getCvImage(),historyMultipler, blob(cam)->grayDiff.getCvImage(),1, -0.25, historyImgTemp.getCvImage());
+	//	historyImgTemp =  blob(cam)->grayImage;
+
 		historyImg = historyImgTemp;
 		historyImg.blur(3);
 		

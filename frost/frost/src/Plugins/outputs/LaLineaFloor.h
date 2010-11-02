@@ -35,4 +35,7 @@ public:
 	ofImage texture;
 	
 	bool bReset;
+	
+	ofxPoint2f lastGoal; 
+	ofxVec2f lastDir;
 };

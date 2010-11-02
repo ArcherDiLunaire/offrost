@@ -13,6 +13,10 @@
 #include "ofxVectorMath.h"
 #include "Filter.h"
 
+
+#import <ola/DmxBuffer.h>
+#import <ola/SimpleClient.h>
+
 class lamp{
 	
 public:
@@ -70,7 +74,8 @@ public:
 	
 	int byteCounter;
 	
-	
+	ola::SimpleClient simpleClient;
+	ola::OlaClient *client;
 };
 
 class LEDGrid: public Output{

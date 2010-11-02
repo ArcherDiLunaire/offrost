@@ -9,12 +9,14 @@ LaLineaFloor::LaLineaFloor(){
 	time = 0;
 	lastTime = 0;
 	bReset = true;
+	
 }
 
 void LaLineaFloor::setup(){
 	dir = ofxVec2f(1,0);
 	reset();
 	texture.loadImage("lineTexture.png");
+	lastGoal = ofxPoint2f(projection()->getFloor()->aspect / 2.0 , 0.5);
 }
 
 void LaLineaFloor::update(){
@@ -25,35 +27,52 @@ void LaLineaFloor::update(){
 	}
 	
 	time += ofGetFrameRate()/100.0;
+	
+	bool personFound = false;
 	if(blob(cam)->numPersistentBlobs() > 0){
 		
 		bool itIsClose = false;
 		
 		ofxPoint2f goal = projection()->convertToFloorCoordinate(blob(cam)->persistentBlobs[0].getLowestPoint());
-		if(goal.distance(pos) < 0.10 && time - lastTime > 3.0){
-			if(goal.distance(pos) < 0.05) itIsClose = true;
-			goal = goal += curlValue*ofxVec2f(ofRandom(-0.5,0.75), ofRandom(-2.0,0.5));
-			lastTime = time;
+		
+		if(goal.x > 0 && goal.x < projection()->getFloor()->aspect && goal.y > 0 && goal.y < 1){
+			personFound = true;
+			if(goal.distance(pos) < 0.10 && time - lastTime > 3.0){
+				if(goal.distance(pos) < 0.05) itIsClose = true;
+				goal = goal += curlValue*ofxVec2f(ofRandom(-0.5,0.75), ofRandom(-2.0,0.5));
+				lastTime = time;
+			}
+			
+			ofxVec2f v = goal - pos;
+			v.normalize();
+			
+			//dir += v*(itIsClose?0.01:ofRandom(0.001,0.003));
+			dir += v*ofRandom(0.001,0.003)*dirSpeed;
+			float angle = dir.angle(v);
+			//		cout<<angle<<endl;
+			dir.rotate(angle*ofRandom(0.001,0.003)*dirSpeed);
+			
+			dir.normalize();
+			if(itIsClose){
+				dir *= 2;
+			}
+			dir *= 0.005;
+			
+			pos += dir*100.0/ofGetFrameRate()*speed;
+			pnts.push_back(pos);
+			
+			lastGoal = goal;
+			lastDir = dir;
 		}
 		
-		ofxVec2f v = goal - pos;
-		v.normalize();
-		
-		//dir += v*(itIsClose?0.01:ofRandom(0.001,0.003));
-		dir += v*ofRandom(0.001,0.003)*dirSpeed;
-		float angle = dir.angle(v);
-		//		cout<<angle<<endl;
-		dir.rotate(angle*ofRandom(0.001,0.003)*dirSpeed);
-		
-		dir.normalize();
-		if(itIsClose){
-			dir *= 2;
+	}
+	
+	if(!personFound){
+		if(lastDir.length() > 0){
+			lastDir *= 0.95;
+			pos += lastDir*100.0/ofGetFrameRate()*speed;
+			pnts.push_back(pos);
 		}
-		dir *= 0.005;
-		
-		pos += dir*100.0/ofGetFrameRate()*speed;
-		pnts.push_back(pos);
-		
 	}
 }
 void LaLineaFloor::draw(){
@@ -66,6 +85,7 @@ void LaLineaFloor::reset(){
 	
 	pos = p;
 	dir = ofxVec2f(-1,0);
+	lastDir = ofxVec2f(0,0);
 	
 }
 
