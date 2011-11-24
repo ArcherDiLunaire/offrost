@@ -242,7 +242,7 @@ BOOL isRealtimeByte (Byte b)	{ return b >= 0xF8; }
 			
 			bool noteOn = false;
 			bool noteOff = false;
-			bool controlChange;
+			bool controlChange = false;
 			int channel = -1;
 			int number = -1;
 			int value = -1;
@@ -257,7 +257,8 @@ BOOL isRealtimeByte (Byte b)	{ return b >= 0xF8; }
 				noteOff = true;
 				channel = packet->data[0+j] - 127;
 				number = packet->data[1+j];
-				value = 0; //packet->data[2+j];
+				value = 0; // packet->data[2+j];
+				
 			}
 			if(packet->data[0+j] >= 176 && packet->data[0+j] <= 191){
 				controlChange = true;
@@ -265,6 +266,22 @@ BOOL isRealtimeByte (Byte b)	{ return b >= 0xF8; }
 				number = packet->data[1+j];
 				value = packet->data[2+j];
 			}
+			
+			if (channel == 5 && number == 5 ){
+				// la linea noise hack
+				if ( (noteOff || noteOn) && value == 0 ) { 
+					if ([gui->LaLineaNoise1 floatValue] < 0.125) {
+						value = 0;
+					} else {
+						value = [gui->LaLineaNoise1 floatValue] * 127.0;
+					}
+				}
+				controlChange = true;
+				noteOn = false;
+				noteOff = false;
+			}			
+			
+			
 			if([midiActive state] ==  NSOnState){
 				
 				[gui->midiStatusText setStringValue:[NSString stringWithFormat:@"Channel: %d,  Number: %d,  Value: %d",channel, number, value]];

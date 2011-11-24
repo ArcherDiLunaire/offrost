@@ -109,8 +109,15 @@ void Folding::drawImage(ofxCvGrayscaleImage img, float pushFactor){
 	ofxVec2f v1 = corners[0] - corners[1];
 	ofxVec2f v2 = corners[3] - corners[2];	
 	
+	//Pga lens sphere er vi nød til at snyde lidt med længden
+	float hackScale = 1.05;
+	corners[1] = corners[0] - v1*hackScale;
+	corners[2] = corners[3] - v2*hackScale;
+	
 	corners[0] = corners[0] - v1*(pushFactor);
 	corners[3] = corners[3] - v2*(pushFactor);
+	
+
 	
 	ofxPoint2f cameraCorners[4];
 	

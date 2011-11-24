@@ -203,9 +203,13 @@ void LEDGridThread::threadedFunction(){
 					 a = 0;
 					 else 
 					 a = 1;*/
-					
-					lamps[i].a += (master*254*a - lamps[i].a) *0.032;
-					//lamps[i].a = 255*a;
+/*					if(master*254.0*a < lamps[i].a){
+						lamps[i].a -= 0.00001;
+					} else if(master*254.0*a > lamps[i].a){
+*/						lamps[i].a += (master*254.0*a - lamps[i].a) *0.002;						
+/*					}
+*/
+					//lamps[i].a = 255*a;.0
 					
 					/*lamps[i].r += ((r-lamps[i].r  )*a + (r2-lamps[i].r  )*(1.0-a) ) * 0.092;		
 					 lamps[i].g += ((g-lamps[i].g  )*a + (g2-lamps[i].g  )*(1.0-a) ) * 0.092;		

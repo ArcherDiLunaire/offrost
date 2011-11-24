@@ -26,6 +26,11 @@
 		27A84E40107CB018008926F1 /* Spotlight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A84E3C107CB018008926F1 /* Spotlight.cpp */; };
 		27A84E46107CB085008926F1 /* FrostGuiObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A84E45107CB085008926F1 /* FrostGuiObjects.m */; };
 		27A84E4B107CB0C6008926F1 /* BlobHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A84E49107CB0C6008926F1 /* BlobHistory.cpp */; };
+		27AD65F0147BD9F700073544 /* libOsc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27AD65DA147BD9F700073544 /* libOsc.a */; };
+		27AD65F4147BD9F700073544 /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27AD65E2147BD9F700073544 /* ofxOscBundle.cpp */; };
+		27AD65F5147BD9F700073544 /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27AD65E4147BD9F700073544 /* ofxOscMessage.cpp */; };
+		27AD65F6147BD9F700073544 /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27AD65E6147BD9F700073544 /* ofxOscReceiver.cpp */; };
+		27AD65F7147BD9F700073544 /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27AD65E8147BD9F700073544 /* ofxOscSender.cpp */; };
 		27B64B4B1072019D002E95C4 /* Frostscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64B491072019D002E95C4 /* Frostscape.cpp */; };
 		27B64BF9107211CD002E95C4 /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BEE107211CD002E95C4 /* RtMidi.cpp */; };
 		27B64BFA107211CD002E95C4 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B64BF4107211CD002E95C4 /* ofxMidiIn.cpp */; };
@@ -180,6 +185,30 @@
 		27A84E45107CB085008926F1 /* FrostGuiObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrostGuiObjects.m; sourceTree = "<group>"; };
 		27A84E49107CB0C6008926F1 /* BlobHistory.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = BlobHistory.cpp; sourceTree = "<group>"; };
 		27A84E4A107CB0C6008926F1 /* BlobHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlobHistory.h; sourceTree = "<group>"; };
+		27AD65C8147BD9F700073544 /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IpEndpointName.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/ip/IpEndpointName.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65C9147BD9F700073544 /* NetworkingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkingUtils.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/ip/NetworkingUtils.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65CA147BD9F700073544 /* PacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketListener.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/ip/PacketListener.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65CB147BD9F700073544 /* TimerListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimerListener.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/ip/TimerListener.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65CC147BD9F700073544 /* UdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UdpSocket.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/ip/UdpSocket.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65CE147BD9F700073544 /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageMappingOscPacketListener.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc/MessageMappingOscPacketListener.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65CF147BD9F700073544 /* OscException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OscException.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc/OscException.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65D0147BD9F700073544 /* OscHostEndianness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OscHostEndianness.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc/OscHostEndianness.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65D1147BD9F700073544 /* OscOutboundPacketStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OscOutboundPacketStream.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc/OscOutboundPacketStream.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65D2147BD9F700073544 /* OscPacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OscPacketListener.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc/OscPacketListener.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65D3147BD9F700073544 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OscPrintReceivedElements.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc/OscPrintReceivedElements.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65D4147BD9F700073544 /* OscReceivedElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OscReceivedElements.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc/OscReceivedElements.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65D5147BD9F700073544 /* OscTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OscTypes.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc/OscTypes.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65DA147BD9F700073544 /* libOsc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOsc.a; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib/osx/libOsc.a; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E0147BD9F700073544 /* ofxOsc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOsc.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOsc.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E1147BD9F700073544 /* ofxOscArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOscArg.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscArg.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E2147BD9F700073544 /* ofxOscBundle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxOscBundle.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E3147BD9F700073544 /* ofxOscBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOscBundle.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E4147BD9F700073544 /* ofxOscMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxOscMessage.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscMessage.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E5147BD9F700073544 /* ofxOscMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOscMessage.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscMessage.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E6147BD9F700073544 /* ofxOscReceiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxOscReceiver.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscReceiver.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E7147BD9F700073544 /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOscReceiver.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E8147BD9F700073544 /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxOscSender.cpp; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscSender.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		27AD65E9147BD9F700073544 /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOscSender.h; path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src/ofxOscSender.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		27B64B491072019D002E95C4 /* Frostscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Frostscape.cpp; sourceTree = "<group>"; };
 		27B64B4A1072019D002E95C4 /* Frostscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Frostscape.h; sourceTree = "<group>"; };
 		27B64BED107211CD002E95C4 /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtError.h; sourceTree = "<group>"; };
@@ -565,6 +594,7 @@
 				2797348D127EC81D00CAB5FF /* libprotobuf.dylib in Frameworks */,
 				2797348F127EC82800CAB5FF /* libola.dylib in Frameworks */,
 				27973491127EC83300CAB5FF /* libolacommon.dylib in Frameworks */,
+				27AD65F0147BD9F700073544 /* libOsc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +625,110 @@
 			);
 			path = src;
 			sourceTree = "<group>";
+		};
+		27AD65B7147BD9F700073544 /* ofxOsc */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65C4147BD9F700073544 /* libs */,
+				27AD65DF147BD9F700073544 /* src */,
+			);
+			name = ofxOsc;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		27AD65C4147BD9F700073544 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65C5147BD9F700073544 /* oscpack */,
+			);
+			name = libs;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		27AD65C5147BD9F700073544 /* oscpack */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65C6147BD9F700073544 /* include */,
+				27AD65D6147BD9F700073544 /* lib */,
+			);
+			name = oscpack;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		27AD65C6147BD9F700073544 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65C7147BD9F700073544 /* ip */,
+				27AD65CD147BD9F700073544 /* osc */,
+			);
+			name = include;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		27AD65C7147BD9F700073544 /* ip */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65C8147BD9F700073544 /* IpEndpointName.h */,
+				27AD65C9147BD9F700073544 /* NetworkingUtils.h */,
+				27AD65CA147BD9F700073544 /* PacketListener.h */,
+				27AD65CB147BD9F700073544 /* TimerListener.h */,
+				27AD65CC147BD9F700073544 /* UdpSocket.h */,
+			);
+			name = ip;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/ip;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		27AD65CD147BD9F700073544 /* osc */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65CE147BD9F700073544 /* MessageMappingOscPacketListener.h */,
+				27AD65CF147BD9F700073544 /* OscException.h */,
+				27AD65D0147BD9F700073544 /* OscHostEndianness.h */,
+				27AD65D1147BD9F700073544 /* OscOutboundPacketStream.h */,
+				27AD65D2147BD9F700073544 /* OscPacketListener.h */,
+				27AD65D3147BD9F700073544 /* OscPrintReceivedElements.h */,
+				27AD65D4147BD9F700073544 /* OscReceivedElements.h */,
+				27AD65D5147BD9F700073544 /* OscTypes.h */,
+			);
+			name = osc;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/include/osc;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		27AD65D6147BD9F700073544 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65D9147BD9F700073544 /* osx */,
+			);
+			name = lib;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		27AD65D9147BD9F700073544 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65DA147BD9F700073544 /* libOsc.a */,
+			);
+			name = osx;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib/osx;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		27AD65DF147BD9F700073544 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				27AD65E0147BD9F700073544 /* ofxOsc.h */,
+				27AD65E1147BD9F700073544 /* ofxOscArg.h */,
+				27AD65E2147BD9F700073544 /* ofxOscBundle.cpp */,
+				27AD65E3147BD9F700073544 /* ofxOscBundle.h */,
+				27AD65E4147BD9F700073544 /* ofxOscMessage.cpp */,
+				27AD65E5147BD9F700073544 /* ofxOscMessage.h */,
+				27AD65E6147BD9F700073544 /* ofxOscReceiver.cpp */,
+				27AD65E7147BD9F700073544 /* ofxOscReceiver.h */,
+				27AD65E8147BD9F700073544 /* ofxOscSender.cpp */,
+				27AD65E9147BD9F700073544 /* ofxOscSender.h */,
+			);
+			name = src;
+			path = Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/src;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
 		};
 		27B64BEA107211CD002E95C4 /* ofxMidi_002 */ = {
 			isa = PBXGroup;
@@ -904,6 +1038,7 @@
 		DDB85141105E808700D1ED92 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				27AD65B7147BD9F700073544 /* ofxOsc */,
 				276D9D9A1073B3F00084689D /* ofxMSAFluid */,
 				27B64BEA107211CD002E95C4 /* ofxMidi_002 */,
 				DD45B904106FDC4F00B4B19C /* ofxMSASpline */,
@@ -1722,6 +1857,10 @@
 				27A84E40107CB018008926F1 /* Spotlight.cpp in Sources */,
 				27A84E46107CB085008926F1 /* FrostGuiObjects.m in Sources */,
 				27A84E4B107CB0C6008926F1 /* BlobHistory.cpp in Sources */,
+				27AD65F4147BD9F700073544 /* ofxOscBundle.cpp in Sources */,
+				27AD65F5147BD9F700073544 /* ofxOscMessage.cpp in Sources */,
+				27AD65F6147BD9F700073544 /* ofxOscReceiver.cpp in Sources */,
+				27AD65F7147BD9F700073544 /* ofxOscSender.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1862,6 +2001,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_16)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_17)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_18)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_19)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_20)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_21)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/freeimage/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/../../../../00573-Xcode-Fat-YCAM-WithGui/addons/ofxOpenCv/libs/opencv/lib/linux\"";
@@ -1873,7 +2015,10 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_16 = "\"$(SRCROOT)/libs/linux/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_17 = "\"$(SRCROOT)/libs/osx/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_18 = "\"$(DEVELOPER_DIR)/Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/libs/osx/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_19 = "\"$(DEVELOPER_DIR)/Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib/linux\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../libs/fmodex/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_20 = "\"$(DEVELOPER_DIR)/Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_21 = "\"$(DEVELOPER_DIR)/Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib/win32\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../libs/freetype/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../libs/GLee/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../libs/poco/lib\"";
@@ -1932,6 +2077,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_16)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_17)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_18)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_19)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_20)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_21)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/freeimage/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/../../../../00573-Xcode-Fat-YCAM-WithGui/addons/ofxOpenCv/libs/opencv/lib/linux\"";
@@ -1943,7 +2091,10 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_16 = "\"$(SRCROOT)/libs/linux/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_17 = "\"$(SRCROOT)/libs/osx/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_18 = "\"$(DEVELOPER_DIR)/Projects/of_preRelease_v0.06_xcode_FAT/apps/frost/frost/libs/osx/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_19 = "\"$(DEVELOPER_DIR)/Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib/linux\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../libs/fmodex/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_20 = "\"$(DEVELOPER_DIR)/Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_21 = "\"$(DEVELOPER_DIR)/Projects/of_preRelease_v0.06_xcode_FAT/addons/ofxOsc/libs/oscpack/lib/win32\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../libs/freetype/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../libs/GLee/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../libs/poco/lib\"";

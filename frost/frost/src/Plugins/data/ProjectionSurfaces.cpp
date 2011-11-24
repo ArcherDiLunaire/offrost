@@ -6,6 +6,9 @@ ProjectionSurfacesObject::ProjectionSurfacesObject(){
 		corners[i] = new ofxPoint2f;
 	}
 	warp = new Warp();
+	
+	
+
 }
 
 ProjectionSurfacesObject::~ProjectionSurfacesObject(){
@@ -77,6 +80,11 @@ ProjectionSurfaces::ProjectionSurfaces(){
 	selectedCorner = 0;
 	selectedKeystoner = 0;
 	
+	receiver = new ofxOscReceiver();
+	sender = new ofxOscSender();
+
+	receiver->setup(8000);
+	sender->setup("10.0.2.2", 9000);
 }
 
 void ProjectionSurfaces::guiWakeup(){
@@ -161,6 +169,166 @@ void ProjectionSurfaces::setup(){
 	
 }
 void ProjectionSurfaces::update(){
+	if(oscUpdateCounter++ > 30){
+		oscUpdateCounter = 0;
+
+		for(int i=0;i<4;i++){
+			ofxOscMessage m;
+			m.setAddress("/corner/"+ofToString(i+1));
+			m.addIntArg(selectedCorner==i);
+			sender->sendMessage(m);
+		}
+		for(int i=0;i<10;i++){
+			ofxOscMessage m;
+			m.setAddress("/surface/"+ofToString(i));
+			m.addIntArg(selectedKeystoner==i);
+			sender->sendMessage(m);
+		}
+		
+		{
+			ofxOscMessage m;
+			m.setAddress("/keystoner/pos");
+			ofxVec2f v = objects[selectedKeystoner]->warp->corners[selectedCorner];
+			if(selectedKeystoner == 0){
+				v /= 2.0;
+			}
+			m.addFloatArg(v.y);
+			m.addFloatArg(v.x);
+			sender->sendMessage(m);			
+		}
+		
+		{
+			ofxOscMessage m;
+			m.setAddress("/debug");
+			m.addFloatArg(drawDebug);
+			sender->sendMessage(m);			
+		}
+	}
+	
+	if(oscStepDir.length() > 0){
+		ofxVec2f newPos =  objects[selectedKeystoner]->warp->corners[selectedCorner] ;
+		newPos += oscStepDir;		
+		objects[selectedKeystoner]->SetCorner(selectedCorner, newPos.x, newPos.y);
+		
+		for(int i=0;i<objects.size();i++){
+			objects[i]->recalculate();
+		}	
+		saveXml();
+	}
+	if(receiver->hasWaitingMessages()){
+		ofxOscMessage m;
+		receiver->getNextMessage(&m);
+		
+//		cout<<m.getAddress()<<endl;
+		
+		for(int i=0;i<10;i++){
+			if ( m.getAddress() == "/surface/"+ofToString(i) ){
+				selectedKeystoner = i;
+				
+				if(selectedKeystoner == 0){
+					w = glDelegate->m_Width/3.0;
+					h = glDelegate->m_Width/3.0;
+				} else {
+					w = glDelegate->m_Width/1.50;
+					h = glDelegate->m_Width/1.5;
+				}
+			}
+		}
+		
+		if ( m.getAddress() == "/keystoner/pos" )
+		{
+			// both the arguments are int32's
+			float y = m.getArgAsFloat( 0 );
+			float x = m.getArgAsFloat( 1 );
+			
+			if(selectedKeystoner == 0){
+				y *= 2.0;
+				x *= 2.0;
+			}			
+
+			objects[selectedKeystoner]->SetCorner(selectedCorner, x, y);
+			for(int i=0;i<objects.size();i++){
+				objects[i]->recalculate();
+			}	
+			saveXml();
+			
+//			cout<<x<<"  "<<y<<endl;
+		}	
+		if( m.getAddress() == "/keystoner/relPos/1"){
+			float y = m.getArgAsFloat( 0 );
+			float x = m.getArgAsFloat( 1 );
+
+			if(ofGetElapsedTimeMillis() - oscRelTime > 100){
+				oscRelTime = ofGetElapsedTimeMillis();
+				oscRelOffset = ofxVec2f(x,y);
+			} else {
+				ofxVec2f v = ofxVec2f(x,y);
+				v -= oscRelOffset;
+				
+				v *= 0.05;
+				v.y *= -1;
+				
+				ofxVec2f newPos =  objects[selectedKeystoner]->warp->corners[selectedCorner] ;
+				newPos += v;		
+				objects[selectedKeystoner]->SetCorner(selectedCorner, newPos.x, newPos.y);
+				
+				for(int i=0;i<objects.size();i++){
+					objects[i]->recalculate();
+				}	
+				saveXml();
+				
+			}
+		}
+		if ( m.getAddress() == "/debug" )
+		{
+			drawDebug = m.getArgAsInt32(0);
+		}
+		   
+		if ( m.getAddress() == "/step/up" )
+		{
+			if(m.getArgAsInt32(0))
+				oscStepDir = ofxVec2f(0,-0.0003);
+			else 
+				oscStepDir = ofxVec2f(0,0);
+		}	
+		if ( m.getAddress() == "/step/down" )
+		{
+			if(m.getArgAsInt32(0))
+				oscStepDir = ofxVec2f(0,0.0003);
+			else 
+				oscStepDir = ofxVec2f(0,0);
+		}	
+		if ( m.getAddress() == "/step/left" )
+		{
+			if(m.getArgAsInt32(0))
+				oscStepDir = ofxVec2f(-0.0003,0);
+			else 
+				oscStepDir = ofxVec2f(0,0);
+			
+		}	
+		if ( m.getAddress() == "/step/right" )
+		{
+			if(m.getArgAsInt32(0))
+				oscStepDir = ofxVec2f(0.0003,0);
+			else 
+				oscStepDir = ofxVec2f(0,0);
+			
+		}	
+		
+		if ( m.getAddress() == "/corner/1" ){
+			selectedCorner = 0;			
+		}
+		if ( m.getAddress() == "/corner/2" ){
+			selectedCorner = 1;			
+		}
+		if ( m.getAddress() == "/corner/3" ){
+			selectedCorner = 2;			
+		}
+		if ( m.getAddress() == "/corner/4" ){
+			selectedCorner = 3;			
+		}
+		
+	}
 }
 
 void ProjectionSurfaces::drawOnFloor(){
@@ -296,6 +464,8 @@ void ProjectionSurfaces::mouseDragged(ofMouseEventArgs & args){
 }
 
 void ProjectionSurfaces::keyPressed(ofKeyEventArgs & args){
+	//cout<<args.key<<endl;
+	
 	ofxVec2f newPos =  objects[selectedKeystoner]->warp->corners[selectedCorner] ;
 	
 	if(args.key == 63233){
@@ -308,6 +478,19 @@ void ProjectionSurfaces::keyPressed(ofKeyEventArgs & args){
 		newPos += ofxVec2f(-0.0003,0);
 	}
 	if(args.key == 63235){
+		newPos -= ofxVec2f(-0.0003,0);
+	}
+	
+	if(args.key == 119){
+		newPos -= ofxVec2f(0,-0.0003);
+	}
+	if(args.key == 100){
+		newPos += ofxVec2f(0,-0.0003);
+	}
+	if(args.key == 115){
+		newPos += ofxVec2f(-0.0003,0);
+	}
+	if(args.key == 97){
 		newPos -= ofxVec2f(-0.0003,0);
 	}
 	objects[selectedKeystoner]->SetCorner(selectedCorner, newPos.x, newPos.y);

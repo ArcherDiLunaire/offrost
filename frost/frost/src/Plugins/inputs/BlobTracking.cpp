@@ -157,13 +157,19 @@ void Tracker::update(){
 				}
 				
 				if(cameraId == 2){
-					/*CameraCalibrationObject * cam = getPlugin<CameraCalibration*>(controller)->cameras[2];
+					CameraCalibrationObject * cam = getPlugin<CameraCalibration*>(controller)->cameras[2];
 					 int nPoints = 4;
 					 
 					 float h = 10.0/(float)ch;
 					 
 					 ofxPoint2f points[4];
-					 { //Top Left
+					
+					
+					if(cameraId == 2){
+						grayImage.convertToRange(0,600);	
+					}
+					
+					/* { //Top Left
 					 points[0] = ofxPoint2f(cam->calibHandles[0].x, cam->calibHandles[0].y);
 					 points[1] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y);
 					 points[2] = ofxPoint2f(cam->calibHandles[4].x, cam->calibHandles[4].y+h);
@@ -235,29 +241,29 @@ void Tracker::update(){
 					 */
 					
 					
-					/*					//COLUMN MASK
-					 
-					 for (int i=0; i < 3; i++) {
-					 
-					 ofxPoint2f columnCorner0 = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i),ofxVec2f(0,0));
-					 ofxPoint2f columnCorner1 = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i)->aspect,0));
-					 ofxPoint2f columnCorner2 = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i),ofxVec2f(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i)->aspect,1));
-					 ofxPoint2f columnCorner3 = getPlugin<ProjectionSurfaces*>(controller)->convertToProjectionCoordinate(getPlugin<ProjectionSurfaces*>(controller)->getColumn(i),ofxVec2f(0,1));
-					 
-					 columnCorner0 = getPlugin<CameraCalibration*>(controller)->cameras[2]->coordWarp->inversetransform(columnCorner0.x, columnCorner0.y);
-					 columnCorner1 = getPlugin<CameraCalibration*>(controller)->cameras[2]->coordWarp->inversetransform(columnCorner1.x, columnCorner1.y);
-					 columnCorner2 = getPlugin<CameraCalibration*>(controller)->cameras[2]->coordWarp->inversetransform(columnCorner2.x, columnCorner2.y);
-					 columnCorner3 = getPlugin<CameraCalibration*>(controller)->cameras[2]->coordWarp->inversetransform(columnCorner3.x, columnCorner3.y);
-					 
-					 int nPoints = 4;
-					 CvPoint _cp[4]= {{columnCorner0.x*cw,columnCorner0.y*ch}, 
-					 {columnCorner1.x*cw,columnCorner1.y*ch},
-					 {columnCorner2.x*cw,columnCorner2.y*ch},
-					 {columnCorner3.x*cw,columnCorner3.y*ch}};			
-					 CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
-					 
-					 }
-					 */
+					//TOP MASK
+					
+				/*	for (int i=0; i < 3; i++) {
+						ofxVec2f vec1 = cam->calibHandles[3] - cam->calibHandles[0];
+						ofxVec2f vec2 = cam->calibHandles[5] - cam->calibHandles[4];
+						
+						ofxPoint2f p1 =  cam->calibHandles[0] - vec1 * 0.5;
+						ofxPoint2f p2 =  cam->calibHandles[4] - vec2 * 0.5;
+						
+						points[0] = ofxPoint2f(p1.x, p1.y);
+						points[1] = ofxPoint2f(p2.x, p2.y);
+						points[2] = ofxPoint2f(p2.x, p2.y+50);
+						points[3] = ofxPoint2f(p1.x, p1.y+50);
+						
+						CvPoint _cp[4]= {{points[0].x*cw,points[0].y*ch}, 
+							{points[1].x*cw,points[1].y*ch},
+							{points[2].x*cw,points[2].y*ch},
+							{points[3].x*cw,points[3].y*ch}};			
+						CvPoint* cp = _cp; cvFillPoly(grayImage.getCvImage(), &cp, &nPoints, 1, cvScalar(0));
+						
+						
+					}*/
+					
 					
 				}
 				
@@ -289,7 +295,10 @@ void Tracker::update(){
 				
 				
 				grayDiff.absDiff(grayBg, grayImageBlured);
+								
 				grayDiff.threshold(threshold);
+				
+				
 				
 				if(postBlur > 0){
 					grayDiff.blur(postBlur);

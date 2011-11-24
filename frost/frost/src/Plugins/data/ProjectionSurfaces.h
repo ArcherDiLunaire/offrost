@@ -5,6 +5,7 @@
 #include "Warp.h"
 #include "ofxXmlSettings.h"
 #include "coordWarp.h"
+#include "ofxOsc.h"
 
 class ProjectionSurfacesObject {
 public:
@@ -82,4 +83,12 @@ public:
 	ofxXmlSettings * keystoneXml;
 	
 	int selectedKeystoner;
+
+	int oscUpdateCounter;
+	ofxOscReceiver * receiver;
+	ofxOscSender * sender;
+	ofxVec2f oscStepDir;
+
+	long oscRelTime;
+	ofxVec2f oscRelOffset;
 };

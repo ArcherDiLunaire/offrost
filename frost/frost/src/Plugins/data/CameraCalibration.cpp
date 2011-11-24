@@ -96,10 +96,10 @@ void CameraCalibration::setup(){
 	cameras[0]->calibPoints[2] = projection()->getFloor()->coordWarp->transform(0.6,0.8);
 	cameras[0]->calibPoints[3] = projection()->getFloor()->coordWarp->transform(0.2,0.8);
 	
-	cameras[1]->calibPoints[0] = projection()->getFloor()->coordWarp->transform(0.35,0.4);
+	cameras[1]->calibPoints[0] = projection()->getFloor()->coordWarp->transform(0.4,0.4);
 	cameras[1]->calibPoints[1] = projection()->getFloor()->coordWarp->transform(0.7,0.4);
-	cameras[1]->calibPoints[2] = projection()->getFloor()->coordWarp->transform(0.7,0.7);
-	cameras[1]->calibPoints[3] = projection()->getFloor()->coordWarp->transform(0.35,0.7);
+	cameras[1]->calibPoints[2] = projection()->getFloor()->coordWarp->transform(0.6,0.6);
+	cameras[1]->calibPoints[3] = projection()->getFloor()->coordWarp->transform(0.35,0.6);
 	
 	cameras[2]->calibPoints[0] = projection()->getWall()->coordWarp->transform(0.0,0.3);
 	cameras[2]->calibPoints[1] = projection()->getWall()->coordWarp->transform(1,0.3);
@@ -307,11 +307,11 @@ void CameraCalibration::draw(){
 		}glPopMatrix();
 		
 		ofFill();
-		ofSetColor(255, 0, 0);
+		ofSetColor(255, 100, 100);
 		
 		
 		for(int i=0;i<4;i++){
-			ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 5, 5);			
+			ofEllipse(ofGetWidth()*cameras[selectedKeystoner]->calibPoints[i].x, ofGetHeight()*cameras[selectedKeystoner]->calibPoints[i].y, 7, 7);			
 		}
 		if(selectedKeystoner >= 2){
 			for(int i=4;i<6;i++){

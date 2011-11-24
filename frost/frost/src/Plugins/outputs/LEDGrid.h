@@ -22,7 +22,7 @@ class lamp{
 public:
 	
 	lamp();
-	int r, g, b, a;
+	double r, g, b, a;
 	ofxPoint2f pos;
 	int channel;
 	
